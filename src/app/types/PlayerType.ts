@@ -5,8 +5,8 @@ export enum Team {
 
 export interface PlayerType {
   playerName: string;
-  team: Team; // Enum
+  team: Team; 
   remainingTime: string;
-  isInCheck?: boolean; // Boolean to indicate if the player is in check
+  isInCheck?: boolean;
   isInCheckmate?: boolean;
 };

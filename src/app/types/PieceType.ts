@@ -1,5 +1,10 @@
 import { TileType } from "./TileType";
 
+export enum PieceColor {
+  white = "White",
+  black = "Black"
+}
+
 export enum PieceName {
     pawn = "Pawn",
     rook = "Rook",
@@ -11,6 +16,7 @@ export enum PieceName {
 
 export interface PieceType {
   pieceName: PieceName;
+  pieceColor: PieceColor;
   piecePosition: TileType;
   allMoves: TileType[];
   validMoves: TileType[];
