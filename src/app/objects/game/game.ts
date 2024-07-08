@@ -1,5 +1,5 @@
 import Chessboard from "@/app/board/chessboard";
-import Player from "@/app/players/Player";
+import Player from "@/app/objects/players/player";
 
 export default class Game {
   constructor() {
