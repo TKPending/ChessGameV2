@@ -1,5 +1,5 @@
+import PageLayout from "@/app/layouts/PageLayout";
+
 export default function Home() {
-  return (
-    <div></div>
-  );
+  return <PageLayout />
 }

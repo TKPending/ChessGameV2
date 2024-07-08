@@ -1,5 +1,3 @@
-"use client"
-
 const GameSetupLayout = () => {
     return (
         <div className=""></div>
