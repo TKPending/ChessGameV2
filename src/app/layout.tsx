@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { ReduxProvider } from "@/app/redux/ReduxProvider";
 
 export const metadata: Metadata = {
   title: "Chess Game",
@@ -13,7 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`max-h-screen max-w-screen`}>{children}</body>
+      <ReduxProvider>
+        <body className={`max-h-screen max-w-screen`}>{children}</body>
+      </ReduxProvider>
     </html>
   );
 }

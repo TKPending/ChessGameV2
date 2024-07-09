@@ -2,41 +2,50 @@ import React, { useState } from "react";
 
 type Props = {
   value: string;
-  validValue: boolean;
+  invalidValue: boolean;
   isDisabled: boolean;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  customStyle?: string;
+  placeholder: string;
   onSaveValue: () => void;
+  handleValueChange: (newValue: string) => void;
 };
 
 const TextInput = ({ 
     value = "",
-    validValue = false,
+    invalidValue = false,
     isDisabled = false,
+    customStyle,
+    placeholder,
     onSaveValue,
-    onChange,
+    handleValueChange,
  }: Props) => {
     const removeDefaultStyle: string = "appearance-none focus:outline-none focus:ring-0";
 
     const handleBlur = () => {
         onSaveValue();
     };
-
+    
+    const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newValue: string = e.target.value;
+        handleValueChange(newValue);
+    }
+    
     const handleOnEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === "Enter") {
             event.preventDefault();
-
         }
-    }
+    };
 
     return (
         <input 
           value={value}
-          onChange={onChange}
+          onChange={handleOnChange}
           disabled={isDisabled}
+          placeholder={placeholder}
           onBlur={handleBlur}
           onKeyDown={handleOnEnter}
-          className={`${removeDefaultStyle} border-2 border-black h-full w-full rounded-lg
-            ${validValue ? "" : ""}
+          className={`${customStyle} ${removeDefaultStyle} text-center border-2 border-black h-full w-full rounded-lg
+            ${invalidValue ? "border-error-red" : ""}
             ${isDisabled && "" }
           `} 
         />

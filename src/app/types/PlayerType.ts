@@ -4,6 +4,7 @@ export enum Team {
 };
 
 export interface PlayerType {
+  no: number;
   playerName: string;
   team: Team; 
   remainingTime: string;

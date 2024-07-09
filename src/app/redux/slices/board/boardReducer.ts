@@ -1,9 +1,15 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { BoardType } from "@/app/types/BoardType";
 
-export const Reducer = (
+export const addPlayerNameReducer = (
   state: BoardType,
-  action: PayloadAction<string>
+  action: PayloadAction<{playerName: string, playerNo: number}>
 ) => {
+  const player = action.payload;
+
+  state.players[action.payload.playerNo] = {
+    ...state.players[player.playerNo],
+    playerName: player.playerName
+  }
 };
 
