@@ -1,6 +1,6 @@
 import { useState } from "react";
-import GameSetupContainer from "@/app/containers/gameSetup/GameSetupContainer";
-import GameIntroContainer from "@/app/containers/gameSetup/GameIntroContainer";
+import PlayerNameSetupContainer from "@/app/containers/gameSetup/PlayerNameSetupContainer";
+import GameIntroContainer from "@/app/containers/gameIntro/GameIntroContainer";
 
 const GameSetupLayout = () => {
   const [gameSetupStage, setGameSetupStage] = useState<boolean>(false);
@@ -13,7 +13,7 @@ const GameSetupLayout = () => {
 
   return (
     <div className="h-screen w-screen">
-      {gameSetupStage ? <GameSetupContainer /> : <GameIntroContainer onClick={handleGameSetupSwitch} />}
+      {gameSetupStage ? <PlayerNameSetupContainer /> : <GameIntroContainer onClick={handleGameSetupSwitch} />}
     </div>
   );
 };

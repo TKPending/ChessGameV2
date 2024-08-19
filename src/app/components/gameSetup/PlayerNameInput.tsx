@@ -4,59 +4,35 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import TextInput from "@/app/components/TextInput";
 import { setPlayersName } from "@/app/redux/slices/board/boardSlice";
-import { Root } from "postcss";
-import { setPlayerNamesAvailable } from "@/app/redux/slices/gameSetup/gameSetupSlice";
 
 type Props = {
-  playerNo: string;
+  playerNo: number;
 };
 
 const PlayerNameInput = ({ playerNo }: Props) => {
   const dispatch = useDispatch();
   const players =  useSelector((state: RootState) => state.board.players);
-  const [playerName, setPlayerName] = useState<string>("");
   const [invalidValue, setInvalidValue] = useState<boolean>(false);
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
 
-  const playerNamesAvailableCheck = () => {
-    if (players[0].playerName.length > 2 && players[1].playerName.length > 2) {
-      dispatch(setPlayerNamesAvailable(true));
-    } else {
-      dispatch(setPlayerNamesAvailable(false));
-    }
-  }
-
-  const handlePlayerDispatch = () => {
-    if (playerName.length < 2) {
-        setInvalidValue(true);
-        setIsDisabled(true);
-        setTimeout(() => {
-            setInvalidValue(false);
-            setIsDisabled(false);
-        }, 2000);
-        return;
-    }
-
+  const handlePlayerNameChange = (newValue: string) => {
     dispatch(setPlayersName({
-        playerName,
-        playerNo: playerNo === "Player 1" ? 0 : 1,
+        playerName: newValue,
+        playerNo: playerNo === 0 ? 0 : 1,
     }));
-
-    playerNamesAvailableCheck();
   };
 
   return (
     <div className="font-semibold flex flex-col gap-2 items-center justify-center h-26 w-1/4">
-      <p className="text-white">{playerNo}</p>
+      <p className="text-white text-2xl">Enter the name for Player {playerNo + 1}</p>
       {invalidValue && <p className="text-xs text-error-red">Pleasure ensure the name is more than 2 letters</p>}
       <TextInput
-        value={playerName}
+        value={players[playerNo].playerName}
         invalidValue={invalidValue}
         isDisabled={isDisabled}
-        customStyle="h-16"
-        placeholder={`Enter the name for ${playerNo}`}
-        onSaveValue={handlePlayerDispatch}
-        handleValueChange={setPlayerName}
+        customStyle="h-20 text-2xl"
+        placeholder={`Enter the name for ${playerNo + 1}`}
+        onPlayerNameChange={handlePlayerNameChange}
       />
     </div>
   );

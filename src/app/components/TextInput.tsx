@@ -6,8 +6,7 @@ type Props = {
   isDisabled: boolean;
   customStyle?: string;
   placeholder: string;
-  onSaveValue: () => void;
-  handleValueChange: (newValue: string) => void;
+  onPlayerNameChange: (newValue: string) => void;
 };
 
 const TextInput = ({ 
@@ -16,18 +15,13 @@ const TextInput = ({
     isDisabled = false,
     customStyle,
     placeholder,
-    onSaveValue,
-    handleValueChange,
+    onPlayerNameChange,
  }: Props) => {
     const removeDefaultStyle: string = "appearance-none focus:outline-none focus:ring-0";
-
-    const handleBlur = () => {
-        onSaveValue();
-    };
     
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newValue: string = e.target.value;
-        handleValueChange(newValue);
+        onPlayerNameChange(newValue);
     }
     
     const handleOnEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -42,7 +36,6 @@ const TextInput = ({
           onChange={handleOnChange}
           disabled={isDisabled}
           placeholder={placeholder}
-          onBlur={handleBlur}
           onKeyDown={handleOnEnter}
           className={`${customStyle} ${removeDefaultStyle} text-center border-2 border-black h-full w-full rounded-lg
             ${invalidValue ? "border-error-red" : ""}
