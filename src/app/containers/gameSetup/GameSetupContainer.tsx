@@ -3,10 +3,9 @@ import TimeAndRules from "@/app/components/gameSetup/TimeAndRules";
 
 const GameSetupContainer = () => {
     return (
-        <div className="flex flex-col gap-4 h-[60%] w-[40%] items-center justify-center bg-page-background">
+        <div className="bg-black h-screen w-screen flex flex-col items-center justify-center gap-12 mb-20">
             <PlayerNameInput playerNo="Player 1" />
             <PlayerNameInput playerNo="Player 2" />
-            <TimeAndRules />
         </div>
     )
 };

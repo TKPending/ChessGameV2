@@ -7,20 +7,19 @@ const SEPERATE = true;
 
 type TimeOptions = {
   time: string;
+  actualTime: number | number[];
   isPressed: boolean;
 };
 
 const TimeAndRules = () => {
   const [timeRegulation, setTimeRegulation] = useState<boolean>(SAME);
   const [timeOptions, setTimeOptions] = useState<TimeOptions[]>([
-    { time: "Blitz", isPressed: true },
-    { time: "Rapid", isPressed: false },
-    { time: "No Timer", isPressed: false },
-    { time: "Custom", isPressed: false },
+    { time: "Blitz", actualTime: 180, isPressed: true },
+    { time: "Rapid", actualTime: 600, isPressed: false },
+    { time: "No Timer", actualTime: 0, isPressed: false },
+    { time: "Custom", actualTime: [0, 0], isPressed: false },
   ]);
   const [activeTimeOption, setActiveTimeOption] = useState("Blitz");
-
-  console.log(timeRegulation);
 
   const handleTimeRegulation = (regulation: boolean) => {
     setTimeRegulation(regulation);
@@ -39,20 +38,20 @@ const TimeAndRules = () => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-4">
+    <div className="flex flex-col items-center gap-4 text-white font-semibold">
       <p>Time and Rules</p>
 
       <div className="flex gap-2 items-center justify-center">
         <p
           onClick={() => handleTimeRegulation(SAME)}
-          className="cursor-pointer hover:underline"
+          className={`cursor-pointer hover:underline ${timeRegulation === SAME && "underline"}`}
         >
           Same Time
         </p>
         <p>/</p>
         <p
           onClick={() => handleTimeRegulation(SEPERATE)}
-          className="cursor-pointer hover:underline"
+          className={`cursor-pointer hover:underline ${timeRegulation === SEPERATE && "underline"}`}
         >
           Separate Times
         </p>
