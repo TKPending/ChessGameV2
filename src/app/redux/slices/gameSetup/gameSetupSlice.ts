@@ -6,6 +6,7 @@ const initialState: GameSetupType = {
     validPlayerNames: false,
     validTimes: false,
     isStartVisible: false,
+    // Add values for invalid or valid names
 };
 
 const boardSlice = createSlice({
