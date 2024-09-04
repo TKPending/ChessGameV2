@@ -30,7 +30,7 @@ const PlayerNameInput = ({ playerNo }: Props) => {
         value={players[playerNo].playerName}
         invalidValue={invalidValue}
         isDisabled={isDisabled}
-        customStyle="h-20 text-2xl"
+        customStyle="h-20 p-2 text-2xl"
         placeholder={`Enter the name for ${playerNo + 1}`}
         onPlayerNameChange={handlePlayerNameChange}
       />
