@@ -13,3 +13,10 @@ export const addPlayerNameReducer = (
   }
 };
 
+export const chessGamePlayingReducer = (
+  state: BoardType,
+  action: PayloadAction<boolean>
+) => {
+  state.isPlaying = action.payload;
+}
+

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { BoardType } from "@/app/types/BoardType";
 import { Team } from "@/app/types/PlayerType";
-import { addPlayerNameReducer } from "./boardReducer";
+import { addPlayerNameReducer, chessGamePlayingReducer } from "./boardReducer";
 
 const initialState: BoardType = {
   tiles: [],
@@ -33,11 +33,13 @@ const boardSlice = createSlice({
   initialState,
   reducers: {
     setPlayersName: addPlayerNameReducer,
+    setIsChessGamePlaying: chessGamePlayingReducer,
   },
 });
 
 export const {
   setPlayersName,
+  setIsChessGamePlaying,
 } = boardSlice.actions;
 
 export default boardSlice.reducer;

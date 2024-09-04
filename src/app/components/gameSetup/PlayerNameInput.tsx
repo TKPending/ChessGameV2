@@ -24,7 +24,7 @@ const PlayerNameInput = ({ playerNo }: Props) => {
 
   return (
     <div className="font-semibold flex flex-col gap-2 items-center justify-center h-26 w-1/4">
-      <p className="text-white text-2xl">Enter the name for Player {playerNo + 1}</p>
+      <p className="text-white text-2xl">Player {playerNo + 1}</p>
       {invalidValue && <p className="text-xs text-error-red">Pleasure ensure the name is more than 2 letters</p>}
       <TextInput
         value={players[playerNo].playerName}

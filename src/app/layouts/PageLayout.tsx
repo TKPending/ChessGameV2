@@ -6,8 +6,7 @@ import GameSetupLayout from "./GameSetupLayout";
 import ChessboardLayout from "./ChessboardLayout";
 
 const PageLayout = () => {
-    // const isPlaying: boolean = useSelector((state: RootState) => state.board.isPlaying);
-    const isPlaying = false;
+    const isPlaying: boolean = useSelector((state: RootState) => state.board.isPlaying);
 
     return (
         <div className="h-screen w-screen">

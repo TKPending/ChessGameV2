@@ -1,8 +1,7 @@
 import { RootState } from "@/app/redux/store";
 import { useSelector } from "react-redux";
 import PlayerNameInput from "@/app/components/gameSetup/PlayerNameInput";
-import TimeAndRules from "@/app/components/gameSetup/TimeAndRules";
-import { GameSetupType } from "@/app/types/GameSetupType";
+import ContinueButton from "@/app/components/gameSetup/ContinueButton";
 
 const PlayerNameSetupContainer = () => {
     const players = useSelector((state: RootState) => state.board.players);
@@ -26,7 +25,7 @@ const PlayerNameSetupContainer = () => {
             <PlayerNameInput playerNo={players[0].no} />
             <PlayerNameInput playerNo={players[1].no} />
 
-            {showButton ? <div className="bg-white h-32 w-32"></div> : <></>}
+            {showButton ? <ContinueButton /> : <></>}
         </div>
     )
 };
