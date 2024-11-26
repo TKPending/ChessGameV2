@@ -9,7 +9,7 @@ const PageLayout = () => {
     const isPlaying: boolean = useSelector((state: RootState) => state.board.isPlaying);
 
     return (
-        <div className="h-screen w-screen">
+        <div className="max-h-screen h-screen max-w-screen w-screen">
             {isPlaying ? <ChessboardLayout /> : <GameSetupLayout />}
         </div>
     )

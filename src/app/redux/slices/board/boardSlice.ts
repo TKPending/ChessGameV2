@@ -12,12 +12,14 @@ const initialState: BoardType = {
     {
       no: 0,
       playerName: "",
+      capturedPieces: [],
       team: Team.white,
       remainingTime: "",
     },
     {
       no: 1,
       playerName: "",
+      capturedPieces: [],
       team: Team.black,
       remainingTime: "",
     },
