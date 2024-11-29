@@ -3,7 +3,7 @@ import { PreviousMovesContainerType } from "@/app/types/PreviousMovesContainerTy
 import { completelyHidePreviousMoveReducer } from "./previousMovesReducer";
 
 const initialState: PreviousMovesContainerType = {
-  fullscreen: false,
+  previousMovesHidden: false,
 };
 
 const previousMovesContainerSlice = createSlice({

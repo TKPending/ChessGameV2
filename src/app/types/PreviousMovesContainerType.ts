@@ -1,3 +1,3 @@
 export interface PreviousMovesContainerType {
-    fullscreen: boolean;
+    previousMovesHidden: boolean;
 }

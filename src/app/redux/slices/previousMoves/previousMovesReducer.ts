@@ -6,6 +6,6 @@ export const completelyHidePreviousMoveReducer = (
   state: PreviousMovesContainerType,
   action: PayloadAction<boolean>
 ) => {
-  state.fullscreen = action.payload;
+  state.previousMovesHidden = action.payload;
 }
 

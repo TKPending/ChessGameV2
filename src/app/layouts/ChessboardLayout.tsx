@@ -2,14 +2,19 @@ import { RootState } from "@/app/redux/store";
 import { useSelector } from "react-redux";
 import ChessGameLayout from "@/app/layouts/ChessGameLayout";
 import PreviousMovesContainer from "@/app/containers/chessboard/PreviousMovesContainer";
-
+import DisplayMoves from "@/app/components/previousMoves/DisplayMoves";
 
 const ChessboardLayout = () => {
-  const completelyHidePreviousMovesContainer: boolean = useSelector((state: RootState) => state.previousMovesContainer.fullscreen);
+  const previousMovesHidden: boolean = useSelector(
+    (state: RootState) => state.previousMovesContainer.previousMovesHidden
+  );
   return (
     <div className="overscroll-none h-screen w-screen max-h-screen max-w-screen bg-black flex flex-col md:flex-row gap-6 justify-center p-6 overflow-hidden px-12">
       <ChessGameLayout />
-      {!completelyHidePreviousMovesContainer && <PreviousMovesContainer />}
+      <div className={`${previousMovesHidden ? "w-[20%]" : "absolute right-[5%]"} max-w-sm pt-[5%] flex flex-col`}>
+        <DisplayMoves />
+        {previousMovesHidden && <PreviousMovesContainer />}
+      </div>
     </div>
   );
 };
