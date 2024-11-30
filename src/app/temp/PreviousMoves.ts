@@ -1,6 +1,6 @@
 import { PreviousMoveType } from "@/app/types/PreviousMoveType"
 import { TileType, TileColor } from "@/app/types/TileType"
-import { PieceType, PieceName, PieceColor } from "@/app/types/PieceType"
+import { PieceType, PieceName } from "@/app/types/PieceType"
 
 const mockTile = (position: string, color: TileColor): TileType => ({
   tilePosition: position,
@@ -11,7 +11,7 @@ const mockTile = (position: string, color: TileColor): TileType => ({
 
 const mockPiece = (
   pieceName: PieceName,
-  pieceColor: PieceColor,
+  pieceColor: "White" | "Black",
   position: string,
   color: TileColor
 ): PieceType => ({
@@ -27,23 +27,23 @@ const mockPiece = (
 export const mockPreviousMoves: PreviousMoveType[] = [
   {
     count: 1,
-    pieceToMove: mockPiece(PieceName.pawn, PieceColor.white, "e2", TileColor.white),
+    pieceToMove: mockPiece(PieceName.pawn, "White", "e2", TileColor.white),
   },
   {
     count: 2,
-    pieceToMove: mockPiece(PieceName.pawn, PieceColor.black, "e7", TileColor.black),
+    pieceToMove: mockPiece(PieceName.pawn, "Black", "e7", TileColor.black),
   },
   {
     count: 3,
-    pieceToMove: mockPiece(PieceName.knight, PieceColor.white, "g1", TileColor.white),
+    pieceToMove: mockPiece(PieceName.knight, "White", "g1", TileColor.white),
   },
   {
     count: 4,
-    pieceToMove: mockPiece(PieceName.knight, PieceColor.black, "b8", TileColor.black),
+    pieceToMove: mockPiece(PieceName.knight, "Black", "b8", TileColor.black),
   },
   {
     count: 5,
-    pieceToMove: mockPiece(PieceName.bishop, PieceColor.white, "f1", TileColor.white),
+    pieceToMove: mockPiece(PieceName.bishop, "White", "f1", TileColor.white),
   },
 ];
 

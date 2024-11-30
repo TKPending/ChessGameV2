@@ -10,6 +10,6 @@ export interface BoardType {
   players: PlayerType[];
   winner: PlayerType | undefined;
   isPlaying: boolean;
-  currentTurn: string;
+  currentTurn: "White" | "Black";
   moveHistory: MoveType[];
 }

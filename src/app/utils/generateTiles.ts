@@ -1,31 +1,31 @@
 import { TileType, TileColor } from "@/app/types/TileType"
-import { PieceType, PieceName, PieceColor } from "@/app/types/PieceType";
+import { PieceType, PieceName } from "@/app/types/PieceType";
 
 export const generateTiles = (): TileType[] => {
   const tiles: TileType[] = [];
 
   const initialPieces = {
     0: [
-      { pieceName: PieceName.rook, pieceColor: PieceColor.black },
-      { pieceName: PieceName.knight, pieceColor: PieceColor.black },
-      { pieceName: PieceName.bishop, pieceColor: PieceColor.black },
-      { pieceName: PieceName.queen, pieceColor: PieceColor.black },
-      { pieceName: PieceName.king, pieceColor: PieceColor.black },
-      { pieceName: PieceName.bishop, pieceColor: PieceColor.black },
-      { pieceName: PieceName.knight, pieceColor: PieceColor.black },
-      { pieceName: PieceName.rook, pieceColor: PieceColor.black },
+      { pieceName: PieceName.rook, pieceColor: "Black" },
+      { pieceName: PieceName.knight, pieceColor: "Black" },
+      { pieceName: PieceName.bishop, pieceColor: "Black" },
+      { pieceName: PieceName.queen, pieceColor: "Black" },
+      { pieceName: PieceName.king, pieceColor: "Black" },
+      { pieceName: PieceName.bishop, pieceColor: "Black" },
+      { pieceName: PieceName.knight, pieceColor: "Black" },
+      { pieceName: PieceName.rook, pieceColor: "Black" },
     ],
-    1: Array(8).fill({ pieceName: PieceName.pawn, pieceColor: PieceColor.black }),
-    6: Array(8).fill({ pieceName: PieceName.pawn, pieceColor: PieceColor.white }),
+    1: Array(8).fill({ pieceName: PieceName.pawn, pieceColor: "Black" }),
+    6: Array(8).fill({ pieceName: PieceName.pawn, pieceColor: "White" }),
     7: [
-      { pieceName: PieceName.rook, pieceColor: PieceColor.white },
-      { pieceName: PieceName.knight, pieceColor: PieceColor.white },
-      { pieceName: PieceName.bishop, pieceColor: PieceColor.white },
-      { pieceName: PieceName.queen, pieceColor: PieceColor.white },
-      { pieceName: PieceName.king, pieceColor: PieceColor.white },
-      { pieceName: PieceName.bishop, pieceColor: PieceColor.white },
-      { pieceName: PieceName.knight, pieceColor: PieceColor.white },
-      { pieceName: PieceName.rook, pieceColor: PieceColor.white },
+      { pieceName: PieceName.rook, pieceColor: "White" },
+      { pieceName: PieceName.knight, pieceColor: "White" },
+      { pieceName: PieceName.bishop, pieceColor: "White" },
+      { pieceName: PieceName.queen, pieceColor: "White" },
+      { pieceName: PieceName.king, pieceColor: "White" },
+      { pieceName: PieceName.bishop, pieceColor: "White" },
+      { pieceName: PieceName.knight, pieceColor: "White" },
+      { pieceName: PieceName.rook, pieceColor: "White" },
     ],
   };
 

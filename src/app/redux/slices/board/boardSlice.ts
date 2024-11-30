@@ -26,7 +26,7 @@ const initialState: BoardType = {
   ],
   winner: undefined,
   isPlaying: false,
-  currentTurn: "white",
+  currentTurn: "White",
   moveHistory: []
 };
 
