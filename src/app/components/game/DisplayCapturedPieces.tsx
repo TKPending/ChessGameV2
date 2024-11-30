@@ -7,7 +7,6 @@ type Props = {
 
 const DisplayCapturedPieces = ({ player }: Props) => {
     const capturedPieces: PieceType[] = player.capturedPieces;
-    // const tempCapture = ["/white-king.png", "/white-king.png", "/white-king.png", "/white-king.png"];
 
     return (
         <div className="flex gap-2">

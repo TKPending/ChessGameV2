@@ -5,9 +5,8 @@ import { addMoveToHistoryReducer, addPlayerNameReducer, capturedPieceReducer, ch
 import { generateTiles } from "@/app/utils/generateTiles";
 
 const initialState: BoardType = {
-  tiles: generateTiles(), // Initialize tiles as a 2D array
-  currentState: [],
-  previousStates: [],
+  currentBoardState: generateTiles(),
+  previousBoardStates: [],
   stateIndex: 0,
   players: [
     {

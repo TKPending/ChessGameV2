@@ -17,4 +17,10 @@ export interface PieceType {
   validMoves: TileType[];
   isAlive: boolean;
   hasMoved: boolean;
+  king?: {
+    hasMoved: false,
+    inCheck: false,
+    canCastle: true,
+    checkmate: false,
+  }
 };

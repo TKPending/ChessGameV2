@@ -27,15 +27,14 @@ export const chessboardReducer = (
   state: BoardType,
   action: PayloadAction<TileType[][]>
 ) => {
-  state.tiles = action.payload;
-  state.currentState = action.payload;
+  state.currentBoardState = action.payload;
 };
 
 export const chessboardHistoryReducer = (
   state: BoardType,
   action: PayloadAction<TileType[][]>
 ) => {
-  state.previousStates.push(action.payload);
+  state.previousBoardStates.push(action.payload);
 };
 
 export const updateTileReducer = (
@@ -43,15 +42,15 @@ export const updateTileReducer = (
   action: PayloadAction<{ tile: TileType }>
 ) => {
   const updatedTile = action.payload.tile;
-  const rowIndex = state.tiles.findIndex(row =>
+  const rowIndex = state.currentBoardState.findIndex(row =>
     row.some(tile => tile.tilePosition === updatedTile.tilePosition)
   );
   if (rowIndex !== -1) {
-    const colIndex = state.tiles[rowIndex].findIndex(
+    const colIndex = state.currentBoardState[rowIndex].findIndex(
       tile => tile.tilePosition === updatedTile.tilePosition
     );
     if (colIndex !== -1) {
-      state.tiles[rowIndex][colIndex] = updatedTile; // Update specific tile
+      state.currentBoardState[rowIndex][colIndex] = updatedTile; // Update specific tile
     }
   }
 };
