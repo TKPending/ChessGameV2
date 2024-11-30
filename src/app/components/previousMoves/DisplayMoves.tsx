@@ -1,15 +1,15 @@
 import { RootState } from "@/app/redux/store";
 import { useSelector, useDispatch } from "react-redux";
-import { setFullscreen } from "@/app/redux/slices/previousMoves/previousMovesSlice";
+import { setDisplayMovesHidden } from "@/app/redux/slices/previousMoves/previousMovesSlice";
 
 const DisplayMoves = () => {
   const dispatch = useDispatch();
   const previousMovesHidden: boolean = useSelector(
-    (state: RootState) => state.previousMovesContainer.previousMovesHidden
+    (state: RootState) => state.previousMoves.previousMovesHidden
   );
 
   const handleDisplayMoves = () => {
-    dispatch(setFullscreen(!previousMovesHidden));
+    dispatch(setDisplayMovesHidden(!previousMovesHidden));
   };
 
   return (

@@ -2,7 +2,7 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import { PreviousMovesContainerType } from "@/app/types/PreviousMovesContainerType";
 
 
-export const completelyHidePreviousMoveReducer = (
+export const displayPreviousMovesReducer = (
   state: PreviousMovesContainerType,
   action: PayloadAction<boolean>
 ) => {

@@ -1,17 +1,21 @@
 import { combineReducers, configureStore, Reducer } from "@reduxjs/toolkit";
-import boardReducer from "./slices/board/boardSlice";
 import { BoardType } from "@/app/types/BoardType";
 import { PreviousMovesContainerType } from "@/app/types/PreviousMovesContainerType";
-import previousMovesContainerReducer from "./slices/previousMoves/previousMovesSlice"
+import { ErrorType } from "@/app/types/ErrorType";
+import boardReducer from "./slices/board/boardSlice";
+import previousMovesReducer from "./slices/previousMoves/previousMovesSlice"
+import errorReducer  from "./slices/error/errorSlice";
 
 interface State {
     board: BoardType;
-    previousMovesContainer: PreviousMovesContainerType
+    previousMoves: PreviousMovesContainerType;
+    error: ErrorType;
 }
 
 const rootReducer: Reducer<State> = combineReducers({
     board: boardReducer,
-    previousMovesContainer: previousMovesContainerReducer,
+    previousMoves: previousMovesReducer,
+    error: errorReducer
 });
 
 const store = configureStore({

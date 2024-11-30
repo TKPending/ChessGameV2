@@ -1,21 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { PreviousMovesContainerType } from "@/app/types/PreviousMovesContainerType";
-import { completelyHidePreviousMoveReducer } from "./previousMovesReducer";
+import { displayPreviousMovesReducer } from "./previousMovesReducer";
 
 const initialState: PreviousMovesContainerType = {
   previousMovesHidden: false,
 };
 
-const previousMovesContainerSlice = createSlice({
-  name: "previousMovesContainer",
+const previousMovesSlice = createSlice({
+  name: "previousMoves",
   initialState,
   reducers: {
-    setFullscreen: completelyHidePreviousMoveReducer,
+    setDisplayMovesHidden: displayPreviousMovesReducer,
   },
 });
 
 export const {
-  setFullscreen,
-} = previousMovesContainerSlice.actions;
+  setDisplayMovesHidden,
+} = previousMovesSlice.actions;
 
-export default previousMovesContainerSlice.reducer;
+export default previousMovesSlice.reducer;
