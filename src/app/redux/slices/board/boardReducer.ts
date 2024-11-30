@@ -1,6 +1,8 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { BoardType } from "@/app/types/BoardType";
 import { TileType } from "@/app/types/TileType";
+import { PieceType } from "@/app/types/PieceType";
+import { MoveType } from "@/app/types/MoveType";
 
 export const addPlayerNameReducer = (
   state: BoardType,
@@ -59,5 +61,21 @@ export const updateCurrentTurnReducer = (
 ) => {
   const turn: string = state.currentTurn;
   state.currentTurn = turn === "White" ? "Black" : "White";
+};
+
+export const addMoveToHistoryReducer = (
+  state: BoardType,
+  action: PayloadAction<MoveType>
+) => {
+  state.moveHistory.push(action.payload);
+};
+
+export const capturedPieceReducer = (
+  state: BoardType,
+  action: PayloadAction<PieceType>
+) => {
+  const turnIndex: number = state.currentTurn == "White" ? 0 : 1;
+
+  state.players[turnIndex].capturedPieces.push(action.payload);
 };
 

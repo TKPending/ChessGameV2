@@ -50,7 +50,7 @@ const Tile = ({ tile }: Props) => {
       dispatch(setCurrentTile(clickedTile));
     } else {
       // Valid move: Move piece to the target tile
-      movePiece(dispatch, currentTile, clickedTile, currentBoardState, currentTurn);
+      movePiece(dispatch, currentTile, clickedTile, currentBoardState);
   
       // Clear selections
       dispatch(setCurrentTile(null));
