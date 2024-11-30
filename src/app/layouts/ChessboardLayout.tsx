@@ -13,7 +13,7 @@ const ChessboardLayout = () => {
 
   return (
     <div className="h-screen w-screen bg-black flex flex-col md:flex-row gap-6 justify-center p-6">
-      {!isError && <ErrorNotification />}
+      {isError && <ErrorNotification />}
       <ChessGameLayout />
       <div
         className={`${
