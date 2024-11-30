@@ -7,7 +7,7 @@ import { generateTiles } from "@/app/utils/generateTiles";
 
 const ChessboardContainer = () => {
   const dispatch = useDispatch();
-  const tiles = useSelector((state: RootState) => state.board.tiles);
+  const tiles = useSelector((state: RootState) => state.board.currentState);
 
   useEffect(() => {
     if (tiles.length === 0) {

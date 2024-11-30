@@ -5,6 +5,7 @@ import { RootState } from "@/app/redux/store";
 import { setCurrentTile, setPreviousTile } from "@/app/redux/slices/tile/tileSlice";
 import { setTile } from "@/app/redux/slices/board/boardSlice";
 import ChessPiece from "./ChessPiece";
+import { movePiece } from "@/app/utils/movePiece";
 
 type Props = {
   tile: TileType;
@@ -12,15 +13,10 @@ type Props = {
 
 const Tile = ({ tile }: Props) => {
   const dispatch = useDispatch();
-  const currentTurn: "White" | "Black" = useSelector(
-    (state: RootState) => state.board.currentTurn
-  );
-  const currentTile: TileType | null = useSelector(
-    (state: RootState) => state.tile.currentTile
-  );
-  const previousTile: TileType | null = useSelector(
-    (state: RootState) => state.tile.previousTile
-  );
+  const currentBoardState: TileType[][] = useSelector((state: RootState) => state.board.currentState);
+  const currentTurn: "White" | "Black" = useSelector((state: RootState) => state.board.currentTurn);
+  const currentTile: TileType | null = useSelector((state: RootState) => state.tile.currentTile);
+  const previousTile: TileType | null = useSelector((state: RootState) => state.tile.previousTile);
   const piece: PieceType | null = tile.pieceOnTile || null;
 
   const getTileBackgroundColor = (): string => {
@@ -36,30 +32,32 @@ const Tile = ({ tile }: Props) => {
       dispatch(setPreviousTile(null));
       return;
     }
-
+  
     if (!currentTile) {
-      // First click
+      // First click: Select the piece if it's the player's turn
       if (clickedTile.pieceOnTile?.pieceColor === currentTurn) {
         dispatch(setTile({ tile: { ...clickedTile, isHighlighted: true } }));
         dispatch(setCurrentTile(clickedTile));
       }
       return;
     }
-
-    // Clicking another tile
+  
     if (clickedTile.pieceOnTile?.pieceColor === currentTurn) {
-      // Clicked on a friendly piece
+      // Clicking another friendly piece
       dispatch(setTile({ tile: { ...currentTile, isHighlighted: false } }));
       dispatch(setTile({ tile: { ...clickedTile, isHighlighted: true } }));
       dispatch(setPreviousTile(currentTile));
       dispatch(setCurrentTile(clickedTile));
     } else {
-      // Clicked on an enemy or empty tile
-      dispatch(setTile({ tile: { ...currentTile, isHighlighted: false } }));
-      dispatch(setPreviousTile(currentTile));
-      dispatch(setCurrentTile(clickedTile));
+      // Valid move: Move piece to the target tile
+      movePiece(dispatch, currentTile, clickedTile, currentBoardState, currentTurn);
+  
+      // Clear selections
+      dispatch(setCurrentTile(null));
+      dispatch(setPreviousTile(null));
     }
   };
+  
 
   return (
     <div

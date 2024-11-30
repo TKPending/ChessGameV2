@@ -26,6 +26,14 @@ export const chessboardReducer = (
   action: PayloadAction<TileType[][]>
 ) => {
   state.tiles = action.payload;
+  state.currentState = action.payload;
+};
+
+export const chessboardHistoryReducer = (
+  state: BoardType,
+  action: PayloadAction<TileType[][]>
+) => {
+  state.previousStates.push(action.payload);
 };
 
 export const updateTileReducer = (
@@ -44,5 +52,12 @@ export const updateTileReducer = (
       state.tiles[rowIndex][colIndex] = updatedTile; // Update specific tile
     }
   }
+};
+
+export const updateCurrentTurnReducer = (
+  state: BoardType,
+) => {
+  const turn: string = state.currentTurn;
+  state.currentTurn = turn === "White" ? "Black" : "White";
 };
 
