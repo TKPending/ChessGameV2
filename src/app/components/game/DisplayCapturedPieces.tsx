@@ -7,12 +7,14 @@ type Props = {
 
 const DisplayCapturedPieces = ({ player }: Props) => {
     const capturedPieces: PieceType[] = player.capturedPieces;
-    const tempCapture = [1,2,3,4];
+    const tempCapture = ["/white-king.png", "/white-king.png", "/white-king.png", "/white-king.png"];
 
     return (
         <div className="flex gap-2">
-            {tempCapture.map((index) => (
-                <div key={index} className="h-12 w-8 bg-red-200"></div>
+            {tempCapture.map((image, index) => (
+                <div className="h-8 w-8">
+                    <img key={index} src={image}/>
+                </div>
             ))}
         </div>
     )

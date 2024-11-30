@@ -11,12 +11,14 @@ const Tile = ({ tile }: Props) => {
   const currentTurn: "White" | "Black" = useSelector((state: RootState) => state.board.currentTurn);
   const piece: PieceType | null = tile.pieceOnTile || null;
 
+  // Function to highlight future moves
+
   return (
     <div
       key={tile.tilePosition}
       className={`flex items-center justify-center ${
         tile.tileColor === TileColor.white ? "bg-gray-200" : "bg-gray-800"
-      } ${currentTurn == piece?.pieceColor && "hover:bg-red-200"}`}
+      } ${currentTurn == piece?.pieceColor && "hover:bg-red-200 hover:cursor-pointer"}`}
       style={{
         aspectRatio: "1",
       }}
