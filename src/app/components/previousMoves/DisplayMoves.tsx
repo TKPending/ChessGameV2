@@ -4,21 +4,21 @@ import { setFullscreen } from "@/app/redux/slices/previousMoves/previousMovesSli
 
 const DisplayMoves = () => {
   const dispatch = useDispatch();
-  const displayMoves: boolean = useSelector(
+  const previousMovesHidden: boolean = useSelector(
     (state: RootState) => state.previousMovesContainer.previousMovesHidden
   );
 
   const handleDisplayMoves = () => {
-    dispatch(setFullscreen(!displayMoves));
+    dispatch(setFullscreen(!previousMovesHidden));
   };
 
   return (
-    <div className="w-full flex items-center justify-end px-6">
+    <div className={`hidden sm:flex w-full items-center ${previousMovesHidden ? "px-6 justify-end" : "justify-center"}`}>
       <p
         onClick={handleDisplayMoves}
         className="text-white text-xs hover:cursor-pointer hover:text-gray-200 transition duration-200 hover:underline"
       >
-        {displayMoves ? "Hide" : "Show Moves"}
+        {previousMovesHidden ? "Hide" : "Show Moves"}
       </p>
     </div>
   );
