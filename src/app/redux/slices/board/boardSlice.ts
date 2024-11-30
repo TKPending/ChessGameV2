@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { BoardType } from "@/app/types/BoardType";
 import { Team } from "@/app/types/PlayerType";
-import { addPlayerNameReducer, chessGamePlayingReducer } from "./boardReducer";
+import { addPlayerNameReducer, chessboardReducer, chessGamePlayingReducer, updateTileReducer } from "./boardReducer";
+import { generateTiles } from "@/app/utils/generateTiles";
 
 const initialState: BoardType = {
-  tiles: [],
+  tiles: generateTiles(), // Initialize tiles as a 2D array
   currentState: [],
   previousStates: [],
   stateIndex: 0,
@@ -27,7 +28,7 @@ const initialState: BoardType = {
   winner: undefined,
   isPlaying: false,
   currentTurn: "White",
-  moveHistory: []
+  moveHistory: [],
 };
 
 const boardSlice = createSlice({
@@ -36,12 +37,16 @@ const boardSlice = createSlice({
   reducers: {
     setPlayersName: addPlayerNameReducer,
     setIsChessGamePlaying: chessGamePlayingReducer,
+    setChessboard: chessboardReducer,
+    setTile: updateTileReducer,
   },
 });
 
 export const {
   setPlayersName,
   setIsChessGamePlaying,
+  setChessboard,
+  setTile,
 } = boardSlice.actions;
 
 export default boardSlice.reducer;

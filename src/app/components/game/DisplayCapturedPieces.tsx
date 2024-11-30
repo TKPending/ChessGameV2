@@ -12,8 +12,8 @@ const DisplayCapturedPieces = ({ player }: Props) => {
     return (
         <div className="flex gap-2">
             {tempCapture.map((image, index) => (
-                <div className="h-8 w-8">
-                    <img key={index} src={image}/>
+                <div key={index} className="h-8 w-8">
+                    <img src={image}/>
                 </div>
             ))}
         </div>

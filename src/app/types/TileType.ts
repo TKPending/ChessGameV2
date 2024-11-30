@@ -1,13 +1,14 @@
 import { PieceType } from "./PieceType";
 
 export enum TileColor {
-    white = "white",
-    black = "black",
+    white = "White",
+    black = "Black",
 };
 
 export interface TileType {
+  defaultTileColor: TileColor,
   tilePosition: string;
-  tileColor: TileColor;
+  currentTileColor: string;
   pieceOnTile: PieceType | null;
   isHighlighted: boolean;
 };

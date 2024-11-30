@@ -1,5 +1,6 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { BoardType } from "@/app/types/BoardType";
+import { TileType } from "@/app/types/TileType";
 
 export const addPlayerNameReducer = (
   state: BoardType,
@@ -19,4 +20,29 @@ export const chessGamePlayingReducer = (
 ) => {
   state.isPlaying = action.payload;
 }
+
+export const chessboardReducer = (
+  state: BoardType,
+  action: PayloadAction<TileType[][]>
+) => {
+  state.tiles = action.payload;
+};
+
+export const updateTileReducer = (
+  state: BoardType,
+  action: PayloadAction<{ tile: TileType }>
+) => {
+  const updatedTile = action.payload.tile;
+  const rowIndex = state.tiles.findIndex(row =>
+    row.some(tile => tile.tilePosition === updatedTile.tilePosition)
+  );
+  if (rowIndex !== -1) {
+    const colIndex = state.tiles[rowIndex].findIndex(
+      tile => tile.tilePosition === updatedTile.tilePosition
+    );
+    if (colIndex !== -1) {
+      state.tiles[rowIndex][colIndex] = updatedTile; // Update specific tile
+    }
+  }
+};
 

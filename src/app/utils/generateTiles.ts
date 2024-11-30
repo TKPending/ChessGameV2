@@ -1,8 +1,8 @@
-import { TileType, TileColor } from "@/app/types/TileType"
+import { TileType, TileColor } from "@/app/types/TileType";
 import { PieceType, PieceName } from "@/app/types/PieceType";
 
-export const generateTiles = (): TileType[] => {
-  const tiles: TileType[] = [];
+export const generateTiles = (): TileType[][] => {
+  const tiles: TileType[][] = [];
 
   const initialPieces = {
     0: [
@@ -30,8 +30,9 @@ export const generateTiles = (): TileType[] => {
   };
 
   for (let row = 0; row < 8; row++) {
+    const tileRow: TileType[] = [];
     for (let col = 0; col < 8; col++) {
-      const tileColor = (row + col) % 2 === 0 ? TileColor.white : TileColor.black;
+      const defaultTileColor = (row + col) % 2 === 0 ? TileColor.white : TileColor.black;
       const tilePosition = `${String.fromCharCode(65 + col)}${8 - row}`;
 
       let pieceOnTile: PieceType | null = null;
@@ -39,23 +40,27 @@ export const generateTiles = (): TileType[] => {
       //@ts-ignore
       if (initialPieces[row]) {
         const pieceConfig = initialPieces[row as keyof typeof initialPieces]?.[col];
-        pieceOnTile = {
-          ...pieceConfig,
-          piecePosition: { tilePosition, tileColor, pieceOnTile: null, isHighlighted: false },
-          allMoves: [],
-          validMoves: [],
-          isAlive: true,
-          hasMoved: false,
-        };
+        if (pieceConfig) {
+          pieceOnTile = {
+            ...pieceConfig,
+            piecePosition: { tilePosition, tileColor: defaultTileColor, pieceOnTile: null, isHighlighted: false },
+            allMoves: [],
+            validMoves: [],
+            isAlive: true,
+            hasMoved: false,
+          };
+        }
       }
 
-      tiles.push({
+      tileRow.push({
+        defaultTileColor,
         tilePosition,
-        tileColor,
+        currentTileColor: defaultTileColor,
         pieceOnTile,
         isHighlighted: false,
       });
     }
+    tiles.push(tileRow);
   }
 
   return tiles;
