@@ -1,14 +1,14 @@
 import { TileType } from "./TileType";
 import { PlayerType } from "./PlayerType";
-import { MoveType } from "./MoveType";
 
 export interface BoardType {
-  currentBoardState: TileType[][]; // Current state of the board
-  previousBoardStates: TileType[][][]; // History of board states
+  chessboard: TileType[][];
   stateIndex: number;
   players: PlayerType[];
   winner: PlayerType | undefined;
   isPlaying: boolean;
   currentTurn: "White" | "Black";
-  moveHistory: MoveType[];
+  clickedTile: TileType | null;
+  previousClickedTile: TileType | null;
+  piecePotentialMoves: [number, number][];
 }

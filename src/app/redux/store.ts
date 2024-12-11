@@ -1,25 +1,21 @@
 import { combineReducers, configureStore, Reducer } from "@reduxjs/toolkit";
 import { BoardType } from "@/app/types/BoardType";
-import { PreviousMovesContainerType } from "@/app/types/PreviousMovesContainerType";
 import { ErrorType } from "@/app/types/ErrorType";
-import { PlayingTileType } from "@/app/types/PlayingTilesType";
 import boardReducer from "./slices/board/boardSlice";
-import previousMovesReducer from "./slices/previousMoves/previousMovesSlice"
-import errorReducer  from "./slices/error/errorSlice";
-import playingTileReducer from "./slices/tile/tileSlice";
+import errorReducer from "./slices/error/errorSlice";
+import gameHistoryReducer from "./slices/gameHistory/gameHistorySlice";
+import { GameHistoryType } from "../types/GameHistoryType";
 
 interface State {
-    board: BoardType;
-    previousMoves: PreviousMovesContainerType;
-    error: ErrorType;
-    tile: PlayingTileType
+  board: BoardType;
+  gameHistory: GameHistoryType;
+  error: ErrorType;
 }
 
 const rootReducer: Reducer<State> = combineReducers({
-    board: boardReducer,
-    previousMoves: previousMovesReducer,
-    error: errorReducer,
-    tile: playingTileReducer,
+  board: boardReducer,
+  gameHistory: gameHistoryReducer,
+  error: errorReducer,
 });
 
 const store = configureStore({

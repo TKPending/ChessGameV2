@@ -1,12 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { BoardType } from "@/app/types/BoardType";
 import { Team } from "@/app/types/PlayerType";
-import { addMoveToHistoryReducer, addPlayerNameReducer, capturedPieceReducer, chessboardHistoryReducer, chessboardReducer, chessGamePlayingReducer, updateCurrentTurnReducer, updateTileReducer } from "./boardReducer";
+import {
+  addPlayerNameReducer,
+  capturedPiecesReducer,
+  chessboardReducer,
+  chessGamePlayingReducer,
+  currentlyClickedTileReducer,
+  pieceValidMoves,
+  previouslyClickedTileReducer,
+  updateCurrentTurnReducer,
+  updateSpecificTileReducer,
+} from "./boardReducer";
 import { generateTiles } from "@/app/utils/generateTiles";
 
 const initialState: BoardType = {
-  currentBoardState: generateTiles(),
-  previousBoardStates: [],
+  chessboard: generateTiles(),
   stateIndex: 0,
   players: [
     {
@@ -27,7 +36,9 @@ const initialState: BoardType = {
   winner: undefined,
   isPlaying: false,
   currentTurn: "White",
-  moveHistory: [],
+  clickedTile: null,
+  previousClickedTile: null,
+  piecePotentialMoves: [],
 };
 
 const boardSlice = createSlice({
@@ -37,11 +48,12 @@ const boardSlice = createSlice({
     setPlayersName: addPlayerNameReducer,
     setIsChessGamePlaying: chessGamePlayingReducer,
     setChessboard: chessboardReducer,
-    setTile: updateTileReducer,
+    setSpecificTile: updateSpecificTileReducer,
     setCurrentTurn: updateCurrentTurnReducer,
-    setBoardHistory: chessboardHistoryReducer,
-    setMoveHistory: addMoveToHistoryReducer,
-    setCapturedPiece: capturedPieceReducer,
+    setClickedTile: currentlyClickedTileReducer,
+    setPreviouslyClickedTile: previouslyClickedTileReducer,
+    setPlayerCapturedPiece: capturedPiecesReducer,
+    setValidMoves: pieceValidMoves,
   },
 });
 
@@ -49,11 +61,12 @@ export const {
   setPlayersName,
   setIsChessGamePlaying,
   setChessboard,
-  setTile,
+  setSpecificTile,
   setCurrentTurn,
-  setBoardHistory,
-  setMoveHistory,
-  setCapturedPiece,
+  setClickedTile,
+  setPreviouslyClickedTile,
+  setPlayerCapturedPiece,
+  setValidMoves,
 } = boardSlice.actions;
 
 export default boardSlice.reducer;

@@ -7,17 +7,17 @@ import { generateTiles } from "@/app/utils/generateTiles";
 
 const ChessboardContainer = () => {
   const dispatch = useDispatch();
-  const currentBoard = useSelector((state: RootState) => state.board.currentBoardState);
+  const chessboard = useSelector((state: RootState) => state.board.chessboard);
 
   useEffect(() => {
-    if (currentBoard.length === 0) {
+    if (chessboard.length === 0) {
       dispatch(setChessboard(generateTiles()));
     }
-  }, [currentBoard, dispatch]);
+  }, [chessboard, dispatch]);
 
   return (
     <div className="grid grid-cols-8 grid-rows-8 aspect-square w-full max-w-[80%] max-h-[80%] bg-gray-700">
-      {currentBoard.map((row, rowIndex) =>
+      {chessboard.map((row, rowIndex) =>
         row.map((tile, colIndex) => (
           <Tile key={`${rowIndex}-${colIndex}`} tile={tile} />
         ))

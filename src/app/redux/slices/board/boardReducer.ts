@@ -2,18 +2,17 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import { BoardType } from "@/app/types/BoardType";
 import { TileType } from "@/app/types/TileType";
 import { PieceType } from "@/app/types/PieceType";
-import { MoveType } from "@/app/types/MoveType";
 
 export const addPlayerNameReducer = (
   state: BoardType,
-  action: PayloadAction<{playerName: string, playerNo: number}>
+  action: PayloadAction<{ playerName: string; playerNo: number }>
 ) => {
   const player = action.payload;
 
   state.players[action.payload.playerNo] = {
     ...state.players[player.playerNo],
-    playerName: player.playerName
-  }
+    playerName: player.playerName,
+  };
 };
 
 export const chessGamePlayingReducer = (
@@ -21,55 +20,53 @@ export const chessGamePlayingReducer = (
   action: PayloadAction<boolean>
 ) => {
   state.isPlaying = action.payload;
-}
+};
 
 export const chessboardReducer = (
   state: BoardType,
   action: PayloadAction<TileType[][]>
 ) => {
-  state.currentBoardState = action.payload;
+  state.chessboard = action.payload;
 };
 
-export const chessboardHistoryReducer = (
+export const updateSpecificTileReducer = (
   state: BoardType,
-  action: PayloadAction<TileType[][]>
+  action: PayloadAction<TileType>
 ) => {
-  state.previousBoardStates.push(action.payload);
-};
-
-export const updateTileReducer = (
-  state: BoardType,
-  action: PayloadAction<{ tile: TileType }>
-) => {
-  const updatedTile = action.payload.tile;
-  const rowIndex = state.currentBoardState.findIndex(row =>
-    row.some(tile => tile.tilePosition === updatedTile.tilePosition)
+  const updatedTile = action.payload;
+  const rowIndex = state.chessboard.findIndex((row) =>
+    row.some((tile) => tile.tilePosition === updatedTile.tilePosition)
   );
   if (rowIndex !== -1) {
-    const colIndex = state.currentBoardState[rowIndex].findIndex(
-      tile => tile.tilePosition === updatedTile.tilePosition
+    const colIndex = state.chessboard[rowIndex].findIndex(
+      (tile) => tile.tilePosition === updatedTile.tilePosition
     );
     if (colIndex !== -1) {
-      state.currentBoardState[rowIndex][colIndex] = updatedTile; // Update specific tile
+      state.chessboard[rowIndex][colIndex] = updatedTile; // Update specific tile
     }
   }
 };
 
-export const updateCurrentTurnReducer = (
-  state: BoardType,
-) => {
+export const updateCurrentTurnReducer = (state: BoardType) => {
   const turn: string = state.currentTurn;
   state.currentTurn = turn === "White" ? "Black" : "White";
 };
 
-export const addMoveToHistoryReducer = (
+export const currentlyClickedTileReducer = (
   state: BoardType,
-  action: PayloadAction<MoveType>
+  action: PayloadAction<TileType | null>
 ) => {
-  state.moveHistory.push(action.payload);
+  state.clickedTile = action.payload;
 };
 
-export const capturedPieceReducer = (
+export const previouslyClickedTileReducer = (
+  state: BoardType,
+  action: PayloadAction<TileType | null>
+) => {
+  state.previousClickedTile = action.payload;
+};
+
+export const capturedPiecesReducer = (
   state: BoardType,
   action: PayloadAction<PieceType>
 ) => {
@@ -78,3 +75,9 @@ export const capturedPieceReducer = (
   state.players[turnIndex].capturedPieces.push(action.payload);
 };
 
+export const pieceValidMoves = (
+  state: BoardType,
+  action: PayloadAction<[number, number][]>
+) => {
+  state.piecePotentialMoves = action.payload;
+};

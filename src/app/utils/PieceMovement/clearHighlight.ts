@@ -1,16 +1,23 @@
-import { setTile } from "@/app/redux/slices/board/boardSlice";
+import { setSpecificTile } from "@/app/redux/slices/board/boardSlice";
 import { TileType } from "@/app/types/TileType";
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 
 export const clearHighlights = (
   dispatch: Dispatch<UnknownAction>,
-  currentBoardState: TileType[][]
+  chessboard: TileType[][]
 ) => {
-  currentBoardState.forEach((row) => {
+  const tilesToClear: TileType[] = [];
+
+  chessboard.forEach((row) => {
     row.forEach((tile) => {
       if (tile.isHighlighted) {
-        dispatch(setTile({ tile: { ...tile, isHighlighted: false } }));
+        tilesToClear.push({ ...tile, isHighlighted: false });
       }
     });
+  });
+
+  // Batch dispatch updates for all tiles
+  tilesToClear.forEach((tile) => {
+    dispatch(setSpecificTile(tile));
   });
 };

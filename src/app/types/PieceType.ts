@@ -1,26 +1,23 @@
 import { TileType } from "./TileType";
 
 export enum PieceName {
-    pawn = "Pawn",
-    rook = "Rook",
-    knight = "Knight",
-    bishop = "Bishop",
-    queen = "Queen",
-    king = "King",
-};
+  pawn = "Pawn",
+  rook = "Rook",
+  knight = "Knight",
+  bishop = "Bishop",
+  queen = "Queen",
+  king = "King",
+}
 
 export interface PieceType {
   pieceName: PieceName;
   pieceColor: "White" | "Black";
-  piecePosition: TileType;
-  allMoves: TileType[];
-  validMoves: TileType[];
   isAlive: boolean;
   hasMoved: boolean;
   king?: {
-    hasMoved: false,
-    inCheck: false,
-    canCastle: true,
-    checkmate: false,
-  }
-};
+    hasMoved: false;
+    inCheck: false;
+    canCastle: true;
+    checkmate: false;
+  };
+}

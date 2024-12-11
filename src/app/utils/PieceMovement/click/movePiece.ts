@@ -1,68 +1,74 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import {
-  setBoardHistory,
-  setCapturedPiece,
   setChessboard,
   setCurrentTurn,
-  setMoveHistory,
+  setPlayerCapturedPiece,
 } from "@/app/redux/slices/board/boardSlice";
+import {
+  setChessboardHistory,
+  setMoveHistory,
+  setMoveCounter,
+} from "@/app/redux/slices/gameHistory/gameHistorySlice";
 import { TileType } from "@/app/types/TileType";
 
 export const movePiece = (
   dispatch: Dispatch<UnknownAction>,
-  currentTile: TileType,
+  previousClickedTile: TileType | null,
   targetTile: TileType,
   currentBoardState: TileType[][]
 ) => {
   // No piece to move
-  if (!currentTile.pieceOnTile) return;
+  if (!previousClickedTile?.pieceOnTile) return [];
 
-  // Piece Captured
+  // Capture logic
   if (targetTile.pieceOnTile) {
     dispatch(
-      setCapturedPiece({
+      setPlayerCapturedPiece({
         ...targetTile.pieceOnTile,
         isAlive: false,
       })
     );
   }
 
-  const updatedTargetTile: TileType = {
-    ...targetTile,
-    pieceOnTile: currentTile.pieceOnTile,
-    isHighlighted: false,
-  };
-
-  const updatedCurrentTile: TileType = {
-    ...currentTile,
-    pieceOnTile: null,
-    isHighlighted: false,
-  };
-
-  // Update Target Tile
-  const newBoardState: TileType[][] = currentBoardState.map((row) => {
-    return row.map((tile: TileType) =>
-      // Find current tile on board
-      tile.tilePosition === currentTile.tilePosition
-        ? updatedCurrentTile
-        : // Find target tile on board
-        tile.tilePosition === targetTile.tilePosition
-        ? updatedTargetTile
-        : // Do nothing (Return exisiting tile)
-          tile
-    );
-  });
+  // Update the board
+  const newBoardState: TileType[][] = currentBoardState.map((row) =>
+    row.map((tile) => {
+      if (tile.tilePosition === previousClickedTile.tilePosition) {
+        // Clear piece from the previously clicked tile
+        return { ...tile, pieceOnTile: null, isHighlighted: false };
+      }
+      if (tile.tilePosition === targetTile.tilePosition) {
+        // Move piece to the target tile
+        return {
+          ...tile,
+          pieceOnTile: previousClickedTile.pieceOnTile,
+          isHighlighted: false,
+        };
+      }
+      // Leave other tiles unchanged
+      return { ...tile, isHighlighted: false };
+    })
+  );
 
   // Save previous game state
-  dispatch(setBoardHistory(currentBoardState));
-  // Update game moves
+  dispatch(setChessboardHistory(currentBoardState));
+
+  // Update move history
   dispatch(
     setMoveHistory({
-      from: currentTile,
+      from: previousClickedTile,
       to: targetTile,
     })
   );
-  // Update game state
+
+  // Update the board state in Redux
   dispatch(setChessboard(newBoardState));
+
+  // Change turn
   dispatch(setCurrentTurn());
+
+  // Increment move counter
+  dispatch(setMoveCounter());
+
+  return newBoardState;
 };

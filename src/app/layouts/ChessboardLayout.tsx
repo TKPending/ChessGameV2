@@ -7,9 +7,11 @@ import ErrorNotification from "@/app/components/ErrorNotification";
 
 const ChessboardLayout = () => {
   const previousMovesHidden: boolean = useSelector(
-    (state: RootState) => state.previousMoves.previousMovesHidden
+    (state: RootState) => state.gameHistory.isPreviousMovesHidden
   );
-  const isError: boolean = useSelector((state: RootState) => state.error.isError);
+  const isError: boolean = useSelector(
+    (state: RootState) => state.error.isError
+  );
 
   return (
     <div className="h-screen w-screen bg-black flex flex-col md:flex-row gap-6 justify-center p-6">

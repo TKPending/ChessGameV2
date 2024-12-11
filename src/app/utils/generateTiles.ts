@@ -10,12 +10,16 @@ export const generateTiles = (): TileType[][] => {
       { pieceName: PieceName.knight, pieceColor: "Black" },
       { pieceName: PieceName.bishop, pieceColor: "Black" },
       { pieceName: PieceName.queen, pieceColor: "Black" },
-      { pieceName: PieceName.king, pieceColor: "Black", king: {
-        hasMoved: false,
-        inCheck: false,
-        canCastle: true,
-        checkmate: false,
-      } },
+      {
+        pieceName: PieceName.king,
+        pieceColor: "Black",
+        king: {
+          hasMoved: false,
+          inCheck: false,
+          canCastle: true,
+          checkmate: false,
+        },
+      },
       { pieceName: PieceName.bishop, pieceColor: "Black" },
       { pieceName: PieceName.knight, pieceColor: "Black" },
       { pieceName: PieceName.rook, pieceColor: "Black" },
@@ -27,12 +31,16 @@ export const generateTiles = (): TileType[][] => {
       { pieceName: PieceName.knight, pieceColor: "White" },
       { pieceName: PieceName.bishop, pieceColor: "White" },
       { pieceName: PieceName.queen, pieceColor: "White" },
-      { pieceName: PieceName.king, pieceColor: "White", king: {
-        hasMoved: false,
-        inCheck: false,
-        canCastle: true,
-        checkmate: false,
-      } },
+      {
+        pieceName: PieceName.king,
+        pieceColor: "White",
+        king: {
+          hasMoved: false,
+          inCheck: false,
+          canCastle: true,
+          checkmate: false,
+        },
+      },
       { pieceName: PieceName.bishop, pieceColor: "White" },
       { pieceName: PieceName.knight, pieceColor: "White" },
       { pieceName: PieceName.rook, pieceColor: "White" },
@@ -42,18 +50,25 @@ export const generateTiles = (): TileType[][] => {
   for (let row = 0; row < 8; row++) {
     const tileRow: TileType[] = [];
     for (let col = 0; col < 8; col++) {
-      const defaultTileColor = (row + col) % 2 === 0 ? TileColor.white : TileColor.black;
-      const tilePosition = `${String.fromCharCode(65 + col)}${8 - row}`;
+      const defaultTileColor =
+        (row + col) % 2 === 0 ? TileColor.white : TileColor.black;
+      const tilePosition = `${String.fromCharCode(97 + col)}${8 - row}`;
 
       let pieceOnTile: PieceType | null = null;
 
       //@ts-ignore
       if (initialPieces[row]) {
-        const pieceConfig = initialPieces[row as keyof typeof initialPieces]?.[col];
+        const pieceConfig =
+          initialPieces[row as keyof typeof initialPieces]?.[col];
         if (pieceConfig) {
           pieceOnTile = {
             ...pieceConfig,
-            piecePosition: { tilePosition, tileColor: defaultTileColor, pieceOnTile: null, isHighlighted: false },
+            piecePosition: {
+              tilePosition,
+              tileColor: defaultTileColor,
+              pieceOnTile: null,
+              isHighlighted: false,
+            },
             allMoves: [],
             validMoves: [],
             isAlive: true,
@@ -68,6 +83,7 @@ export const generateTiles = (): TileType[][] => {
         currentTileColor: defaultTileColor,
         pieceOnTile,
         isHighlighted: false,
+        highlightReason: "friendly",
       });
     }
     tiles.push(tileRow);
