@@ -19,7 +19,16 @@ const chessboardSearch = (
 
       if (!enemyPiece || enemyPiece.pieceColor !== pieceToMoveColor) {
         pieceValidMoves.push([targetRow, targetCol]);
-        dispatch(setSpecificTile({ ...targetTile, isHighlighted: true }));
+        const enemyOrEmpty: "friendly" | "enemy" = enemyPiece
+          ? "enemy"
+          : "friendly";
+        dispatch(
+          setSpecificTile({
+            ...targetTile,
+            isHighlighted: true,
+            highlightReason: enemyOrEmpty,
+          })
+        );
       } else {
         dispatch(setSpecificTile({ ...targetTile, isHighlighted: false }));
       }

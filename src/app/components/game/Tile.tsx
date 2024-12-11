@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   setClickedTile,
   setPreviouslyClickedTile,
+  setSpecificTile,
   setValidMoves,
 } from "@/app/redux/slices/board/boardSlice";
 import ChessPiece from "./ChessPiece";
@@ -12,9 +13,32 @@ import { TileType } from "@/app/types/TileType";
 import { movePiece } from "@/app/utils/PieceMovement/click/movePiece";
 import { generatePieceMovements } from "@/app/utils/PieceMovement/generatePieceMovements";
 import { isMoveValid } from "@/app/utils/PieceMovement/isMoveValid";
+import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 
 type Props = {
   tile: TileType;
+};
+
+const highlightClickedTile = (
+  dispatch: Dispatch<UnknownAction>,
+  clickedTile: TileType,
+  chessboard: TileType[][]
+) => {
+  clearHighlights(dispatch, chessboard);
+  dispatch(setPreviouslyClickedTile(clickedTile));
+  dispatch(
+    setSpecificTile({
+      ...clickedTile,
+      isHighlighted: true,
+      highlightReason: "selected",
+    })
+  );
+  const pieceValidMoves: [number, number][] = generatePieceMovements(
+    dispatch,
+    chessboard,
+    clickedTile
+  );
+  dispatch(setValidMoves(pieceValidMoves));
 };
 
 const Tile = ({ tile }: Props) => {
@@ -42,7 +66,11 @@ const Tile = ({ tile }: Props) => {
 
   const getTileBackgroundColor = (): string => {
     if (tile.isHighlighted) {
-      return tile.highlightReason === "enemy" ? "bg-red-200" : "bg-green-200";
+      return tile.highlightReason === "enemy"
+        ? "bg-red-200"
+        : tile.highlightReason === "selected"
+        ? "bg-blue-200"
+        : "bg-green-200";
     }
     return tile.defaultTileColor === "White" ? "bg-white" : "bg-gray-800";
   };
@@ -51,15 +79,7 @@ const Tile = ({ tile }: Props) => {
     // If no previous tile is selected
     if (!previousClickedTile) {
       if (pieceOnTile && pieceOnTile.pieceColor === currentTurn) {
-        // First click: Select a piece and highlight its valid moves
-        clearHighlights(dispatch, chessboard);
-        dispatch(setPreviouslyClickedTile(clickedTile));
-        const pieceValidMoves: [number, number][] = generatePieceMovements(
-          dispatch,
-          chessboard,
-          clickedTile
-        );
-        dispatch(setValidMoves(pieceValidMoves));
+        highlightClickedTile(dispatch, clickedTile, chessboard);
       }
       return;
     }
@@ -70,15 +90,7 @@ const Tile = ({ tile }: Props) => {
       pieceOnTile.pieceColor === currentTurn &&
       clickedTile.tilePosition !== previousClickedTile.tilePosition
     ) {
-      // Clear previous highlights and switch to the newly clicked piece
-      clearHighlights(dispatch, chessboard);
-      dispatch(setPreviouslyClickedTile(clickedTile));
-      const pieceValidMoves: [number, number][] = generatePieceMovements(
-        dispatch,
-        chessboard,
-        clickedTile
-      );
-      dispatch(setValidMoves(pieceValidMoves));
+      highlightClickedTile(dispatch, clickedTile, chessboard);
       return;
     }
 
@@ -103,7 +115,7 @@ const Tile = ({ tile }: Props) => {
       onClick={() => handleTileClick(tile)}
       className={`flex items-center justify-center ${getTileBackgroundColor()} ${
         currentTurn === pieceOnTile?.pieceColor
-          ? "hover:bg-red-200 hover:cursor-pointer transition duration-400"
+          ? "hover:bg-blue-200 hover:cursor-pointer transition duration-400"
           : ""
       }`}
       style={{
