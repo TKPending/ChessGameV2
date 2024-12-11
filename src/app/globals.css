@@ -2,3 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
+.tile {
+  transition: background-color 0.5s ease-in-out; /* Smooth fade-in */
+}

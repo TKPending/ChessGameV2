@@ -5,7 +5,7 @@ import { PieceType } from "@/app/types/PieceType";
 import { TileType } from "@/app/types/TileType";
 import { movePiece } from "@/app/utils/movePiece";
 import { isMoveValid } from "@/app/utils/isMoveValid";
-import { highlightClickedTile } from "@/app/utils/highlightCurrentTile";
+import { highlightClickedTile } from "@/app/utils/highlightClickedTile";
 import { getTileBackgroundColor } from "@/app/utils/getTileBackgroundColor";
 import { resetTiles } from "@/app/utils/resetTiles";
 
@@ -67,7 +67,7 @@ const Tile = ({ tile }: Props) => {
   return (
     <div
       onClick={() => handleTileClick(tile)}
-      className={`flex items-center justify-center ${getTileBackgroundColor(
+      className={`tile flex items-center justify-center ${getTileBackgroundColor(
         tile
       )} ${
         currentTurn === pieceOnTile?.pieceColor

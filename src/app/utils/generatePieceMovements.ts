@@ -22,6 +22,7 @@ const chessboardSearch = (
         const enemyOrEmpty: "friendly" | "enemy" = enemyPiece
           ? "enemy"
           : "friendly";
+
         dispatch(
           setSpecificTile({
             ...targetTile,

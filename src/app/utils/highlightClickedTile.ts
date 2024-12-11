@@ -13,19 +13,38 @@ export const highlightClickedTile = (
   clickedTile: TileType,
   chessboard: TileType[][]
 ) => {
-  clearHighlights(dispatch, chessboard);
-  dispatch(setPreviouslyClickedTile(clickedTile));
+  clearHighlights(dispatch, chessboard); // Clear previous highlights
+
+  // Highlight the clicked tile
   dispatch(
     setSpecificTile({
       ...clickedTile,
       isHighlighted: true,
-      highlightReason: "selected",
+      highlightReason: "selected", // Blue
     })
   );
+
+  dispatch(setPreviouslyClickedTile(clickedTile));
+
   const pieceValidMoves: [number, number][] = generatePieceMovements(
     dispatch,
     chessboard,
     clickedTile
   );
-  dispatch(setValidMoves(pieceValidMoves));
+
+  // Highlight valid moves
+  pieceValidMoves.forEach(([row, col]) => {
+    const targetTile = chessboard[row][col];
+    const enemyPiece = targetTile.pieceOnTile;
+
+    dispatch(
+      setSpecificTile({
+        ...targetTile,
+        isHighlighted: true,
+        highlightReason: enemyPiece ? "enemy" : "friendly", // Red or Green
+      })
+    );
+  });
+
+  dispatch(setValidMoves(pieceValidMoves)); // Update state with valid moves
 };

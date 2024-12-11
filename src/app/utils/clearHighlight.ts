@@ -6,18 +6,17 @@ export const clearHighlights = (
   dispatch: Dispatch<UnknownAction>,
   chessboard: TileType[][]
 ) => {
-  const tilesToClear: TileType[] = [];
-
   chessboard.forEach((row) => {
     row.forEach((tile) => {
       if (tile.isHighlighted) {
-        tilesToClear.push({ ...tile, isHighlighted: false });
+        dispatch(
+          setSpecificTile({
+            ...tile,
+            isHighlighted: false,
+            highlightReason: "",
+          })
+        );
       }
     });
-  });
-
-  // Batch dispatch updates for all tiles
-  tilesToClear.forEach((tile) => {
-    dispatch(setSpecificTile(tile));
   });
 };

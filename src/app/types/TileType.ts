@@ -11,5 +11,5 @@ export interface TileType {
   currentTileColor: string;
   pieceOnTile: PieceType | null;
   isHighlighted: boolean;
-  highlightReason: "enemy" | "friendly" | "selected";
+  highlightReason: "enemy" | "friendly" | "selected" | "";
 }
