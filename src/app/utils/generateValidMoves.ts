@@ -1,6 +1,4 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { setEnemyMoves } from "@/app/redux/slices/board/boardSlice";
-import { generateEnemyMoves } from "./moveLogic/generateEnemyMoves";
 import { getSlidingPieceMoves } from "./moveLogic/getSlidingPieceMoves";
 import { getKnightMoves } from "./moveLogic/getKnightMoves";
 import { getKingMoves } from "./moveLogic/getKingMoves";
@@ -22,14 +20,6 @@ export const generateValidMoves = (
   const [currentRow, currentCol] = convertTilePosition(
     previousClickedTile.tilePosition
   );
-
-  const allEnemyMoves: number[][] = generateEnemyMoves(
-    dispatch,
-    chessboard,
-    pieceToMoveColor === "White" ? "Black" : "White"
-  );
-
-  dispatch(setEnemyMoves(allEnemyMoves));
 
   switch (pieceName) {
     case PieceName.pawn:

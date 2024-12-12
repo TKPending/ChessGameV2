@@ -16,7 +16,6 @@ export const possiblePieceMoves = (
       const targetTile: TileType = chessboard[targetRow][targetCol];
       const enemyPiece: PieceType | null = targetTile.pieceOnTile;
 
-      // Check if the target tile is occupied by a friendly piece
       if (!enemyPiece || enemyPiece.pieceColor !== pieceToMoveColor) {
         pieceValidMoves.push([targetRow, targetCol]);
       } else {

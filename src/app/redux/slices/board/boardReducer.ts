@@ -88,3 +88,17 @@ export const enemyMovesReducer = (
 ) => {
   state.enemyMoves = action.payload;
 };
+
+export const kingInCheckReducer = (
+  state: BoardType,
+  action: PayloadAction<boolean>
+) => {
+  state.isKingInCheck = action.payload;
+};
+
+export const kingInCheckmateReducer = (
+  state: BoardType,
+  action: PayloadAction<boolean>
+) => {
+  state.isKingInCheckmate = action.payload;
+};

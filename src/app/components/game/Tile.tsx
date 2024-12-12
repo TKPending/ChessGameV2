@@ -1,5 +1,7 @@
 import { RootState } from "@/app/redux/store";
 import { useSelector, useDispatch } from "react-redux";
+import { setMoveCounter } from "@/app/redux/slices/gameHistory/gameHistorySlice";
+import { setCurrentTurn } from "@/app/redux/slices/board/boardSlice";
 import ChessPiece from "./ChessPiece";
 import { PieceType } from "@/app/types/PieceType";
 import { TileType } from "@/app/types/TileType";
@@ -8,6 +10,9 @@ import { isMoveValid } from "@/app/utils/isMoveValid";
 import { handleClickedPiece } from "@/app/utils/handleClickedPiece";
 import { getTileBackgroundColor } from "@/app/utils/getTileBackgroundColor";
 import { resetTiles } from "@/app/utils/resetTiles";
+import { generateEnemyMoves } from "@/app/utils/moveLogic/generateEnemyMoves";
+import { isKingInCheckmate } from "@/app/utils/moveLogic/king/isKingInCheckmate";
+import { useEffect } from "react";
 
 type Props = {
   tile: TileType;
@@ -23,6 +28,9 @@ const Tile = ({ tile }: Props) => {
   );
   const previousClickedTile: TileType | null = useSelector(
     (state: RootState) => state.board.previousClickedTile
+  );
+  const isInCheckmate: boolean = useSelector(
+    (state: RootState) => state.board.isKingInCheckmate
   );
   const validMoves: [number, number][] = useSelector(
     (state: RootState) => state.board.piecePotentialMoves
@@ -58,12 +66,29 @@ const Tile = ({ tile }: Props) => {
       );
       resetTiles(dispatch, updatedChessboard);
 
+      const allEnemyMoves: number[][] = generateEnemyMoves(
+        dispatch,
+        updatedChessboard,
+        currentTurn
+      );
+
+      isKingInCheckmate(dispatch, updatedChessboard, allEnemyMoves);
+
+      dispatch(setCurrentTurn());
+      dispatch(setMoveCounter());
+
       return;
     }
 
     // Invalid Moves
     resetTiles(dispatch, chessboard);
   };
+
+  useEffect(() => {
+    if (isInCheckmate) {
+      console.log("In checkmate");
+    }
+  }, [isInCheckmate]);
 
   return (
     <div

@@ -12,4 +12,6 @@ export interface BoardType {
   previousClickedTile: TileType | null;
   piecePotentialMoves: [number, number][];
   enemyMoves: number[][];
+  isKingInCheck: boolean;
+  isKingInCheckmate: boolean;
 }

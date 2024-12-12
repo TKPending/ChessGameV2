@@ -8,12 +8,15 @@ import {
   chessGamePlayingReducer,
   currentlyClickedTileReducer,
   enemyMovesReducer,
+  kingInCheckmateReducer,
+  kingInCheckReducer,
   pieceValidMovesReducer,
   previouslyClickedTileReducer,
   updateCurrentTurnReducer,
   updateSpecificTileReducer,
 } from "./boardReducer";
 import { generateTiles } from "@/app/utils/generateTiles";
+import { isKingInCheckmate } from "@/app/utils/moveLogic/king/isKingInCheckmate";
 
 const initialState: BoardType = {
   chessboard: generateTiles(),
@@ -41,6 +44,8 @@ const initialState: BoardType = {
   previousClickedTile: null,
   piecePotentialMoves: [],
   enemyMoves: [],
+  isKingInCheck: false,
+  isKingInCheckmate: false,
 };
 
 const boardSlice = createSlice({
@@ -57,6 +62,8 @@ const boardSlice = createSlice({
     setPlayerCapturedPiece: capturedPiecesReducer,
     setValidMoves: pieceValidMovesReducer,
     setEnemyMoves: enemyMovesReducer,
+    setIsKingInCheck: kingInCheckReducer,
+    setIsKingInCheckmate: kingInCheckmateReducer,
   },
 });
 
@@ -71,6 +78,8 @@ export const {
   setPlayerCapturedPiece,
   setValidMoves,
   setEnemyMoves,
+  setIsKingInCheck,
+  setIsKingInCheckmate,
 } = boardSlice.actions;
 
 export default boardSlice.reducer;

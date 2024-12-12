@@ -1,5 +1,4 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { chessboardSearch } from "./chessboardSearch";
 import { possiblePieceMoves } from "@/app/utils/possiblePieceMoves";
 import { TileType } from "@/app/types/TileType";
 
@@ -21,6 +20,12 @@ export const getKingMoves = (
     [currentRow - 1, currentCol - 1],
   ];
 
-  return possiblePieceMoves(dispatch, chessboard, kingMoves, pieceToMoveColor);
-  // return chessboardSearch(dispatch, chessboard, allPawnMoves, pieceToMoveColor);
+  const kingPotentialMoves = possiblePieceMoves(
+    dispatch,
+    chessboard,
+    kingMoves,
+    pieceToMoveColor
+  );
+
+  return kingPotentialMoves;
 };

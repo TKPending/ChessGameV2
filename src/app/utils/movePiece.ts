@@ -1,13 +1,11 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import {
   setChessboard,
-  setCurrentTurn,
   setPlayerCapturedPiece,
 } from "@/app/redux/slices/board/boardSlice";
 import {
   setChessboardHistory,
   setMoveHistory,
-  setMoveCounter,
 } from "@/app/redux/slices/gameHistory/gameHistorySlice";
 import { TileType } from "@/app/types/TileType";
 
@@ -63,12 +61,6 @@ export const movePiece = (
 
   // Update the board state in Redux
   dispatch(setChessboard(newBoardState));
-
-  // Change turn
-  dispatch(setCurrentTurn());
-
-  // Increment move counter
-  dispatch(setMoveCounter());
 
   return newBoardState;
 };
