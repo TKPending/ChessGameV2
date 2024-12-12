@@ -75,9 +75,16 @@ export const capturedPiecesReducer = (
   state.players[turnIndex].capturedPieces.push(action.payload);
 };
 
-export const pieceValidMoves = (
+export const pieceValidMovesReducer = (
   state: BoardType,
   action: PayloadAction<[number, number][]>
 ) => {
   state.piecePotentialMoves = action.payload;
+};
+
+export const enemyMovesReducer = (
+  state: BoardType,
+  action: PayloadAction<number[][]>
+) => {
+  state.enemyMoves = action.payload;
 };

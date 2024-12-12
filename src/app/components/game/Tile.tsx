@@ -5,7 +5,7 @@ import { PieceType } from "@/app/types/PieceType";
 import { TileType } from "@/app/types/TileType";
 import { movePiece } from "@/app/utils/movePiece";
 import { isMoveValid } from "@/app/utils/isMoveValid";
-import { highlightClickedTile } from "@/app/utils/highlightClickedTile";
+import { handleClickedPiece } from "@/app/utils/handleClickedPiece";
 import { getTileBackgroundColor } from "@/app/utils/getTileBackgroundColor";
 import { resetTiles } from "@/app/utils/resetTiles";
 
@@ -33,7 +33,7 @@ const Tile = ({ tile }: Props) => {
     // First tile click
     if (!previousClickedTile) {
       if (pieceOnTile && pieceOnTile.pieceColor === currentTurn) {
-        highlightClickedTile(dispatch, clickedTile, chessboard);
+        handleClickedPiece(dispatch, clickedTile, chessboard);
       }
       return;
     }
@@ -44,7 +44,7 @@ const Tile = ({ tile }: Props) => {
       pieceOnTile.pieceColor === currentTurn &&
       clickedTile.tilePosition !== previousClickedTile.tilePosition
     ) {
-      highlightClickedTile(dispatch, clickedTile, chessboard);
+      handleClickedPiece(dispatch, clickedTile, chessboard);
       return;
     }
 
@@ -57,6 +57,7 @@ const Tile = ({ tile }: Props) => {
         chessboard
       );
       resetTiles(dispatch, updatedChessboard);
+
       return;
     }
 

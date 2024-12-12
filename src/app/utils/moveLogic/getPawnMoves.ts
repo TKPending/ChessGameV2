@@ -1,6 +1,6 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { chessboardSearch } from "./chessboardSearch";
 import { TileType } from "@/app/types/TileType";
+import { possiblePieceMoves } from "@/app/utils/possiblePieceMoves";
 
 export const getPawnMoves = (
   dispatch: Dispatch<UnknownAction>,
@@ -14,6 +14,7 @@ export const getPawnMoves = (
     (pieceToMoveColor === "White" && currentRow === 6) ||
     (pieceToMoveColor === "Black" && currentRow === 1);
 
+  // Promote piece
   const isPromotion =
     (pieceToMoveColor === "White" && currentRow === 0) ||
     (pieceToMoveColor === "Black" && currentRow === 7);
@@ -51,23 +52,34 @@ export const getPawnMoves = (
 
   const diagonalMoves: [number, number][] = [];
 
-  const leftTile: TileType = chessboard[diagonalLeft[0]][diagonalLeft[1]];
-  if (
-    leftTile.pieceOnTile &&
-    leftTile.pieceOnTile.pieceColor !== pieceToMoveColor
-  ) {
-    diagonalMoves.push(diagonalLeft);
+  const leftTile: TileType | null =
+    chessboard[diagonalLeft[0]][diagonalLeft[1]];
+  if (leftTile) {
+    if (
+      leftTile.pieceOnTile &&
+      leftTile.pieceOnTile.pieceColor !== pieceToMoveColor
+    ) {
+      diagonalMoves.push(diagonalLeft);
+    }
   }
 
-  const rightTile: TileType = chessboard[diagonalRight[0]][diagonalRight[1]];
-  if (
-    rightTile.pieceOnTile &&
-    rightTile.pieceOnTile.pieceColor !== pieceToMoveColor
-  ) {
-    diagonalMoves.push(diagonalRight);
+  const rightTile: TileType | null =
+    chessboard[diagonalRight[0]][diagonalRight[1]];
+  if (rightTile) {
+    if (
+      rightTile.pieceOnTile &&
+      rightTile.pieceOnTile.pieceColor !== pieceToMoveColor
+    ) {
+      diagonalMoves.push(diagonalRight);
+    }
   }
 
   const allPawnMoves = [...pawnMoves, ...diagonalMoves];
 
-  return chessboardSearch(dispatch, chessboard, allPawnMoves, pieceToMoveColor);
+  return possiblePieceMoves(
+    dispatch,
+    chessboard,
+    allPawnMoves,
+    pieceToMoveColor
+  );
 };

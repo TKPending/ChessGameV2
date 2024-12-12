@@ -1,45 +1,109 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { TileType } from "@/app/types/TileType";
 import { PieceName } from "@/app/types/PieceType";
+import { getPawnMoves } from "./getPawnMoves";
+import { getKnightMoves } from "./getKnightMoves";
+import { getSlidingPieceMoves } from "./getSlidingPieceMoves";
+import { getKingMoves } from "./getKingMoves";
+import { convertTilePosition } from "@/app/utils/convertTilePosition";
 
 export const generateEnemyMoves = (
   dispatch: Dispatch<UnknownAction>,
   chessboard: TileType[][],
   enemyColor: "White" | "Black"
-): [number, number][] => {
-  const enemyMoves: [number, number][] = [];
+): number[][] => {
+  const enemyMoves: Set<string> = new Set();
 
-  // Loop through all the pieces of the enemy and generate their valid moves
   for (let row = 0; row < 8; row++) {
     for (let col = 0; col < 8; col++) {
       const tile = chessboard[row][col];
       const piece = tile.pieceOnTile;
 
       if (piece && piece.pieceColor === enemyColor) {
-        // Depending on the piece type, generate moves (e.g., king, queen, rook, etc.)
+        const [enemyRow, enemyCol] = convertTilePosition(tile.tilePosition);
+
         switch (piece.pieceName) {
           case PieceName.pawn:
-            // Implement pawn movement logic for the enemy
+            getPawnMoves(
+              dispatch,
+              chessboard,
+              enemyColor,
+              enemyRow,
+              enemyCol
+            ).forEach((move) => enemyMoves.add(`${move[0]}-${move[1]}`));
             break;
           case PieceName.knight:
-            // Implement knight movement logic for the enemy
+            getKnightMoves(
+              dispatch,
+              chessboard,
+              enemyRow,
+              enemyCol,
+              enemyColor
+            ).forEach((move) => enemyMoves.add(`${move[0]}-${move[1]}`));
             break;
           case PieceName.rook:
-            // Implement rook movement logic for the enemy
+            getSlidingPieceMoves(
+              dispatch,
+              chessboard,
+              enemyRow,
+              enemyCol,
+              [
+                [1, 0],
+                [-1, 0],
+                [0, 1],
+                [0, -1],
+              ],
+              enemyColor
+            ).forEach((move) => enemyMoves.add(`${move[0]}-${move[1]}`));
             break;
           case PieceName.bishop:
-            // Implement bishop movement logic for the enemy
+            getSlidingPieceMoves(
+              dispatch,
+              chessboard,
+              enemyRow,
+              enemyCol,
+              [
+                [1, 1],
+                [1, -1],
+                [-1, 1],
+                [-1, -1],
+              ],
+              enemyColor
+            ).forEach((move) => enemyMoves.add(`${move[0]}-${move[1]}`));
             break;
           case PieceName.queen:
-            // Implement queen movement logic for the enemy
+            getSlidingPieceMoves(
+              dispatch,
+              chessboard,
+              enemyRow,
+              enemyCol,
+              [
+                [1, 0],
+                [-1, 0],
+                [0, 1],
+                [0, -1],
+                [1, 1],
+                [1, -1],
+                [-1, 1],
+                [-1, -1],
+              ],
+              enemyColor
+            ).forEach((move) => enemyMoves.add(`${move[0]}-${move[1]}`));
             break;
           case PieceName.king:
-            // Implement king movement logic for the enemy
+            getKingMoves(
+              dispatch,
+              chessboard,
+              enemyRow,
+              enemyCol,
+              enemyColor
+            ).forEach((move) => enemyMoves.add(`${move[0]}-${move[1]}`));
             break;
         }
       }
     }
   }
 
-  return enemyMoves;
+  // Convert the Set back to an array and return it
+  return Array.from(enemyMoves).map((move) => move.split("-").map(Number));
 };

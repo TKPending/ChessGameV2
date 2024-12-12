@@ -11,4 +11,5 @@ export interface BoardType {
   clickedTile: TileType | null;
   previousClickedTile: TileType | null;
   piecePotentialMoves: [number, number][];
+  enemyMoves: number[][];
 }

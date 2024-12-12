@@ -1,6 +1,7 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { chessboardSearch } from "./chessboardSearch";
 import { TileType } from "@/app/types/TileType";
+import { possiblePieceMoves } from "../possiblePieceMoves";
 
 export const getSlidingPieceMoves = (
   dispatch: Dispatch<UnknownAction>,
@@ -41,5 +42,6 @@ export const getSlidingPieceMoves = (
     }
   });
 
-  return chessboardSearch(dispatch, chessboard, validMoves, pieceToMoveColor);
+  return possiblePieceMoves(dispatch, chessboard, validMoves, pieceToMoveColor);
+  // return chessboardSearch(dispatch, chessboard, validMoves, pieceToMoveColor);
 };

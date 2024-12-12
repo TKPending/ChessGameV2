@@ -1,5 +1,6 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { chessboardSearch } from "./chessboardSearch";
+import { possiblePieceMoves } from "@/app/utils/possiblePieceMoves";
 import { TileType } from "@/app/types/TileType";
 
 export const getKnightMoves = (
@@ -20,6 +21,11 @@ export const getKnightMoves = (
     [currentRow - 1, currentCol - 2],
   ];
 
-  // Now filter those moves using chessboardSearch
-  return chessboardSearch(dispatch, chessboard, knightMoves, pieceToMoveColor);
+  return possiblePieceMoves(
+    dispatch,
+    chessboard,
+    knightMoves,
+    pieceToMoveColor
+  );
+  // return chessboardSearch(dispatch, chessboard, validMoves, pieceToMoveColor);
 };

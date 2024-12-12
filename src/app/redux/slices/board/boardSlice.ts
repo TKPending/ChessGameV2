@@ -7,7 +7,8 @@ import {
   chessboardReducer,
   chessGamePlayingReducer,
   currentlyClickedTileReducer,
-  pieceValidMoves,
+  enemyMovesReducer,
+  pieceValidMovesReducer,
   previouslyClickedTileReducer,
   updateCurrentTurnReducer,
   updateSpecificTileReducer,
@@ -39,6 +40,7 @@ const initialState: BoardType = {
   clickedTile: null,
   previousClickedTile: null,
   piecePotentialMoves: [],
+  enemyMoves: [],
 };
 
 const boardSlice = createSlice({
@@ -53,7 +55,8 @@ const boardSlice = createSlice({
     setClickedTile: currentlyClickedTileReducer,
     setPreviouslyClickedTile: previouslyClickedTileReducer,
     setPlayerCapturedPiece: capturedPiecesReducer,
-    setValidMoves: pieceValidMoves,
+    setValidMoves: pieceValidMovesReducer,
+    setEnemyMoves: enemyMovesReducer,
   },
 });
 
@@ -67,6 +70,7 @@ export const {
   setPreviouslyClickedTile,
   setPlayerCapturedPiece,
   setValidMoves,
+  setEnemyMoves,
 } = boardSlice.actions;
 
 export default boardSlice.reducer;

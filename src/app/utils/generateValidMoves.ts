@@ -1,13 +1,15 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { convertTilePosition } from "@/app/utils/convertTilePosition";
+import { setEnemyMoves } from "@/app/redux/slices/board/boardSlice";
+import { generateEnemyMoves } from "./moveLogic/generateEnemyMoves";
 import { getSlidingPieceMoves } from "./moveLogic/getSlidingPieceMoves";
 import { getKnightMoves } from "./moveLogic/getKnightMoves";
-import { PieceName } from "@/app/types/PieceType";
-import { TileType } from "@/app/types/TileType";
 import { getKingMoves } from "./moveLogic/getKingMoves";
 import { getPawnMoves } from "./moveLogic/getPawnMoves";
+import { convertTilePosition } from "@/app/utils/convertTilePosition";
+import { PieceName } from "@/app/types/PieceType";
+import { TileType } from "@/app/types/TileType";
 
-export const generatePieceMovements = (
+export const generateValidMoves = (
   dispatch: Dispatch<UnknownAction>,
   chessboard: TileType[][],
   previousClickedTile: TileType | null
@@ -20,6 +22,14 @@ export const generatePieceMovements = (
   const [currentRow, currentCol] = convertTilePosition(
     previousClickedTile.tilePosition
   );
+
+  const allEnemyMoves: number[][] = generateEnemyMoves(
+    dispatch,
+    chessboard,
+    pieceToMoveColor === "White" ? "Black" : "White"
+  );
+
+  dispatch(setEnemyMoves(allEnemyMoves));
 
   switch (pieceName) {
     case PieceName.pawn:
