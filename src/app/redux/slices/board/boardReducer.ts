@@ -102,3 +102,17 @@ export const kingInCheckmateReducer = (
 ) => {
   state.isKingInCheckmate = action.payload;
 };
+
+export const validCheckMovesReducer = (
+  state: BoardType,
+  action: PayloadAction<number[][]>
+) => {
+  state.validCheckMoves = action.payload;
+};
+
+export const inCheckPositionsReducer = (
+  state: BoardType,
+  action: PayloadAction<number[][]>
+) => {
+  state.inCheckPositions = action.payload;
+};

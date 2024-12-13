@@ -66,13 +66,18 @@ const Tile = ({ tile }: Props) => {
       );
       resetTiles(dispatch, updatedChessboard);
 
-      const allEnemyMoves: number[][] = generateEnemyMoves(
+      const updatedAllPieceMoves: any = generateEnemyMoves(
         dispatch,
         updatedChessboard,
         currentTurn
       );
 
-      isKingInCheckmate(dispatch, updatedChessboard, allEnemyMoves);
+      isKingInCheckmate(
+        dispatch,
+        updatedChessboard,
+        updatedAllPieceMoves,
+        currentTurn
+      );
 
       dispatch(setCurrentTurn());
       dispatch(setMoveCounter());

@@ -8,9 +8,9 @@ export const getSlidingPieceMoves = (
   chessboard: TileType[][],
   currentRow: number,
   currentCol: number,
-  directions: [number, number][],
+  directions: number[][],
   pieceToMoveColor: "White" | "Black"
-): [number, number][] => {
+): number[][] => {
   const validMoves: [number, number][] = [];
 
   // Loop over all directions (e.g., up, down, left, right for rooks)
@@ -43,5 +43,4 @@ export const getSlidingPieceMoves = (
   });
 
   return possiblePieceMoves(dispatch, chessboard, validMoves, pieceToMoveColor);
-  // return chessboardSearch(dispatch, chessboard, validMoves, pieceToMoveColor);
 };

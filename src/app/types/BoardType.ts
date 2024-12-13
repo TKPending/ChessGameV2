@@ -14,4 +14,6 @@ export interface BoardType {
   enemyMoves: number[][];
   isKingInCheck: boolean;
   isKingInCheckmate: boolean;
+  validCheckMoves: number[][];
+  inCheckPositions: number[][];
 }
