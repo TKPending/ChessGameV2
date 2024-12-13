@@ -69,7 +69,5 @@ export const isKingInCheckmate = (
     JSON.parse(move)
   );
 
-  console.log("Valid moves to prevent check:", validMovesArray);
-
   dispatch(setValidCheckMoves(validMovesArray));
 };

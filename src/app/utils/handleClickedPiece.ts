@@ -8,11 +8,14 @@ import {
 } from "@/app/redux/slices/board/boardSlice";
 import { generateValidMoves } from "./generateValidMoves";
 import { highlightValidMoves } from "./highlightValidMoves";
+import { isInCheckFilter } from "./isInCheckFilter";
 
 export const handleClickedPiece = (
   dispatch: Dispatch<UnknownAction>,
   clickedTile: TileType,
-  chessboard: TileType[][]
+  chessboard: TileType[][],
+  isInCheck: boolean,
+  validCheckMoves: number[][]
 ) => {
   clearHighlights(dispatch, chessboard);
 
@@ -26,13 +29,19 @@ export const handleClickedPiece = (
 
   dispatch(setPreviouslyClickedTile(clickedTile));
 
-  const pieceValidMoves: [number, number][] = generateValidMoves(
+  // Generate the valid moves for the selected piece
+  const pieceValidMoves: number[][] = generateValidMoves(
     dispatch,
     chessboard,
     clickedTile
   );
 
-  highlightValidMoves(dispatch, chessboard, pieceValidMoves);
+  // Filter moves if the King is in check
+  const filteredMoves: number[][] = isInCheck
+    ? isInCheckFilter(pieceValidMoves, validCheckMoves)
+    : pieceValidMoves;
 
-  dispatch(setValidMoves(pieceValidMoves));
+  // Highlight and dispatch the filtered moves
+  highlightValidMoves(dispatch, chessboard, filteredMoves);
+  dispatch(setValidMoves(filteredMoves));
 };

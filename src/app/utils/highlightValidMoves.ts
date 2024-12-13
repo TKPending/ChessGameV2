@@ -6,9 +6,9 @@ import { TileType } from "@/app/types/TileType";
 export const highlightValidMoves = (
   dispatch: Dispatch<UnknownAction>,
   chessboard: TileType[][],
-  validMoves: [number, number][]
+  validMoves: number[][]
 ) => {
-  validMoves.forEach(([row, col]: [number, number]) => {
+  validMoves.forEach(([row, col]) => {
     const potentialTargetTile: TileType = chessboard[row][col];
     const enemyPiece: PieceType | null = potentialTargetTile.pieceOnTile;
 

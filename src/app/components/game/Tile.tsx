@@ -32,8 +32,14 @@ const Tile = ({ tile }: Props) => {
   const isInCheckmate: boolean = useSelector(
     (state: RootState) => state.board.isKingInCheckmate
   );
+  const isInCheck: boolean = useSelector(
+    (state: RootState) => state.board.isKingInCheck
+  );
   const validMoves: [number, number][] = useSelector(
     (state: RootState) => state.board.piecePotentialMoves
+  );
+  const validCheckMoves: number[][] = useSelector(
+    (state: RootState) => state.board.validCheckMoves
   );
   const pieceOnTile: PieceType | null = tile.pieceOnTile || null;
 
@@ -41,7 +47,13 @@ const Tile = ({ tile }: Props) => {
     // First tile click
     if (!previousClickedTile) {
       if (pieceOnTile && pieceOnTile.pieceColor === currentTurn) {
-        handleClickedPiece(dispatch, clickedTile, chessboard);
+        handleClickedPiece(
+          dispatch,
+          clickedTile,
+          chessboard,
+          isInCheck,
+          validCheckMoves
+        );
       }
       return;
     }
@@ -52,7 +64,13 @@ const Tile = ({ tile }: Props) => {
       pieceOnTile.pieceColor === currentTurn &&
       clickedTile.tilePosition !== previousClickedTile.tilePosition
     ) {
-      handleClickedPiece(dispatch, clickedTile, chessboard);
+      handleClickedPiece(
+        dispatch,
+        clickedTile,
+        chessboard,
+        isInCheck,
+        validCheckMoves
+      );
       return;
     }
 
@@ -92,8 +110,10 @@ const Tile = ({ tile }: Props) => {
   useEffect(() => {
     if (isInCheckmate) {
       console.log("In checkmate");
+    } else if (isInCheck) {
+      console.log("Is in check");
     }
-  }, [isInCheckmate]);
+  }, [isInCheckmate, isInCheck]);
 
   return (
     <div

@@ -11,7 +11,7 @@ export const generateValidMoves = (
   dispatch: Dispatch<UnknownAction>,
   chessboard: TileType[][],
   previousClickedTile: TileType | null
-): [number, number][] => {
+): number[][] => {
   const pieceToMoveColor: "White" | "Black" | undefined =
     previousClickedTile?.pieceOnTile?.pieceColor;
   if (!pieceToMoveColor || !previousClickedTile?.pieceOnTile) return [];
