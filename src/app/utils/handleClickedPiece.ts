@@ -9,6 +9,7 @@ import {
 import { generateValidMoves } from "./generateValidMoves";
 import { highlightValidMoves } from "./highlightValidMoves";
 import { isInCheckFilter } from "./isInCheckFilter";
+import { canCastle } from "./castleLogic/canCastle";
 
 export const handleClickedPiece = (
   dispatch: Dispatch<UnknownAction>,

@@ -13,6 +13,7 @@ import { resetTiles } from "@/app/utils/resetTiles";
 import { generateEnemyMoves } from "@/app/utils/moveLogic/generateEnemyMoves";
 import { isKingInCheckmate } from "@/app/utils/moveLogic/king/isKingInCheckmate";
 import { useEffect } from "react";
+import { canCastle } from "@/app/utils/castleLogic/canCastle";
 
 type Props = {
   tile: TileType;
@@ -44,7 +45,6 @@ const Tile = ({ tile }: Props) => {
   const pieceOnTile: PieceType | null = tile.pieceOnTile || null;
 
   const handleTileClick = (clickedTile: TileType) => {
-    // First tile click
     if (!previousClickedTile) {
       if (pieceOnTile && pieceOnTile.pieceColor === currentTurn) {
         handleClickedPiece(
@@ -58,7 +58,6 @@ const Tile = ({ tile }: Props) => {
       return;
     }
 
-    // Clicking on a tile with the same team
     if (
       pieceOnTile &&
       pieceOnTile.pieceColor === currentTurn &&
@@ -74,8 +73,9 @@ const Tile = ({ tile }: Props) => {
       return;
     }
 
-    // Move Piece
     if (isMoveValid(validMoves, clickedTile.tilePosition)) {
+      // Reset Check Moves
+
       const updatedChessboard: TileType[][] | [] = movePiece(
         dispatch,
         previousClickedTile,
@@ -89,6 +89,13 @@ const Tile = ({ tile }: Props) => {
         updatedChessboard,
         currentTurn
       );
+
+      const { canCastleLeft, canCastleRight } = canCastle(
+        chessboard,
+        updatedAllPieceMoves,
+        currentTurn
+      );
+      console.log({ canCastleLeft, canCastleRight });
 
       isKingInCheckmate(
         dispatch,
