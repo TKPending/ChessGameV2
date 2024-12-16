@@ -9,13 +9,20 @@ export const canCastle = (
   currentTurn: "White" | "Black"
 ): { canCastleLeft: boolean; canCastleRight: boolean } => {
   if (!arePiecesInStartingPositions(chessboard, currentTurn)) {
-    return { canCastleLeft: false, canCastleRight: false }; // If pieces aren't in starting positions, return false for both
+    return { canCastleLeft: false, canCastleRight: false };
   }
 
   const row = currentTurn === "White" ? 7 : 0;
   const kingPosition: [number, number] = [row, 4];
   const leftRookPosition: [number, number] = [row, 0];
   const rightRookPosition: [number, number] = [row, 7];
+
+  const king = chessboard[row][4];
+
+  if (!king) {
+    console.log("King isn't in starting position");
+    return { canCastleLeft: false, canCastleRight: false };
+  }
 
   // Check if castling left is possible
   const canCastleLeft =

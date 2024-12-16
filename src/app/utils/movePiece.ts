@@ -1,6 +1,7 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import {
   setChessboard,
+  setEnemyMoves,
   setPlayerCapturedPiece,
 } from "@/app/redux/slices/board/boardSlice";
 import {
@@ -61,6 +62,5 @@ export const movePiece = (
 
   // Update the board state in Redux
   dispatch(setChessboard(newBoardState));
-
   return newBoardState;
 };

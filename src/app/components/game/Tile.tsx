@@ -1,7 +1,10 @@
 import { RootState } from "@/app/redux/store";
 import { useSelector, useDispatch } from "react-redux";
 import { setMoveCounter } from "@/app/redux/slices/gameHistory/gameHistorySlice";
-import { setCurrentTurn } from "@/app/redux/slices/board/boardSlice";
+import {
+  setCurrentTurn,
+  setEnemyMoves,
+} from "@/app/redux/slices/board/boardSlice";
 import ChessPiece from "./ChessPiece";
 import { PieceType } from "@/app/types/PieceType";
 import { TileType } from "@/app/types/TileType";
@@ -14,6 +17,7 @@ import { generateEnemyMoves } from "@/app/utils/moveLogic/generateEnemyMoves";
 import { isKingInCheckmate } from "@/app/utils/moveLogic/king/isKingInCheckmate";
 import { useEffect } from "react";
 import { canCastle } from "@/app/utils/castleLogic/canCastle";
+import { EnemyAttackType } from "@/app/types/EnemyAttackType";
 
 type Props = {
   tile: TileType;
@@ -43,6 +47,9 @@ const Tile = ({ tile }: Props) => {
     (state: RootState) => state.board.validCheckMoves
   );
   const pieceOnTile: PieceType | null = tile.pieceOnTile || null;
+  const enemyMoves: EnemyAttackType[] = useSelector(
+    (state: RootState) => state.board.enemyMoves
+  );
 
   const handleTileClick = (clickedTile: TileType) => {
     if (!previousClickedTile) {
@@ -52,7 +59,9 @@ const Tile = ({ tile }: Props) => {
           clickedTile,
           chessboard,
           isInCheck,
-          validCheckMoves
+          validCheckMoves,
+          enemyMoves,
+          currentTurn
         );
       }
       return;
@@ -68,7 +77,9 @@ const Tile = ({ tile }: Props) => {
         clickedTile,
         chessboard,
         isInCheck,
-        validCheckMoves
+        validCheckMoves,
+        enemyMoves,
+        currentTurn
       );
       return;
     }
@@ -84,26 +95,9 @@ const Tile = ({ tile }: Props) => {
       );
       resetTiles(dispatch, updatedChessboard);
 
-      const updatedAllPieceMoves: any = generateEnemyMoves(
-        dispatch,
-        updatedChessboard,
-        currentTurn
-      );
+      isKingInCheckmate(dispatch, updatedChessboard, enemyMoves, currentTurn);
 
-      const { canCastleLeft, canCastleRight } = canCastle(
-        chessboard,
-        updatedAllPieceMoves,
-        currentTurn
-      );
-      console.log({ canCastleLeft, canCastleRight });
-
-      isKingInCheckmate(
-        dispatch,
-        updatedChessboard,
-        updatedAllPieceMoves,
-        currentTurn
-      );
-
+      dispatch(setEnemyMoves([]));
       dispatch(setCurrentTurn());
       dispatch(setMoveCounter());
 

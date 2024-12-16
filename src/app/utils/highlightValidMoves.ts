@@ -6,15 +6,19 @@ import { TileType } from "@/app/types/TileType";
 export const highlightValidMoves = (
   dispatch: Dispatch<UnknownAction>,
   chessboard: TileType[][],
-  validMoves: number[][]
+  validMoves: number[][],
+  currentTurn: "White" | "Black"
 ) => {
   validMoves.forEach(([row, col]) => {
     const potentialTargetTile: TileType = chessboard[row][col];
     const enemyPiece: PieceType | null = potentialTargetTile.pieceOnTile;
 
-    const enemyOrEmpty: "friendly" | "enemy" = enemyPiece
-      ? "enemy"
-      : "friendly";
+    const enemyOrEmpty: "friendly" | "enemy" =
+      enemyPiece?.pieceColor === currentTurn
+        ? "friendly"
+        : enemyPiece
+        ? "enemy"
+        : "friendly";
 
     dispatch(
       setSpecificTile({

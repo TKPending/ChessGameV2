@@ -11,7 +11,7 @@ export const findKing = (
       if (
         piece &&
         piece.pieceName === "King" &&
-        piece.pieceColor !== currentTurn
+        piece.pieceColor === currentTurn
       ) {
         return tile;
       }

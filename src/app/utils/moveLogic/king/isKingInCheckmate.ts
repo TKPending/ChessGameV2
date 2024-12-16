@@ -29,12 +29,16 @@ export const isKingInCheckmate = (
     kingTile.pieceOnTile.pieceColor
   );
 
+  console.log({ kingTile, enemyMoves });
+
   // Check if the king is in check
   const isKingInCheck = enemyMoves.some((enemy) =>
     enemy.moves.some(([row, col]) => row === kingRow && col === kingCol)
   );
 
   dispatch(setIsKingInCheck(isKingInCheck));
+
+  console.log(isKingInCheck);
 
   // If the king isn't in check, return early
   if (!isKingInCheck) return;
@@ -49,6 +53,7 @@ export const isKingInCheckmate = (
   );
 
   if (isCheckmate) {
+    console.log("King is in check");
     dispatch(setIsKingInCheckmate(true));
     return;
   }

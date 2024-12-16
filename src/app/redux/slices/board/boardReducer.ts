@@ -2,6 +2,7 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import { BoardType } from "@/app/types/BoardType";
 import { TileType } from "@/app/types/TileType";
 import { PieceType } from "@/app/types/PieceType";
+import { EnemyAttackType } from "@/app/types/EnemyAttackType";
 
 export const addPlayerNameReducer = (
   state: BoardType,
@@ -84,7 +85,7 @@ export const pieceValidMovesReducer = (
 
 export const enemyMovesReducer = (
   state: BoardType,
-  action: PayloadAction<number[][]>
+  action: PayloadAction<EnemyAttackType[]>
 ) => {
   state.enemyMoves = action.payload;
 };

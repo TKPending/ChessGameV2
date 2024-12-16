@@ -2,6 +2,7 @@ import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { TileType } from "@/app/types/TileType";
 import { clearHighlights } from "@/app/utils/clearHighlight";
 import {
+  setEnemyMoves,
   setPreviouslyClickedTile,
   setSpecificTile,
   setValidMoves,
@@ -10,15 +11,27 @@ import { generateValidMoves } from "./generateValidMoves";
 import { highlightValidMoves } from "./highlightValidMoves";
 import { isInCheckFilter } from "./isInCheckFilter";
 import { canCastle } from "./castleLogic/canCastle";
+import { generateEnemyMoves } from "./moveLogic/generateEnemyMoves";
+import { EnemyAttackType } from "../types/EnemyAttackType";
+import { convertTilePosition } from "./convertTilePosition";
+import { isKingInCheckmate } from "./moveLogic/king/isKingInCheckmate";
 
 export const handleClickedPiece = (
   dispatch: Dispatch<UnknownAction>,
   clickedTile: TileType,
   chessboard: TileType[][],
   isInCheck: boolean,
-  validCheckMoves: number[][]
+  validCheckMoves: number[][],
+  enemyMoves: EnemyAttackType[],
+  currentTurn: "White" | "Black"
 ) => {
   clearHighlights(dispatch, chessboard);
+  const tileConversion: [number, number] = convertTilePosition(
+    clickedTile.tilePosition
+  );
+  let castleLeftMove: [number, number] = [tileConversion[0], 0];
+  let castleRightMove: [number, number] = [tileConversion[0], 7];
+  let castleMoves: number[][] = [];
 
   dispatch(
     setSpecificTile({
@@ -30,6 +43,21 @@ export const handleClickedPiece = (
 
   dispatch(setPreviouslyClickedTile(clickedTile));
 
+  if (clickedTile.pieceOnTile?.pieceName === "King") {
+    const { canCastleLeft, canCastleRight } = canCastle(
+      chessboard,
+      enemyMoves,
+      currentTurn
+    );
+
+    if (canCastleLeft) {
+      castleMoves.push(castleLeftMove);
+    }
+    if (canCastleRight) {
+      castleMoves.push(castleRightMove);
+    }
+  }
+
   // Generate the valid moves for the selected piece
   const pieceValidMoves: number[][] = generateValidMoves(
     dispatch,
@@ -37,12 +65,16 @@ export const handleClickedPiece = (
     clickedTile
   );
 
+  // isKingInCheckmate(dispatch, chessboard, enemyMoves, currentTurn);
   // Filter moves if the King is in check
-  const filteredMoves: number[][] = isInCheck
+  const filteredMoves = isInCheck
     ? isInCheckFilter(pieceValidMoves, validCheckMoves)
     : pieceValidMoves;
 
+  const validMoves = [...castleMoves, ...filteredMoves];
+
   // Highlight and dispatch the filtered moves
-  highlightValidMoves(dispatch, chessboard, filteredMoves);
-  dispatch(setValidMoves(filteredMoves));
+  highlightValidMoves(dispatch, chessboard, validMoves, currentTurn);
+  // @ts-ignore
+  dispatch(setValidMoves(validMoves));
 };

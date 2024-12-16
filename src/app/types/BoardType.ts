@@ -1,5 +1,6 @@
 import { TileType } from "./TileType";
 import { PlayerType } from "./PlayerType";
+import { EnemyAttackType } from "./EnemyAttackType";
 
 export interface BoardType {
   chessboard: TileType[][];
@@ -11,7 +12,7 @@ export interface BoardType {
   clickedTile: TileType | null;
   previousClickedTile: TileType | null;
   piecePotentialMoves: [number, number][];
-  enemyMoves: number[][];
+  enemyMoves: EnemyAttackType[];
   isKingInCheck: boolean;
   isKingInCheckmate: boolean;
   validCheckMoves: number[][];
