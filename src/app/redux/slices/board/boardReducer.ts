@@ -1,4 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit";
+import { isRookInTile } from "@/app/utils/isRookInTile";
 import { BoardType } from "@/app/types/BoardType";
 import { TileType } from "@/app/types/TileType";
 import { PieceType } from "@/app/types/PieceType";
@@ -116,4 +117,48 @@ export const inCheckPositionsReducer = (
   action: PayloadAction<number[][]>
 ) => {
   state.inCheckPositions = action.payload;
+};
+
+export const castlingOptionGoneReducer = (state: BoardType) => {
+  const team = state.currentTurn === "White" ? "white" : "black";
+
+  if (state.castling[`${team}King`].kingMoved) {
+    state.castling[team].canCastleOption = false;
+    state.castling[team].rightCastleOption = false;
+    state.castling[team].leftCastleOption = false;
+    return;
+  }
+
+  state.castling[team].canCastleOption =
+    state.castling[team].leftCastleOption ||
+    state.castling[team].rightCastleOption;
+};
+
+// Reducer to update king movement
+export const kingMovedReducer = (state: BoardType) => {
+  const team = state.currentTurn === "White" ? "white" : "black";
+  state.castling[`${team}King`].kingMoved = true;
+  state.castling[team].canCastleOption = false;
+  state.castling[team].leftCastleOption = false;
+  state.castling[team].rightCastleOption = false;
+};
+
+// Reducer to update rook movement
+export const rookMovedReducer = (
+  state: BoardType,
+  action: PayloadAction<"left" | "right">
+) => {
+  const team = state.currentTurn === "White" ? "white" : "black";
+  const side: "left" | "right" = action.payload;
+
+  if (side === "left") {
+    state.castling[team].leftCastleOption = false;
+  } else if (side === "right") {
+    state.castling[team].rightCastleOption = false;
+  }
+
+  // Update the general castling option
+  state.castling[team].canCastleOption =
+    state.castling[team].leftCastleOption ||
+    state.castling[team].rightCastleOption;
 };

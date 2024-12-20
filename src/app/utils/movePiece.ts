@@ -9,15 +9,40 @@ import {
   setMoveHistory,
 } from "@/app/redux/slices/gameHistory/gameHistorySlice";
 import { TileType } from "@/app/types/TileType";
+import { CastleType } from "../types/castleType";
+import { PieceType } from "../types/PieceType";
+import { kingMovedPreventCastle } from "./castleLogic/kingMovedPreventCastle";
+import { rookMovedPreventCastle } from "./castleLogic/rookMovedPreventCastle";
 
 export const movePiece = (
   dispatch: Dispatch<UnknownAction>,
   previousClickedTile: TileType | null,
   targetTile: TileType,
-  currentBoardState: TileType[][]
+  currentBoardState: TileType[][],
+  castling: CastleType
 ) => {
   // No piece to move
   if (!previousClickedTile?.pieceOnTile) return [];
+
+  const pieceToMove: PieceType = previousClickedTile.pieceOnTile;
+  const currentTurn: "White" | "Black" = pieceToMove.pieceColor;
+  const castleColor: "white" | "black" =
+    currentTurn === "White" ? "white" : "black";
+
+  if (pieceToMove.pieceName === "King") {
+    kingMovedPreventCastle(dispatch, castleColor, castling);
+  }
+
+  if (pieceToMove.pieceName === "Rook") {
+    rookMovedPreventCastle(
+      dispatch,
+      castleColor,
+      castling,
+      previousClickedTile
+    );
+  }
+
+  console.log(castling);
 
   // Capture logic
   if (targetTile.pieceOnTile) {
@@ -40,7 +65,7 @@ export const movePiece = (
         // Move piece to the target tile
         return {
           ...tile,
-          pieceOnTile: previousClickedTile.pieceOnTile,
+          pieceOnTile: pieceToMove,
           isHighlighted: false,
         };
       }

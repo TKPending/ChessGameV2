@@ -15,6 +15,7 @@ import { getTileBackgroundColor } from "@/app/utils/getTileBackgroundColor";
 import { resetTiles } from "@/app/utils/resetTiles";
 import { useEffect } from "react";
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
+import { CastleType } from "@/app/types/castleType";
 
 type Props = {
   tile: TileType;
@@ -46,6 +47,9 @@ const Tile = ({ tile }: Props) => {
   const pieceOnTile: PieceType | null = tile.pieceOnTile || null;
   const enemyMoves: EnemyAttackType[] = useSelector(
     (state: RootState) => state.board.enemyMoves
+  );
+  const castling: CastleType = useSelector(
+    (state: RootState) => state.board.castling
   );
 
   const handleTileClick = (clickedTile: TileType) => {
@@ -88,11 +92,10 @@ const Tile = ({ tile }: Props) => {
         dispatch,
         previousClickedTile,
         clickedTile,
-        chessboard
+        chessboard,
+        castling
       );
       resetTiles(dispatch, updatedChessboard);
-
-      // isKingInCheckmate(dispatch, updatedChessboard, enemyMoves, currentTurn);
 
       dispatch(setEnemyMoves([]));
       dispatch(setCurrentTurn());
