@@ -21,7 +21,7 @@ export const isKingInCheckmate = (
   if (!kingTile || !kingTile.pieceOnTile) return;
 
   const [kingRow, kingCol] = convertTilePosition(kingTile.tilePosition);
-  const kingMoves = getKingMoves(
+  const kingMoves: [number, number][] = getKingMoves(
     dispatch,
     chessboard,
     kingRow,
@@ -29,7 +29,15 @@ export const isKingInCheckmate = (
     kingTile.pieceOnTile.pieceColor
   );
 
-  console.log({ kingTile, enemyMoves });
+  console.log({
+    king: {
+      piece: kingTile,
+      position: [kingRow, kingCol],
+      color: kingTile.pieceOnTile.pieceColor,
+    },
+    enemyMoves,
+    enemyColor: currentTurn,
+  });
 
   // Check if the king is in check
   const isKingInCheck = enemyMoves.some((enemy) =>
@@ -37,8 +45,6 @@ export const isKingInCheckmate = (
   );
 
   dispatch(setIsKingInCheck(isKingInCheck));
-
-  console.log(isKingInCheck);
 
   // If the king isn't in check, return early
   if (!isKingInCheck) return;
@@ -53,7 +59,7 @@ export const isKingInCheckmate = (
   );
 
   if (isCheckmate) {
-    console.log("King is in check");
+    console.log("King is in checkmate");
     dispatch(setIsKingInCheckmate(true));
     return;
   }

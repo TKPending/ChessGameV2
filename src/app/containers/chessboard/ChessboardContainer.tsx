@@ -8,6 +8,8 @@ import {
 } from "@/app/redux/slices/board/boardSlice";
 import { generateTiles } from "@/app/utils/generateTiles";
 import { generateEnemyMoves } from "@/app/utils/moveLogic/generateEnemyMoves";
+import { isKingInCheckmate } from "@/app/utils/moveLogic/king/isKingInCheckmate";
+import { EnemyAttackType } from "@/app/types/EnemyAttackType";
 
 const ChessboardContainer = () => {
   const dispatch = useDispatch();
@@ -16,15 +18,25 @@ const ChessboardContainer = () => {
     (state: RootState) => state.board.currentTurn
   );
   const enemyMoves = useSelector((state: RootState) => state.board.enemyMoves);
+  const boardMoves: number = useSelector(
+    (state: RootState) => state.gameHistory.count
+  );
 
   useEffect(() => {
     if (chessboard.length === 0) {
       dispatch(setChessboard(generateTiles()));
     }
 
-    if (chessboard.length > 0 && enemyMoves.length === 0) {
-      console.log({ currentTurn });
-      const moves = generateEnemyMoves(dispatch, chessboard, currentTurn);
+    if (chessboard.length > 0 && enemyMoves.length === 0 && boardMoves > 3) {
+      const oppositeColor: "White" | "Black" =
+        currentTurn === "White" ? "Black" : "White";
+
+      const moves: EnemyAttackType[] = generateEnemyMoves(
+        dispatch,
+        chessboard,
+        oppositeColor
+      );
+      isKingInCheckmate(dispatch, chessboard, moves, currentTurn);
 
       dispatch(setEnemyMoves(moves));
     }

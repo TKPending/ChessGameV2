@@ -95,7 +95,7 @@ const Tile = ({ tile }: Props) => {
       );
       resetTiles(dispatch, updatedChessboard);
 
-      isKingInCheckmate(dispatch, updatedChessboard, enemyMoves, currentTurn);
+      // isKingInCheckmate(dispatch, updatedChessboard, enemyMoves, currentTurn);
 
       dispatch(setEnemyMoves([]));
       dispatch(setCurrentTurn());
