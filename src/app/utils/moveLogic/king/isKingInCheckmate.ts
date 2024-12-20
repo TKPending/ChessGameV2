@@ -29,16 +29,6 @@ export const isKingInCheckmate = (
     kingTile.pieceOnTile.pieceColor
   );
 
-  console.log({
-    king: {
-      piece: kingTile,
-      position: [kingRow, kingCol],
-      color: kingTile.pieceOnTile.pieceColor,
-    },
-    enemyMoves,
-    enemyColor: currentTurn,
-  });
-
   // Check if the king is in check
   const isKingInCheck = enemyMoves.some((enemy) =>
     enemy.moves.some(([row, col]) => row === kingRow && col === kingCol)

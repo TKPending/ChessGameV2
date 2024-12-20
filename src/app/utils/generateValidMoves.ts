@@ -6,11 +6,13 @@ import { getPawnMoves } from "./moveLogic/getPawnMoves";
 import { convertTilePosition } from "@/app/utils/convertTilePosition";
 import { PieceName } from "@/app/types/PieceType";
 import { TileType } from "@/app/types/TileType";
+import { EnemyAttackType } from "@/app/types/EnemyAttackType";
 
 export const generateValidMoves = (
   dispatch: Dispatch<UnknownAction>,
   chessboard: TileType[][],
-  previousClickedTile: TileType | null
+  previousClickedTile: TileType | null,
+  enemyMoves: EnemyAttackType[]
 ): number[][] => {
   const pieceToMoveColor: "White" | "Black" | undefined =
     previousClickedTile?.pieceOnTile?.pieceColor;
@@ -93,7 +95,8 @@ export const generateValidMoves = (
         chessboard,
         currentRow,
         currentCol,
-        pieceToMoveColor
+        pieceToMoveColor,
+        enemyMoves
       );
 
     default:

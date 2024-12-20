@@ -13,10 +13,7 @@ import { isMoveValid } from "@/app/utils/isMoveValid";
 import { handleClickedPiece } from "@/app/utils/handleClickedPiece";
 import { getTileBackgroundColor } from "@/app/utils/getTileBackgroundColor";
 import { resetTiles } from "@/app/utils/resetTiles";
-import { generateEnemyMoves } from "@/app/utils/moveLogic/generateEnemyMoves";
-import { isKingInCheckmate } from "@/app/utils/moveLogic/king/isKingInCheckmate";
 import { useEffect } from "react";
-import { canCastle } from "@/app/utils/castleLogic/canCastle";
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
 
 type Props = {

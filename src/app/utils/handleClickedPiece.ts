@@ -62,7 +62,8 @@ export const handleClickedPiece = (
   const pieceValidMoves: number[][] = generateValidMoves(
     dispatch,
     chessboard,
-    clickedTile
+    clickedTile,
+    enemyMoves
   );
 
   // isKingInCheckmate(dispatch, chessboard, enemyMoves, currentTurn);
