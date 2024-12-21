@@ -1,9 +1,9 @@
 import { RootState } from "@/app/redux/store";
 import { useSelector } from "react-redux";
-import PreviousMove from "@/app/components/previousMoves/PreviousMove";
+import PreviousMove from "@/app/components/moveHistoryComponents/PreviousMove";
 import { MoveHistoryType } from "@/app/types/GameHistoryType";
 
-const PreviousMovesContainer = () => {
+const MoveHistoryContainer = () => {
   const moveHistory: MoveHistoryType[] = useSelector(
     (state: RootState) => state.gameHistory.moveHistory
   );
@@ -32,4 +32,4 @@ const PreviousMovesContainer = () => {
   );
 };
 
-export default PreviousMovesContainer;
+export default MoveHistoryContainer;

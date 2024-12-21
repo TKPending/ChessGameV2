@@ -1,7 +1,7 @@
 import { RootState } from "@/app/redux/store";
 import { useSelector } from "react-redux";
-import PlayerNameInput from "@/app/components/gameSetup/PlayerNameInput";
-import ContinueButton from "@/app/components/gameSetup/ContinueButton";
+import PlayerNameInput from "@/app/components/playerSetupComponents/PlayerNameInput";
+import ContinueButton from "@/app/components/playerSetupComponents/ContinueButton";
 
 const PlayerNamesLayout = () => {
   const players = useSelector((state: RootState) => state.board.players);

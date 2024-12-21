@@ -2,7 +2,7 @@ import { setMoveHistoryVisibility } from "@/app/redux/slices/gameHistory/gameHis
 import { RootState } from "@/app/redux/store";
 import { useSelector, useDispatch } from "react-redux";
 
-const DisplayMoves = () => {
+const DisplayMovesHistory = () => {
   const dispatch = useDispatch();
   const isPreviousMovesHidden: boolean = useSelector(
     (state: RootState) => state.gameHistory.isPreviousMovesHidden
@@ -28,4 +28,4 @@ const DisplayMoves = () => {
   );
 };
 
-export default DisplayMoves;
+export default DisplayMovesHistory;

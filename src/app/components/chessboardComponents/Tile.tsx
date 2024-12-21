@@ -5,7 +5,7 @@ import {
   setCurrentTurn,
   setEnemyMoves,
 } from "@/app/redux/slices/board/boardSlice";
-import ChessPiece from "./ChessPiece";
+import Piece from "./Piece";
 import { PieceType } from "@/app/types/PieceType";
 import { TileType } from "@/app/types/TileType";
 import { handleMovePiece } from "@/app/utils/handlers/handleMovePiece";
@@ -121,7 +121,7 @@ const Tile = ({ tile }: Props) => {
         aspectRatio: "1",
       }}
     >
-      {pieceOnTile && <ChessPiece tile={tile} />}
+      {pieceOnTile && <Piece tile={tile} />}
     </div>
   );
 };

@@ -10,7 +10,7 @@ type Props = {
   tile: TileType;
 };
 
-const ChessPiece = ({ tile }: Props) => {
+const Piece = ({ tile }: Props) => {
   const dispatch = useDispatch();
   const piece: PieceType | null = tile.pieceOnTile || null;
   if (!piece) {
@@ -29,4 +29,4 @@ const ChessPiece = ({ tile }: Props) => {
   );
 };
 
-export default ChessPiece;
+export default Piece;

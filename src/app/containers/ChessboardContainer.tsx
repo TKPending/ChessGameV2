@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { RootState } from "@/app/redux/store";
-import Tile from "@/app/components/game/Tile";
+import Tile from "@/app/components/chessboardComponents/Tile";
 import {
   setChessboard,
   setEnemyMoves,
