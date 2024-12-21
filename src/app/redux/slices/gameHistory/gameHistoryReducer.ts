@@ -1,7 +1,7 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { GameHistoryType, MoveHistoryType } from "@/app/types/GameHistoryType";
 import { TileType } from "@/app/types/TileType";
-import { PieceName, PieceType } from "@/app/types/PieceType";
+import { PieceName } from "@/app/types/PieceType";
 
 export const updateMoveCounterReducer = (state: GameHistoryType) => {
   state.count = state.count + 1;

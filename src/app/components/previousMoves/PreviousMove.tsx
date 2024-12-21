@@ -1,7 +1,5 @@
-import { UseSelector } from "react-redux";
-import { PieceName, PieceType } from "@/app/types/PieceType";
+import { PieceType } from "@/app/types/PieceType";
 import { MoveHistoryType } from "@/app/types/GameHistoryType";
-import { RootState } from "@/app/redux/store";
 
 type Props = {
   move: MoveHistoryType;

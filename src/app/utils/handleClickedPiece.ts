@@ -13,6 +13,8 @@ import { isInCheckFilter } from "./isInCheckFilter";
 import { canCastle } from "./castleLogic/canCastle";
 import { EnemyAttackType } from "../types/EnemyAttackType";
 import { convertTilePosition } from "./convertTilePosition";
+import { kingSafeMoves } from "./kingSafeMoves";
+import { PieceName, PieceType } from "../types/PieceType";
 
 export const handleClickedPiece = (
   dispatch: Dispatch<UnknownAction>,
@@ -27,6 +29,8 @@ export const handleClickedPiece = (
   const tileConversion: [number, number] = convertTilePosition(
     clickedTile.tilePosition
   );
+  const pieceOnTileName: PieceName | undefined =
+    clickedTile.pieceOnTile?.pieceName;
   let castleLeftMove: [number, number] = [tileConversion[0], 0];
   let castleRightMove: [number, number] = [tileConversion[0], 7];
   let castleMoves: number[][] = [];
@@ -41,7 +45,7 @@ export const handleClickedPiece = (
 
   dispatch(setPreviouslyClickedTile(clickedTile));
 
-  if (clickedTile.pieceOnTile?.pieceName === "King") {
+  if (pieceOnTileName === "King") {
     const { canCastleLeft, canCastleRight } = canCastle(
       chessboard,
       enemyMoves,
@@ -69,7 +73,12 @@ export const handleClickedPiece = (
     ? isInCheckFilter(pieceValidMoves, validCheckMoves)
     : pieceValidMoves;
 
-  const validMoves = [...castleMoves, ...filteredMoves];
+  let kingMoves: [number, number][] = [];
+  if (pieceOnTileName === "King") {
+    kingMoves = kingSafeMoves(dispatch, chessboard, clickedTile, enemyMoves);
+  }
+
+  const validMoves = [...castleMoves, ...filteredMoves, ...kingMoves];
 
   // Highlight and dispatch the filtered moves
   highlightValidMoves(dispatch, chessboard, validMoves, currentTurn);

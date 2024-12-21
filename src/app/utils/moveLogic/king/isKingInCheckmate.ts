@@ -42,22 +42,6 @@ export const isKingInCheckmate = (
     return;
   }
 
-  // Check if the King has safe moves
-  const kingSafeMoves = kingMoves.filter(
-    ([row, col]) =>
-      !enemyMoves.some((enemy) =>
-        enemy.moves.some(
-          ([enemyRow, enemyCol]) => enemyRow === row && enemyCol === col
-        )
-      )
-  );
-
-  if (kingSafeMoves.length > 0) {
-    dispatch(setIsKingInCheckmate(false));
-    dispatch(setValidCheckMoves(kingSafeMoves));
-    return;
-  }
-
   // Check if the King can capture attacking pieces
   const kingCaptureMoves = kingMoves.filter(
     ([row, col]) =>
@@ -73,8 +57,6 @@ export const isKingInCheckmate = (
         )
       )
   );
-
-  console.log({ kingValidCaptureMoves });
 
   if (kingValidCaptureMoves.length > 0) {
     dispatch(setIsKingInCheckmate(false));
