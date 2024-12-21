@@ -5,7 +5,7 @@ import { getPawnMoves } from "./getPawnMoves";
 import { getKnightMoves } from "./getKnightMoves";
 import { getSlidingPieceMoves } from "./getSlidingPieceMoves";
 import { getKingMoves } from "./getKingMoves";
-import { convertTilePosition } from "@/app/utils/convertTilePosition";
+import { convertTilePosition } from "@/app/utils/helpers/convertTilePosition";
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
 
 // Helper to classify sliding pieces' directions

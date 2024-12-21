@@ -11,7 +11,7 @@ import { TileType } from "@/app/types/TileType";
 import { movePiece } from "@/app/utils/movePiece";
 import { isMoveValid } from "@/app/utils/isMoveValid";
 import { handleClickedPiece } from "@/app/utils/handleClickedPiece";
-import { getTileBackgroundColor } from "@/app/utils/getTileBackgroundColor";
+import { getTileBackgroundColor } from "@/app/utils/helpers/getTileBackgroundColor";
 import { resetTiles } from "@/app/utils/resetTiles";
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
 import { CastleType } from "@/app/types/CastleType";

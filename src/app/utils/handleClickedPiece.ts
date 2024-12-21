@@ -11,7 +11,7 @@ import { highlightValidMoves } from "./highlightValidMoves";
 import { isInCheckFilter } from "./isInCheckFilter";
 import { canCastle } from "./castleLogic/canCastle";
 import { EnemyAttackType } from "../types/EnemyAttackType";
-import { convertTilePosition } from "./convertTilePosition";
+import { convertTilePosition } from "./helpers/convertTilePosition";
 import { kingSafeMoves } from "./kingSafeMoves";
 import { PieceName } from "../types/PieceType";
 

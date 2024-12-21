@@ -1,6 +1,6 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { TileType } from "@/app/types/TileType";
-import { convertTilePosition } from "@/app/utils/convertTilePosition";
+import { convertTilePosition } from "@/app/utils/helpers/convertTilePosition";
 import { getKingMoves } from "@/app/utils/moveLogic/getKingMoves";
 import {
   setIsKingInCheck,

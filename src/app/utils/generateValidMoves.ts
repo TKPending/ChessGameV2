@@ -3,7 +3,7 @@ import { getSlidingPieceMoves } from "./moveLogic/getSlidingPieceMoves";
 import { getKnightMoves } from "./moveLogic/getKnightMoves";
 import { getKingMoves } from "./moveLogic/getKingMoves";
 import { getPawnMoves } from "./moveLogic/getPawnMoves";
-import { convertTilePosition } from "@/app/utils/convertTilePosition";
+import { convertTilePosition } from "@/app/utils/helpers/convertTilePosition";
 import { PieceName } from "@/app/types/PieceType";
 import { TileType } from "@/app/types/TileType";
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
