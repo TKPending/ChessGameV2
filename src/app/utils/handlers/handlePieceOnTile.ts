@@ -14,6 +14,16 @@ import { EnemyAttackType } from "@/app/types/EnemyAttackType";
 import { PieceName } from "@/app/types/PieceType";
 import { TileType } from "@/app/types/TileType";
 
+/**
+ * Deals with the piece being clicked on the tile
+ * @param dispatch Update state in Redux
+ * @param clickedTile The current tile that is being clicked
+ * @param chessboard Chessboard Object keeping track of the Chess Game
+ * @param isInCheck Whether the King piece is in check
+ * @param validCheckMoves Valid moves that can be made
+ * @param enemyMoves All enemy moves that can be made
+ * @param currentTurn The current turn
+ */
 export const handlePieceOnTile = (
   dispatch: Dispatch<UnknownAction>,
   clickedTile: TileType,

@@ -2,6 +2,15 @@ import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { possiblePieceMoves } from "@/app/utils/pieceMovements/helpers/possiblePieceMoves";
 import { TileType } from "@/app/types/TileType";
 
+/**
+ * Returns all the moves of a Knight piece
+ * @param dispatch Updates the redux state
+ * @param chessboard Object keeping track of the chessboard
+ * @param currentRow Row of the current Knight
+ * @param currentCol Col of the current Knight
+ * @param pieceToMoveColor Color of the current Knight
+ * @returns
+ */
 export const getKnightMoves = (
   dispatch: Dispatch<UnknownAction>,
   chessboard: TileType[][],
@@ -26,5 +35,4 @@ export const getKnightMoves = (
     knightMoves,
     pieceToMoveColor
   );
-  // return chessboardSearch(dispatch, chessboard, validMoves, pieceToMoveColor);
 };

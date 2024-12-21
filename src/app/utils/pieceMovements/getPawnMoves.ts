@@ -2,6 +2,15 @@ import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { TileType } from "@/app/types/TileType";
 import { possiblePieceMoves } from "@/app/utils/pieceMovements/helpers/possiblePieceMoves";
 
+/**
+ * Returns all the moves that a Pawn can do
+ * @param dispatch Update Redux State
+ * @param chessboard Object that keeps track of the Chessboard
+ * @param pieceToMoveColor Color of the piece that is going to be moved
+ * @param currentRow Row of the current Pawn
+ * @param currentCol Col of the current Pawn
+ * @returns All the moves that a Pawn can make
+ */
 export const getPawnMoves = (
   dispatch: Dispatch<UnknownAction>,
   chessboard: TileType[][],

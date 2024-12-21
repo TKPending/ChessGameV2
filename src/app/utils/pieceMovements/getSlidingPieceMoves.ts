@@ -1,7 +1,17 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { TileType } from "@/app/types/TileType";
 import { possiblePieceMoves } from "./helpers/possiblePieceMoves";
+import { TileType } from "@/app/types/TileType";
 
+/**
+ * Returns all the moves of the Bishop, Rook and Queen
+ * @param dispatch Update the Redux State
+ * @param chessboard Object keeping track of the Chessboard
+ * @param currentRow Row of the current piece
+ * @param currentCol Col of the current piece
+ * @param directions The direction that the piece is going to move in
+ * @param pieceToMoveColor Color of the piece selected to move
+ * @returns All possible moves that the piece can make
+ */
 export const getSlidingPieceMoves = (
   dispatch: Dispatch<UnknownAction>,
   chessboard: TileType[][],

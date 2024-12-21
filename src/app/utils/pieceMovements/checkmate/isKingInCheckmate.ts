@@ -1,7 +1,6 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { TileType } from "@/app/types/TileType";
 import { convertTilePosition } from "@/app/utils/chessboard/convertTilePosition";
-import { getKingMoves } from "@/app/utils/pieceMovements/getKingMoves";
 import {
   setIsKingInCheck,
   setIsKingInCheckmate,
@@ -10,6 +9,8 @@ import {
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
 import { findKing } from "./helper/findKing";
 import { pathToKing } from "./helper/pathToKing";
+import { kingCaptureOutOfCheck } from "./helper/kingCaptureOutOfCheck";
+import { allDefensiveMoves } from "./helper/allDefensiveMoves";
 
 /**
  * Checks whether the King piece is in check or checkmate
@@ -29,13 +30,6 @@ export const isKingInCheckmate = (
   if (!kingTile || !kingTile.pieceOnTile) return;
 
   const [kingRow, kingCol] = convertTilePosition(kingTile.tilePosition);
-  const kingMoves: [number, number][] = getKingMoves(
-    dispatch,
-    chessboard,
-    kingRow,
-    kingCol,
-    kingTile.pieceOnTile.pieceColor
-  );
 
   // Check if the King is in check
   const isKingInCheck = enemyMoves.some((enemy) =>
@@ -44,50 +38,33 @@ export const isKingInCheckmate = (
 
   dispatch(setIsKingInCheck(isKingInCheck));
 
-  // If the King is not in check, no checkmate
   if (!isKingInCheck) {
     dispatch(setIsKingInCheckmate(false));
     return;
   }
 
-  // Check if the King can capture attacking pieces
-  const kingCaptureMoves = kingMoves.filter(
-    ([row, col]) =>
-      chessboard[row][col].pieceOnTile?.pieceColor !== currentTurn &&
-      chessboard[row][col].pieceOnTile
-  );
-
-  const kingValidCaptureMoves = kingCaptureMoves.filter(
-    ([row, col]) =>
-      !enemyMoves.some((enemy) =>
-        enemy.moves.some(
-          ([enemyRow, enemyCol]) => enemyRow === row && enemyCol === col
-        )
-      )
+  const kingValidCaptureMoves: number[][] = kingCaptureOutOfCheck(
+    dispatch,
+    chessboard,
+    kingRow,
+    kingCol,
+    kingTile,
+    enemyMoves,
+    currentTurn
   );
 
   if (kingValidCaptureMoves.length > 0) {
-    dispatch(setIsKingInCheckmate(false));
     return;
   }
 
-  // Combine all potential defense moves
-  const validDefenseMoves = new Set<string>();
-  const attackingPaths = pathToKing(enemyMoves, [kingRow, kingCol]);
-
-  attackingPaths.forEach(({ path }) => {
-    path.forEach(([row, col]) => {
-      validDefenseMoves.add(JSON.stringify([row, col]));
-    });
-  });
-
-  const validMovesArray = Array.from(validDefenseMoves).map((move) =>
-    JSON.parse(move)
+  const kingDefensiveMoves: number[][] = allDefensiveMoves(
+    enemyMoves,
+    kingRow,
+    kingCol
   );
 
-  dispatch(setValidCheckMoves(validMovesArray));
+  dispatch(setValidCheckMoves(kingDefensiveMoves));
 
-  // If no defense moves and no King escape, it is checkmate
-  const isCheckmate = validMovesArray.length === 0;
+  const isCheckmate = kingDefensiveMoves.length === 0;
   dispatch(setIsKingInCheckmate(isCheckmate));
 };

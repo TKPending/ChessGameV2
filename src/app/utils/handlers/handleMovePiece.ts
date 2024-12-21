@@ -10,6 +10,15 @@ import { CastleType } from "@/app/types/CastleType";
 import { PieceType } from "@/app/types/PieceType";
 import { handleMovesSpecialCases } from "./helpers/handleMovePieceHelpers/handleMovesSpecialCases";
 
+/**
+ * Deals with moving pieces
+ * @param dispatch Updates state in Redux
+ * @param previousClickedTile The tile that wsa clicked before the current tile
+ * @param targetTile The tile that a piece is going to move to
+ * @param currentBoardState The current chessboard state
+ * @param castling
+ * @returns The chessboard with the updated moves
+ */
 export const handleMovePiece = (
   dispatch: Dispatch<UnknownAction>,
   previousClickedTile: TileType | null,

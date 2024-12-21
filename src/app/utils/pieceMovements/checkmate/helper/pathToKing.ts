@@ -13,44 +13,34 @@ export const pathToKing = (
   const attackPaths: { attacker: EnemyAttackType; path: [number, number][] }[] =
     [];
 
-  // Loop through each enemy move set
   enemyMoves.forEach((enemyMove) => {
     const { piece, moves, piecePosition } = enemyMove;
-
-    // Check if the King is in the moves of the attacker
     const [kingRow, kingCol] = kingPosition;
+
     const isKingUnderAttack = moves.some(
       ([moveRow, moveCol]) => moveRow === kingRow && moveCol === kingCol
     );
 
     if (isKingUnderAttack) {
       let path: [number, number][] = [];
-
-      // Handle sliding pieces (Rook, Bishop, Queen)
       if (["Rook", "Bishop", "Queen"].includes(piece.pieceName)) {
         const [attackerRow, attackerCol] = piecePosition;
 
-        // Determine direction vector towards the King
         const rowDirection = Math.sign(kingRow - attackerRow);
         const colDirection = Math.sign(kingCol - attackerCol);
 
         let currentRow = attackerRow + rowDirection;
         let currentCol = attackerCol + colDirection;
 
-        // Collect all tiles along the path to the King
         while (currentRow !== kingRow || currentCol !== kingCol) {
           path.push([currentRow, currentCol]);
           currentRow += rowDirection;
           currentCol += colDirection;
         }
-      }
-
-      // Non-sliding pieces (Pawn, Knight, King) directly attack the King
-      else {
+      } else {
         path = [[kingRow, kingCol]];
       }
 
-      // Add the attack information to the result
       attackPaths.push({ attacker: enemyMove, path });
     }
   });
