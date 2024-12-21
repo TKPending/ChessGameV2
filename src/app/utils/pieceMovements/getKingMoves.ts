@@ -1,5 +1,5 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { possiblePieceMoves } from "@/app/utils/possiblePieceMoves";
+import { possiblePieceMoves } from "@/app/utils/pieceMovements/helpers/possiblePieceMoves";
 import { TileType } from "@/app/types/TileType";
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
 

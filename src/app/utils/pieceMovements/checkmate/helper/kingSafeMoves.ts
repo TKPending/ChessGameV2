@@ -1,6 +1,6 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { convertTilePosition } from "./helpers/convertTilePosition";
-import { getKingMoves } from "./moveLogic/getKingMoves";
+import { convertTilePosition } from "../../../chessboard/convertTilePosition";
+import { getKingMoves } from "@/app/utils/pieceMovements/getKingMoves";
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
 import { TileType } from "@/app/types/TileType";
 

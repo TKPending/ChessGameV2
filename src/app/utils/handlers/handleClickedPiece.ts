@@ -1,19 +1,19 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { TileType } from "@/app/types/TileType";
-import { clearHighlights } from "@/app/utils/clearHighlight";
+import { clearHighlights } from "@/app/utils/chessboard/design/clearHighlight";
 import {
   setPreviouslyClickedTile,
   setSpecificTile,
   setValidMoves,
 } from "@/app/redux/slices/board/boardSlice";
-import { generateValidMoves } from "./generateValidMoves";
-import { highlightValidMoves } from "./highlightValidMoves";
-import { isInCheckFilter } from "./isInCheckFilter";
-import { canCastle } from "./castleLogic/canCastle";
-import { EnemyAttackType } from "../types/EnemyAttackType";
-import { convertTilePosition } from "./helpers/convertTilePosition";
-import { kingSafeMoves } from "./kingSafeMoves";
-import { PieceName } from "../types/PieceType";
+import { generateValidMoves } from "../pieceMovements/generateMoves/generateValidMoves";
+import { highlightValidMoves } from "@/app/utils/chessboard/design/highlightValidMoves";
+import { isInCheckFilter } from "../pieceMovements/checkmate/helper/isInCheckFilter";
+import { canCastle } from "../pieceMovements/castling/canCastle";
+import { EnemyAttackType } from "../../types/EnemyAttackType";
+import { convertTilePosition } from "../chessboard/convertTilePosition";
+import { kingSafeMoves } from "../pieceMovements/checkmate/helper/kingSafeMoves";
+import { PieceName } from "../../types/PieceType";
 
 export const handleClickedPiece = (
   dispatch: Dispatch<UnknownAction>,

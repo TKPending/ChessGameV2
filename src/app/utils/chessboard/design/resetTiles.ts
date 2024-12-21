@@ -4,7 +4,7 @@ import {
   setPreviouslyClickedTile,
   setValidMoves,
 } from "@/app/redux/slices/board/boardSlice";
-import { clearHighlights } from "./clearHighlight";
+import { clearHighlights } from "@/app/utils/chessboard/design/clearHighlight";
 import { TileType } from "@/app/types/TileType";
 
 export const resetTiles = (

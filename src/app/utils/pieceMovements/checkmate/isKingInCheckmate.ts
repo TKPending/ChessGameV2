@@ -1,15 +1,15 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { TileType } from "@/app/types/TileType";
-import { convertTilePosition } from "@/app/utils/helpers/convertTilePosition";
-import { getKingMoves } from "@/app/utils/moveLogic/getKingMoves";
+import { convertTilePosition } from "@/app/utils/chessboard/convertTilePosition";
+import { getKingMoves } from "@/app/utils/pieceMovements/getKingMoves";
 import {
   setIsKingInCheck,
   setIsKingInCheckmate,
   setValidCheckMoves,
 } from "@/app/redux/slices/board/boardSlice";
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
-import { findKing } from "./findKing";
-import { pathToKing } from "./pathToKing";
+import { findKing } from "./helper/findKing";
+import { pathToKing } from "./helper/pathToKing";
 
 export const isKingInCheckmate = (
   dispatch: Dispatch<UnknownAction>,

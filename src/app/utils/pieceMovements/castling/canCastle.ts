@@ -1,7 +1,7 @@
-import { areTilesBetweenUnderAttack } from "./areTilesBetweenUnderAttack";
-import { arePiecesInStartingPositions } from "./arePiecesInStartingPositions";
+import { areTilesBetweenUnderAttack } from "./preventions/occupied/areTilesBetweenUnderAttack";
+import { arePiecesInStartingPositions } from "./preventions/moved/arePiecesInStartingPositions";
 import { TileType } from "@/app/types/TileType";
-import { areTilesBetweenOccupiedByFriendlyPieces } from "./areTilesBetweenOccupiedByFriendlyPieces.ts";
+import { areTilesBetweenOccupiedByFriendlyPieces } from "./preventions/occupied/areTilesBetweenOccupiedByFriendlyPieces.ts";
 
 export const canCastle = (
   chessboard: TileType[][],

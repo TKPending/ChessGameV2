@@ -22,7 +22,7 @@ import {
   updateTileWithPromotedPieceReducer,
   validCheckMovesReducer,
 } from "./boardReducer";
-import { generateTiles } from "@/app/utils/generateTiles";
+import { generateTiles } from "@/app/utils/chessboard/generateTiles";
 
 const initialState: BoardType = {
   chessboard: generateTiles(),

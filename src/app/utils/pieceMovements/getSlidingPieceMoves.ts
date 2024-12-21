@@ -1,6 +1,6 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { TileType } from "@/app/types/TileType";
-import { possiblePieceMoves } from "../possiblePieceMoves";
+import { possiblePieceMoves } from "./helpers/possiblePieceMoves";
 
 export const getSlidingPieceMoves = (
   dispatch: Dispatch<UnknownAction>,

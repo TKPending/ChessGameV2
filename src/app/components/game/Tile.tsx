@@ -8,11 +8,11 @@ import {
 import ChessPiece from "./ChessPiece";
 import { PieceType } from "@/app/types/PieceType";
 import { TileType } from "@/app/types/TileType";
-import { movePiece } from "@/app/utils/movePiece";
-import { isMoveValid } from "@/app/utils/isMoveValid";
-import { handleClickedPiece } from "@/app/utils/handleClickedPiece";
-import { getTileBackgroundColor } from "@/app/utils/helpers/getTileBackgroundColor";
-import { resetTiles } from "@/app/utils/resetTiles";
+import { handleMovePiece } from "@/app/utils/handlers/handleMovePiece";
+import { isMoveValid } from "@/app/utils/pieceMovements/helpers/isMoveValid";
+import { handleClickedPiece } from "@/app/utils/handlers/handleClickedPiece";
+import { getTileBackgroundColor } from "@/app/utils/chessboard/design/getTileBackgroundColor";
+import { resetTiles } from "@/app/utils/chessboard/design/resetTiles";
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
 import { CastleType } from "@/app/types/CastleType";
 
@@ -87,7 +87,7 @@ const Tile = ({ tile }: Props) => {
     if (isMoveValid(validMoves, clickedTile.tilePosition)) {
       // Reset Check Moves
 
-      const updatedChessboard: TileType[][] | [] = movePiece(
+      const updatedChessboard: TileType[][] | [] = handleMovePiece(
         dispatch,
         previousClickedTile,
         clickedTile,

@@ -1,11 +1,11 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { TileType } from "@/app/types/TileType";
 import { PieceType, PieceName } from "@/app/types/PieceType";
-import { getPawnMoves } from "./getPawnMoves";
-import { getKnightMoves } from "./getKnightMoves";
-import { getSlidingPieceMoves } from "./getSlidingPieceMoves";
-import { getKingMoves } from "./getKingMoves";
-import { convertTilePosition } from "@/app/utils/helpers/convertTilePosition";
+import { getPawnMoves } from "../getPawnMoves";
+import { getKnightMoves } from "../getKnightMoves";
+import { getSlidingPieceMoves } from "../getSlidingPieceMoves";
+import { getKingMoves } from "../getKingMoves";
+import { convertTilePosition } from "@/app/utils/chessboard/convertTilePosition";
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
 
 // Helper to classify sliding pieces' directions

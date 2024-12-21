@@ -6,9 +6,9 @@ import {
   setChessboard,
   setEnemyMoves,
 } from "@/app/redux/slices/board/boardSlice";
-import { generateTiles } from "@/app/utils/generateTiles";
-import { generateEnemyMoves } from "@/app/utils/moveLogic/generateEnemyMoves";
-import { isKingInCheckmate } from "@/app/utils/moveLogic/king/isKingInCheckmate";
+import { generateTiles } from "@/app/utils/chessboard/generateTiles";
+import { generateEnemyMoves } from "@/app/utils/pieceMovements/generateMoves/generateEnemyMoves";
+import { isKingInCheckmate } from "@/app/utils/pieceMovements/checkmate/isKingInCheckmate";
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
 import PawnPromotionContainer from "./PawnPromotionContainer";
 

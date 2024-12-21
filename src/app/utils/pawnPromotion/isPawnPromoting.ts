@@ -1,4 +1,4 @@
-import { convertTilePosition } from "@/app/utils/helpers/convertTilePosition";
+import { convertTilePosition } from "@/app/utils/chessboard/convertTilePosition";
 
 export const isPawnPromotion = (
   tilePosition: string,

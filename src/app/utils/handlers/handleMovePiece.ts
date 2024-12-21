@@ -11,11 +11,11 @@ import {
 import { TileType } from "@/app/types/TileType";
 import { CastleType } from "@/app/types/CastleType";
 import { PieceType } from "@/app/types/PieceType";
-import { kingMovedPreventCastle } from "./castleLogic/kingMovedPreventCastle";
-import { rookMovedPreventCastle } from "./castleLogic/rookMovedPreventCastle";
-import { isPawnPromotion } from "./pawnPromotion/isPawnPromoting";
+import { kingMovedPreventCastle } from "../pieceMovements/castling/preventions/moved/kingMovedPreventCastle";
+import { rookMovedPreventCastle } from "../pieceMovements/castling/preventions/moved/rookMovedPreventCastle";
+import { isPawnPromotion } from "../pawnPromotion/isPawnPromoting";
 
-export const movePiece = (
+export const handleMovePiece = (
   dispatch: Dispatch<UnknownAction>,
   previousClickedTile: TileType | null,
   targetTile: TileType,
