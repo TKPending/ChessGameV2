@@ -24,8 +24,16 @@ export const generateTiles = (): TileType[][] => {
       { pieceName: PieceName.knight, pieceColor: "Black" },
       { pieceName: PieceName.rook, pieceColor: "Black" },
     ],
-    1: Array(8).fill({ pieceName: PieceName.pawn, pieceColor: "Black" }),
-    6: Array(8).fill({ pieceName: PieceName.pawn, pieceColor: "White" }),
+    1: Array(8).fill({
+      pieceName: PieceName.pawn,
+      pieceColor: "Black",
+      isPromotion: false,
+    }),
+    6: Array(8).fill({
+      pieceName: PieceName.pawn,
+      pieceColor: "White",
+      isPromotion: false,
+    }),
     7: [
       { pieceName: PieceName.rook, pieceColor: "White" },
       { pieceName: PieceName.knight, pieceColor: "White" },

@@ -67,7 +67,7 @@ export const movePiece = (
         return { ...tile, pieceOnTile: null, isHighlighted: false };
       }
       if (tile.tilePosition === targetTile.tilePosition) {
-        // Move piece to the target tile
+        // Move piece
         return {
           ...tile,
           pieceOnTile: pieceToMove,

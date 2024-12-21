@@ -1,6 +1,7 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { GameHistoryType, MoveHistoryType } from "@/app/types/GameHistoryType";
 import { TileType } from "@/app/types/TileType";
+import { PieceName, PieceType } from "@/app/types/PieceType";
 
 export const updateMoveCounterReducer = (state: GameHistoryType) => {
   state.count = state.count + 1;
@@ -18,6 +19,22 @@ export const updateMoveHistoryReducer = (
   action: PayloadAction<MoveHistoryType>
 ) => {
   state.moveHistory.push(action.payload);
+};
+
+export const pawnPromotionUpdateMoveReducer = (
+  state: GameHistoryType,
+  action: PayloadAction<{ pawnPromotion: boolean; updatedPiece: PieceName }>
+) => {
+  const { pawnPromotion, updatedPiece } = action.payload;
+  const recentMove: MoveHistoryType =
+    state.moveHistory[state.moveHistory.length - 1];
+  const updatedMove: MoveHistoryType = {
+    ...recentMove,
+    pawnPromotion,
+    updatedPiece,
+  };
+
+  state.moveHistory[state.moveHistory.length - 1] = updatedMove;
 };
 
 export const displayPreviousMovesReducer = (state: GameHistoryType) => {

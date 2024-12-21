@@ -12,6 +12,7 @@ export interface PieceType {
   pieceColor: "White" | "Black";
   isAlive: boolean;
   hasMoved: boolean;
+  isPromotion?: boolean;
   king?: {
     hasMoved: false;
     inCheck: false;

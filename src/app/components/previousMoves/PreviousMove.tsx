@@ -1,5 +1,7 @@
-import { PieceType } from "@/app/types/PieceType";
+import { UseSelector } from "react-redux";
+import { PieceName, PieceType } from "@/app/types/PieceType";
 import { MoveHistoryType } from "@/app/types/GameHistoryType";
+import { RootState } from "@/app/redux/store";
 
 type Props = {
   move: MoveHistoryType;
@@ -14,9 +16,12 @@ const PreviousMove = ({ move, count }: Props) => {
 
   return (
     <div className="bg-gray-800 min-h-14 w-full flex items-center justify-around px-4 rounded-md shadow-md">
-      <span className="text-white text-sm font-semibold w-2/5 text-left">
-        Move #{count}
-      </span>
+      <div className="w-2/5 flex flex-col items-start">
+        <span className="text-white text-sm font-semibold text-left">
+          Move #{count}
+        </span>
+        {move.pawnPromotion && <p className="text-xs text-red-200">Promoted</p>}
+      </div>
 
       <div className="text-gray-200 text-sm flex items-center justify-center gap-8 w-3/5">
         <img
@@ -29,6 +34,12 @@ const PreviousMove = ({ move, count }: Props) => {
           {captured && (
             <img
               src={`/${enemy?.pieceColor}-${enemy?.pieceName}.png`}
+              className="h-4 w-4"
+            />
+          )}
+          {move.pawnPromotion && move.pawnPromotion && (
+            <img
+              src={`/${piece?.pieceColor}-${move.updatedPiece}.png`}
               className="h-4 w-4"
             />
           )}

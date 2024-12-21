@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { GameHistoryType } from "@/app/types/GameHistoryType";
 import {
   displayPreviousMovesReducer,
+  pawnPromotionUpdateMoveReducer,
   updateChessboardHistoryReducer,
   updateMoveCounterReducer,
   updateMoveHistoryReducer,
@@ -21,6 +22,7 @@ const gameHistorySlice = createSlice({
     setMoveCounter: updateMoveCounterReducer,
     setChessboardHistory: updateChessboardHistoryReducer,
     setMoveHistory: updateMoveHistoryReducer,
+    setPawnPromotionMoveHistory: pawnPromotionUpdateMoveReducer,
     setMoveHistoryVisibility: displayPreviousMovesReducer,
   },
 });
@@ -30,6 +32,7 @@ export const {
   setChessboardHistory,
   setMoveHistory,
   setMoveHistoryVisibility,
+  setPawnPromotionMoveHistory,
 } = gameHistorySlice.actions;
 
 export default gameHistorySlice.reducer;

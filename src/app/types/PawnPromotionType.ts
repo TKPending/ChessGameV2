@@ -1,5 +1,5 @@
 import { TileType } from "./TileType";
-import { PieceType } from "./PieceType";
+import { PieceName, PieceType } from "./PieceType";
 
 export interface PawnPromotionType {
   isPawnPromotion: boolean;
