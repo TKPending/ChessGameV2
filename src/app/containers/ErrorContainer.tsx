@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamation } from "@fortawesome/free-solid-svg-icons";
 import { setErrorNotification } from "@/app/redux/slices/error/errorSlice";
 
-const ErrorNotification = () => {
+const ErrorContainer = () => {
   const dispatch = useDispatch();
   const isError: boolean = useSelector(
     (state: RootState) => state.error.isError
@@ -23,8 +23,8 @@ const ErrorNotification = () => {
         setVisible(false);
         setTimeout(() => {
           dispatch(setErrorNotification(true));
-        }, 500); 
-      }, 5000); 
+        }, 500);
+      }, 5000);
       return () => clearTimeout(timeout);
     }
   }, [isError, dispatch]);
@@ -46,4 +46,4 @@ const ErrorNotification = () => {
   );
 };
 
-export default ErrorNotification;
+export default ErrorContainer;

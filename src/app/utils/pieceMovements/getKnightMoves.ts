@@ -1,5 +1,4 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { chessboardSearch } from "./chessboardSearch";
 import { possiblePieceMoves } from "@/app/utils/pieceMovements/helpers/possiblePieceMoves";
 import { TileType } from "@/app/types/TileType";
 

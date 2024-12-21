@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import ChessboardAndPlayersLayout from "@/app/layouts/ChessboardAndPlayersLayout";
 import MoveHistoryContainer from "@/app/containers/MoveHistoryContainer";
 import DisplayMovesHistory from "@/app/components/moveHistoryComponents/DisplayMoveHistory";
-import ErrorNotification from "@/app/components/ErrorNotification";
+import ErrorContainer from "@/app/containers/ErrorContainer";
 
 const GameLayout = () => {
   const previousMovesHidden: boolean = useSelector(
@@ -15,7 +15,7 @@ const GameLayout = () => {
 
   return (
     <div className="h-screen w-screen bg-black flex flex-col md:flex-row gap-6 justify-center p-6">
-      {isError && <ErrorNotification />}
+      {isError && <ErrorContainer />}
       <ChessboardAndPlayersLayout />
       <div
         className={`${
