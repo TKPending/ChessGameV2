@@ -1,6 +1,11 @@
 import { TileType, TileColor } from "@/app/types/TileType";
 import { PieceType, PieceName } from "@/app/types/PieceType";
 
+/**
+ * Generate a board with each individual piece
+ * @returns A chessboadrd filled with all the pieces in their starting pieces.
+ */
+
 export const generateTiles = (): TileType[][] => {
   const tiles: TileType[][] = [];
 

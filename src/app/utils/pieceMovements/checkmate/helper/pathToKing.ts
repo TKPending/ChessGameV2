@@ -1,10 +1,8 @@
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
-import { TileType } from "@/app/types/TileType";
 
 /**
  * Finds the paths leading to the King under attack.
  * @param enemyMoves List of enemy pieces and their valid moves.
- * @param chessboard The current chessboard state.
  * @param kingPosition The position of the King under attack [row, col].
  * @returns An array of attack paths, each containing the attacker and tiles leading to the King.
  */

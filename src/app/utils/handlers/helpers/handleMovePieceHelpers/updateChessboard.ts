@@ -8,8 +8,8 @@ export const updateChessboard = (
   currentChessboard: TileType[][],
   previousClickedTile: TileType,
   targetTile: TileType
-) => {
-  if (!previousClickedTile.pieceOnTile) return;
+): TileType[][] => {
+  if (!previousClickedTile.pieceOnTile) return [];
 
   const pieceToMove: PieceType = previousClickedTile.pieceOnTile;
 

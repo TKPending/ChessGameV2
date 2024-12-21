@@ -1,17 +1,17 @@
 import { convertTilePosition } from "@/app/utils/chessboard/convertTilePosition";
 
 const validMoveCheck = (
-  validMoves: [number, number][],
+  validMoves: number[][],
   targetRow: number,
   targetCol: number
 ): boolean => {
   return validMoves.some(
-    (move: [number, number]) => targetRow === move[0] && targetCol === move[1]
+    ([row, col]) => targetRow === row && targetCol === col
   );
 };
 
 export const isMoveValid = (
-  validPieceMoves: [number, number][],
+  validPieceMoves: number[][],
   clickedTilePosition: string
 ): boolean => {
   const [targetRow, targetCol] = convertTilePosition(clickedTilePosition);

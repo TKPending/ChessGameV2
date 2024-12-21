@@ -37,7 +37,7 @@ const Tile = ({ tile }: Props) => {
   const isInCheck: boolean = useSelector(
     (state: RootState) => state.board.isKingInCheck
   );
-  const validMoves: [number, number][] = useSelector(
+  const validMoves: number[][] = useSelector(
     (state: RootState) => state.board.piecePotentialMoves
   );
   const validCheckMoves: number[][] = useSelector(
