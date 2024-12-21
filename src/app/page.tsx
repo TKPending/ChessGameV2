@@ -1,5 +1,5 @@
-import PageLayout from "@/app/layouts/PageLayout";
+import ChessGame from "@/app/ChessGame";
 
 export default function Home() {
-  return <PageLayout />
+  return <ChessGame />;
 }

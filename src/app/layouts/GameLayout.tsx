@@ -1,11 +1,11 @@
 import { RootState } from "@/app/redux/store";
 import { useSelector } from "react-redux";
-import ChessGameLayout from "@/app/layouts/ChessGameLayout";
+import ChessboardAndPlayersLayout from "@/app/layouts/ChessboardAndPlayersLayout";
 import PreviousMovesContainer from "@/app/containers/chessboard/PreviousMovesContainer";
 import DisplayMoves from "@/app/components/previousMoves/DisplayMoves";
 import ErrorNotification from "@/app/components/ErrorNotification";
 
-const ChessboardLayout = () => {
+const GameLayout = () => {
   const previousMovesHidden: boolean = useSelector(
     (state: RootState) => state.gameHistory.isPreviousMovesHidden
   );
@@ -16,7 +16,7 @@ const ChessboardLayout = () => {
   return (
     <div className="h-screen w-screen bg-black flex flex-col md:flex-row gap-6 justify-center p-6">
       {isError && <ErrorNotification />}
-      <ChessGameLayout />
+      <ChessboardAndPlayersLayout />
       <div
         className={`${
           previousMovesHidden ? "w-[20%]" : "w-[8%]"
@@ -29,4 +29,4 @@ const ChessboardLayout = () => {
   );
 };
 
-export default ChessboardLayout;
+export default GameLayout;

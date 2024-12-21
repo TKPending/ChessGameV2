@@ -1,10 +1,8 @@
-import "./GameIntroContainerCSS.css";
-
 type Props = {
   onClick: () => void;
 };
 
-const GameIntroContainer = ({ onClick }: Props) => {
+const StartScreenLayout = ({ onClick }: Props) => {
   return (
     <div className="h-screen w-screen bg-black text-white flex flex-col justify-center items-center gap-8 font-semibold">
       <p className="animate-from-left text-4xl">Play a game of Chess</p>
@@ -19,4 +17,4 @@ const GameIntroContainer = ({ onClick }: Props) => {
   );
 };
 
-export default GameIntroContainer;
+export default StartScreenLayout;

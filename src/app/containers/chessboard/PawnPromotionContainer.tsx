@@ -17,9 +17,6 @@ interface PromotionOptionType {
 
 const PawnPromotionContainer = ({ currentTurn }: Props) => {
   const dispatch = useDispatch();
-  const previousMove = useSelector(
-    (state: RootState) => state.gameHistory.moveHistory
-  );
   const pieceColor: "white" | "black" =
     currentTurn === "White" ? "black" : "white";
   const turnToChange: "White" | "Black" =
