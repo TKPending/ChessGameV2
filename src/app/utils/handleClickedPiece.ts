@@ -2,7 +2,6 @@ import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { TileType } from "@/app/types/TileType";
 import { clearHighlights } from "@/app/utils/clearHighlight";
 import {
-  setEnemyMoves,
   setPreviouslyClickedTile,
   setSpecificTile,
   setValidMoves,
@@ -14,7 +13,7 @@ import { canCastle } from "./castleLogic/canCastle";
 import { EnemyAttackType } from "../types/EnemyAttackType";
 import { convertTilePosition } from "./convertTilePosition";
 import { kingSafeMoves } from "./kingSafeMoves";
-import { PieceName, PieceType } from "../types/PieceType";
+import { PieceName } from "../types/PieceType";
 
 export const handleClickedPiece = (
   dispatch: Dispatch<UnknownAction>,
