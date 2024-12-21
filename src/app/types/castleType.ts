@@ -1,5 +1,3 @@
-import { TileType } from "./TileType";
-
 export interface CastleType {
   whiteKing: {
     kingPosition: [number, number];

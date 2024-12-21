@@ -10,6 +10,7 @@ import { generateTiles } from "@/app/utils/generateTiles";
 import { generateEnemyMoves } from "@/app/utils/moveLogic/generateEnemyMoves";
 import { isKingInCheckmate } from "@/app/utils/moveLogic/king/isKingInCheckmate";
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
+import PawnPromotionContainer from "./PawnPromotionContainer";
 
 const ChessboardContainer = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,9 @@ const ChessboardContainer = () => {
   );
   const isInCheck: boolean = useSelector(
     (state: RootState) => state.board.isKingInCheck
+  );
+  const pawnPromotion = useSelector(
+    (state: RootState) => state.board.pawnPromotion
   );
 
   useEffect(() => {
@@ -55,10 +59,16 @@ const ChessboardContainer = () => {
     } else if (isInCheck) {
       console.log(`${currentTurn} King is in Check`);
     }
-  }, [isInCheckmate, isInCheck]);
+
+    if (pawnPromotion.isPawnPromotion) {
+    }
+  }, [isInCheckmate, isInCheck, pawnPromotion]);
 
   return (
     <div className="grid grid-cols-8 grid-rows-8 aspect-square w-full max-w-[80%] max-h-[80%] bg-gray-700">
+      {pawnPromotion.isPawnPromotion && (
+        <PawnPromotionContainer currentTurn={currentTurn} />
+      )}
       {chessboard.map((row, rowIndex) =>
         row.map((tile, colIndex) => (
           <Tile key={`${rowIndex}-${colIndex}`} tile={tile} />

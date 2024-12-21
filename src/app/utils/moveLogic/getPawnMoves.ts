@@ -19,6 +19,10 @@ export const getPawnMoves = (
     (pieceToMoveColor === "White" && currentRow === 0) ||
     (pieceToMoveColor === "Black" && currentRow === 7);
 
+  if (isPromotion) {
+    return [];
+  }
+
   const forward: [number, number] = [currentRow + direction, currentCol];
   const doubleForward: [number, number] = [
     currentRow + 2 * direction,

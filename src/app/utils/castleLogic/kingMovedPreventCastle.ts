@@ -1,5 +1,5 @@
 import { setKingHasMoved } from "@/app/redux/slices/board/boardSlice";
-import { CastleType } from "@/app/types/castleType";
+import { CastleType } from "@/app/types/CastleType";
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 
 export const kingMovedPreventCastle = (

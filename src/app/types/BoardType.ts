@@ -1,7 +1,8 @@
 import { TileType } from "./TileType";
 import { PlayerType } from "./PlayerType";
 import { EnemyAttackType } from "./EnemyAttackType";
-import { CastleType } from "./castleType";
+import { CastleType } from "./CastleType";
+import { PawnPromotionType } from "./PawnPromotionType";
 
 export interface BoardType {
   chessboard: TileType[][];
@@ -19,4 +20,5 @@ export interface BoardType {
   validCheckMoves: number[][];
   inCheckPositions: number[][];
   castling: CastleType;
+  pawnPromotion: PawnPromotionType;
 }

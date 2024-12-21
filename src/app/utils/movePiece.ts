@@ -1,7 +1,7 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import {
   setChessboard,
-  setEnemyMoves,
+  setPawnPromotion,
   setPlayerCapturedPiece,
 } from "@/app/redux/slices/board/boardSlice";
 import {
@@ -9,10 +9,11 @@ import {
   setMoveHistory,
 } from "@/app/redux/slices/gameHistory/gameHistorySlice";
 import { TileType } from "@/app/types/TileType";
-import { CastleType } from "../types/castleType";
-import { PieceType } from "../types/PieceType";
+import { CastleType } from "@/app/types/CastleType";
+import { PieceType } from "@/app/types/PieceType";
 import { kingMovedPreventCastle } from "./castleLogic/kingMovedPreventCastle";
 import { rookMovedPreventCastle } from "./castleLogic/rookMovedPreventCastle";
+import { isPawnPromotion } from "./pawnPromotion/isPawnPromoting";
 
 export const movePiece = (
   dispatch: Dispatch<UnknownAction>,
@@ -40,6 +41,12 @@ export const movePiece = (
       castling,
       previousClickedTile
     );
+  }
+
+  if (pieceToMove.pieceName === "Pawn") {
+    if (isPawnPromotion(targetTile.tilePosition, currentTurn)) {
+      dispatch(setPawnPromotion({ isPromotion: true, targetTile }));
+    }
   }
 
   // Capture logic

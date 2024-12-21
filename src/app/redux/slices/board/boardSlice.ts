@@ -13,11 +13,13 @@ import {
   kingInCheckmateReducer,
   kingInCheckReducer,
   kingMovedReducer,
+  pawnPromotionStateReducer,
   pieceValidMovesReducer,
   previouslyClickedTileReducer,
   rookMovedReducer,
   updateCurrentTurnReducer,
   updateSpecificTileReducer,
+  updateTileWithPromotedPieceReducer,
   validCheckMovesReducer,
 } from "./boardReducer";
 import { generateTiles } from "@/app/utils/generateTiles";
@@ -72,6 +74,10 @@ const initialState: BoardType = {
       leftCastleOption: true,
     },
   },
+  pawnPromotion: {
+    isPawnPromotion: false,
+    tileToUpdate: null,
+  },
 };
 
 const boardSlice = createSlice({
@@ -95,6 +101,8 @@ const boardSlice = createSlice({
     setKingHasMoved: kingMovedReducer,
     setRookHasMoved: rookMovedReducer,
     setRemoveCastlingOption: castlingOptionGoneReducer,
+    setPawnPromotion: pawnPromotionStateReducer,
+    setTileWithPromotedPiece: updateTileWithPromotedPieceReducer,
   },
 });
 
@@ -116,6 +124,8 @@ export const {
   setKingHasMoved,
   setRookHasMoved,
   setRemoveCastlingOption,
+  setPawnPromotion,
+  setTileWithPromotedPiece,
 } = boardSlice.actions;
 
 export default boardSlice.reducer;

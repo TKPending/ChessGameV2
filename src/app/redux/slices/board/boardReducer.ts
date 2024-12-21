@@ -1,5 +1,4 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { isRookInTile } from "@/app/utils/isRookInTile";
 import { BoardType } from "@/app/types/BoardType";
 import { TileType } from "@/app/types/TileType";
 import { PieceType } from "@/app/types/PieceType";
@@ -161,4 +160,39 @@ export const rookMovedReducer = (
   state.castling[team].canCastleOption =
     state.castling[team].leftCastleOption ||
     state.castling[team].rightCastleOption;
+};
+
+export const pawnPromotionStateReducer = (
+  state: BoardType,
+  action: PayloadAction<{ isPromotion: boolean; targetTile: TileType | null }>
+) => {
+  const { isPromotion, targetTile } = action.payload;
+
+  state.pawnPromotion.isPawnPromotion = isPromotion;
+  state.pawnPromotion.tileToUpdate = targetTile;
+};
+
+export const updateTileWithPromotedPieceReducer = (
+  state: BoardType,
+  action: PayloadAction<PieceType>
+) => {
+  const promotedPiece: PieceType = action.payload;
+  const tileToUpdate: TileType | null = state.pawnPromotion.tileToUpdate;
+
+  if (!tileToUpdate) {
+    console.log("Tile didn't update");
+    return;
+  }
+
+  state.chessboard = state.chessboard.map((row) =>
+    row.map((tile) =>
+      tile.tilePosition === tileToUpdate.tilePosition
+        ? { ...tile, pieceOnTile: promotedPiece }
+        : tile
+    )
+  );
+
+  // Reset promotion state after updating the tile
+  state.pawnPromotion.isPawnPromotion = false;
+  state.pawnPromotion.tileToUpdate = null;
 };

@@ -1,5 +1,5 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { CastleType } from "@/app/types/castleType";
+import { CastleType } from "@/app/types/CastleType";
 import { TileType } from "@/app/types/TileType";
 import { setRookHasMoved } from "@/app/redux/slices/board/boardSlice";
 

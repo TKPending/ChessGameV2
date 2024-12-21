@@ -14,7 +14,7 @@ import { handleClickedPiece } from "@/app/utils/handleClickedPiece";
 import { getTileBackgroundColor } from "@/app/utils/getTileBackgroundColor";
 import { resetTiles } from "@/app/utils/resetTiles";
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
-import { CastleType } from "@/app/types/castleType";
+import { CastleType } from "@/app/types/CastleType";
 
 type Props = {
   tile: TileType;

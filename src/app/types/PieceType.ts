@@ -1,5 +1,3 @@
-import { TileType } from "./TileType";
-
 export enum PieceName {
   pawn = "Pawn",
   rook = "Rook",
