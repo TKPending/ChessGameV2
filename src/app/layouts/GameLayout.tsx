@@ -1,7 +1,7 @@
 import { RootState } from "@/app/redux/store";
 import { useSelector } from "react-redux";
 import ChessboardAndPlayersLayout from "@/app/layouts/ChessboardAndPlayersLayout";
-import PreviousMovesContainer from "@/app/containers/chessboard/PreviousMovesContainer";
+import PreviousMovesContainer from "@/app/containers/PreviousMovesContainer";
 import DisplayMoves from "@/app/components/previousMoves/DisplayMoves";
 import ErrorNotification from "@/app/components/ErrorNotification";
 

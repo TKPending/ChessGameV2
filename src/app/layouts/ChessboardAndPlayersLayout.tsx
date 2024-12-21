@@ -1,4 +1,4 @@
-import ChessboardContainer from "@/app/containers/chessboard/ChessboardContainer";
+import ChessboardContainer from "@/app/containers/ChessboardContainer";
 import PlayersComponent from "@/app/components/players/PlayersComponent";
 
 const PLAYERONE = 0;

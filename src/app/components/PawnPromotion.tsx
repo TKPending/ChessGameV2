@@ -1,7 +1,6 @@
 import { setTileWithPromotedPiece } from "@/app/redux/slices/board/boardSlice";
-import { RootState } from "@/app/redux/store";
 import { PieceName } from "@/app/types/PieceType";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { PieceType } from "@/app/types/PieceType";
 import { setPawnPromotionMoveHistory } from "@/app/redux/slices/gameHistory/gameHistorySlice";
 
@@ -15,7 +14,7 @@ interface PromotionOptionType {
   alt: string;
 }
 
-const PawnPromotionContainer = ({ currentTurn }: Props) => {
+const PawnPromotion = ({ currentTurn }: Props) => {
   const dispatch = useDispatch();
   const pieceColor: "white" | "black" =
     currentTurn === "White" ? "black" : "white";
@@ -84,4 +83,4 @@ const PawnPromotionContainer = ({ currentTurn }: Props) => {
   );
 };
 
-export default PawnPromotionContainer;
+export default PawnPromotion;
