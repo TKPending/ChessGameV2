@@ -4,7 +4,7 @@ import {
   setPreviouslyClickedTile,
   setValidMoves,
 } from "@/app/redux/slices/board/boardSlice";
-import { clearHighlights } from "@/app/utils/chessboard/design/clearHighlight";
+import { clearTileHighlights } from "@/app/utils/chessboard/design/clearTileHighlights";
 import { TileType } from "@/app/types/TileType";
 
 export const resetTiles = (
@@ -14,5 +14,5 @@ export const resetTiles = (
   dispatch(setClickedTile(null));
   dispatch(setPreviouslyClickedTile(null));
   dispatch(setValidMoves([]));
-  clearHighlights(dispatch, updatedChessboard);
+  clearTileHighlights(dispatch, updatedChessboard);
 };

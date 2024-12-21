@@ -5,11 +5,12 @@ import { setRookHasMoved } from "@/app/redux/slices/board/boardSlice";
 
 export const rookMovedPreventCastle = (
   dispatch: Dispatch<UnknownAction>,
-  castleColor: "white" | "black",
+  currentTurn: "White" | "Black",
   castling: CastleType,
   tile: TileType
 ) => {
-  if (!castling[castleColor].canCastleOption) return;
+  if (!castling[currentTurn === "White" ? "white" : "black"].canCastleOption)
+    return;
 
   const rookPosition = tile.tilePosition;
 
@@ -20,13 +21,13 @@ export const rookMovedPreventCastle = (
   const blackRookRight = "h8";
 
   // Determine which castle option to disable based on the rook's position
-  if (castleColor === "white") {
+  if (currentTurn === "White") {
     if (rookPosition === whiteRookLeft) {
       dispatch(setRookHasMoved("left"));
     } else if (rookPosition === whiteRookRight) {
       dispatch(setRookHasMoved("right"));
     }
-  } else if (castleColor === "black") {
+  } else if (currentTurn === "Black") {
     if (rookPosition === blackRookLeft) {
       dispatch(setRookHasMoved("left"));
     } else if (rookPosition === blackRookRight) {

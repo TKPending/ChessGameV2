@@ -10,7 +10,7 @@ import { PieceType } from "@/app/types/PieceType";
 import { TileType } from "@/app/types/TileType";
 import { handleMovePiece } from "@/app/utils/handlers/handleMovePiece";
 import { isMoveValid } from "@/app/utils/pieceMovements/helpers/isMoveValid";
-import { handleClickedPiece } from "@/app/utils/handlers/handleClickedPiece";
+import { handlePieceOnTile } from "@/app/utils/handlers/handlePieceOnTile";
 import { getTileBackgroundColor } from "@/app/utils/chessboard/design/getTileBackgroundColor";
 import { resetTiles } from "@/app/utils/chessboard/design/resetTiles";
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
@@ -54,7 +54,7 @@ const Tile = ({ tile }: Props) => {
   const handleTileClick = (clickedTile: TileType) => {
     if (!previousClickedTile) {
       if (pieceOnTile && pieceOnTile.pieceColor === currentTurn) {
-        handleClickedPiece(
+        handlePieceOnTile(
           dispatch,
           clickedTile,
           chessboard,
@@ -72,7 +72,7 @@ const Tile = ({ tile }: Props) => {
       pieceOnTile.pieceColor === currentTurn &&
       clickedTile.tilePosition !== previousClickedTile.tilePosition
     ) {
-      handleClickedPiece(
+      handlePieceOnTile(
         dispatch,
         clickedTile,
         chessboard,

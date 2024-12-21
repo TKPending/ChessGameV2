@@ -2,7 +2,7 @@ import { setSpecificTile } from "@/app/redux/slices/board/boardSlice";
 import { TileType } from "@/app/types/TileType";
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 
-export const clearHighlights = (
+export const clearTileHighlights = (
   dispatch: Dispatch<UnknownAction>,
   chessboard: TileType[][]
 ) => {

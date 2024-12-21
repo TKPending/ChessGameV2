@@ -8,7 +8,7 @@ import { PieceName } from "@/app/types/PieceType";
 import { TileType } from "@/app/types/TileType";
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
 
-export const generateValidMoves = (
+export const generateSelectedPieceValidMoves = (
   dispatch: Dispatch<UnknownAction>,
   chessboard: TileType[][],
   previousClickedTile: TileType | null,

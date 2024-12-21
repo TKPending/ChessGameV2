@@ -1,19 +1,14 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import {
-  setChessboard,
-  setPawnPromotion,
-  setPlayerCapturedPiece,
-} from "@/app/redux/slices/board/boardSlice";
+import { setPlayerCapturedPiece } from "@/app/redux/slices/board/boardSlice";
 import {
   setChessboardHistory,
   setMoveHistory,
 } from "@/app/redux/slices/gameHistory/gameHistorySlice";
+import { updateChessboard } from "./helpers/handleMovePieceHelpers/updateChessboard";
 import { TileType } from "@/app/types/TileType";
 import { CastleType } from "@/app/types/CastleType";
 import { PieceType } from "@/app/types/PieceType";
-import { kingMovedPreventCastle } from "../pieceMovements/castling/preventions/moved/kingMovedPreventCastle";
-import { rookMovedPreventCastle } from "../pieceMovements/castling/preventions/moved/rookMovedPreventCastle";
-import { isPawnPromotion } from "../pawnPromotion/isPawnPromoting";
+import { handleMovesSpecialCases } from "./helpers/handleMovePieceHelpers/handleMovesSpecialCases";
 
 export const handleMovePiece = (
   dispatch: Dispatch<UnknownAction>,
@@ -22,34 +17,20 @@ export const handleMovePiece = (
   currentBoardState: TileType[][],
   castling: CastleType
 ) => {
-  // No piece to move
   if (!previousClickedTile?.pieceOnTile) return [];
 
   const pieceToMove: PieceType = previousClickedTile.pieceOnTile;
   const currentTurn: "White" | "Black" = pieceToMove.pieceColor;
-  const castleColor: "white" | "black" =
-    currentTurn === "White" ? "white" : "black";
 
-  if (pieceToMove.pieceName === "King") {
-    kingMovedPreventCastle(dispatch, castleColor, castling);
-  }
+  handleMovesSpecialCases(
+    dispatch,
+    pieceToMove,
+    targetTile,
+    previousClickedTile,
+    currentTurn,
+    castling
+  );
 
-  if (pieceToMove.pieceName === "Rook") {
-    rookMovedPreventCastle(
-      dispatch,
-      castleColor,
-      castling,
-      previousClickedTile
-    );
-  }
-
-  if (pieceToMove.pieceName === "Pawn") {
-    if (isPawnPromotion(targetTile.tilePosition, currentTurn)) {
-      dispatch(setPawnPromotion({ isPromotion: true, targetTile }));
-    }
-  }
-
-  // Capture logic
   if (targetTile.pieceOnTile) {
     dispatch(
       setPlayerCapturedPiece({
@@ -59,30 +40,8 @@ export const handleMovePiece = (
     );
   }
 
-  // Update the board
-  const newBoardState: TileType[][] = currentBoardState.map((row) =>
-    row.map((tile) => {
-      if (tile.tilePosition === previousClickedTile.tilePosition) {
-        // Clear piece from the previously clicked tile
-        return { ...tile, pieceOnTile: null, isHighlighted: false };
-      }
-      if (tile.tilePosition === targetTile.tilePosition) {
-        // Move piece
-        return {
-          ...tile,
-          pieceOnTile: pieceToMove,
-          isHighlighted: false,
-        };
-      }
-      // Leave other tiles unchanged
-      return { ...tile, isHighlighted: false };
-    })
-  );
-
-  // Save previous game state
   dispatch(setChessboardHistory(currentBoardState));
 
-  // Update move history
   dispatch(
     setMoveHistory({
       from: previousClickedTile,
@@ -90,7 +49,10 @@ export const handleMovePiece = (
     })
   );
 
-  // Update the board state in Redux
-  dispatch(setChessboard(newBoardState));
-  return newBoardState;
+  return updateChessboard(
+    dispatch,
+    currentBoardState,
+    previousClickedTile,
+    targetTile
+  );
 };

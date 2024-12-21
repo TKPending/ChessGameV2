@@ -1,15 +1,15 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { convertTilePosition } from "../../../chessboard/convertTilePosition";
 import { getKingMoves } from "@/app/utils/pieceMovements/getKingMoves";
+import { convertTilePosition } from "@/app/utils/chessboard/convertTilePosition";
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
 import { TileType } from "@/app/types/TileType";
 
-export const kingSafeMoves = (
+export const filterKingSafeMoves = (
   dispatch: Dispatch<UnknownAction>,
   chessboard: TileType[][],
   kingTile: TileType,
   enemyMoves: EnemyAttackType[]
-) => {
+): number[][] => {
   if (!kingTile || !kingTile.pieceOnTile) return [];
 
   const [kingRow, kingCol] = convertTilePosition(kingTile.tilePosition);

@@ -13,7 +13,7 @@ export interface BoardType {
   currentTurn: "White" | "Black";
   clickedTile: TileType | null;
   previousClickedTile: TileType | null;
-  piecePotentialMoves: [number, number][];
+  piecePotentialMoves: number[][];
   enemyMoves: EnemyAttackType[];
   isKingInCheck: boolean;
   isKingInCheckmate: boolean;

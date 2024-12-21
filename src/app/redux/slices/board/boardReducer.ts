@@ -78,7 +78,7 @@ export const capturedPiecesReducer = (
 
 export const pieceValidMovesReducer = (
   state: BoardType,
-  action: PayloadAction<[number, number][]>
+  action: PayloadAction<number[][]>
 ) => {
   state.piecePotentialMoves = action.payload;
 };

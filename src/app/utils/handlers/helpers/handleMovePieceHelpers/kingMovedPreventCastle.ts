@@ -4,10 +4,11 @@ import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 
 export const kingMovedPreventCastle = (
   dispatch: Dispatch<UnknownAction>,
-  castleColor: "white" | "black",
+  currentTurn: "White" | "Black",
   castling: CastleType
 ) => {
-  if (castling[`${castleColor}King`].kingMoved) return;
+  if (castling[`${currentTurn === "White" ? "white" : "black"}King`].kingMoved)
+    return;
 
   dispatch(setKingHasMoved());
 };
