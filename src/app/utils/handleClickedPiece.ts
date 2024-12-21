@@ -11,10 +11,8 @@ import { generateValidMoves } from "./generateValidMoves";
 import { highlightValidMoves } from "./highlightValidMoves";
 import { isInCheckFilter } from "./isInCheckFilter";
 import { canCastle } from "./castleLogic/canCastle";
-import { generateEnemyMoves } from "./moveLogic/generateEnemyMoves";
 import { EnemyAttackType } from "../types/EnemyAttackType";
 import { convertTilePosition } from "./convertTilePosition";
-import { isKingInCheckmate } from "./moveLogic/king/isKingInCheckmate";
 
 export const handleClickedPiece = (
   dispatch: Dispatch<UnknownAction>,
@@ -66,7 +64,6 @@ export const handleClickedPiece = (
     enemyMoves
   );
 
-  // isKingInCheckmate(dispatch, chessboard, enemyMoves, currentTurn);
   // Filter moves if the King is in check
   const filteredMoves = isInCheck
     ? isInCheckFilter(pieceValidMoves, validCheckMoves)

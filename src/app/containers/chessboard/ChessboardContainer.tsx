@@ -22,6 +22,13 @@ const ChessboardContainer = () => {
     (state: RootState) => state.gameHistory.count
   );
 
+  const isInCheckmate: boolean = useSelector(
+    (state: RootState) => state.board.isKingInCheckmate
+  );
+  const isInCheck: boolean = useSelector(
+    (state: RootState) => state.board.isKingInCheck
+  );
+
   useEffect(() => {
     if (chessboard.length === 0) {
       dispatch(setChessboard(generateTiles()));
@@ -41,6 +48,14 @@ const ChessboardContainer = () => {
       dispatch(setEnemyMoves(moves));
     }
   }, [chessboard, currentTurn, enemyMoves, dispatch]);
+
+  useEffect(() => {
+    if (isInCheckmate) {
+      console.log(`${currentTurn} King is in Checkmate`);
+    } else if (isInCheck) {
+      console.log(`${currentTurn} King is in Check`);
+    }
+  }, [isInCheckmate, isInCheck]);
 
   return (
     <div className="grid grid-cols-8 grid-rows-8 aspect-square w-full max-w-[80%] max-h-[80%] bg-gray-700">

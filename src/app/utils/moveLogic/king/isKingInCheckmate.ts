@@ -29,46 +29,75 @@ export const isKingInCheckmate = (
     kingTile.pieceOnTile.pieceColor
   );
 
-  // Check if the king is in check
+  // Check if the King is in check
   const isKingInCheck = enemyMoves.some((enemy) =>
     enemy.moves.some(([row, col]) => row === kingRow && col === kingCol)
   );
 
   dispatch(setIsKingInCheck(isKingInCheck));
 
-  // If the king isn't in check, return early
-  if (!isKingInCheck) return;
-
-  // Check for checkmate: all king moves are under attack
-  const isCheckmate = kingMoves.every(([row, col]) =>
-    enemyMoves.some((enemy) =>
-      enemy.moves.some(
-        ([enemyRow, enemyCol]) => enemyRow === row && enemyCol === col
-      )
-    )
-  );
-
-  if (isCheckmate) {
-    console.log("King is in checkmate");
-    dispatch(setIsKingInCheckmate(true));
+  // If the King is not in check, no checkmate
+  if (!isKingInCheck) {
+    dispatch(setIsKingInCheckmate(false));
     return;
   }
 
-  // Combine all potential attack moves into a single set
-  const validDefenseMoves = new Set<string>();
+  // Check if the King has safe moves
+  const kingSafeMoves = kingMoves.filter(
+    ([row, col]) =>
+      !enemyMoves.some((enemy) =>
+        enemy.moves.some(
+          ([enemyRow, enemyCol]) => enemyRow === row && enemyCol === col
+        )
+      )
+  );
 
-  // Generate paths to the king for sliding pieces vand direct attacks
+  if (kingSafeMoves.length > 0) {
+    dispatch(setIsKingInCheckmate(false));
+    dispatch(setValidCheckMoves(kingSafeMoves));
+    return;
+  }
+
+  // Check if the King can capture attacking pieces
+  const kingCaptureMoves = kingMoves.filter(
+    ([row, col]) =>
+      chessboard[row][col].pieceOnTile?.pieceColor !== currentTurn &&
+      chessboard[row][col].pieceOnTile
+  );
+
+  const kingValidCaptureMoves = kingCaptureMoves.filter(
+    ([row, col]) =>
+      !enemyMoves.some((enemy) =>
+        enemy.moves.some(
+          ([enemyRow, enemyCol]) => enemyRow === row && enemyCol === col
+        )
+      )
+  );
+
+  console.log({ kingValidCaptureMoves });
+
+  if (kingValidCaptureMoves.length > 0) {
+    dispatch(setIsKingInCheckmate(false));
+    return;
+  }
+
+  // Combine all potential defense moves
+  const validDefenseMoves = new Set<string>();
   const attackingPaths = pathToKing(enemyMoves, [kingRow, kingCol]);
+
   attackingPaths.forEach(({ path }) => {
     path.forEach(([row, col]) => {
       validDefenseMoves.add(JSON.stringify([row, col]));
     });
   });
 
-  // Convert back to an array of moves
   const validMovesArray = Array.from(validDefenseMoves).map((move) =>
     JSON.parse(move)
   );
 
   dispatch(setValidCheckMoves(validMovesArray));
+
+  // If no defense moves and no King escape, it is checkmate
+  const isCheckmate = validMovesArray.length === 0;
+  dispatch(setIsKingInCheckmate(isCheckmate));
 };

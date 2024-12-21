@@ -13,7 +13,6 @@ import { isMoveValid } from "@/app/utils/isMoveValid";
 import { handleClickedPiece } from "@/app/utils/handleClickedPiece";
 import { getTileBackgroundColor } from "@/app/utils/getTileBackgroundColor";
 import { resetTiles } from "@/app/utils/resetTiles";
-import { useEffect } from "react";
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
 import { CastleType } from "@/app/types/castleType";
 
@@ -107,14 +106,6 @@ const Tile = ({ tile }: Props) => {
     // Invalid Moves
     resetTiles(dispatch, chessboard);
   };
-
-  useEffect(() => {
-    if (isInCheckmate) {
-      console.log("In checkmate");
-    } else if (isInCheck) {
-      console.log("Is in check");
-    }
-  }, [isInCheckmate, isInCheck]);
 
   return (
     <div

@@ -42,8 +42,6 @@ export const movePiece = (
     );
   }
 
-  console.log(castling);
-
   // Capture logic
   if (targetTile.pieceOnTile) {
     dispatch(

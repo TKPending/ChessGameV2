@@ -26,9 +26,9 @@ export const getKingMoves = (
     kingMoves = kingMoves.filter(
       ([row, col]) =>
         !enemyMoves.some((enemy) =>
-          enemy.moves.some(
-            ([moveRow, moveCol]) => moveRow === row && moveCol === col
-          )
+          enemy.moves.some(([moveRow, moveCol]) => {
+            return moveRow === row && moveCol === col;
+          })
         )
     );
   }
