@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { BoardType } from "@/app/types/BoardType";
-import { Team } from "@/app/types/PlayerType";
 import {
   addPlayerNameReducer,
   capturedPiecesReducer,
@@ -23,6 +21,8 @@ import {
   validCheckMovesReducer,
 } from "./boardReducer";
 import { generateTiles } from "@/app/utils/chessboard/generateTiles";
+import { BoardType } from "@/app/types/BoardType";
+import { Team } from "@/app/types/PlayerType";
 
 const initialState: BoardType = {
   chessboard: generateTiles(),

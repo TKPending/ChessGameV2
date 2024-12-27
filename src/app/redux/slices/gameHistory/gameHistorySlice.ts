@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { GameHistoryType } from "@/app/types/GameHistoryType";
 import {
   displayPreviousMovesReducer,
   pawnPromotionUpdateMoveReducer,
@@ -7,6 +6,7 @@ import {
   updateMoveCounterReducer,
   updateMoveHistoryReducer,
 } from "./gameHistoryReducer";
+import { GameHistoryType } from "@/app/types/GameHistoryType";
 
 const initialState: GameHistoryType = {
   count: 1,

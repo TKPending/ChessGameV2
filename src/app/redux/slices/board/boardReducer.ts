@@ -4,6 +4,15 @@ import { TileType } from "@/app/types/TileType";
 import { PieceType } from "@/app/types/PieceType";
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
 
+// Chessboard State Reducer
+export const chessboardReducer = (
+  state: BoardType,
+  action: PayloadAction<TileType[][]>
+) => {
+  state.chessboard = action.payload;
+};
+
+// Player Related Reducers
 export const addPlayerNameReducer = (
   state: BoardType,
   action: PayloadAction<{ playerName: string; playerNo: number }>
@@ -16,6 +25,21 @@ export const addPlayerNameReducer = (
   };
 };
 
+// Game Related Reducers
+export const updateCurrentTurnReducer = (state: BoardType) => {
+  const turn: string = state.currentTurn;
+  state.currentTurn = turn === "White" ? "Black" : "White";
+};
+
+export const capturedPiecesReducer = (
+  state: BoardType,
+  action: PayloadAction<PieceType>
+) => {
+  const turnIndex: number = state.currentTurn == "White" ? 0 : 1;
+
+  state.players[turnIndex].capturedPieces.push(action.payload);
+};
+
 export const chessGamePlayingReducer = (
   state: BoardType,
   action: PayloadAction<boolean>
@@ -23,13 +47,7 @@ export const chessGamePlayingReducer = (
   state.isPlaying = action.payload;
 };
 
-export const chessboardReducer = (
-  state: BoardType,
-  action: PayloadAction<TileType[][]>
-) => {
-  state.chessboard = action.payload;
-};
-
+// Tile Related Reducers
 export const updateSpecificTileReducer = (
   state: BoardType,
   action: PayloadAction<TileType>
@@ -43,14 +61,9 @@ export const updateSpecificTileReducer = (
       (tile) => tile.tilePosition === updatedTile.tilePosition
     );
     if (colIndex !== -1) {
-      state.chessboard[rowIndex][colIndex] = updatedTile; // Update specific tile
+      state.chessboard[rowIndex][colIndex] = updatedTile;
     }
   }
-};
-
-export const updateCurrentTurnReducer = (state: BoardType) => {
-  const turn: string = state.currentTurn;
-  state.currentTurn = turn === "White" ? "Black" : "White";
 };
 
 export const currentlyClickedTileReducer = (
@@ -67,15 +80,7 @@ export const previouslyClickedTileReducer = (
   state.previousClickedTile = action.payload;
 };
 
-export const capturedPiecesReducer = (
-  state: BoardType,
-  action: PayloadAction<PieceType>
-) => {
-  const turnIndex: number = state.currentTurn == "White" ? 0 : 1;
-
-  state.players[turnIndex].capturedPieces.push(action.payload);
-};
-
+// Piece Move Related Reducers
 export const pieceValidMovesReducer = (
   state: BoardType,
   action: PayloadAction<number[][]>
@@ -90,6 +95,50 @@ export const enemyMovesReducer = (
   state.enemyMoves = action.payload;
 };
 
+// Castling Related Reducers
+export const kingMovedReducer = (state: BoardType) => {
+  const team = state.currentTurn === "White" ? "white" : "black";
+  state.castling[`${team}King`].kingMoved = true;
+  state.castling[team].canCastleOption = false;
+  state.castling[team].leftCastleOption = false;
+  state.castling[team].rightCastleOption = false;
+};
+
+export const castlingOptionGoneReducer = (state: BoardType) => {
+  const team = state.currentTurn === "White" ? "white" : "black";
+
+  if (state.castling[`${team}King`].kingMoved) {
+    state.castling[team].canCastleOption = false;
+    state.castling[team].rightCastleOption = false;
+    state.castling[team].leftCastleOption = false;
+    return;
+  }
+
+  state.castling[team].canCastleOption =
+    state.castling[team].leftCastleOption ||
+    state.castling[team].rightCastleOption;
+};
+
+export const rookMovedReducer = (
+  state: BoardType,
+  action: PayloadAction<"left" | "right">
+) => {
+  const team = state.currentTurn === "White" ? "white" : "black";
+  const side: "left" | "right" = action.payload;
+
+  if (side === "left") {
+    state.castling[team].leftCastleOption = false;
+  } else if (side === "right") {
+    state.castling[team].rightCastleOption = false;
+  }
+
+  // Update the general castling option
+  state.castling[team].canCastleOption =
+    state.castling[team].leftCastleOption ||
+    state.castling[team].rightCastleOption;
+};
+
+// Check and Checkmate Related Reducers
 export const kingInCheckReducer = (
   state: BoardType,
   action: PayloadAction<boolean>
@@ -118,50 +167,7 @@ export const inCheckPositionsReducer = (
   state.inCheckPositions = action.payload;
 };
 
-export const castlingOptionGoneReducer = (state: BoardType) => {
-  const team = state.currentTurn === "White" ? "white" : "black";
-
-  if (state.castling[`${team}King`].kingMoved) {
-    state.castling[team].canCastleOption = false;
-    state.castling[team].rightCastleOption = false;
-    state.castling[team].leftCastleOption = false;
-    return;
-  }
-
-  state.castling[team].canCastleOption =
-    state.castling[team].leftCastleOption ||
-    state.castling[team].rightCastleOption;
-};
-
-// Reducer to update king movement
-export const kingMovedReducer = (state: BoardType) => {
-  const team = state.currentTurn === "White" ? "white" : "black";
-  state.castling[`${team}King`].kingMoved = true;
-  state.castling[team].canCastleOption = false;
-  state.castling[team].leftCastleOption = false;
-  state.castling[team].rightCastleOption = false;
-};
-
-// Reducer to update rook movement
-export const rookMovedReducer = (
-  state: BoardType,
-  action: PayloadAction<"left" | "right">
-) => {
-  const team = state.currentTurn === "White" ? "white" : "black";
-  const side: "left" | "right" = action.payload;
-
-  if (side === "left") {
-    state.castling[team].leftCastleOption = false;
-  } else if (side === "right") {
-    state.castling[team].rightCastleOption = false;
-  }
-
-  // Update the general castling option
-  state.castling[team].canCastleOption =
-    state.castling[team].leftCastleOption ||
-    state.castling[team].rightCastleOption;
-};
-
+// Pawn Promotion Related Reducers
 export const pawnPromotionStateReducer = (
   state: BoardType,
   action: PayloadAction<{ isPromotion: boolean; targetTile: TileType | null }>
@@ -192,7 +198,6 @@ export const updateTileWithPromotedPieceReducer = (
     )
   );
 
-  // Reset promotion state after updating the tile
   state.pawnPromotion.isPawnPromotion = false;
   state.pawnPromotion.tileToUpdate = null;
 };
