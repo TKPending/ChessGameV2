@@ -3,14 +3,21 @@ import { useSelector } from "react-redux";
 import PlayerNameInput from "@/app/components/playerSetupComponents/PlayerNameInput";
 import ContinueButton from "@/app/components/playerSetupComponents/ContinueButton";
 
+const MIN_NAME_LENGTH: number = 2;
+const PLAYERONE: number = 0;
+const PLAYERTWO: number = 1;
+
 const PlayerNamesLayout = () => {
   const players = useSelector((state: RootState) => state.board.players);
 
   const validNames = () => {
-    const playerOneName: string = players[0].playerName;
-    const playerTwoName: string = players[1].playerName;
+    const playerOneName: string = players[PLAYERONE].playerName;
+    const playerTwoName: string = players[PLAYERTWO].playerName;
 
-    if (playerOneName.length > 2 && playerTwoName.length > 2) {
+    if (
+      playerOneName.length > MIN_NAME_LENGTH &&
+      playerTwoName.length > MIN_NAME_LENGTH
+    ) {
       return true;
     }
 
