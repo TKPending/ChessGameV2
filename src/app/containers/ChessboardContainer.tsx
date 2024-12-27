@@ -6,11 +6,11 @@ import {
   setChessboard,
   setEnemyMoves,
 } from "@/app/redux/slices/board/boardSlice";
+import PawnPromotion from "@/app/components/PawnPromotion";
 import { generateTiles } from "@/app/utils/chessboard/generateTiles";
-import { generateEnemyMoves } from "@/app/utils/pieceMovements/generateMoves/generateEnemyMoves";
+import { generateAllEnemyMoves } from "@/app/utils/pieceMovements/generateMoves/generateAllEnemyMoves";
 import { isKingInCheckmate } from "@/app/utils/pieceMovements/checkmate/isKingInCheckmate";
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
-import PawnPromotion from "../components/PawnPromotion";
 
 const ChessboardContainer = () => {
   const dispatch = useDispatch();
@@ -42,7 +42,7 @@ const ChessboardContainer = () => {
       const oppositeColor: "White" | "Black" =
         currentTurn === "White" ? "Black" : "White";
 
-      const moves: EnemyAttackType[] = generateEnemyMoves(
+      const moves: EnemyAttackType[] = generateAllEnemyMoves(
         dispatch,
         chessboard,
         oppositeColor

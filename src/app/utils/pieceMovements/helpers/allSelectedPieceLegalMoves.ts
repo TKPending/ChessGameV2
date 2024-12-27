@@ -2,8 +2,17 @@ import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { setSpecificTile } from "@/app/redux/slices/board/boardSlice";
 import { TileType } from "@/app/types/TileType";
 import { PieceType } from "@/app/types/PieceType";
+import { TileEmptyOrHasEnemy } from "./TileEmptyOrHasEnemy";
 
-export const possiblePieceMoves = (
+/**
+ * Checks all potential moves
+ * @param dispatch Update redux state
+ * @param chessboard Current chessboard state
+ * @param defaultMoves All possible moves a piece can make
+ * @param pieceToMoveColor Color of the piece that is being checked
+ * @returns All moves that are legal
+ */
+export const allSelectedPieceLegalMoves = (
   dispatch: Dispatch<UnknownAction>,
   chessboard: TileType[][],
   defaultMoves: [number, number][],
@@ -16,7 +25,7 @@ export const possiblePieceMoves = (
       const targetTile: TileType = chessboard[targetRow][targetCol];
       const enemyPiece: PieceType | null = targetTile.pieceOnTile;
 
-      if (!enemyPiece || enemyPiece.pieceColor !== pieceToMoveColor) {
+      if (TileEmptyOrHasEnemy(enemyPiece, pieceToMoveColor)) {
         pieceValidMoves.push([targetRow, targetCol]);
       } else {
         dispatch(setSpecificTile({ ...targetTile, isHighlighted: false }));

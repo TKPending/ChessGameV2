@@ -7,7 +7,7 @@ import {
 } from "@/app/redux/slices/board/boardSlice";
 import { filterCastleMoves } from "./helpers/handPieceOnTileHelpers/filterCastleMoves";
 import { filterKingSafeMoves } from "./helpers/handPieceOnTileHelpers/filterKingSafeMoves";
-import { generateSelectedPieceValidMoves } from "@/app/utils/pieceMovements/generateMoves/generateSelectedPieceValidMoves";
+import { generateSelectedPieceValidMoves } from "@/app/utils/pieceMovements/generateMoves/generateSelectedPiece";
 import { highlightValidMoves } from "@/app/utils/chessboard/design/highlightValidMoves";
 import { filterMovesToAvoidCheck } from "@/app/utils/handlers/helpers/handPieceOnTileHelpers/filterMovesToAvoidCheck";
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";

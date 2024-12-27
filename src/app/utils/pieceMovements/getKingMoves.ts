@@ -1,7 +1,7 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { possiblePieceMoves } from "@/app/utils/pieceMovements/helpers/possiblePieceMoves";
-import { TileType } from "@/app/types/TileType";
+import { allSelectedPieceLegalMoves } from "@/app/utils/pieceMovements/helpers/allSelectedPieceLegalMoves";
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
+import { TileType } from "@/app/types/TileType";
 
 /**
  * Get's all the moves that the King can make
@@ -43,7 +43,7 @@ export const getKingMoves = (
     );
   }
 
-  const kingPotentialMoves = possiblePieceMoves(
+  const kingPotentialMoves = allSelectedPieceLegalMoves(
     dispatch,
     chessboard,
     kingMoves,
