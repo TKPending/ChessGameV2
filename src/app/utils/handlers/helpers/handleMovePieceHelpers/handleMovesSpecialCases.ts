@@ -7,6 +7,15 @@ import { CastleType } from "@/app/types/CastleType";
 import { PieceName, PieceType } from "@/app/types/PieceType";
 import { TileType } from "@/app/types/TileType";
 
+/**
+ * Handles King castling and Pawn Promotion checks.
+ * @param dispatch Update redux state
+ * @param piece Piece that is going through the check
+ * @param targetTile Tile the piece is looking to move to
+ * @param previousClickedTile Originally clicked tile
+ * @param currentTurn Current turn in the game
+ * @param castling Whether castling is around
+ */
 export const handleMovesSpecialCases = (
   dispatch: Dispatch<UnknownAction>,
   piece: PieceType,

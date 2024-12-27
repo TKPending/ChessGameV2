@@ -1,6 +1,6 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
+import { allSelectedPieceLegalMoves } from "@/app/utils/pieceMovements/helpers/allSelectedPieceLegalMoves";
 import { TileType } from "@/app/types/TileType";
-import { possiblePieceMoves } from "@/app/utils/pieceMovements/helpers/possiblePieceMoves";
 
 /**
  * Returns all the moves that a Pawn can do
@@ -89,7 +89,7 @@ export const getPawnMoves = (
 
   const allPawnMoves = [...pawnMoves, ...diagonalMoves];
 
-  return possiblePieceMoves(
+  return allSelectedPieceLegalMoves(
     dispatch,
     chessboard,
     allPawnMoves,

@@ -6,15 +6,15 @@ import {
   setEnemyMoves,
 } from "@/app/redux/slices/board/boardSlice";
 import Piece from "./Piece";
-import { PieceType } from "@/app/types/PieceType";
-import { TileType } from "@/app/types/TileType";
 import { handleMovePiece } from "@/app/utils/handlers/handleMovePiece";
 import { isMoveValid } from "@/app/utils/pieceMovements/helpers/isMoveValid";
 import { handlePieceOnTile } from "@/app/utils/handlers/handlePieceOnTile";
 import { getTileBackgroundColor } from "@/app/utils/chessboard/design/getTileBackgroundColor";
 import { resetTiles } from "@/app/utils/chessboard/design/resetTiles";
-import { EnemyAttackType } from "@/app/types/EnemyAttackType";
 import { CastleType } from "@/app/types/CastleType";
+import { EnemyAttackType } from "@/app/types/EnemyAttackType";
+import { PieceType } from "@/app/types/PieceType";
+import { TileType } from "@/app/types/TileType";
 
 type Props = {
   tile: TileType;
@@ -30,9 +30,6 @@ const Tile = ({ tile }: Props) => {
   );
   const previousClickedTile: TileType | null = useSelector(
     (state: RootState) => state.board.previousClickedTile
-  );
-  const isInCheckmate: boolean = useSelector(
-    (state: RootState) => state.board.isKingInCheckmate
   );
   const isInCheck: boolean = useSelector(
     (state: RootState) => state.board.isKingInCheck

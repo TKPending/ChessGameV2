@@ -1,6 +1,6 @@
+import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { setSpecificTile } from "@/app/redux/slices/board/boardSlice";
 import { TileType } from "@/app/types/TileType";
-import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 
 /**
  * Get rid of all the highlighted tiles, making them unlighted.

@@ -1,5 +1,5 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { possiblePieceMoves } from "@/app/utils/pieceMovements/helpers/possiblePieceMoves";
+import { allSelectedPieceLegalMoves } from "@/app/utils/pieceMovements/helpers/allSelectedPieceLegalMoves";
 import { TileType } from "@/app/types/TileType";
 
 /**
@@ -29,7 +29,7 @@ export const getKnightMoves = (
     [currentRow - 1, currentCol - 2],
   ];
 
-  return possiblePieceMoves(
+  return allSelectedPieceLegalMoves(
     dispatch,
     chessboard,
     knightMoves,

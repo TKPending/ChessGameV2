@@ -3,6 +3,14 @@ import { convertTilePosition } from "@/app/utils/chessboard/convertTilePosition"
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
 import { TileType } from "@/app/types/TileType";
 
+/**
+ * Filters all moves to see if King can Castle
+ * @param chessboard Current chessboard state
+ * @param clickedTile Tile the King would be moving to
+ * @param enemyMoves All enemy potential moves
+ * @param currentTurn Current turn in the game
+ * @returns Moves if the king can castle
+ */
 export const filterCastleMoves = (
   chessboard: TileType[][],
   clickedTile: TileType,

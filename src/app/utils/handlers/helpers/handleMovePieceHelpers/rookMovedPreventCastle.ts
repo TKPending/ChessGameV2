@@ -3,6 +3,14 @@ import { CastleType } from "@/app/types/CastleType";
 import { TileType } from "@/app/types/TileType";
 import { setRookHasMoved } from "@/app/redux/slices/board/boardSlice";
 
+/**
+ * Checks whether a Rook has been moved
+ * @param dispatch Update Redux State
+ * @param currentTurn Current turn in game
+ * @param castling Checks castling states
+ * @param tile Originally clicked Tile
+ * @returns Nothings
+ */
 export const rookMovedPreventCastle = (
   dispatch: Dispatch<UnknownAction>,
   currentTurn: "White" | "Black",

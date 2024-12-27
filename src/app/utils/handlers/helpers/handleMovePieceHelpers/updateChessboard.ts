@@ -1,8 +1,16 @@
+import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { setChessboard } from "@/app/redux/slices/board/boardSlice";
 import { PieceType } from "@/app/types/PieceType";
 import { TileType } from "@/app/types/TileType";
-import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 
+/**
+ * Update the Chessboard when a move is made
+ * @param dispatch Update redux state
+ * @param currentChessboard Board state before the move
+ * @param previousClickedTile Originally clicked tile
+ * @param targetTile Tile piece is moving to
+ * @returns A new board state, with piece in updated position & Removes highlights
+ */
 export const updateChessboard = (
   dispatch: Dispatch<UnknownAction>,
   currentChessboard: TileType[][],

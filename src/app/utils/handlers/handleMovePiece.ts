@@ -5,10 +5,10 @@ import {
   setMoveHistory,
 } from "@/app/redux/slices/gameHistory/gameHistorySlice";
 import { updateChessboard } from "./helpers/handleMovePieceHelpers/updateChessboard";
-import { TileType } from "@/app/types/TileType";
+import { handleMovesSpecialCases } from "./helpers/handleMovePieceHelpers/handleMovesSpecialCases";
 import { CastleType } from "@/app/types/CastleType";
 import { PieceType } from "@/app/types/PieceType";
-import { handleMovesSpecialCases } from "./helpers/handleMovePieceHelpers/handleMovesSpecialCases";
+import { TileType } from "@/app/types/TileType";
 
 /**
  * Deals with moving pieces

@@ -1,5 +1,5 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { possiblePieceMoves } from "./helpers/possiblePieceMoves";
+import { allSelectedPieceLegalMoves } from "./helpers/allSelectedPieceLegalMoves";
 import { TileType } from "@/app/types/TileType";
 
 /**
@@ -45,5 +45,10 @@ export const getSlidingPieceMoves = (
     }
   });
 
-  return possiblePieceMoves(dispatch, chessboard, validMoves, pieceToMoveColor);
+  return allSelectedPieceLegalMoves(
+    dispatch,
+    chessboard,
+    validMoves,
+    pieceToMoveColor
+  );
 };
