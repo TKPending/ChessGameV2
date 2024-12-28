@@ -1,3 +1,4 @@
+import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { pathToKing } from "./pathToKing";
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
 
@@ -9,12 +10,13 @@ import { EnemyAttackType } from "@/app/types/EnemyAttackType";
  * @returns All King moves that can get the King out of Check
  */
 export const allDefensiveMoves = (
+  dispatch: Dispatch<UnknownAction>,
   enemyMoves: EnemyAttackType[],
   kingRow: number,
   kingCol: number
 ): number[][] => {
   const validDefenseMoves = new Set<string>();
-  const attackingPaths = pathToKing(enemyMoves, [kingRow, kingCol]);
+  const attackingPaths = pathToKing(dispatch, enemyMoves, [kingRow, kingCol]);
 
   attackingPaths.forEach(({ path }) => {
     path.forEach(([row, col]) => {

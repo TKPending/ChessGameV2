@@ -19,9 +19,6 @@ export const simulateMove = (
   clickedTile: TileType,
   currentTurn: "White" | "Black"
 ) => {
-  const currentTurnKing: TileType | null = findKing(chessboard, currentTurn);
-  if (!currentTurnKing) return false;
-
   const simulatedChessboard: TileType[][] = updateChessboard(
     chessboard,
     previousClickedTile,
@@ -29,21 +26,23 @@ export const simulateMove = (
     true
   );
 
-  const isSimulation: boolean = true;
+  const currentTurnKing: TileType | null = findKing(
+    simulatedChessboard,
+    currentTurn
+  );
+  if (!currentTurnKing) return true;
+
   const enemyColor: "White" | "Black" =
     currentTurn === "White" ? "Black" : "White";
   const simulatedEnemyMoves: EnemyAttackType[] = generateAllEnemyMoves(
     dispatch,
     simulatedChessboard,
     enemyColor,
-    isSimulation
+    true
   );
 
   const [kingRow, kingCol] = convertTilePosition(currentTurnKing.tilePosition);
-
-  const isKingInCheck = simulatedEnemyMoves.some((enemy) =>
+  return simulatedEnemyMoves.some((enemy) =>
     enemy.moves.some(([row, col]) => row === kingRow && col === kingCol)
   );
-
-  return isKingInCheck;
 };

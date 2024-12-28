@@ -8,7 +8,6 @@ import {
 } from "@/app/redux/slices/board/boardSlice";
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
 import { findKing } from "./helper/findKing";
-import { pathToKing } from "./helper/pathToKing";
 import { kingCaptureOutOfCheck } from "./helper/kingCaptureOutOfCheck";
 import { allDefensiveMoves } from "./helper/allDefensiveMoves";
 
@@ -58,6 +57,7 @@ export const isKingInCheckmate = (
   }
 
   const kingDefensiveMoves: number[][] = allDefensiveMoves(
+    dispatch,
     enemyMoves,
     kingRow,
     kingCol

@@ -167,6 +167,18 @@ export const inCheckPositionsReducer = (
   state.inCheckPositions = action.payload;
 };
 
+export const piecesAttackingKingReeducer = (
+  state: BoardType,
+  action: PayloadAction<EnemyAttackType | null>
+) => {
+  if (action.payload) {
+    state.pieceAttackingKing.push(action.payload);
+    return;
+  }
+
+  state.pieceAttackingKing = [];
+};
+
 // Pawn Promotion Related Reducers
 export const pawnPromotionStateReducer = (
   state: BoardType,

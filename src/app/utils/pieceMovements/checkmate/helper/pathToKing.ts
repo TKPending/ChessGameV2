@@ -1,4 +1,6 @@
+import { setPiecesAttackingKing } from "@/app/redux/slices/board/boardSlice";
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
+import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 
 /**
  * Finds the paths leading to the King under attack.
@@ -7,15 +9,16 @@ import { EnemyAttackType } from "@/app/types/EnemyAttackType";
  * @returns An array of attack paths, each containing the attacker and tiles leading to the King.
  */
 export const pathToKing = (
+  dispatch: Dispatch<UnknownAction>,
   enemyMoves: EnemyAttackType[],
   kingPosition: [number, number]
 ): { attacker: EnemyAttackType; path: [number, number][] }[] => {
   const attackPaths: { attacker: EnemyAttackType; path: [number, number][] }[] =
     [];
+  const [kingRow, kingCol] = kingPosition;
 
   enemyMoves.forEach((enemyMove) => {
     const { piece, moves, piecePosition } = enemyMove;
-    const [kingRow, kingCol] = kingPosition;
 
     const isKingUnderAttack = moves.some(
       ([moveRow, moveCol]) => moveRow === kingRow && moveCol === kingCol
@@ -42,6 +45,7 @@ export const pathToKing = (
       }
 
       attackPaths.push({ attacker: enemyMove, path });
+      dispatch(setPiecesAttackingKing(enemyMove));
     }
   });
 

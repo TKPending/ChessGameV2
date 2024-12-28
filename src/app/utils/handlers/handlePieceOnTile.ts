@@ -30,6 +30,7 @@ export const handlePieceOnTile = (
   clickedTile: TileType,
   chessboard: TileType[][],
   isInCheck: boolean,
+  pieceAttackingKing: EnemyAttackType[],
   validCheckMoves: number[][],
   enemyMoves: EnemyAttackType[],
   currentTurn: "White" | "Black"
@@ -55,9 +56,20 @@ export const handlePieceOnTile = (
     enemyMoves
   );
 
-  const validPieceMoves = isInCheck
-    ? filterMovesToAvoidCheck(selectedPieceValidMoves, validCheckMoves)
-    : selectedPieceValidMoves;
+  const attackingPositions = pieceAttackingKing.map(
+    (piece) => piece.piecePosition
+  );
+
+  let validPieceMoves: number[][];
+  if (isInCheck) {
+    const preventCheckMoves = [...attackingPositions, ...validCheckMoves];
+    validPieceMoves = filterMovesToAvoidCheck(
+      selectedPieceValidMoves,
+      preventCheckMoves
+    );
+  } else {
+    validPieceMoves = selectedPieceValidMoves;
+  }
 
   let kingSpecificMoves: number[][] = [];
   if (pieceName === "King") {
@@ -72,26 +84,25 @@ export const handlePieceOnTile = (
       dispatch,
       chessboard,
       clickedTile,
-      enemyMoves
+      enemyMoves,
+      attackingPositions
     );
 
     kingSpecificMoves = [...kingCastleMoves, ...kingSafeMoves];
   }
 
   let validMoves = [...validPieceMoves, ...kingSpecificMoves];
-  // console.log(validMoves);
-  // validMoves = validMoves.filter(
-  //   ([row, col]) =>
-  //     !simulateMove(
-  //       dispatch,
-  //       chessboard,
-  //       clickedTile,
-  //       chessboard[row][col],
-  //       currentTurn
-  //     )
-  // );
 
-  console.log(validMoves);
+  validMoves = validMoves.filter(
+    ([row, col]) =>
+      !simulateMove(
+        dispatch,
+        chessboard,
+        clickedTile,
+        chessboard[row][col],
+        currentTurn
+      )
+  );
 
   highlightValidMoves(dispatch, chessboard, validMoves, currentTurn);
   dispatch(setValidMoves(validMoves));

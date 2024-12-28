@@ -4,6 +4,7 @@ import { setMoveCounter } from "@/app/redux/slices/gameHistory/gameHistorySlice"
 import {
   setCurrentTurn,
   setEnemyMoves,
+  setPiecesAttackingKing,
 } from "@/app/redux/slices/board/boardSlice";
 import Piece from "./Piece";
 import { handleMovePiece } from "@/app/utils/handlers/handleMovePiece";
@@ -47,6 +48,9 @@ const Tile = ({ tile }: Props) => {
   const castling: CastleType = useSelector(
     (state: RootState) => state.board.castling
   );
+  const piecesAttackingKing = useSelector(
+    (state: RootState) => state.board.pieceAttackingKing
+  );
 
   const handleTileClick = (clickedTile: TileType) => {
     if (!previousClickedTile) {
@@ -56,6 +60,7 @@ const Tile = ({ tile }: Props) => {
           clickedTile,
           chessboard,
           isInCheck,
+          piecesAttackingKing,
           validCheckMoves,
           enemyMoves,
           currentTurn
@@ -74,6 +79,7 @@ const Tile = ({ tile }: Props) => {
         clickedTile,
         chessboard,
         isInCheck,
+        piecesAttackingKing,
         validCheckMoves,
         enemyMoves,
         currentTurn
@@ -96,6 +102,7 @@ const Tile = ({ tile }: Props) => {
       dispatch(setEnemyMoves([]));
       dispatch(setCurrentTurn());
       dispatch(setMoveCounter());
+      dispatch(setPiecesAttackingKing(null));
 
       return;
     }

@@ -5,18 +5,20 @@ import { EnemyAttackType } from "@/app/types/EnemyAttackType";
 import { TileType } from "@/app/types/TileType";
 
 /**
- * Checks all Kings move against the Enemy Moves
+ * Checks all King's moves against enemy moves and attacking pieces.
  * @param dispatch Update Redux State
  * @param chessboard Current Chessboard State
  * @param kingTile Tile that the King is on
  * @param enemyMoves All enemy potential moves
+ * @param attackingPieces Positions of pieces currently attacking the King
  * @returns All moves that are legal for the King piece
  */
 export const filterKingSafeMoves = (
   dispatch: Dispatch<UnknownAction>,
   chessboard: TileType[][],
   kingTile: TileType,
-  enemyMoves: EnemyAttackType[]
+  enemyMoves: EnemyAttackType[],
+  attackingPieces: number[][]
 ): number[][] => {
   if (!kingTile || !kingTile.pieceOnTile) return [];
 
@@ -26,15 +28,23 @@ export const filterKingSafeMoves = (
     chessboard,
     kingRow,
     kingCol,
-    kingTile.pieceOnTile?.pieceColor
+    kingTile.pieceOnTile?.pieceColor,
+    false
   );
 
-  return kingMoves.filter(
-    ([row, col]) =>
-      !enemyMoves.some((enemy) =>
-        enemy.moves.some(
-          ([enemyRow, enemyCol]) => enemyRow === row && enemyCol === col
-        )
+  return kingMoves.filter(([row, col]) => {
+    const isThreatenedByEnemy = enemyMoves.some((enemy) =>
+      enemy.moves.some(
+        ([enemyRow, enemyCol]) => enemyRow === row && enemyCol === col
       )
-  );
+    );
+
+    const isAttackingPiece = attackingPieces.some(
+      ([attackingRow, attackingCol]) =>
+        attackingRow === row && attackingCol === col
+    );
+
+    // Allow capturing attacking pieces, but avoid other threats
+    return isAttackingPiece || !isThreatenedByEnemy;
+  });
 };

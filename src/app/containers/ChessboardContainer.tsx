@@ -44,17 +44,17 @@ const ChessboardContainer = () => {
 
       const notSimulation: boolean = false;
 
-      const moves: EnemyAttackType[] = generateAllEnemyMoves(
+      const enemyLegalMoves: EnemyAttackType[] = generateAllEnemyMoves(
         dispatch,
         chessboard,
         oppositeColor,
         notSimulation
       );
-      isKingInCheckmate(dispatch, chessboard, moves, currentTurn);
+      isKingInCheckmate(dispatch, chessboard, enemyLegalMoves, currentTurn);
 
-      dispatch(setEnemyMoves(moves));
+      dispatch(setEnemyMoves(enemyLegalMoves));
     }
-  }, [chessboard, currentTurn, enemyMoves, dispatch]);
+  }, [chessboard, currentTurn, enemyMoves, isInCheck, dispatch]);
 
   return (
     <div className="grid grid-cols-8 grid-rows-8 aspect-square w-full max-w-[80%] max-h-[80%] bg-gray-700">

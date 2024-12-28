@@ -4,6 +4,7 @@ import { classifySlidingDirections } from "@/app/utils/pieceMovements/helpers/cl
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
 import { PieceType } from "@/app/types/PieceType";
 import { TileType } from "@/app/types/TileType";
+import { convertTilePosition } from "../../chessboard/convertTilePosition";
 
 /**
  * Generates all moves for the enemy team
@@ -36,6 +37,7 @@ export const generateAllEnemyMoves = (
         );
 
         if (moves.length > 0) {
+          moves.push(convertTilePosition(tile.tilePosition));
           const direction = classifySlidingDirections(piece.pieceName);
           enemyMoves.push({
             piecePosition: [row, col],
