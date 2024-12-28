@@ -5,15 +5,13 @@ import {
   setSpecificTile,
   setValidMoves,
 } from "@/app/redux/slices/board/boardSlice";
-import { filterCastleMoves } from "./helpers/handPieceOnTileHelpers/filterCastleMoves";
-import { filterKingSafeMoves } from "./helpers/handPieceOnTileHelpers/filterKingSafeMoves";
 import { generateSelectedPieceValidMoves } from "@/app/utils/pieceMovements/generateMoves/generateSelectedPiece";
 import { highlightValidMoves } from "@/app/utils/chessboard/design/highlightValidMoves";
-import { simulateMove } from "../simulation/simulateMove";
-import { filterMovesToAvoidCheck } from "@/app/utils/handlers/helpers/handPieceOnTileHelpers/filterMovesToAvoidCheck";
+import { isKingSafeAfterMove } from "@/app/utils/handlers/helpers/handPieceOnTileHelpers/isKingSafeAfterMove";
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
-import { PieceName } from "@/app/types/PieceType";
 import { TileType } from "@/app/types/TileType";
+import { getKingSpecificMoves } from "./helpers/handPieceOnTileHelpers/getKingSpecificMoves";
+import { getValidPieceMoves } from "./helpers/handPieceOnTileHelpers/getValidPieceMoves";
 
 /**
  * Deals with the piece being clicked on the tile
@@ -21,6 +19,7 @@ import { TileType } from "@/app/types/TileType";
  * @param clickedTile The current tile that is being clicked
  * @param chessboard Chessboard Object keeping track of the Chess Game
  * @param isInCheck Whether the King piece is in check
+ * @param pieceAttackingKing Pieces that are attacking the king
  * @param validCheckMoves Valid moves that can be made
  * @param enemyMoves All enemy moves that can be made
  * @param currentTurn The current turn
@@ -36,8 +35,6 @@ export const handlePieceOnTile = (
   currentTurn: "White" | "Black"
 ) => {
   clearTileHighlights(dispatch, chessboard);
-
-  const pieceName: PieceName | undefined = clickedTile.pieceOnTile?.pieceName;
 
   dispatch(
     setSpecificTile({
@@ -60,42 +57,27 @@ export const handlePieceOnTile = (
     (piece) => piece.piecePosition
   );
 
-  let validPieceMoves: number[][];
-  if (isInCheck) {
-    const preventCheckMoves = [...attackingPositions, ...validCheckMoves];
-    validPieceMoves = filterMovesToAvoidCheck(
-      selectedPieceValidMoves,
-      preventCheckMoves
-    );
-  } else {
-    validPieceMoves = selectedPieceValidMoves;
-  }
+  let validPieceMoves: number[][] = getValidPieceMoves(
+    isInCheck,
+    attackingPositions,
+    validCheckMoves,
+    selectedPieceValidMoves
+  );
 
-  let kingSpecificMoves: number[][] = [];
-  if (pieceName === "King") {
-    const kingCastleMoves: number[][] = filterCastleMoves(
-      chessboard,
-      clickedTile,
-      enemyMoves,
-      currentTurn
-    );
+  const kingSpecificMoves: number[][] = getKingSpecificMoves(
+    dispatch,
+    clickedTile,
+    chessboard,
+    enemyMoves,
+    attackingPositions,
+    currentTurn
+  );
 
-    const kingSafeMoves: number[][] = filterKingSafeMoves(
-      dispatch,
-      chessboard,
-      clickedTile,
-      enemyMoves,
-      attackingPositions
-    );
+  let pieceLegalMoves = [...validPieceMoves, ...kingSpecificMoves];
 
-    kingSpecificMoves = [...kingCastleMoves, ...kingSafeMoves];
-  }
-
-  let validMoves = [...validPieceMoves, ...kingSpecificMoves];
-
-  validMoves = validMoves.filter(
+  pieceLegalMoves = pieceLegalMoves.filter(
     ([row, col]) =>
-      !simulateMove(
+      !isKingSafeAfterMove(
         dispatch,
         chessboard,
         clickedTile,
@@ -104,6 +86,6 @@ export const handlePieceOnTile = (
       )
   );
 
-  highlightValidMoves(dispatch, chessboard, validMoves, currentTurn);
-  dispatch(setValidMoves(validMoves));
+  highlightValidMoves(dispatch, chessboard, pieceLegalMoves, currentTurn);
+  dispatch(setValidMoves(pieceLegalMoves));
 };

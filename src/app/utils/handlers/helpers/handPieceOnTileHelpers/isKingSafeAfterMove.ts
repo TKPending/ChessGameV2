@@ -1,18 +1,19 @@
-import { TileType } from "@/app/types/TileType";
+import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { findKing } from "@/app/utils/pieceMovements/checkmate/helper/findKing";
 import { convertTilePosition } from "@/app/utils/chessboard/convertTilePosition";
 import { updateChessboard } from "@/app/utils/handlers/helpers/handleMovePieceHelpers/updateChessboard";
 import { generateAllEnemyMoves } from "@/app/utils/pieceMovements/generateMoves/generateAllEnemyMoves";
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
-import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
+import { TileType } from "@/app/types/TileType";
 
 /**
  * Simulates a move, to verify that the King doesn't get placed in check / checkmate
  * @param chessboard Current chessboard state
  * @param previousClickedTile Originally clicked tile
  * @param clickedTile Current Clicked Tile
+ * @returns True or False whether the King will be in check after move
  */
-export const simulateMove = (
+export const isKingSafeAfterMove = (
   dispatch: Dispatch<UnknownAction>,
   chessboard: TileType[][],
   previousClickedTile: TileType,
