@@ -42,10 +42,13 @@ const ChessboardContainer = () => {
       const oppositeColor: "White" | "Black" =
         currentTurn === "White" ? "Black" : "White";
 
+      const notSimulation: boolean = false;
+
       const moves: EnemyAttackType[] = generateAllEnemyMoves(
         dispatch,
         chessboard,
-        oppositeColor
+        oppositeColor,
+        notSimulation
       );
       isKingInCheckmate(dispatch, chessboard, moves, currentTurn);
 

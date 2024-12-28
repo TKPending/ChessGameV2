@@ -24,6 +24,7 @@ export const generatePieceLegalMoves = (
   piece: PieceType,
   tile: TileType,
   isEnemy: boolean = false,
+  simulation: boolean,
   enemyMoves?: EnemyAttackType[]
 ): number[][] => {
   const [currentRow, currentCol] = convertTilePosition(tile.tilePosition);
@@ -35,7 +36,8 @@ export const generatePieceLegalMoves = (
         chessboard,
         piece.pieceColor,
         currentRow,
-        currentCol
+        currentCol,
+        simulation
       );
       return isEnemy
         ? moves.filter(
@@ -51,7 +53,8 @@ export const generatePieceLegalMoves = (
         chessboard,
         currentRow,
         currentCol,
-        piece.pieceColor
+        piece.pieceColor,
+        simulation
       );
     }
     case PieceName.rook: {
@@ -66,7 +69,8 @@ export const generatePieceLegalMoves = (
           [0, 1],
           [0, -1], // Horizontal and vertical
         ],
-        piece.pieceColor
+        piece.pieceColor,
+        simulation
       );
     }
     case PieceName.bishop: {
@@ -81,7 +85,8 @@ export const generatePieceLegalMoves = (
           [-1, 1],
           [-1, -1], // Diagonal
         ],
-        piece.pieceColor
+        piece.pieceColor,
+        simulation
       );
     }
     case PieceName.queen: {
@@ -100,7 +105,8 @@ export const generatePieceLegalMoves = (
           [-1, 1],
           [-1, -1], // All directions
         ],
-        piece.pieceColor
+        piece.pieceColor,
+        simulation
       );
     }
     case PieceName.king: {
@@ -110,6 +116,7 @@ export const generatePieceLegalMoves = (
         currentRow,
         currentCol,
         piece.pieceColor,
+        simulation,
         enemyMoves || []
       );
     }

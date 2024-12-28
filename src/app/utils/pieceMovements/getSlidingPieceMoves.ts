@@ -18,7 +18,8 @@ export const getSlidingPieceMoves = (
   currentRow: number,
   currentCol: number,
   directions: number[][],
-  pieceToMoveColor: "White" | "Black"
+  pieceToMoveColor: "White" | "Black",
+  simulation: boolean
 ): number[][] => {
   const validMoves: [number, number][] = [];
 
@@ -49,6 +50,7 @@ export const getSlidingPieceMoves = (
     dispatch,
     chessboard,
     validMoves,
-    pieceToMoveColor
+    pieceToMoveColor,
+    simulation
   );
 };

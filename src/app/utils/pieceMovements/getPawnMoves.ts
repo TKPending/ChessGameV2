@@ -16,7 +16,8 @@ export const getPawnMoves = (
   chessboard: TileType[][],
   pieceToMoveColor: "White" | "Black",
   currentRow: number,
-  currentCol: number
+  currentCol: number,
+  simulation: boolean
 ) => {
   const direction: number = pieceToMoveColor === "White" ? -1 : 1;
   const isFirstMove =
@@ -93,6 +94,7 @@ export const getPawnMoves = (
     dispatch,
     chessboard,
     allPawnMoves,
-    pieceToMoveColor
+    pieceToMoveColor,
+    simulation
   );
 };

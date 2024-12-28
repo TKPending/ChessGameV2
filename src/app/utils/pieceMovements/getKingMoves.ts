@@ -19,6 +19,7 @@ export const getKingMoves = (
   currentRow: number,
   currentCol: number,
   pieceToMoveColor: "White" | "Black",
+  simulation: boolean,
   enemyMoves?: EnemyAttackType[]
 ): [number, number][] => {
   let kingMoves: [number, number][] = [
@@ -47,7 +48,8 @@ export const getKingMoves = (
     dispatch,
     chessboard,
     kingMoves,
-    pieceToMoveColor
+    pieceToMoveColor,
+    simulation
   );
 
   return kingPotentialMoves;

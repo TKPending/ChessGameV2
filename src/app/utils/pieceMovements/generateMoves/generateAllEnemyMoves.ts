@@ -15,7 +15,8 @@ import { TileType } from "@/app/types/TileType";
 export const generateAllEnemyMoves = (
   dispatch: Dispatch<UnknownAction>,
   chessboard: TileType[][],
-  enemyColor: "White" | "Black"
+  enemyColor: "White" | "Black",
+  simulation: boolean
 ): EnemyAttackType[] => {
   const enemyMoves: EnemyAttackType[] = [];
 
@@ -30,6 +31,7 @@ export const generateAllEnemyMoves = (
           chessboard,
           piece,
           tile,
+          simulation,
           true
         );
 

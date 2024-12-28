@@ -24,6 +24,7 @@ export const generateSelectedPieceValidMoves = (
     previousClickedTile.pieceOnTile,
     previousClickedTile,
     false,
+    false,
     enemyMoves
   );
 };

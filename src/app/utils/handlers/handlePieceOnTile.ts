@@ -9,6 +9,7 @@ import { filterCastleMoves } from "./helpers/handPieceOnTileHelpers/filterCastle
 import { filterKingSafeMoves } from "./helpers/handPieceOnTileHelpers/filterKingSafeMoves";
 import { generateSelectedPieceValidMoves } from "@/app/utils/pieceMovements/generateMoves/generateSelectedPiece";
 import { highlightValidMoves } from "@/app/utils/chessboard/design/highlightValidMoves";
+import { simulateMove } from "../simulation/simulateMove";
 import { filterMovesToAvoidCheck } from "@/app/utils/handlers/helpers/handPieceOnTileHelpers/filterMovesToAvoidCheck";
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
 import { PieceName } from "@/app/types/PieceType";
@@ -77,7 +78,20 @@ export const handlePieceOnTile = (
     kingSpecificMoves = [...kingCastleMoves, ...kingSafeMoves];
   }
 
-  const validMoves = [...validPieceMoves, ...kingSpecificMoves];
+  let validMoves = [...validPieceMoves, ...kingSpecificMoves];
+  // console.log(validMoves);
+  // validMoves = validMoves.filter(
+  //   ([row, col]) =>
+  //     !simulateMove(
+  //       dispatch,
+  //       chessboard,
+  //       clickedTile,
+  //       chessboard[row][col],
+  //       currentTurn
+  //     )
+  // );
+
+  console.log(validMoves);
 
   highlightValidMoves(dispatch, chessboard, validMoves, currentTurn);
   dispatch(setValidMoves(validMoves));

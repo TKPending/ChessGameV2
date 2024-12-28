@@ -16,7 +16,8 @@ export const getKnightMoves = (
   chessboard: TileType[][],
   currentRow: number,
   currentCol: number,
-  pieceToMoveColor: "White" | "Black"
+  pieceToMoveColor: "White" | "Black",
+  simulation: boolean
 ): [number, number][] => {
   const knightMoves: [number, number][] = [
     [currentRow + 2, currentCol + 1],
@@ -33,6 +34,7 @@ export const getKnightMoves = (
     dispatch,
     chessboard,
     knightMoves,
-    pieceToMoveColor
+    pieceToMoveColor,
+    simulation
   );
 };

@@ -12,10 +12,11 @@ import { TileType } from "@/app/types/TileType";
  * @returns A new board state, with piece in updated position & Removes highlights
  */
 export const updateChessboard = (
-  dispatch: Dispatch<UnknownAction>,
   currentChessboard: TileType[][],
   previousClickedTile: TileType,
-  targetTile: TileType
+  targetTile: TileType,
+  simulation: boolean,
+  dispatch?: Dispatch<UnknownAction>
 ): TileType[][] => {
   if (!previousClickedTile.pieceOnTile) return [];
 
@@ -40,7 +41,9 @@ export const updateChessboard = (
     })
   );
 
-  dispatch(setChessboard(newChessboardState));
+  if (!simulation && dispatch) {
+    dispatch(setChessboard(newChessboardState));
+  }
 
   return newChessboardState;
 };

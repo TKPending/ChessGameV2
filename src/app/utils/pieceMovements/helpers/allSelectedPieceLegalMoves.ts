@@ -16,7 +16,8 @@ export const allSelectedPieceLegalMoves = (
   dispatch: Dispatch<UnknownAction>,
   chessboard: TileType[][],
   defaultMoves: [number, number][],
-  pieceToMoveColor: "White" | "Black"
+  pieceToMoveColor: "White" | "Black",
+  simulation: boolean
 ): [number, number][] => {
   const pieceValidMoves: [number, number][] = [];
 
@@ -28,7 +29,9 @@ export const allSelectedPieceLegalMoves = (
       if (TileEmptyOrHasEnemy(enemyPiece, pieceToMoveColor)) {
         pieceValidMoves.push([targetRow, targetCol]);
       } else {
-        dispatch(setSpecificTile({ ...targetTile, isHighlighted: false }));
+        if (!simulation) {
+          dispatch(setSpecificTile({ ...targetTile, isHighlighted: false }));
+        }
       }
     }
   });
