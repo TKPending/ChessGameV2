@@ -2,6 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Highlighting Tiles */
 .tile {
-  transition: background-color 0.5s ease-in-out; /* Smooth fade-in */
+  transition: background-color 0.5s ease-in-out;
+}
+
+/* Start Screen Animations */
+@keyframes moveToCenterFromLeft {
+  from {
+    transform: translateX(-200%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes moveToCenterFromRight {
+  from {
+    transform: translateX(200%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-from-left {
+  animation: moveToCenterFromLeft 1s ease-in-out forwards;
+}
+
+.animate-from-right {
+  animation: moveToCenterFromRight 1s ease-in-out forwards;
+}
+
+.animate-from-bottom {
+  animation: moveToCenterFromBottom 1s ease-in-out forwards;
 }

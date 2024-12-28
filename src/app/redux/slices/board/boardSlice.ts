@@ -1,9 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { BoardType } from "@/app/types/BoardType";
-import { Team } from "@/app/types/PlayerType";
 import {
   addPlayerNameReducer,
   capturedPiecesReducer,
+  castlingOptionGoneReducer,
   chessboardReducer,
   chessGamePlayingReducer,
   currentlyClickedTileReducer,
@@ -11,13 +10,20 @@ import {
   inCheckPositionsReducer,
   kingInCheckmateReducer,
   kingInCheckReducer,
+  kingMovedReducer,
+  pawnPromotionStateReducer,
+  piecesAttackingKingReeducer,
   pieceValidMovesReducer,
   previouslyClickedTileReducer,
+  rookMovedReducer,
   updateCurrentTurnReducer,
   updateSpecificTileReducer,
+  updateTileWithPromotedPieceReducer,
   validCheckMovesReducer,
 } from "./boardReducer";
-import { generateTiles } from "@/app/utils/generateTiles";
+import { generateTiles } from "@/app/utils/chessboard/generateTiles";
+import { BoardType } from "@/app/types/BoardType";
+import { Team } from "@/app/types/PlayerType";
 
 const initialState: BoardType = {
   chessboard: generateTiles(),
@@ -45,10 +51,35 @@ const initialState: BoardType = {
   previousClickedTile: null,
   piecePotentialMoves: [],
   enemyMoves: [],
+  pieceAttackingKing: [],
   isKingInCheck: false,
   isKingInCheckmate: false,
   validCheckMoves: [],
   inCheckPositions: [],
+  castling: {
+    blackKing: {
+      kingMoved: false,
+      kingPosition: [7, 4],
+    },
+    whiteKing: {
+      kingMoved: false,
+      kingPosition: [0, 4],
+    },
+    black: {
+      canCastleOption: true,
+      rightCastleOption: true,
+      leftCastleOption: true,
+    },
+    white: {
+      canCastleOption: true,
+      rightCastleOption: true,
+      leftCastleOption: true,
+    },
+  },
+  pawnPromotion: {
+    isPawnPromotion: false,
+    tileToUpdate: null,
+  },
 };
 
 const boardSlice = createSlice({
@@ -69,6 +100,12 @@ const boardSlice = createSlice({
     setIsKingInCheckmate: kingInCheckmateReducer,
     setValidCheckMoves: validCheckMovesReducer,
     setInCheckPositons: inCheckPositionsReducer,
+    setKingHasMoved: kingMovedReducer,
+    setRookHasMoved: rookMovedReducer,
+    setRemoveCastlingOption: castlingOptionGoneReducer,
+    setPawnPromotion: pawnPromotionStateReducer,
+    setTileWithPromotedPiece: updateTileWithPromotedPieceReducer,
+    setPiecesAttackingKing: piecesAttackingKingReeducer,
   },
 });
 
@@ -87,6 +124,12 @@ export const {
   setIsKingInCheckmate,
   setValidCheckMoves,
   setInCheckPositons,
+  setKingHasMoved,
+  setRookHasMoved,
+  setRemoveCastlingOption,
+  setPawnPromotion,
+  setTileWithPromotedPiece,
+  setPiecesAttackingKing,
 } = boardSlice.actions;
 
 export default boardSlice.reducer;
