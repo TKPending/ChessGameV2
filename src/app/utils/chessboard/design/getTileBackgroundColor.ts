@@ -18,5 +18,5 @@ export const getTileBackgroundColor = (tile: TileType): string => {
         return "";
     }
   }
-  return tile.defaultTileColor === "White" ? "bg-white" : "bg-gray-800";
+  return tile.defaultTileColor === "White" ? "bg-light-tile" : "bg-dark-tile";
 };

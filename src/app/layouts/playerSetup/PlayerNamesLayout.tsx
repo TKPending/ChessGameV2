@@ -27,7 +27,7 @@ const PlayerNamesLayout = () => {
   const showButton: boolean = validNames();
 
   return (
-    <div className="bg-black h-screen w-screen flex flex-col items-center justify-center gap-12">
+    <div className="landing-background animate-gradientAnimation h-screen w-screen flex flex-col items-center justify-center gap-12">
       <h1 className="text-white text-4xl font-semibold">
         Enter the name of each player
       </h1>
