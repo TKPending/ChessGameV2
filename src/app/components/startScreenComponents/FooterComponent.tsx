@@ -1,7 +1,22 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+
 const FooterComponent = () => {
   return (
-    <div className="absolute right-5 bottom-5">
-      <p className="animate-from-right text-xs">Created by Tony Koke</p>
+    <div className="flex gap-4 absolute items-center right-[3%] bottom-[3%] hover:cursor-pointer z-50">
+      <a href={"https://github.com/TKPending/ChessGameV2"} target={"_blank"}>
+        <FontAwesomeIcon
+          icon={faGithub}
+          className="animate-from-right text-customGreen h-6 w-6"
+        />
+      </a>
+      <a href={`mailto:tony-koke@outlook.com`}>
+        <FontAwesomeIcon
+          icon={faEnvelope}
+          className="animate-from-right text-customGreen h-6 w-6"
+        />
+      </a>
     </div>
   );
 };
