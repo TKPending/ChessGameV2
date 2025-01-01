@@ -14,7 +14,7 @@ const GameLayout = () => {
   );
 
   return (
-    <div className="h-screen w-screen landing-background animate-gradientAnimation flex flex-col md:flex-row gap-6 justify-center p-6">
+    <div className="h-screen w-screen flex flex-col md:flex-row gap-6 justify-center p-6">
       {isError && <ErrorContainer />}
       <ChessboardAndPlayersLayout />
       <div

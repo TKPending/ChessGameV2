@@ -11,7 +11,7 @@ const ChessGame = () => {
   );
 
   return (
-    <div className="h-screen w-screen">
+    <div className="h-screen w-screen bg-page-background">
       {isPlaying ? <GameLayout /> : <PlayerSetupLayout />}
     </div>
   );

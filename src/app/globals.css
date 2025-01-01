@@ -4,22 +4,13 @@
 
 /* Landing Page Gradient Animation */
 .landing-background {
-  background: linear-gradient(
-    135deg,
-    #d2a679,
-    #8b4513
-  ); /* Wooden chessboard gradient */
+  background: linear-gradient(135deg, #d2a679, #8b4513);
   background-size: 400% 400%;
   animation: gradientAnimation 8s ease infinite;
   height: 100vh;
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
-/* Animation Keyframes */
 @keyframes gradientAnimation {
   0% {
     background-position: 0% 50%;
@@ -66,4 +57,14 @@
 
 .animate-from-bottom {
   animation: moveToCenterFromBottom 1s ease-in-out forwards;
+}
+
+.button {
+  margin-top: 20px;
+  padding: 15px 30px;
+  font-size: 18px;
+  background: black;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
 }

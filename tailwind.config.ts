@@ -19,7 +19,11 @@ const config: Config = {
         "enemy-tile": "#FF0000",
         "available-tile": "#0A4612",
         "error-red": "#CE0B0B",
-        "page-background": "#B5B4C9",
+        "page-background": "#25282b",
+        customGreen: "#14eaad",
+      },
+      fontFamily: {
+        roboto: ["Roboto", "sans-serif"],
       },
     },
   },
