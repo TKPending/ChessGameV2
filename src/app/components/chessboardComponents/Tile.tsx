@@ -114,7 +114,7 @@ const Tile = ({ tile }: Props) => {
   return (
     <div
       onClick={() => handleTileClick(tile)}
-      className={`tile flex items-center justify-center ${getTileBackgroundColor(
+      className={`tile tileBorder flex items-center justify-center ${getTileBackgroundColor(
         tile
       )} ${
         currentTurn === pieceOnTile?.pieceColor
