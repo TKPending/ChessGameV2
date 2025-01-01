@@ -1,6 +1,6 @@
-import { setMoveHistoryVisibility } from "@/app/redux/slices/gameHistory/gameHistorySlice";
-import { RootState } from "@/app/redux/store";
 import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "@/app/redux/store";
+import { setMoveHistoryVisibility } from "@/app/redux/slices/gameHistory/gameHistorySlice";
 
 const DisplayMovesHistory = () => {
   const dispatch = useDispatch();
@@ -13,15 +13,8 @@ const DisplayMovesHistory = () => {
   };
 
   return (
-    <div
-      className={`hidden sm:flex w-full items-center ${
-        isPreviousMovesHidden ? "px-6 justify-end" : "justify-center"
-      }`}
-    >
-      <p
-        onClick={handleDisplayMoves}
-        className="text-white text-xs hover:cursor-pointer hover:text-gray-200 transition duration-200 hover:underline"
-      >
+    <div>
+      <p onClick={handleDisplayMoves} className="text-white cursor-pointer">
         {isPreviousMovesHidden ? "Hide" : "Show Moves"}
       </p>
     </div>

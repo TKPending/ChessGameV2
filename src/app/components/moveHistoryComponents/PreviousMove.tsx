@@ -1,5 +1,8 @@
-import { PieceType } from "@/app/types/PieceType";
+import CaptureMove from "./Moves/CaptureMove";
+import StandardMove from "./Moves/StandardMove";
+import PawnPromotionMove from "./Moves/PawnPromotionMove";
 import { MoveHistoryType } from "@/app/types/GameHistoryType";
+import { PieceType } from "@/app/types/PieceType";
 
 type Props = {
   move: MoveHistoryType;
@@ -7,6 +10,8 @@ type Props = {
 };
 
 const PreviousMove = ({ move, count }: Props) => {
+  if (!move.from.pieceOnTile) return;
+
   const piece: PieceType | null = move.from.pieceOnTile;
   const enemy: PieceType | null = move.to.pieceOnTile;
   const position: string = move.to.tilePosition;
@@ -14,35 +19,18 @@ const PreviousMove = ({ move, count }: Props) => {
 
   return (
     <div className="bg-gray-800 min-h-14 w-full flex items-center justify-around px-4 rounded-md shadow-md">
-      <div className="w-2/5 flex flex-col items-start">
-        <span className="text-white text-sm font-semibold text-left">
-          Move #{count}
-        </span>
-        {move.pawnPromotion && <p className="text-xs text-red-200">Promoted</p>}
-      </div>
-
-      <div className="text-gray-200 text-sm flex items-center justify-center gap-8 w-3/5">
-        <img
-          src={`/${piece?.pieceColor}-${piece?.pieceName}.png`}
-          className="h-6 w-6"
+      {move.pawnPromotion ? (
+        <PawnPromotionMove
+          piece={piece}
+          updatedPiece={move.updatedPiece}
+          capturedPiece={enemy}
+          destination={position}
         />
-        <span className="text-gray-500 ">{`→`}</span>
-        <div className="flex items-center justify-start gap-2">
-          <span className="font-bold">{position.toUpperCase()}</span>
-          {captured && (
-            <img
-              src={`/${enemy?.pieceColor}-${enemy?.pieceName}.png`}
-              className="h-4 w-4"
-            />
-          )}
-          {move.pawnPromotion && move.pawnPromotion && (
-            <img
-              src={`/${piece?.pieceColor}-${move.updatedPiece}.png`}
-              className="h-4 w-4"
-            />
-          )}
-        </div>
-      </div>
+      ) : captured ? (
+        <CaptureMove piece={piece} destination={position} enemy={enemy} />
+      ) : (
+        <StandardMove piece={piece} destination={position} />
+      )}
     </div>
   );
 };
