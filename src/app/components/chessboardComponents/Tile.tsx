@@ -51,6 +51,9 @@ const Tile = ({ tile }: Props) => {
   const piecesAttackingKing = useSelector(
     (state: RootState) => state.board.pieceAttackingKing
   );
+  const isInCheckmate: boolean = useSelector(
+    (state: RootState) => state.board.isKingInCheckmate
+  );
 
   const handleTileClick = (clickedTile: TileType) => {
     if (!previousClickedTile) {
@@ -117,7 +120,7 @@ const Tile = ({ tile }: Props) => {
       className={`tile tileBorder flex items-center justify-center ${getTileBackgroundColor(
         tile
       )} ${
-        currentTurn === pieceOnTile?.pieceColor
+        currentTurn === pieceOnTile?.pieceColor && !isInCheckmate
           ? "hover:bg-blue-200 hover:cursor-pointer transition duration-400"
           : ""
       }`}

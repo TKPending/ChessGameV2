@@ -31,7 +31,8 @@ export const kingCaptureOutOfCheck = (
     chessboard,
     kingRow,
     kingCol,
-    kingTile.pieceOnTile.pieceColor
+    kingTile.pieceOnTile.pieceColor,
+    false
   );
 
   const kingCaptureMoves = kingMoves.filter(

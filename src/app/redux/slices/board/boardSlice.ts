@@ -15,6 +15,7 @@ import {
   piecesAttackingKingReeducer,
   pieceValidMovesReducer,
   previouslyClickedTileReducer,
+  resetGameReducer,
   rookMovedReducer,
   updateCurrentTurnReducer,
   updateSpecificTileReducer,
@@ -106,6 +107,7 @@ const boardSlice = createSlice({
     setPawnPromotion: pawnPromotionStateReducer,
     setTileWithPromotedPiece: updateTileWithPromotedPieceReducer,
     setPiecesAttackingKing: piecesAttackingKingReeducer,
+    resetGame: resetGameReducer,
   },
 });
 
@@ -130,6 +132,7 @@ export const {
   setPawnPromotion,
   setTileWithPromotedPiece,
   setPiecesAttackingKing,
+  resetGame,
 } = boardSlice.actions;
 
 export default boardSlice.reducer;

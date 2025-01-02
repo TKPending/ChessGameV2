@@ -40,3 +40,10 @@ export const pawnPromotionUpdateMoveReducer = (
 export const displayPreviousMovesReducer = (state: GameHistoryType) => {
   state.isPreviousMovesHidden = !state.isPreviousMovesHidden;
 };
+
+export const resetGameHistoryReducer = (state: GameHistoryType) => {
+  state.count = 1;
+  state.chessboardHistory = [];
+  state.moveHistory = [];
+  state.isPreviousMovesHidden = true;
+};

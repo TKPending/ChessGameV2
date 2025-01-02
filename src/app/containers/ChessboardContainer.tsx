@@ -6,6 +6,7 @@ import {
   setChessboard,
   setEnemyMoves,
 } from "@/app/redux/slices/board/boardSlice";
+import Checkmate from "@/app/components/Checkmate";
 import PawnPromotion from "@/app/components/PawnPromotion";
 import { generateTiles } from "@/app/utils/chessboard/generateTiles";
 import { generateAllEnemyMoves } from "@/app/utils/pieceMovements/generateMoves/generateAllEnemyMoves";
@@ -54,10 +55,11 @@ const ChessboardContainer = () => {
 
       dispatch(setEnemyMoves(enemyLegalMoves));
     }
-  }, [chessboard, currentTurn, enemyMoves, isInCheck, dispatch]);
+  }, [chessboard, currentTurn, enemyMoves, isInCheck, dispatch, isInCheckmate]);
 
   return (
     <div className="grid grid-cols-8 grid-rows-8 aspect-square w-full max-w-[80%] max-h-[80%] bg-gray-700">
+      {isInCheckmate && <Checkmate />}
       {pawnPromotion.isPawnPromotion && (
         <PawnPromotion currentTurn={currentTurn} />
       )}

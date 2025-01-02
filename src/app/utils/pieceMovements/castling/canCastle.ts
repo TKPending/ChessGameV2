@@ -20,7 +20,6 @@ export const canCastle = (
   const king = chessboard[row][4];
 
   if (!king) {
-    console.log("King isn't in starting position");
     return { canCastleLeft: false, canCastleRight: false };
   }
 

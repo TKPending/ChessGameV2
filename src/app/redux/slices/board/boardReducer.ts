@@ -3,6 +3,7 @@ import { BoardType } from "@/app/types/BoardType";
 import { TileType } from "@/app/types/TileType";
 import { PieceType } from "@/app/types/PieceType";
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
+import { generateTiles } from "@/app/utils/chessboard/generateTiles";
 
 // Chessboard State Reducer
 export const chessboardReducer = (
@@ -212,4 +213,54 @@ export const updateTileWithPromotedPieceReducer = (
 
   state.pawnPromotion.isPawnPromotion = false;
   state.pawnPromotion.tileToUpdate = null;
+};
+
+// Reset Game
+export const resetGameReducer = (state: BoardType) => {
+  // Swap player names
+  const tempPlayerName = state.players[0].playerName;
+  state.players[0].playerName = state.players[1].playerName;
+  state.players[1].playerName = tempPlayerName;
+
+  // Reset the rest of the state
+  state.chessboard = generateTiles();
+  state.stateIndex = 0;
+  state.players[0].capturedPieces = [];
+  state.players[1].capturedPieces = [];
+  state.winner = undefined;
+  state.isPlaying = true;
+  state.currentTurn = "White";
+  state.clickedTile = null;
+  state.previousClickedTile = null;
+  state.piecePotentialMoves = [];
+  state.enemyMoves = [];
+  state.pieceAttackingKing = [];
+  state.isKingInCheck = false;
+  state.isKingInCheckmate = false;
+  state.validCheckMoves = [];
+  state.inCheckPositions = [];
+  state.castling = {
+    blackKing: {
+      kingMoved: false,
+      kingPosition: [7, 4],
+    },
+    whiteKing: {
+      kingMoved: false,
+      kingPosition: [0, 4],
+    },
+    black: {
+      canCastleOption: true,
+      rightCastleOption: true,
+      leftCastleOption: true,
+    },
+    white: {
+      canCastleOption: true,
+      rightCastleOption: true,
+      leftCastleOption: true,
+    },
+  };
+  state.pawnPromotion = {
+    isPawnPromotion: false,
+    tileToUpdate: null,
+  };
 };

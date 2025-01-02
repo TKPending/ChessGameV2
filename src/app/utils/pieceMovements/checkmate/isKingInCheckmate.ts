@@ -66,5 +66,8 @@ export const isKingInCheckmate = (
   dispatch(setValidCheckMoves(kingDefensiveMoves));
 
   const isCheckmate = kingDefensiveMoves.length === 0;
+  if (isCheckmate) {
+    console.log(kingDefensiveMoves);
+  }
   dispatch(setIsKingInCheckmate(isCheckmate));
 };
