@@ -7,15 +7,14 @@ type Props = {
 
 const StandardMove = ({ piece, destination }: Props) => {
   return (
-    <div className="flex justify-between items-center h-full w-full p-2">
+    <div className="flex items-center justify-between h-12 w-full px-4">
       <img
         src={`${piece.pieceColor}-${piece.pieceName}.png`}
         className="h-6 w-6"
       />
-      <span className="text-customGreen ">{`→`}</span>
-      <p className="text-customGreen text-sm">{destination.toUpperCase()}</p>
+      <span className="text-customGreen text-lg">{`→`}</span>
+      <p className="text-customGreen">{destination.toUpperCase()}</p>
     </div>
   );
 };
-
 export default StandardMove;

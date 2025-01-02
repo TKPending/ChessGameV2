@@ -6,10 +6,9 @@ import { PieceType } from "@/app/types/PieceType";
 
 type Props = {
   move: MoveHistoryType;
-  count: number;
 };
 
-const PreviousMove = ({ move, count }: Props) => {
+const PreviousMove = ({ move }: Props) => {
   if (!move.from.pieceOnTile) return;
 
   const piece: PieceType | null = move.from.pieceOnTile;

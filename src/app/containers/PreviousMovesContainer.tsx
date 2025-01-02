@@ -20,11 +20,7 @@ const PreviousMovesContainer = () => {
             .slice()
             .reverse()
             .map((move: MoveHistoryType, index: number) => (
-              <PreviousMove
-                key={index}
-                move={move}
-                count={moveHistory.length - index}
-              />
+              <PreviousMove key={index} move={move} />
             ))}
         </div>
       )}

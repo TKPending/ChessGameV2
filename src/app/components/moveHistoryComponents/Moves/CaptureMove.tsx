@@ -7,22 +7,20 @@ type Props = {
 };
 
 const CaptureMove = ({ piece, destination, enemy }: Props) => {
-  if (!enemy) return;
+  if (!enemy) return null;
 
   return (
-    <div className="flex h-full w-full p-2 justify-around items-center">
+    <div className="flex items-center justify-between h-12 w-full px-4">
       <img
         src={`${piece.pieceColor}-${piece.pieceName}.png`}
         className="h-6 w-6"
       />
-      <span className="text-customGreen ">{`→`}</span>
-
+      <span className="text-customGreen">{`→`}</span>
       <img
-        src={`${enemy.pieceColor}-${piece.pieceName}.png`}
+        src={`${enemy.pieceColor}-${enemy.pieceName}.png`}
         className="h-6 w-6"
       />
     </div>
   );
 };
-
 export default CaptureMove;

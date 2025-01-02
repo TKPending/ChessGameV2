@@ -19,6 +19,7 @@ const GameHistoryContainer = () => {
       </div>
 
       {previousMovesHidden && <PreviousMovesContainer />}
+      <div className="absoloute bottom-0 bg-white">test</div>
     </div>
   );
 };

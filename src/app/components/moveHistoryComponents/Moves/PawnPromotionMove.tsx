@@ -14,34 +14,35 @@ const PawnPromotionMove = ({
   destination,
 }: Props) => {
   return (
-    <div className="flex justify-between items-center h-full w-full p-2">
-      <div className="flex items-center">
-        <p className="text-white">{`(`}</p>
+    <div className="flex flex-col items-center justify-center h-14 w-full px-4">
+      <div className="flex items-center gap-2">
         <img
           src={`${piece.pieceColor}-${piece.pieceName}.png`}
-          className="h-4 w-4"
-        />
-        <span className="text-customGreen text-xs">{`→`}</span>
-
-        <img
-          src={`${piece.pieceColor}-${updatedPiece}.png`}
-          className="h-4 w-4"
-        />
-        <p className="text-white">{`)`}</p>
-      </div>
-
-      <span className="text-customGreen">{`→`}</span>
-
-      {capturedPiece ? (
-        <img
-          src={`${capturedPiece.pieceColor}-${updatedPiece}.png`}
           className="h-6 w-6"
         />
-      ) : (
-        <p className="text-customGreen">{destination.toUpperCase()}</p>
-      )}
+        <span className="text-customGreen text-xs">Promotion</span>
+        <img
+          src={`${piece.pieceColor}-${updatedPiece}.png`}
+          className="h-6 w-6"
+        />
+      </div>
+      <div className="flex items-center justify-between w-full">
+        <img
+          src={`${piece.pieceColor}-${updatedPiece}.png`}
+          className="h-6 w-6"
+        />
+        <span className="text-customGreen text-base">{`→`}</span>
+
+        {capturedPiece ? (
+          <img
+            src={`${capturedPiece.pieceColor}-${capturedPiece.pieceName}.png`}
+            className="h-6 w-6"
+          />
+        ) : (
+          <p className="text-customGreen">{destination.toUpperCase()}</p>
+        )}
+      </div>
     </div>
   );
 };
-
 export default PawnPromotionMove;
