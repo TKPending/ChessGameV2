@@ -20,7 +20,8 @@ export const getKingMoves = (
   currentCol: number,
   pieceToMoveColor: "White" | "Black",
   simulation: boolean,
-  enemyMoves?: EnemyAttackType[]
+  enemyMoves?: EnemyAttackType[],
+  test?: boolean
 ): [number, number][] => {
   let kingMoves: [number, number][] = [
     [currentRow + 1, currentCol],

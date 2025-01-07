@@ -18,23 +18,12 @@ import { setIsKingInCheckmate } from "@/app/redux/slices/board/boardSlice";
 export const kingCaptureOutOfCheck = (
   dispatch: Dispatch<UnknownAction>,
   chessboard: TileType[][],
-  kingRow: number,
-  kingCol: number,
+  kingMoves: [number, number][],
   kingTile: TileType,
   enemyMoves: EnemyAttackType[],
-  currentTurn: "White" | "Black",
-  test?: boolean
+  currentTurn: "White" | "Black"
 ): number[][] => {
   if (!kingTile || !kingTile.pieceOnTile) return [];
-
-  const kingMoves: [number, number][] = getKingMoves(
-    dispatch,
-    chessboard,
-    kingRow,
-    kingCol,
-    kingTile.pieceOnTile.pieceColor,
-    false
-  );
 
   const kingCaptureMoves = kingMoves.filter(
     ([row, col]) =>

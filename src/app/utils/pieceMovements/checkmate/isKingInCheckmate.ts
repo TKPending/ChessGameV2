@@ -11,6 +11,8 @@ import { findKing } from "./helper/findKing";
 import { kingCaptureOutOfCheck } from "./helper/kingCaptureOutOfCheck";
 import { allDefensiveMoves } from "./helper/allDefensiveMoves";
 import { preventCheckmate } from "./helper/preventCheckmate";
+import { getKingMoves } from "../getKingMoves";
+import { kingMovesOutOfCheck } from "./helper/kingMovesOutOfCheck";
 
 /**
  * Checks whether the King piece is in check or checkmate
@@ -25,7 +27,6 @@ export const isKingInCheckmate = (
   chessboard: TileType[][],
   enemyMoves: EnemyAttackType[],
   currentTurn: "White" | "Black"
-  // pieceAttackingKing: EnemyAttackType[]
 ) => {
   const kingTile = findKing(chessboard, currentTurn);
   if (!kingTile || !kingTile.pieceOnTile) return;
@@ -44,15 +45,28 @@ export const isKingInCheckmate = (
     return;
   }
 
-  const kingValidCaptureMoves: number[][] = kingCaptureOutOfCheck(
+  const kingMoves: [number, number][] = getKingMoves(
     dispatch,
     chessboard,
     kingRow,
     kingCol,
+    kingTile.pieceOnTile.pieceColor,
+    false,
+    [],
+    true
+  );
+
+  if (kingMovesOutOfCheck(kingMoves, enemyMoves)) {
+    return;
+  }
+
+  const kingValidCaptureMoves: number[][] = kingCaptureOutOfCheck(
+    dispatch,
+    chessboard,
+    kingMoves,
     kingTile,
     enemyMoves,
-    currentTurn,
-    true
+    currentTurn
   );
 
   const kingDefensiveMoves: number[][] = allDefensiveMoves(

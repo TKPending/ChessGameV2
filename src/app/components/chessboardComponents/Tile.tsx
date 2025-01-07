@@ -114,10 +114,18 @@ const Tile = ({ tile }: Props) => {
     resetTiles(dispatch, chessboard);
   };
 
+  const tilePosition = tile.tilePosition; // e.g., "a1"
+  const colLetter = tilePosition[0]; // "a"
+  const rowNumber = tilePosition[1]; // "1"
+
+  // Determine if this tile is in the leftmost column or bottommost row
+  const isLeftColumn = colLetter === "a"; // Leftmost column
+  const isBottomRow = rowNumber === "1"; // Bottommost row
+
   return (
     <div
       onClick={() => handleTileClick(tile)}
-      className={`tile tileBorder flex items-center justify-center ${getTileBackgroundColor(
+      className={`relative tile tileBorder flex items-center justify-center ${getTileBackgroundColor(
         tile
       )} ${
         currentTurn === pieceOnTile?.pieceColor && !isInCheckmate
@@ -129,6 +137,15 @@ const Tile = ({ tile }: Props) => {
       }}
     >
       {pieceOnTile && <Piece tile={tile} />}
+
+      {isLeftColumn && (
+        <div className="absolute top-2 left-2 font-semibold">{rowNumber}</div>
+      )}
+      {isBottomRow && (
+        <div className="absolute bottom-2 right-2 font-semibold">
+          {colLetter}
+        </div>
+      )}
     </div>
   );
 };
