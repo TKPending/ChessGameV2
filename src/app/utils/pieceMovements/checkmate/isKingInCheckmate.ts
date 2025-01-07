@@ -6,13 +6,13 @@ import {
   setIsKingInCheckmate,
   setValidCheckMoves,
 } from "@/app/redux/slices/board/boardSlice";
-import { EnemyAttackType } from "@/app/types/EnemyAttackType";
-import { findKing } from "./helper/findKing";
-import { kingCaptureOutOfCheck } from "./helper/kingCaptureOutOfCheck";
 import { allDefensiveMoves } from "./helper/allDefensiveMoves";
-import { preventCheckmate } from "./helper/preventCheckmate";
-import { getKingMoves } from "../getKingMoves";
+import { findKing } from "./helper/findKing";
+import { getKingMoves } from "@/app/utils/pieceMovements/getKingMoves";
+import { kingCaptureOutOfCheck } from "./helper/kingCaptureOutOfCheck";
 import { kingMovesOutOfCheck } from "./helper/kingMovesOutOfCheck";
+import { preventCheckmate } from "./helper/preventCheckmate";
+import { EnemyAttackType } from "@/app/types/EnemyAttackType";
 
 /**
  * Checks whether the King piece is in check or checkmate
