@@ -74,6 +74,8 @@ export const handlePieceOnTile = (
   );
 
   let pieceLegalMoves = [...validPieceMoves, ...kingSpecificMoves];
+  const enemyTeamColor: "White" | "Black" =
+    currentTurn === "White" ? "Black" : "White";
 
   pieceLegalMoves = pieceLegalMoves.filter(
     ([row, col]) =>
@@ -82,7 +84,8 @@ export const handlePieceOnTile = (
         chessboard,
         clickedTile,
         chessboard[row][col],
-        currentTurn
+        currentTurn,
+        enemyTeamColor
       )
   );
 

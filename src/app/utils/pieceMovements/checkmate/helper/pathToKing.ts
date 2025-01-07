@@ -11,7 +11,8 @@ import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 export const pathToKing = (
   dispatch: Dispatch<UnknownAction>,
   enemyMoves: EnemyAttackType[],
-  kingPosition: [number, number]
+  kingPosition: [number, number],
+  enemy: boolean
 ): { attacker: EnemyAttackType; path: [number, number][] }[] => {
   const attackPaths: { attacker: EnemyAttackType; path: [number, number][] }[] =
     [];
@@ -45,7 +46,9 @@ export const pathToKing = (
       }
 
       attackPaths.push({ attacker: enemyMove, path });
-      dispatch(setPiecesAttackingKing(enemyMove));
+      if (enemy) {
+        dispatch(setPiecesAttackingKing(enemyMove));
+      }
     }
   });
 

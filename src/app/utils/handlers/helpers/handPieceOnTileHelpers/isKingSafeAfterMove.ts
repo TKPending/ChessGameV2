@@ -18,7 +18,8 @@ export const isKingSafeAfterMove = (
   chessboard: TileType[][],
   previousClickedTile: TileType,
   clickedTile: TileType,
-  currentTurn: "White" | "Black"
+  currentTeamColor: "White" | "Black",
+  enemyTeamColor: "White" | "Black"
 ) => {
   const simulatedChessboard: TileType[][] = updateChessboard(
     chessboard,
@@ -29,20 +30,19 @@ export const isKingSafeAfterMove = (
 
   const currentTurnKing: TileType | null = findKing(
     simulatedChessboard,
-    currentTurn
+    currentTeamColor
   );
   if (!currentTurnKing) return true;
 
-  const enemyColor: "White" | "Black" =
-    currentTurn === "White" ? "Black" : "White";
   const simulatedEnemyMoves: EnemyAttackType[] = generateAllEnemyMoves(
     dispatch,
     simulatedChessboard,
-    enemyColor,
+    enemyTeamColor,
     true
   );
 
   const [kingRow, kingCol] = convertTilePosition(currentTurnKing.tilePosition);
+
   return simulatedEnemyMoves.some((enemy) =>
     enemy.moves.some(([row, col]) => row === kingRow && col === kingCol)
   );

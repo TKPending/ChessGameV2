@@ -22,7 +22,8 @@ export const kingCaptureOutOfCheck = (
   kingCol: number,
   kingTile: TileType,
   enemyMoves: EnemyAttackType[],
-  currentTurn: "White" | "Black"
+  currentTurn: "White" | "Black",
+  test?: boolean
 ): number[][] => {
   if (!kingTile || !kingTile.pieceOnTile) return [];
 
@@ -41,14 +42,15 @@ export const kingCaptureOutOfCheck = (
       chessboard[row][col].pieceOnTile
   );
 
-  const kingValidCaptureMoves = kingCaptureMoves.filter(
-    ([row, col]) =>
-      !enemyMoves.some((enemy) =>
-        enemy.moves.some(
-          ([enemyRow, enemyCol]) => enemyRow === row && enemyCol === col
-        )
+  const kingValidCaptureMoves = kingCaptureMoves.filter(([row, col]) => {
+    const isMoveSafe = enemyMoves.some((enemy) =>
+      enemy.moves.some(
+        ([enemyRow, enemyCol]) => enemyRow === row && enemyCol === col
       )
-  );
+    );
+
+    return isMoveSafe;
+  });
 
   if (kingValidCaptureMoves.length > 0) {
     dispatch(setIsKingInCheckmate(false));

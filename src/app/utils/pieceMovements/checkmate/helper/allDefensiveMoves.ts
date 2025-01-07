@@ -13,10 +13,16 @@ export const allDefensiveMoves = (
   dispatch: Dispatch<UnknownAction>,
   enemyMoves: EnemyAttackType[],
   kingRow: number,
-  kingCol: number
+  kingCol: number,
+  enemy: boolean = true
 ): number[][] => {
   const validDefenseMoves = new Set<string>();
-  const attackingPaths = pathToKing(dispatch, enemyMoves, [kingRow, kingCol]);
+  const attackingPaths = pathToKing(
+    dispatch,
+    enemyMoves,
+    [kingRow, kingCol],
+    enemy
+  );
 
   attackingPaths.forEach(({ path }) => {
     path.forEach(([row, col]) => {

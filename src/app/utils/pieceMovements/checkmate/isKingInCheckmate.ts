@@ -10,6 +10,7 @@ import { EnemyAttackType } from "@/app/types/EnemyAttackType";
 import { findKing } from "./helper/findKing";
 import { kingCaptureOutOfCheck } from "./helper/kingCaptureOutOfCheck";
 import { allDefensiveMoves } from "./helper/allDefensiveMoves";
+import { preventCheckmate } from "./helper/preventCheckmate";
 
 /**
  * Checks whether the King piece is in check or checkmate
@@ -24,6 +25,7 @@ export const isKingInCheckmate = (
   chessboard: TileType[][],
   enemyMoves: EnemyAttackType[],
   currentTurn: "White" | "Black"
+  // pieceAttackingKing: EnemyAttackType[]
 ) => {
   const kingTile = findKing(chessboard, currentTurn);
   if (!kingTile || !kingTile.pieceOnTile) return;
@@ -49,12 +51,9 @@ export const isKingInCheckmate = (
     kingCol,
     kingTile,
     enemyMoves,
-    currentTurn
+    currentTurn,
+    true
   );
-
-  if (kingValidCaptureMoves.length > 0) {
-    return;
-  }
 
   const kingDefensiveMoves: number[][] = allDefensiveMoves(
     dispatch,
@@ -65,9 +64,10 @@ export const isKingInCheckmate = (
 
   dispatch(setValidCheckMoves(kingDefensiveMoves));
 
-  const isCheckmate = kingDefensiveMoves.length === 0;
-  if (isCheckmate) {
-    console.log(kingDefensiveMoves);
-  }
+  const isCheckmate = !preventCheckmate(dispatch, chessboard, currentTurn, [
+    ...kingDefensiveMoves,
+    ...kingValidCaptureMoves,
+  ]);
+
   dispatch(setIsKingInCheckmate(isCheckmate));
 };
