@@ -10,9 +10,9 @@ const GameLayout = () => {
   );
 
   return (
-    <div className="h-screen w-screen p-4">
+    <div className="h-screen w-screen max-h-screen overflow-hidden p-4">
       {isError && <ErrorContainer />}
-      <div className="h-full w-full flex flex-col md:flex-row gap-4">
+      <div className="h-full w-full flex flex-col md:flex-row gap-4 p-2">
         <ChessboardAndPlayersLayout />
         <GameHistoryContainer />
       </div>

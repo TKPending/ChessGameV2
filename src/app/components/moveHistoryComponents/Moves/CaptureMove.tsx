@@ -10,7 +10,7 @@ const CaptureMove = ({ piece, destination, enemy }: Props) => {
   if (!enemy) return null;
 
   return (
-    <div className="flex items-center justify-between h-12 w-full px-4">
+    <div className="flex items-center justify-between h-full w-full px-4">
       <img
         src={`${piece.pieceColor}-${piece.pieceName}.png`}
         className="h-6 w-6"

@@ -11,7 +11,7 @@ const ChessboardAndPlayersLayout = () => {
         <Players playerNo={PLAYERONE} className="items-end" />
       </div>
 
-      <div className="h-full w-full flex items-center justify-center">
+      <div className="h-auto w-full flex items-center justify-center">
         <ChessboardContainer />
       </div>
 

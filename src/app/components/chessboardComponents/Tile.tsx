@@ -137,10 +137,12 @@ const Tile = ({ tile }: Props) => {
       {pieceOnTile && <Piece tile={tile} />}
 
       {isLeftColumn && (
-        <div className="absolute top-2 left-2 font-semibold">{rowNumber}</div>
+        <div className="hidden md:flex absolute top-2 left-2 font-semibold">
+          {rowNumber}
+        </div>
       )}
       {isBottomRow && (
-        <div className="absolute bottom-2 right-2 font-semibold">
+        <div className="hidden md:flex absolute bottom-2 right-2 font-semibold">
           {colLetter}
         </div>
       )}

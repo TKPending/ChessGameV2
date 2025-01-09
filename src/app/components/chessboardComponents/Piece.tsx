@@ -22,7 +22,7 @@ const Piece = ({ tile }: Props) => {
 
   return (
     <img
-      className="p-4"
+      className="p-4 min-h-14 min-w-14"
       src={`/${pieceColor.toLowerCase()}-${pieceName.toLowerCase()}.png`}
       alt={`${pieceColor} ${pieceName}`}
     />

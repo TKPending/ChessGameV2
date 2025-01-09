@@ -7,7 +7,7 @@ type Props = {
 
 const StandardMove = ({ piece, destination }: Props) => {
   return (
-    <div className="h-full w-full flex items-center justify-between h-12 w-full px-4">
+    <div className="h-full w-full flex items-center justify-between h-full w-full px-4">
       <img
         src={`${piece.pieceColor}-${piece.pieceName}.png`}
         className="h-6 w-6"

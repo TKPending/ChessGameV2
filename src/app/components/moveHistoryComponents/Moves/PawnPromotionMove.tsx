@@ -14,7 +14,7 @@ const PawnPromotionMove = ({
   destination,
 }: Props) => {
   return (
-    <div className="flex flex-col items-center justify-center h-14 w-full px-4">
+    <div className="flex flex-col items-center justify-center h-full w-full px-4">
       <div className="flex items-center gap-2">
         <img
           src={`${piece.pieceColor}-${piece.pieceName}.png`}

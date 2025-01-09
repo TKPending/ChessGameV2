@@ -19,7 +19,7 @@ const GameHistoryContainer = () => {
   );
 
   return (
-    <div className="p-2 w-full h-30 md:h-full md:w-64 flex items-center justify-center">
+    <div className="min-h-[20px] h-[120px] md:h-full p-2 w-full md:w-64 flex items-center justify-center">
       <div className="h-full w-full md:h-[80%] min-h-24">
         <section className="h-full w-full flex flex-col gap-4 overflow-x-auto md:overflow-y-auto">
           <div className="flex flex-row justify-between text-xs md:text-base px-2">
