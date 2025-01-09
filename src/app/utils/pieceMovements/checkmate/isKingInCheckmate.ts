@@ -56,6 +56,14 @@ export const isKingInCheckmate = (
     true
   );
 
+  const kingDefensiveMoves: number[][] = allDefensiveMoves(
+    dispatch,
+    enemyMoves,
+    kingRow,
+    kingCol
+  );
+  dispatch(setValidCheckMoves(kingDefensiveMoves));
+
   if (kingMovesOutOfCheck(kingMoves, enemyMoves)) {
     return;
   }
@@ -68,15 +76,6 @@ export const isKingInCheckmate = (
     enemyMoves,
     currentTurn
   );
-
-  const kingDefensiveMoves: number[][] = allDefensiveMoves(
-    dispatch,
-    enemyMoves,
-    kingRow,
-    kingCol
-  );
-
-  dispatch(setValidCheckMoves(kingDefensiveMoves));
 
   const isCheckmate = !preventCheckmate(dispatch, chessboard, currentTurn, [
     ...kingDefensiveMoves,
