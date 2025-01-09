@@ -10,10 +10,12 @@ const GameLayout = () => {
   );
 
   return (
-    <div className="h-screen w-screen flex flex-col md:flex-row gap-6 justify-center p-6">
+    <div className="h-screen w-screen p-4">
       {isError && <ErrorContainer />}
-      <ChessboardAndPlayersLayout />
-      <GameHistoryContainer />
+      <div className="h-full w-full flex flex-col md:flex-row gap-4">
+        <ChessboardAndPlayersLayout />
+        <GameHistoryContainer />
+      </div>
     </div>
   );
 };

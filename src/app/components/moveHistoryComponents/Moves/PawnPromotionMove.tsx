@@ -18,12 +18,12 @@ const PawnPromotionMove = ({
       <div className="flex items-center gap-2">
         <img
           src={`${piece.pieceColor}-${piece.pieceName}.png`}
-          className="h-6 w-6"
+          className="h-6 w-6 hidden lg:flex"
         />
         <span className="text-customGreen text-xs">Promotion</span>
         <img
           src={`${piece.pieceColor}-${updatedPiece}.png`}
-          className="h-6 w-6"
+          className="h-6 w-6 hidden lg:flex"
         />
       </div>
       <div className="flex items-center justify-between w-full">

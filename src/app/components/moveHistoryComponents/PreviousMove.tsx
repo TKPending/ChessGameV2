@@ -17,7 +17,7 @@ const PreviousMove = ({ move }: Props) => {
   const captured: boolean = enemy ? true : false;
 
   return (
-    <div className="bg-gray-800 min-h-14 w-full flex items-center justify-around px-4 rounded-md shadow-md">
+    <div className="bg-gray-800 min-h-14 min-w-24 flex items-center justify-around rounded-md shadow-md overflow-hidden">
       {move.pawnPromotion ? (
         <PawnPromotionMove
           piece={piece}

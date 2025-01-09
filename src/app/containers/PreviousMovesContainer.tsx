@@ -9,13 +9,13 @@ const PreviousMovesContainer = () => {
   );
 
   return (
-    <div className="h-full overflow-y-scroll w-full max-w-sm overflow-y-scroll rounded-md scrollbar-thin scrollbar-thumb-rounded">
+    <div className="h-full w-full flex rounded-md px-4 overflow-x-auto md:overflow-y-auto scrollbar-thin scrollbar-thumb-rounded">
       {moveHistory.length === 0 ? (
-        <div className="h-64 w-full flex items-center justify-center">
+        <div className="h-full w-full flex items-center justify-center text-center">
           <p className="text-customGreen">No Moves Have Been Made</p>
         </div>
       ) : (
-        <div className="flex flex-col gap-4 h-full overflow-y-scroll w-full p-2 rounded-br-lg rounded-bl-lg">
+        <div className="flex flex-row md:flex-col gap-4 h-full w-full p-2">
           {moveHistory
             .slice()
             .reverse()

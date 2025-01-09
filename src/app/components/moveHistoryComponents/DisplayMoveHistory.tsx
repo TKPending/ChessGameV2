@@ -15,7 +15,7 @@ const DisplayMovesHistory = () => {
   return (
     <div>
       <p onClick={handleDisplayMoves} className="text-white cursor-pointer">
-        {isPreviousMovesHidden ? "Hide" : "Show Moves"}
+        {isPreviousMovesHidden ? "Hide" : "Show"}
       </p>
     </div>
   );
