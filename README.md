@@ -8,7 +8,7 @@ This project was created using **Next.js**, **TypeScript**, and **TailwindCSS**,
 <img width="1710" alt="landingpage" src="https://github.com/user-attachments/assets/90349baf-20a6-4423-92c0-3955128a6b56" />
 
 
-## Features 👶
+## <ins>Features 👶</ins>
 
 **Technologies Used 📝**
 
@@ -39,7 +39,8 @@ This feature ensures the integrity of gameplay by validating moves before allowi
 
 Prevents illegal moves while dynamically updating valid move options as the board state evolves.
 
-**Backend Features 📦**
+
+## <ins> Backend Features 📦</ins>
 
 **King Check and Checkmate Detection**
 
@@ -61,10 +62,12 @@ When a pawn reaches the opposite side of the board, players can promote it to a 
 Validates castling moves by ensuring the king and rook haven’t moved, there are no pieces in between, and the king doesn’t move through or into check.
 
 **Move History Tracking**
-
+<br>
 Tracks every move made in the game, allowing for future features such as undo functionality or move history review.
 
-**Frontend Features 🎨**
+
+
+## <ins>Frontend Features 🎨</ins>
 
 **Responsive Chessboard**
 
@@ -73,12 +76,14 @@ The chessboard dynamically resizes based on screen dimensions, ensuring a consis
 **Player Indicators**
 
 - Displays the current player’s turn and highlights when a king is in check.
-
+  
 **Interactive Feedback**
 
 - Pieces highlight possible moves when selected, helping players understand the rules and strategies.
 
-**Future Improvements 🔮**
+  
+
+## <ins>Future Improvements 🔮</ins>
 
 **AI Opponent**:
 
