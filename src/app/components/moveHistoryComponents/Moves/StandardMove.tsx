@@ -11,6 +11,7 @@ const StandardMove = ({ piece, destination }: Props) => {
       <img
         src={`${piece.pieceColor}-${piece.pieceName}.png`}
         className="h-6 w-6"
+        alt={`${piece.pieceColor} ${piece.pieceName} piece`}
       />
       <span className="text-customGreen text-lg">{`→`}</span>
       <p className="text-customGreen">{destination.toUpperCase()}</p>

@@ -48,6 +48,7 @@ const Checkmate = () => {
           <img
             src={`${currentTurn === "White" ? "Black" : "White"}-king.png`}
             className="h-20 w-20"
+            alt={`${currentTurn} king piece`}
           />
         </div>
 
