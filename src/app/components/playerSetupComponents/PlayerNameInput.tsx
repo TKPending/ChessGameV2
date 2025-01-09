@@ -25,7 +25,7 @@ const PlayerNameInput = ({ playerNo }: Props) => {
   };
 
   return (
-    <div className="font-semibold flex flex-col gap-2 items-center justify-center h-26 w-1/4">
+    <div className="font-semibold flex flex-col gap-2 items-center justify-center h-26 w-auto">
       <p className="text-customGreen text-opacity-80 text-2xl">
         Player {playerNo + 1}
       </p>
@@ -38,8 +38,8 @@ const PlayerNameInput = ({ playerNo }: Props) => {
         value={players[playerNo].playerName}
         invalidValue={invalidValue}
         isDisabled={isDisabled}
-        customStyle="h-20 p-2 text-2xl"
-        placeholder={`Enter the name for ${playerNo + 1}`}
+        customStyle="h-20 p-2 md:text-2xl"
+        placeholder={`Enter name`}
         onPlayerNameChange={handlePlayerNameChange}
       />
     </div>

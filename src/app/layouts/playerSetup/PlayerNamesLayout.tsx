@@ -13,8 +13,8 @@ const PlayerNamesLayout = () => {
   );
 
   return (
-    <div className="h-screen w-screen flex flex-col items-center justify-center gap-12">
-      <div className="flex flex-col gap-2 text-center">
+    <div className="h-screen w-screen flex flex-col items-center justify-center gap-12 text-center">
+      <div className="flex flex-col gap-2">
         <h1 className="text-customGreen text-4xl font-semibold">
           Enter the name of each player
         </h1>
