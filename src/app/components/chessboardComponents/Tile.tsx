@@ -125,9 +125,7 @@ const Tile = ({ tile }: Props) => {
   return (
     <div
       onClick={() => handleTileClick(tile)}
-      className={`relative tile tileBorder flex items-center justify-center ${getTileBackgroundColor(
-        tile
-      )} ${
+      className={`relative tile tileBorder  ${getTileBackgroundColor(tile)} ${
         currentTurn === pieceOnTile?.pieceColor && !isInCheckmate
           ? "hover:bg-blue-200 hover:cursor-pointer transition duration-400"
           : ""
