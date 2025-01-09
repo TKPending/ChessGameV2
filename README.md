@@ -4,9 +4,9 @@
 
 This project was created using **Next.js**, **TypeScript**, and **TailwindCSS**, bringing together frontend interactivity and backend logic to simulate a realistic chess experience. 
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/16732102-f2b3-4c05-b00f-e0686a2a164d/dd7ecf9f-7304-44e9-b63b-82f252d78092/image.png)
+<img width="1709" alt="gameplay" src="https://github.com/user-attachments/assets/b93d6ec2-ad3d-4083-86bc-37298429d17a" />
+<img width="1710" alt="landingpage" src="https://github.com/user-attachments/assets/90349baf-20a6-4423-92c0-3955128a6b56" />
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/16732102-f2b3-4c05-b00f-e0686a2a164d/e7b2fc44-dbbf-4e4e-a72e-c7af456df852/image.png)
 
 ## Features 👶
 
