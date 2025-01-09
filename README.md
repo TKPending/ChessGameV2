@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Chess Game ♟️
 
-## Getting Started
+**A two-player chess game built with modern web technologies.**
 
-First, run the development server:
+This project was created using **Next.js**, **TypeScript**, and **TailwindCSS**, bringing together frontend interactivity and backend logic to simulate a realistic chess experience. 
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/16732102-f2b3-4c05-b00f-e0686a2a164d/dd7ecf9f-7304-44e9-b63b-82f252d78092/image.png)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/16732102-f2b3-4c05-b00f-e0686a2a164d/e7b2fc44-dbbf-4e4e-a72e-c7af456df852/image.png)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Features 👶
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+**Technologies Used 📝**
 
-## Learn More
+- **Next.js**: For building the frontend and server-side rendering.
+- **TypeScript**: To ensure type safety and maintain scalability.
+- **TailwindCSS**: For designing a clean and responsive user interface.
+- **Redux**: For state management, tracking the board state, player turns, and move history.
 
-To learn more about Next.js, take a look at the following resources:
+**Algorithms 🤖**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The heart of this chess game lies in its backend logic, enabling smooth gameplay and realistic rule enforcement. Here’s a breakdown of the key algorithms powering the game:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+**Move Generation Algorithm**
 
-## Deploy on Vercel
+This algorithm calculates all valid moves for each piece on the board. Depending on the piece type (e.g., pawn, rook, bishop), it traverses the board to find all possible moves while obeying the rules of chess.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Uses a grid-based system to calculate paths and stops when an obstacle (ally or enemy piece) is encountered.
+- Efficiently handles edge cases, such as pawns reaching promotion or castling rules.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+**Simulated Move Validation**
+
+This feature ensures the integrity of gameplay by validating moves before allowing them.
+
+- Once a piece is clicked, the algorithm simulates the move and checks if it would put the player’s king in check.
+- Any move that leaves the king in check is deemed invalid and removed from the list of possible moves.
+
+**Use Case**:
+
+Prevents illegal moves while dynamically updating valid move options as the board state evolves.
+
+**Backend Features 📦**
+
+**King Check and Checkmate Detection**
+
+The game actively monitors whether a king is in check or checkmate.
+
+- If a move places the king in check, it triggers warnings on the frontend.
+- The algorithm determines checkmate by ensuring no valid moves exist to remove the king from danger.
+
+**Implementation**:
+
+- Combines “Simulated Move Validation” with recursive checks across all enemy moves.
+
+**Pawn Promotion Logic**
+
+When a pawn reaches the opposite side of the board, players can promote it to a queen, rook, bishop, or knight. The backend dynamically updates the piece while maintaining the game’s integrity.
+
+**Castling Rules**
+
+Validates castling moves by ensuring the king and rook haven’t moved, there are no pieces in between, and the king doesn’t move through or into check.
+
+**Move History Tracking**
+
+Tracks every move made in the game, allowing for future features such as undo functionality or move history review.
+
+**Frontend Features 🎨**
+
+**Responsive Chessboard**
+
+The chessboard dynamically resizes based on screen dimensions, ensuring a consistent and immersive user experience on all devices.
+
+**Player Indicators**
+
+- Displays the current player’s turn and highlights when a king is in check.
+
+**Interactive Feedback**
+
+- Pieces highlight possible moves when selected, helping players understand the rules and strategies.
+
+**Future Improvements 🔮**
+
+**AI Opponent**:
+
+Implementing an AI to play against the user using decision-making algorithms such as Minimax or Alpha-Beta Pruning.
+
+**Multiplayer Mode**:
+
+Enable real-time gameplay between two remote players using WebSockets.
+
+**Enhanced Analytics**:
+
+Add move recommendations or game analysis for improving player strategies.
