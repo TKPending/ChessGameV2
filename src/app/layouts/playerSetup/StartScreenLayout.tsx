@@ -7,7 +7,7 @@ type Props = {
 
 const StartScreenLayout = ({ handleGameSetupLayout }: Props) => {
   return (
-    <div className="flex items-center justify-around px-8">
+    <div className="h-screen w-screen flex text-center flex-col gap-12 md:gap-32 items-center justify-center md:flex-row">
       <KingPiece kingColor={"white"} animateDirection="left" />
       <PlayNow onClick={handleGameSetupLayout} />
       <KingPiece kingColor={"black"} animateDirection="right" />

@@ -4,7 +4,7 @@ type Props = {
 
 const PlayNow = ({ onClick }: Props) => {
   return (
-    <div className="content flex flex-col gap-8 items-center justify-center min-h-screen">
+    <div className="content flex flex-col gap-8 items-center justify-center">
       <div>
         <p className="animate-from-right text-2xl text-center text-gray-400 mb-4">
           Challenge a friend to a game of chess
