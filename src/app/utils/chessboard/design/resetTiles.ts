@@ -1,11 +1,11 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import {
-  setClickedTile,
+  setCurrentTile,
   setPreviouslyClickedTile,
-  setValidMoves,
-} from "@/app/redux/slices/old/board/boardSlice";
+} from "@/app/redux/slices/chessboard/chessboardSlice";
+import { setCurrentPiecePotentialMoves } from "@/app/redux/slices/activeMoves/activeMovesSlice";
 import { clearTileHighlights } from "@/app/utils/chessboard/design/clearTileHighlights";
-import { TileType } from "@/app/types/TileType";
+import { TileType } from "@/app/types/ChessTypes";
 
 /**
  * Function to reset tiles and get them ready for the next turn
@@ -16,8 +16,8 @@ export const resetTiles = (
   dispatch: Dispatch<UnknownAction>,
   updatedChessboard: TileType[][]
 ) => {
-  dispatch(setClickedTile(null));
+  dispatch(setCurrentTile(null));
   dispatch(setPreviouslyClickedTile(null));
-  dispatch(setValidMoves([]));
+  dispatch(setCurrentPiecePotentialMoves([]));
   clearTileHighlights(dispatch, updatedChessboard);
 };

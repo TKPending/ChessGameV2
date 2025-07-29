@@ -1,6 +1,6 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { setSpecificTile } from "@/app/redux/slices/old/board/boardSlice";
-import { TileType } from "@/app/types/TileType";
+import { updateTile } from "@/app/redux/slices/chessboard/chessboardSlice";
+import { TileType } from "@/app/types/ChessTypes";
 
 /**
  * Get rid of all the highlighted tiles, making them unlighted.
@@ -15,7 +15,7 @@ export const clearTileHighlights = (
     row.forEach((tile) => {
       if (tile.isHighlighted) {
         dispatch(
-          setSpecificTile({
+          updateTile({
             ...tile,
             isHighlighted: false,
             highlightReason: "",

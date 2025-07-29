@@ -2,14 +2,14 @@ import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { clearTileHighlights } from "@/app/utils/chessboard/design/clearTileHighlights";
 import {
   setPreviouslyClickedTile,
-  setSpecificTile,
-  setValidMoves,
-} from "@/app/redux/slices/old/board/boardSlice";
+  updateTile,
+} from "@/app/redux/slices/chessboard/chessboardSlice";
+import { setCurrentPiecePotentialMoves } from "@/app/redux/slices/activeMoves/activeMovesSlice";
 import { generateSelectedPieceValidMoves } from "@/app/utils/pieceMovements/generateMoves/generateSelectedPiece";
 import { highlightValidMoves } from "@/app/utils/chessboard/design/highlightValidMoves";
 import { isKingSafeAfterMove } from "@/app/utils/handlers/helpers/handPieceOnTileHelpers/isKingSafeAfterMove";
-import { EnemyAttackType } from "@/app/types/EnemyAttackType";
-import { TileType } from "@/app/types/TileType";
+import { TileType } from "@/app/types/ChessTypes";
+import { EnemyAttackType } from "@/app/types/MoveTypes";
 import { getKingSpecificMoves } from "./helpers/handPieceOnTileHelpers/getKingSpecificMoves";
 import { getValidPieceMoves } from "./helpers/handPieceOnTileHelpers/getValidPieceMoves";
 
@@ -37,7 +37,7 @@ export const handlePieceOnTile = (
   clearTileHighlights(dispatch, chessboard);
 
   dispatch(
-    setSpecificTile({
+    updateTile({
       ...clickedTile,
       isHighlighted: true,
       highlightReason: "selected",
@@ -90,5 +90,5 @@ export const handlePieceOnTile = (
   );
 
   highlightValidMoves(dispatch, chessboard, pieceLegalMoves, currentTurn);
-  dispatch(setValidMoves(pieceLegalMoves));
+  dispatch(setCurrentPiecePotentialMoves(pieceLegalMoves));
 };

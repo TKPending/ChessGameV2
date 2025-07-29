@@ -1,6 +1,6 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { allSelectedPieceLegalMoves } from "./helpers/allSelectedPieceLegalMoves";
-import { TileType } from "@/app/types/TileType";
+import { TileType } from "@/app/types/ChessTypes";
 
 /**
  * Returns all the moves of the Bishop, Rook and Queen

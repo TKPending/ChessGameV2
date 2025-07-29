@@ -1,7 +1,6 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { setSpecificTile } from "@/app/redux/slices/old/board/boardSlice";
-import { TileType } from "@/app/types/TileType";
-import { PieceType } from "@/app/types/PieceTypes";
+import { updateTile } from "@/app/redux/slices/chessboard/chessboardSlice";
+import { TileType, PieceType } from "@/app/types/ChessTypes";
 import { TileEmptyOrHasEnemy } from "./TileEmptyOrHasEnemy";
 
 /**
@@ -30,7 +29,7 @@ export const allSelectedPieceLegalMoves = (
         pieceValidMoves.push([targetRow, targetCol]);
       } else {
         if (!simulation) {
-          dispatch(setSpecificTile({ ...targetTile, isHighlighted: false }));
+          dispatch(updateTile({ ...targetTile, isHighlighted: false }));
         }
       }
     }

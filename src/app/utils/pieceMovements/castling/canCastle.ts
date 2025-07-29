@@ -1,6 +1,6 @@
 import { areTilesBetweenUnderAttack } from "./helpers/areTilesBetweenUnderAttack";
 import { arePiecesInStartingPositions } from "./helpers/arePiecesInStartingPositions";
-import { TileType } from "@/app/types/TileType";
+import { TileType } from "@/app/types/ChessTypes";
 import { areTilesBetweenOccupiedByFriendlyPieces } from "./helpers/areTilesBetweenOccupiedByFriendlyPieces.ts";
 
 export const canCastle = (

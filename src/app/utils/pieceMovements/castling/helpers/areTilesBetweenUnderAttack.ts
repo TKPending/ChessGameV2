@@ -1,4 +1,4 @@
-import { EnemyAttackType } from "@/app/types/EnemyAttackType";
+import { EnemyAttackType } from "@/app/types/MoveTypes";
 
 export const areTilesBetweenUnderAttack = (
   enemyMoves: EnemyAttackType[],

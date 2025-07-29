@@ -1,7 +1,7 @@
 import { canCastle } from "@/app/utils/pieceMovements/castling/canCastle";
 import { convertTilePosition } from "@/app/utils/chessboard/convertTilePosition";
-import { EnemyAttackType } from "@/app/types/EnemyAttackType";
-import { TileType } from "@/app/types/TileType";
+import { EnemyAttackType } from "@/app/types/MoveTypes";
+import { TileType } from "@/app/types/ChessTypes";
 
 /**
  * Filters all moves to see if King can Castle

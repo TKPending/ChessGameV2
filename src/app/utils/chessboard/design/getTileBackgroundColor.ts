@@ -1,4 +1,4 @@
-import { TileType } from "@/app/types/TileType";
+import { TileType } from "@/app/types/ChessTypes";
 
 /**
  * Function to determine what the background colour of a tile will be

@@ -3,8 +3,8 @@ import { findKing } from "@/app/utils/pieceMovements/checkmate/helper/findKing";
 import { convertTilePosition } from "@/app/utils/chessboard/convertTilePosition";
 import { updateChessboard } from "@/app/utils/handlers/helpers/handleMovePieceHelpers/updateChessboard";
 import { generateAllEnemyMoves } from "@/app/utils/pieceMovements/generateMoves/generateAllEnemyMoves";
-import { EnemyAttackType } from "@/app/types/EnemyAttackType";
-import { TileType } from "@/app/types/TileType";
+import { EnemyAttackType } from "@/app/types/MoveTypes";
+import { TileType } from "@/app/types/ChessTypes";
 
 /**
  * Simulates a move, to verify that the King doesn't get placed in check / checkmate

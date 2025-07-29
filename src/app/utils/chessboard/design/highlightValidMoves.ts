@@ -1,7 +1,6 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { setSpecificTile } from "@/app/redux/slices/old/board/boardSlice";
-import { PieceType } from "@/app/types/PieceTypes";
-import { TileType } from "@/app/types/TileType";
+import { updateTile } from "@/app/redux/slices/chessboard/chessboardSlice";
+import { PieceType, TileType } from "@/app/types/ChessTypes";
 
 /**
  * All the valid moves are highlighted on the Chessboard
@@ -28,7 +27,7 @@ export const highlightValidMoves = (
         : "friendly";
 
     dispatch(
-      setSpecificTile({
+      updateTile({
         ...potentialTargetTile,
         isHighlighted: true,
         highlightReason: enemyOrEmpty,

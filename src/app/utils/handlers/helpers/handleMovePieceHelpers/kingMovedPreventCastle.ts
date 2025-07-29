@@ -1,5 +1,5 @@
-import { setKingHasMoved } from "@/app/redux/slices/old/board/boardSlice";
-import { CastleType } from "@/app/types/CastleType";
+import { setKingHasMoved } from "@/app/redux/slices/chessboard/chessboardSlice";
+import { CastleType } from "@/app/types/MoveTypes";
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 
 /**

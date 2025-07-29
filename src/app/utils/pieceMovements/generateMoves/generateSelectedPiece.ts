@@ -1,7 +1,7 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { generatePieceLegalMoves } from "./helper/generatePieceLegalMoves";
-import { EnemyAttackType } from "@/app/types/EnemyAttackType";
-import { TileType } from "@/app/types/TileType";
+import { EnemyAttackType } from "@/app/types/MoveTypes";
+import { TileType } from "@/app/types/ChessTypes";
 
 /**
  * Generates all moves for the selected piece

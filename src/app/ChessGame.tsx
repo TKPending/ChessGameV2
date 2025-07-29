@@ -7,7 +7,7 @@ import GameLayout from "@/app/layouts/GameLayout";
 
 const ChessGame = () => {
   const isPlaying: boolean = useSelector(
-    (state: RootState) => state.board.isPlaying
+    (state: RootState) => state.gameState.isPlaying
   );
 
   return (

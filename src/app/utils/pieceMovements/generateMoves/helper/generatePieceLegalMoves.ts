@@ -4,9 +4,8 @@ import { getKnightMoves } from "@/app/utils/pieceMovements/getKnightMoves";
 import { getSlidingPieceMoves } from "@/app/utils/pieceMovements/getSlidingPieceMoves";
 import { getKingMoves } from "@/app/utils/pieceMovements/getKingMoves";
 import { convertTilePosition } from "@/app/utils/chessboard/convertTilePosition";
-import { EnemyAttackType } from "@/app/types/EnemyAttackType";
-import { PieceType, PieceName } from "@/app/types/PieceTypes";
-import { TileType } from "@/app/types/TileType";
+import { EnemyAttackType } from "@/app/types/MoveTypes";
+import { TileType, PieceType, PieceName } from "@/app/types/ChessTypes";
 
 /**
  * Generates the moves for specific pieces

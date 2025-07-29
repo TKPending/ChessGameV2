@@ -1,5 +1,9 @@
-import { TileType, TileColor } from "@/app/types/TileType";
-import { PieceType, PieceName } from "@/app/types/PieceTypes";
+import {
+  TileType,
+  PieceType,
+  PieceName,
+  ChessColors,
+} from "@/app/types/ChessTypes";
 
 /**
  * Generate a board with each individual piece
@@ -64,7 +68,7 @@ export const generateTiles = (): TileType[][] => {
     const tileRow: TileType[] = [];
     for (let col = 0; col < 8; col++) {
       const defaultTileColor =
-        (row + col) % 2 === 0 ? TileColor.white : TileColor.black;
+        (row + col) % 2 === 0 ? ChessColors.white : ChessColors.black;
       const tilePosition = `${String.fromCharCode(97 + col)}${8 - row}`;
 
       let pieceOnTile: PieceType | null = null;

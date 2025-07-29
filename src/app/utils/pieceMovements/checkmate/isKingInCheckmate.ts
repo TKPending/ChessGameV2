@@ -1,19 +1,18 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { TileType } from "@/app/types/TileType";
+import { TileType } from "@/app/types/ChessTypes";
 import { convertTilePosition } from "@/app/utils/chessboard/convertTilePosition";
+import { setValidCheckMoves } from "@/app/redux/slices/activeMoves/activeMovesSlice";
 import {
-  setIsKingInCheck,
-  setIsKingInCheckmate,
-  setValidCheckMoves,
-} from "@/app/redux/slices/old/board/boardSlice";
+  setKingInCheck,
+  setKingInCheckmate,
+} from "@/app/redux/slices/chessboard/chessboardSlice";
 import { allDefensiveMoves } from "./helper/allDefensiveMoves";
 import { findKing } from "./helper/findKing";
 import { getKingMoves } from "@/app/utils/pieceMovements/getKingMoves";
 import { kingCaptureOutOfCheck } from "./helper/kingCaptureOutOfCheck";
 import { kingMovesOutOfCheck } from "./helper/kingMovesOutOfCheck";
 import { preventCheckmate } from "./helper/preventCheckmate";
-import { EnemyAttackType } from "@/app/types/EnemyAttackType";
-
+import { EnemyAttackType } from "@/app/types/MoveTypes";
 /**
  * Checks whether the King piece is in check or checkmate
  * @param dispatch Update the redux state
@@ -38,10 +37,10 @@ export const isKingInCheckmate = (
     enemy.moves.some(([row, col]) => row === kingRow && col === kingCol)
   );
 
-  dispatch(setIsKingInCheck(isKingInCheck));
+  dispatch(setKingInCheck(isKingInCheck));
 
   if (!isKingInCheck) {
-    dispatch(setIsKingInCheckmate(false));
+    dispatch(setKingInCheckmate(false));
     return;
   }
 
@@ -82,5 +81,5 @@ export const isKingInCheckmate = (
     ...kingValidCaptureMoves,
   ]);
 
-  dispatch(setIsKingInCheckmate(isCheckmate));
+  dispatch(setKingInCheckmate(isCheckmate));
 };

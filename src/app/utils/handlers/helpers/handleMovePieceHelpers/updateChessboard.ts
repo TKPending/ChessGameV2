@@ -1,7 +1,6 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { setChessboard } from "@/app/redux/slices/old/board/boardSlice";
-import { PieceType } from "@/app/types/PieceTypes";
-import { TileType } from "@/app/types/TileType";
+import { setChessboard } from "@/app/redux/slices/chessboard/chessboardSlice";
+import { TileType, PieceType } from "@/app/types/ChessTypes";
 
 /**
  * Update the Chessboard when a move is made

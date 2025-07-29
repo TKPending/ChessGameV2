@@ -1,14 +1,13 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { setPlayerCapturedPiece } from "@/app/redux/slices/old/board/boardSlice";
+import { setCapturedPiece } from "@/app/redux/slices/gameState/gameStateSlice";
 import {
-  setChessboardHistory,
-  setMoveHistory,
-} from "@/app/redux/slices/old/gameHistory/gameHistorySlice";
+  updateChessboardHistory,
+  updateMoveHistory,
+} from "@/app/redux/slices/chessMoves/chessMovesSlice";
 import { updateChessboard } from "./helpers/handleMovePieceHelpers/updateChessboard";
 import { handleMovesSpecialCases } from "./helpers/handleMovePieceHelpers/handleMovesSpecialCases";
-import { CastleType } from "@/app/types/CastleType";
-import { PieceType } from "@/app/types/PieceTypes";
-import { TileType } from "@/app/types/TileType";
+import { CastleType } from "@/app/types/MoveTypes";
+import { TileType, PieceType } from "@/app/types/ChessTypes";
 
 /**
  * Deals with moving pieces
@@ -42,17 +41,17 @@ export const handleMovePiece = (
 
   if (targetTile.pieceOnTile) {
     dispatch(
-      setPlayerCapturedPiece({
-        ...targetTile.pieceOnTile,
-        isAlive: false,
+      setCapturedPiece({
+        piece: { ...targetTile.pieceOnTile, isAlive: false },
+        currentTurn,
       })
     );
   }
 
-  dispatch(setChessboardHistory(currentBoardState));
+  dispatch(updateChessboardHistory(currentBoardState));
 
   dispatch(
-    setMoveHistory({
+    updateMoveHistory({
       from: previousClickedTile,
       to: targetTile,
     })

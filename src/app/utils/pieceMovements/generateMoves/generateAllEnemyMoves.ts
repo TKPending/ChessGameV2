@@ -1,9 +1,8 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { generatePieceLegalMoves } from "./helper/generatePieceLegalMoves";
 import { classifySlidingDirections } from "@/app/utils/pieceMovements/helpers/classifySlidingDirections";
-import { EnemyAttackType } from "@/app/types/EnemyAttackType";
-import { PieceType } from "@/app/types/PieceTypes";
-import { TileType } from "@/app/types/TileType";
+import { EnemyAttackType } from "@/app/types/MoveTypes";
+import { TileType, PieceType } from "@/app/types/ChessTypes";
 import { convertTilePosition } from "../../chessboard/convertTilePosition";
 
 /**
