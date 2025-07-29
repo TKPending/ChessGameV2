@@ -9,7 +9,7 @@ import { generateTiles } from "@/app/utils/chessboard/generateTiles";
 import { generateAllEnemyMoves } from "@/app/utils/pieceMovements/generateMoves/generateAllEnemyMoves";
 import { isKingInCheckmate } from "@/app/utils/pieceMovements/checkmate/isKingInCheckmate";
 import ChessboardComponent from "./components/ChessboardComponent";
-import Checkmate from "@/app/components/Checkmate";
+import CheckmateContainer from "@/app/containers/checkmate/CheckmateContainer";
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
 import PawnPromotionContainer from "@/app/containers/chessboard/containers/PawnPromotionContainer";
 
@@ -59,7 +59,7 @@ const Chessboard = () => {
 
   return (
     <div className="h-auto w-auto">
-      {isInCheckmate && <Checkmate />}
+      {isInCheckmate && <CheckmateContainer />}
       {pawnPromotion.isPawnPromotion && (
         <PawnPromotionContainer currentTurn={currentTurn} />
       )}

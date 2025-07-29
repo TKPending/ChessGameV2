@@ -1,17 +1,23 @@
-import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
-import React from "react";
-import Confetti from "react-confetti";
-import { useWindowSize } from "react-use";
 import { RootState } from "@/app/redux/store";
-import { resetGame } from "@/app/redux/slices/board/boardSlice";
-import { resetGameHistory } from "@/app/redux/slices/gameHistory/gameHistorySlice";
-import CheckmateButton from "@/app/components/buttons/CheckmateButton";
+import { useSelector } from "react-redux";
+import { useWindowSize } from "react-use";
+import CheckmateButton from "@/app/containers/checkmate/components/CheckmateButton";
+import Confetti from "react-confetti";
 import { PlayerType } from "@/app/types/PlayerType";
 
-const Checkmate = () => {
-  const dispatch = useDispatch();
-  const [displayCheckmate, setDisplayCheckmate] = useState<boolean>(true);
+type CheckmateProps = {
+  displayCheckmate: boolean;
+  handleResetGame: () => void;
+  handleExit: () => void;
+};
+
+const Checkmate = ({
+  displayCheckmate,
+  handleResetGame,
+  handleExit,
+}: CheckmateProps) => {
+  const { width, height } = useWindowSize();
+
   const currentTurn: "White" | "Black" = useSelector(
     (state: RootState) => state.board.currentTurn
   );
@@ -21,24 +27,12 @@ const Checkmate = () => {
 
   const winner = currentTurn === "White" ? players[0] : players[1];
 
-  const { width, height } = useWindowSize();
-
-  const handleResetGame = () => {
-    dispatch(resetGame());
-    dispatch(resetGameHistory());
-  };
-
-  const handleExit = () => {
-    setDisplayCheckmate(false);
-  };
-
   return (
     <div
       className={`${
         displayCheckmate ? "flex" : "hidden"
       } z-50 h-screen w-screen absolute top-0 left-0 flex items-center justify-center bg-black bg-opacity-50 p-4`}
     >
-      {/* Confetti background */}
       <Confetti width={width} height={height} numberOfPieces={200} />
 
       <div className="w-[400px] flex flex-col items-center gap-6 border-2 border-customGreen bg-page-background p-4 rounded-lg relative">

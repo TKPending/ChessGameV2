@@ -1,5 +1,5 @@
 import Chessboard from "@/app/containers/chessboard/Chessboard";
-import Players from "@/app/components/Players";
+import Players from "@/app/containers/players/Players";
 
 const PLAYERONE = 0;
 const PLAYERTWO = 1;

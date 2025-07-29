@@ -35,7 +35,6 @@ const Players = ({ playerNo, className }: Props) => {
               icon={faExclamation}
               className="text-red-600 text-xs"
             />
-            {/* Tooltip */}
             <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-gray-800 text-red-600 text-sm p-1 rounded transition duration-400">
               You're in check!
             </div>
