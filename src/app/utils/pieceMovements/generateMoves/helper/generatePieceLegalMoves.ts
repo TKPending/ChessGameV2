@@ -5,7 +5,7 @@ import { getSlidingPieceMoves } from "@/app/utils/pieceMovements/getSlidingPiece
 import { getKingMoves } from "@/app/utils/pieceMovements/getKingMoves";
 import { convertTilePosition } from "@/app/utils/chessboard/convertTilePosition";
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
-import { PieceType, PieceName } from "@/app/types/PieceType";
+import { PieceType, PieceName } from "@/app/types/PieceTypes";
 import { TileType } from "@/app/types/TileType";
 
 /**

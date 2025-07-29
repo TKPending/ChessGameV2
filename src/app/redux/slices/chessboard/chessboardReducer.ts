@@ -1,68 +1,33 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { BoardType } from "@/app/types/BoardType";
-import { TileType } from "@/app/types/TileType";
-import { PieceType } from "@/app/types/PieceType";
-import { EnemyAttackType } from "@/app/types/EnemyAttackType";
 import { generateTiles } from "@/app/utils/chessboard/generateTiles";
+import { BoardType, TileType, PieceType } from "@/app/types/ChessTypes";
 
-// Chessboard State Reducer
 export const chessboardReducer = (
   state: BoardType,
   action: PayloadAction<TileType[][]>
 ) => {
-  state.chessboard = action.payload;
+  state.board = action.payload;
 };
 
-// Player Related Reducers
-export const addPlayerNameReducer = (
-  state: BoardType,
-  action: PayloadAction<{ playerName: string; playerNo: number }>
-) => {
-  const player = action.payload;
-
-  state.players[action.payload.playerNo] = {
-    ...state.players[player.playerNo],
-    playerName: player.playerName,
-  };
-};
-
-// Game Related Reducers
 export const updateCurrentTurnReducer = (state: BoardType) => {
   const turn: string = state.currentTurn;
   state.currentTurn = turn === "White" ? "Black" : "White";
 };
 
-export const capturedPiecesReducer = (
-  state: BoardType,
-  action: PayloadAction<PieceType>
-) => {
-  const turnIndex: number = state.currentTurn == "White" ? 0 : 1;
-
-  state.players[turnIndex].capturedPieces.push(action.payload);
-};
-
-export const chessGamePlayingReducer = (
-  state: BoardType,
-  action: PayloadAction<boolean>
-) => {
-  state.isPlaying = action.payload;
-};
-
-// Tile Related Reducers
 export const updateSpecificTileReducer = (
   state: BoardType,
   action: PayloadAction<TileType>
 ) => {
   const updatedTile = action.payload;
-  const rowIndex = state.chessboard.findIndex((row) =>
+  const rowIndex = state.board.findIndex((row) =>
     row.some((tile) => tile.tilePosition === updatedTile.tilePosition)
   );
   if (rowIndex !== -1) {
-    const colIndex = state.chessboard[rowIndex].findIndex(
+    const colIndex = state.board[rowIndex].findIndex(
       (tile) => tile.tilePosition === updatedTile.tilePosition
     );
     if (colIndex !== -1) {
-      state.chessboard[rowIndex][colIndex] = updatedTile;
+      state.board[rowIndex][colIndex] = updatedTile;
     }
   }
 };
@@ -78,25 +43,9 @@ export const previouslyClickedTileReducer = (
   state: BoardType,
   action: PayloadAction<TileType | null>
 ) => {
-  state.previousClickedTile = action.payload;
+  state.previouslyClickedTile = action.payload;
 };
 
-// Piece Move Related Reducers
-export const pieceValidMovesReducer = (
-  state: BoardType,
-  action: PayloadAction<number[][]>
-) => {
-  state.piecePotentialMoves = action.payload;
-};
-
-export const enemyMovesReducer = (
-  state: BoardType,
-  action: PayloadAction<EnemyAttackType[]>
-) => {
-  state.enemyMoves = action.payload;
-};
-
-// Castling Related Reducers
 export const kingMovedReducer = (state: BoardType) => {
   const team = state.currentTurn === "White" ? "white" : "black";
   state.castling[`${team}King`].kingMoved = true;
@@ -139,7 +88,6 @@ export const rookMovedReducer = (
     state.castling[team].rightCastleOption;
 };
 
-// Check and Checkmate Related Reducers
 export const kingInCheckReducer = (
   state: BoardType,
   action: PayloadAction<boolean>
@@ -154,33 +102,6 @@ export const kingInCheckmateReducer = (
   state.isKingInCheckmate = action.payload;
 };
 
-export const validCheckMovesReducer = (
-  state: BoardType,
-  action: PayloadAction<number[][]>
-) => {
-  state.validCheckMoves = action.payload;
-};
-
-export const inCheckPositionsReducer = (
-  state: BoardType,
-  action: PayloadAction<number[][]>
-) => {
-  state.inCheckPositions = action.payload;
-};
-
-export const piecesAttackingKingReeducer = (
-  state: BoardType,
-  action: PayloadAction<EnemyAttackType | null>
-) => {
-  if (action.payload) {
-    state.pieceAttackingKing.push(action.payload);
-    return;
-  }
-
-  state.pieceAttackingKing = [];
-};
-
-// Pawn Promotion Related Reducers
 export const pawnPromotionStateReducer = (
   state: BoardType,
   action: PayloadAction<{ isPromotion: boolean; targetTile: TileType | null }>
@@ -203,7 +124,7 @@ export const updateTileWithPromotedPieceReducer = (
     return;
   }
 
-  state.chessboard = state.chessboard.map((row) =>
+  state.board = state.board.map((row) =>
     row.map((tile) =>
       tile.tilePosition === tileToUpdate.tilePosition
         ? { ...tile, pieceOnTile: promotedPiece }
@@ -215,30 +136,16 @@ export const updateTileWithPromotedPieceReducer = (
   state.pawnPromotion.tileToUpdate = null;
 };
 
-// Reset Game
 export const resetGameReducer = (state: BoardType) => {
   // Swap player names
-  const tempPlayerName = state.players[0].playerName;
-  state.players[0].playerName = state.players[1].playerName;
-  state.players[1].playerName = tempPlayerName;
+  // const tempPlayerName = state.players[0].playerName;
 
-  // Reset the rest of the state
-  state.chessboard = generateTiles();
-  state.stateIndex = 0;
-  state.players[0].capturedPieces = [];
-  state.players[1].capturedPieces = [];
-  state.winner = undefined;
-  state.isPlaying = true;
+  state.board = generateTiles();
   state.currentTurn = "White";
   state.clickedTile = null;
-  state.previousClickedTile = null;
-  state.piecePotentialMoves = [];
-  state.enemyMoves = [];
-  state.pieceAttackingKing = [];
+  state.previouslyClickedTile = null;
   state.isKingInCheck = false;
   state.isKingInCheckmate = false;
-  state.validCheckMoves = [];
-  state.inCheckPositions = [];
   state.castling = {
     blackKing: {
       kingMoved: false,

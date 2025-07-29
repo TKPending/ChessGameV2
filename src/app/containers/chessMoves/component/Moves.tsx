@@ -2,7 +2,7 @@ import CaptureMove from "@/app/containers/chessMoves/component/moves/CaptureMove
 import StandardMove from "@/app/containers/chessMoves/component/moves/StandardMove";
 import PawnPromotionMove from "@/app/containers/chessMoves/component/moves/PawnPromotionMove";
 import { MoveHistoryType } from "@/app/types/GameHistoryType";
-import { PieceType } from "@/app/types/PieceType";
+import { PieceType } from "@/app/types/PieceTypes";
 
 type Props = {
   move: MoveHistoryType;

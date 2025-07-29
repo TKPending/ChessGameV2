@@ -1,3 +1,17 @@
+import { TileType, PieceType } from "./ChessTypes";
+
+export interface EnemyAttackType {
+  piecePosition: [number, number];
+  piece: PieceType;
+  moves: number[][];
+  direction: any;
+}
+
+export interface PawnPromotionType {
+  isPawnPromotion: boolean;
+  tileToUpdate: TileType | null;
+}
+
 export interface CastleType {
   whiteKing: {
     kingPosition: [number, number];

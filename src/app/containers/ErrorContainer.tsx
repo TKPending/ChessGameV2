@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamation } from "@fortawesome/free-solid-svg-icons";
-import { setErrorNotification } from "@/app/redux/slices/error/errorSlice";
+import { setErrorNotification } from "@/app/redux/slices/old/error/errorSlice";
 
 const ErrorContainer = () => {
   const dispatch = useDispatch();

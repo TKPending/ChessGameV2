@@ -1,4 +1,4 @@
-import { PieceName } from "@/app/types/PieceType";
+import { PieceName } from "@/app/types/PieceTypes";
 
 /**
  * Checks the piece, and returns the directions that the piece is allowed to move

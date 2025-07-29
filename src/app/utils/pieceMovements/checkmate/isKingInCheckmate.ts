@@ -5,7 +5,7 @@ import {
   setIsKingInCheck,
   setIsKingInCheckmate,
   setValidCheckMoves,
-} from "@/app/redux/slices/board/boardSlice";
+} from "@/app/redux/slices/old/board/boardSlice";
 import { allDefensiveMoves } from "./helper/allDefensiveMoves";
 import { findKing } from "./helper/findKing";
 import { getKingMoves } from "@/app/utils/pieceMovements/getKingMoves";

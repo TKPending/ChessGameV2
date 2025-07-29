@@ -1,7 +1,7 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { setSpecificTile } from "@/app/redux/slices/board/boardSlice";
+import { setSpecificTile } from "@/app/redux/slices/old/board/boardSlice";
 import { TileType } from "@/app/types/TileType";
-import { PieceType } from "@/app/types/PieceType";
+import { PieceType } from "@/app/types/PieceTypes";
 import { TileEmptyOrHasEnemy } from "./TileEmptyOrHasEnemy";
 
 /**

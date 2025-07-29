@@ -2,7 +2,7 @@ import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { getKingMoves } from "@/app/utils/pieceMovements/getKingMoves";
 import { TileType } from "@/app/types/TileType";
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
-import { setIsKingInCheckmate } from "@/app/redux/slices/board/boardSlice";
+import { setIsKingInCheckmate } from "@/app/redux/slices/old/board/boardSlice";
 
 /**
  * Check whether King can capture a piece attacking the King

@@ -2,7 +2,7 @@ import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { filterKingSafeMoves } from "./filterKingSafeMoves";
 import { filterCastleMoves } from "./filterCastleMoves";
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
-import { PieceName } from "@/app/types/PieceType";
+import { PieceName } from "@/app/types/PieceTypes";
 import { TileType } from "@/app/types/TileType";
 
 /**

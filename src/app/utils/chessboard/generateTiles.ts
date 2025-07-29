@@ -1,5 +1,5 @@
 import { TileType, TileColor } from "@/app/types/TileType";
-import { PieceType, PieceName } from "@/app/types/PieceType";
+import { PieceType, PieceName } from "@/app/types/PieceTypes";
 
 /**
  * Generate a board with each individual piece

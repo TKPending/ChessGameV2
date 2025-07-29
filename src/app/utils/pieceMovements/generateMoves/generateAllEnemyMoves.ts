@@ -2,7 +2,7 @@ import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { generatePieceLegalMoves } from "./helper/generatePieceLegalMoves";
 import { classifySlidingDirections } from "@/app/utils/pieceMovements/helpers/classifySlidingDirections";
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
-import { PieceType } from "@/app/types/PieceType";
+import { PieceType } from "@/app/types/PieceTypes";
 import { TileType } from "@/app/types/TileType";
 import { convertTilePosition } from "../../chessboard/convertTilePosition";
 

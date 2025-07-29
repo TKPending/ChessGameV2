@@ -1,5 +1,5 @@
 import { PlayerType } from "@/app/types/PlayerType";
-import { PieceType } from "@/app/types/PieceType";
+import { PieceType } from "@/app/types/PieceTypes";
 
 type Props = {
   player: PlayerType;

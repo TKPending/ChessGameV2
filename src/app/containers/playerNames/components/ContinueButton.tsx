@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { setIsChessGamePlaying } from "@/app/redux/slices/board/boardSlice";
+import { setIsChessGamePlaying } from "@/app/redux/slices/old/board/boardSlice";
 
 const ContinueButton = () => {
   const dispatch = useDispatch();

@@ -2,9 +2,9 @@ import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { kingMovedPreventCastle } from "./kingMovedPreventCastle";
 import { rookMovedPreventCastle } from "./rookMovedPreventCastle";
 import { isPawnPromotion } from "@/app/utils/pawnPromotion/isPawnPromoting";
-import { setPawnPromotion } from "@/app/redux/slices/board/boardSlice";
+import { setPawnPromotion } from "@/app/redux/slices/old/board/boardSlice";
 import { CastleType } from "@/app/types/CastleType";
-import { PieceName, PieceType } from "@/app/types/PieceType";
+import { PieceName, PieceType } from "@/app/types/PieceTypes";
 import { TileType } from "@/app/types/TileType";
 
 /**

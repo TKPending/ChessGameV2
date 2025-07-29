@@ -4,7 +4,7 @@ import { RootState } from "@/app/redux/store";
 import {
   setChessboard,
   setEnemyMoves,
-} from "@/app/redux/slices/board/boardSlice";
+} from "@/app/redux/slices/old/board/boardSlice";
 import { generateTiles } from "@/app/utils/chessboard/generateTiles";
 import { generateAllEnemyMoves } from "@/app/utils/pieceMovements/generateMoves/generateAllEnemyMoves";
 import { isKingInCheckmate } from "@/app/utils/pieceMovements/checkmate/isKingInCheckmate";

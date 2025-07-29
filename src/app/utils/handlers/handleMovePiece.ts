@@ -1,13 +1,13 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { setPlayerCapturedPiece } from "@/app/redux/slices/board/boardSlice";
+import { setPlayerCapturedPiece } from "@/app/redux/slices/old/board/boardSlice";
 import {
   setChessboardHistory,
   setMoveHistory,
-} from "@/app/redux/slices/gameHistory/gameHistorySlice";
+} from "@/app/redux/slices/old/gameHistory/gameHistorySlice";
 import { updateChessboard } from "./helpers/handleMovePieceHelpers/updateChessboard";
 import { handleMovesSpecialCases } from "./helpers/handleMovePieceHelpers/handleMovesSpecialCases";
 import { CastleType } from "@/app/types/CastleType";
-import { PieceType } from "@/app/types/PieceType";
+import { PieceType } from "@/app/types/PieceTypes";
 import { TileType } from "@/app/types/TileType";
 
 /**

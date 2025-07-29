@@ -1,28 +1,31 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { GameHistoryType, MoveHistoryType } from "@/app/types/GameHistoryType";
-import { TileType } from "@/app/types/TileType";
-import { PieceName } from "@/app/types/PieceType";
+import {
+  ChessMoveType,
+  TileType,
+  MoveHistoryType,
+  PieceName,
+} from "@/app/types/ChessTypes";
 
-export const updateMoveCounterReducer = (state: GameHistoryType) => {
+export const updateMoveCounterReducer = (state: ChessMoveType) => {
   state.count = state.count + 1;
 };
 
 export const updateChessboardHistoryReducer = (
-  state: GameHistoryType,
+  state: ChessMoveType,
   action: PayloadAction<TileType[][]>
 ) => {
   state.chessboardHistory.push(action.payload);
 };
 
 export const updateMoveHistoryReducer = (
-  state: GameHistoryType,
+  state: ChessMoveType,
   action: PayloadAction<MoveHistoryType>
 ) => {
   state.moveHistory.push(action.payload);
 };
 
 export const pawnPromotionUpdateMoveReducer = (
-  state: GameHistoryType,
+  state: ChessMoveType,
   action: PayloadAction<{ pawnPromotion: boolean; updatedPiece: PieceName }>
 ) => {
   const { pawnPromotion, updatedPiece } = action.payload;
@@ -37,13 +40,13 @@ export const pawnPromotionUpdateMoveReducer = (
   state.moveHistory[state.moveHistory.length - 1] = updatedMove;
 };
 
-export const displayPreviousMovesReducer = (state: GameHistoryType) => {
-  state.isPreviousMovesHidden = !state.isPreviousMovesHidden;
+export const isMovesHiddenReducer = (state: ChessMoveType) => {
+  state.isMovesHidden = !state.isMovesHidden;
 };
 
-export const resetGameHistoryReducer = (state: GameHistoryType) => {
-  state.count = 1;
+export const resetChessMovesReducer = (state: ChessMoveType) => {
+  state.count = 0;
   state.chessboardHistory = [];
   state.moveHistory = [];
-  state.isPreviousMovesHidden = true;
+  state.isMovesHidden = false;
 };

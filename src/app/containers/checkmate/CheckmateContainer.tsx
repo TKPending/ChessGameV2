@@ -1,8 +1,8 @@
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import React from "react";
-import { resetGame } from "@/app/redux/slices/board/boardSlice";
-import { resetGameHistory } from "@/app/redux/slices/gameHistory/gameHistorySlice";
+import { resetGame } from "@/app/redux/slices/old/board/boardSlice";
+import { resetGameHistory } from "@/app/redux/slices/old/gameHistory/gameHistorySlice";
 import Checkmate from "./components/Checkmate";
 
 const CheckmateContainer = () => {

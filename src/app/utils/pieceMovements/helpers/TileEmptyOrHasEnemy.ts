@@ -1,4 +1,4 @@
-import { PieceType } from "@/app/types/PieceType";
+import { PieceType } from "@/app/types/PieceTypes";
 
 /**
  * Checks whether a tile is empty or has an enemy on the tile

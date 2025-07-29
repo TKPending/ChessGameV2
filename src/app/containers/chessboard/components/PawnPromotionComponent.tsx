@@ -1,6 +1,6 @@
 import { RootState } from "@/app/redux/store";
 import { useSelector } from "react-redux";
-import { PieceName } from "@/app/types/PieceType";
+import { PieceName } from "@/app/types/PieceTypes";
 
 type PawnPromotionComponentProps = {
   handlePiecePromotion: (pieceName: PieceName) => void;

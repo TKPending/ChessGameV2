@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { setPlayersName } from "@/app/redux/slices/board/boardSlice";
+import { setPlayersName } from "@/app/redux/slices/old/board/boardSlice";
 import PlayerNameInput from "../components/PlayerNameInput";
 
 type Props = {

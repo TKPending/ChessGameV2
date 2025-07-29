@@ -1,8 +1,8 @@
-import { setTileWithPromotedPiece } from "@/app/redux/slices/board/boardSlice";
-import { PieceName } from "@/app/types/PieceType";
+import { setTileWithPromotedPiece } from "@/app/redux/slices/old/board/boardSlice";
+import { PieceName } from "@/app/types/PieceTypes";
 import { useDispatch } from "react-redux";
-import { PieceType } from "@/app/types/PieceType";
-import { setPawnPromotionMoveHistory } from "@/app/redux/slices/gameHistory/gameHistorySlice";
+import { PieceType } from "@/app/types/PieceTypes";
+import { setPawnPromotionMoveHistory } from "@/app/redux/slices/old/gameHistory/gameHistorySlice";
 import PawnPromotionComponent from "@/app/containers/chessboard/components/PawnPromotionComponent";
 
 type Props = {

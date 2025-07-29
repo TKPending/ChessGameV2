@@ -2,8 +2,8 @@ import { useDispatch } from "react-redux";
 import {
   setErrorMessage,
   setErrorNotification,
-} from "@/app/redux/slices/error/errorSlice";
-import { PieceType } from "@/app/types/PieceType";
+} from "@/app/redux/slices/old/error/errorSlice";
+import { PieceType } from "@/app/types/PieceTypes";
 import { TileType } from "@/app/types/TileType";
 
 type Props = {

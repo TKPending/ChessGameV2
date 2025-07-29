@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/app/redux/store";
-import { setMoveHistoryVisibility } from "@/app/redux/slices/gameHistory/gameHistorySlice";
+import { setMoveHistoryVisibility } from "@/app/redux/slices/old/gameHistory/gameHistorySlice";
 
 const ChessMovesButton = () => {
   const dispatch = useDispatch();

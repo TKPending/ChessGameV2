@@ -1,4 +1,4 @@
-import { setPiecesAttackingKing } from "@/app/redux/slices/board/boardSlice";
+import { setPiecesAttackingKing } from "@/app/redux/slices/old/board/boardSlice";
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 

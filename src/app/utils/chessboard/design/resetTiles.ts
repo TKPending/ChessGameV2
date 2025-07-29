@@ -3,7 +3,7 @@ import {
   setClickedTile,
   setPreviouslyClickedTile,
   setValidMoves,
-} from "@/app/redux/slices/board/boardSlice";
+} from "@/app/redux/slices/old/board/boardSlice";
 import { clearTileHighlights } from "@/app/utils/chessboard/design/clearTileHighlights";
 import { TileType } from "@/app/types/TileType";
 

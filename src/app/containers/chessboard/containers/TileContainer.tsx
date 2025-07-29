@@ -8,7 +8,7 @@ import { handleReClickSamePiece } from "./utils/handleReClickSamePiece";
 import { handleValidMove } from "./utils/handleIsMoveValid";
 import { CastleType } from "@/app/types/CastleType";
 import { EnemyAttackType } from "@/app/types/EnemyAttackType";
-import { PieceType } from "@/app/types/PieceType";
+import { PieceType } from "@/app/types/PieceTypes";
 import { TileType } from "@/app/types/TileType";
 
 type Props = {

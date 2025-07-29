@@ -4,7 +4,7 @@ import {
   setPreviouslyClickedTile,
   setSpecificTile,
   setValidMoves,
-} from "@/app/redux/slices/board/boardSlice";
+} from "@/app/redux/slices/old/board/boardSlice";
 import { generateSelectedPieceValidMoves } from "@/app/utils/pieceMovements/generateMoves/generateSelectedPiece";
 import { highlightValidMoves } from "@/app/utils/chessboard/design/highlightValidMoves";
 import { isKingSafeAfterMove } from "@/app/utils/handlers/helpers/handPieceOnTileHelpers/isKingSafeAfterMove";
