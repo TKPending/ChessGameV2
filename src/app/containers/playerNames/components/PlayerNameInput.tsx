@@ -1,28 +1,20 @@
 import { RootState } from "@/app/redux/store";
 import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
 import { useState } from "react";
 import TextInput from "@/app/components/TextInput";
-import { setPlayersName } from "@/app/redux/slices/board/boardSlice";
 
-type Props = {
+type PlayerNameInputProps = {
   playerNo: number;
+  handlePlayerNameChange: (newValue: string) => void;
 };
 
-const PlayerNameInput = ({ playerNo }: Props) => {
-  const dispatch = useDispatch();
+const PlayerNameInput = ({
+  playerNo,
+  handlePlayerNameChange,
+}: PlayerNameInputProps) => {
   const players = useSelector((state: RootState) => state.board.players);
   const [invalidValue, setInvalidValue] = useState<boolean>(false);
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
-
-  const handlePlayerNameChange = (newValue: string) => {
-    dispatch(
-      setPlayersName({
-        playerName: newValue,
-        playerNo: playerNo === 0 ? 0 : 1,
-      })
-    );
-  };
 
   return (
     <div className="font-semibold flex flex-col gap-2 items-center justify-center h-26 w-auto">

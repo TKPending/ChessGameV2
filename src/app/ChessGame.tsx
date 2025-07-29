@@ -2,7 +2,7 @@
 
 import { RootState } from "@/app/redux/store";
 import { useSelector } from "react-redux";
-import PlayerSetupLayout from "@/app/layouts/playerSetup/PlayerSetupLayout";
+import LandingLayout from "@/app/layouts/LandingLayout";
 import GameLayout from "@/app/layouts/GameLayout";
 
 const ChessGame = () => {
@@ -12,7 +12,7 @@ const ChessGame = () => {
 
   return (
     <div className="h-screen w-screen bg-page-background">
-      {isPlaying ? <GameLayout /> : <PlayerSetupLayout />}
+      {isPlaying ? <GameLayout /> : <LandingLayout />}
     </div>
   );
 };
