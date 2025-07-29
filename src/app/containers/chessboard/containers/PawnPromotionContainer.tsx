@@ -1,8 +1,7 @@
-import { setTileWithPromotedPiece } from "@/app/redux/slices/old/board/boardSlice";
-import { PieceName } from "@/app/types/PieceTypes";
+import { setTileWithPromotedPawn } from "@/app/redux/slices/chessboard/chessboardSlice";
+import { updateMovePawnPromotion } from "@/app/redux/slices/chessMoves/chessMovesSlice";
 import { useDispatch } from "react-redux";
-import { PieceType } from "@/app/types/PieceTypes";
-import { setPawnPromotionMoveHistory } from "@/app/redux/slices/old/gameHistory/gameHistorySlice";
+import { PieceType, PieceName } from "@/app/types/ChessTypes";
 import PawnPromotionComponent from "@/app/containers/chessboard/components/PawnPromotionComponent";
 
 type Props = {
@@ -24,12 +23,12 @@ const PawnPromotionContainer = ({ currentTurn }: Props) => {
     };
 
     dispatch(
-      setPawnPromotionMoveHistory({
+      updateMovePawnPromotion({
         pawnPromotion: true,
         updatedPiece: pieceName,
       })
     );
-    dispatch(setTileWithPromotedPiece(promotedPiece));
+    dispatch(setTileWithPromotedPawn(promotedPiece));
   };
 
   return <PawnPromotionComponent handlePiecePromotion={handlePiecePromotion} />;

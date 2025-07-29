@@ -1,11 +1,11 @@
 import { useDispatch } from "react-redux";
-import { setIsChessGamePlaying } from "@/app/redux/slices/old/board/boardSlice";
+import { setIsGamePlaying } from "@/app/redux/slices/gameState/gameStateSlice";
 
 const ContinueButton = () => {
   const dispatch = useDispatch();
 
   const handleOnClick = () => {
-    dispatch(setIsChessGamePlaying(true));
+    dispatch(setIsGamePlaying(true));
   };
 
   return (

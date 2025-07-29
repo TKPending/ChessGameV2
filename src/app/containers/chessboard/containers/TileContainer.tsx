@@ -6,10 +6,8 @@ import { isMoveValid } from "@/app/utils/pieceMovements/helpers/isMoveValid";
 import { handleFirstClick } from "./utils/handleFirstClick";
 import { handleReClickSamePiece } from "./utils/handleReClickSamePiece";
 import { handleValidMove } from "./utils/handleIsMoveValid";
-import { CastleType } from "@/app/types/CastleType";
-import { EnemyAttackType } from "@/app/types/EnemyAttackType";
-import { PieceType } from "@/app/types/PieceTypes";
-import { TileType } from "@/app/types/TileType";
+import { EnemyAttackType, CastleType } from "@/app/types/MoveTypes";
+import { TileType, PieceType } from "@/app/types/ChessTypes";
 
 type Props = {
   tile: TileType;
@@ -18,32 +16,32 @@ type Props = {
 const TileContainer = ({ tile }: Props) => {
   const dispatch = useDispatch();
   const chessboard: TileType[][] = useSelector(
-    (state: RootState) => state.board.chessboard
+    (state: RootState) => state.chessboard.board
   );
   const currentTurn: "White" | "Black" = useSelector(
-    (state: RootState) => state.board.currentTurn
+    (state: RootState) => state.chessboard.currentTurn
   );
   const previousClickedTile: TileType | null = useSelector(
-    (state: RootState) => state.board.previousClickedTile
+    (state: RootState) => state.chessboard.previouslyClickedTile
   );
   const isInCheck: boolean = useSelector(
-    (state: RootState) => state.board.isKingInCheck
+    (state: RootState) => state.chessboard.isKingInCheck
   );
   const validMoves: number[][] = useSelector(
-    (state: RootState) => state.board.piecePotentialMoves
+    (state: RootState) => state.activeMoves.currentPiecePotentialMoves
   );
   const validCheckMoves: number[][] = useSelector(
-    (state: RootState) => state.board.validCheckMoves
+    (state: RootState) => state.activeMoves.validCheckMoves
   );
   const pieceOnTile: PieceType | null = tile.pieceOnTile || null;
   const enemyMoves: EnemyAttackType[] = useSelector(
-    (state: RootState) => state.board.enemyMoves
+    (state: RootState) => state.activeMoves.enemyMoves
   );
   const castling: CastleType = useSelector(
-    (state: RootState) => state.board.castling
+    (state: RootState) => state.chessboard.castling
   );
   const piecesAttackingKing = useSelector(
-    (state: RootState) => state.board.pieceAttackingKing
+    (state: RootState) => state.activeMoves.pieceAttackingKing
   );
 
   const handleTileClick = (clickedTile: TileType) => {

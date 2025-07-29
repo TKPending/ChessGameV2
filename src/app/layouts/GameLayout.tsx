@@ -6,7 +6,7 @@ import ErrorContainer from "@/app/containers/ErrorContainer";
 
 const GameLayout = () => {
   const isError: boolean = useSelector(
-    (state: RootState) => state.error.isError
+    (state: RootState) => state.gameState.error.isError
   );
 
   return (

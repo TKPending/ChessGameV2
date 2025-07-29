@@ -2,7 +2,7 @@ import { RootState } from "@/app/redux/store";
 import { useSelector } from "react-redux";
 import CapturedPieces from "@/app/containers/players/components/CapturedPieces";
 import { faExclamation } from "@fortawesome/free-solid-svg-icons";
-import { PlayerType } from "@/app/types/PlayerType";
+import { PlayerType } from "@/app/types/ChessTypes";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type Props = {
@@ -12,13 +12,13 @@ type Props = {
 
 const Players = ({ playerNo, className }: Props) => {
   const player: PlayerType = useSelector(
-    (state: RootState) => state.board.players[playerNo]
+    (state: RootState) => state.gameState.players[playerNo]
   );
   const isInCheck: boolean = useSelector(
-    (state: RootState) => state.board.isKingInCheck
+    (state: RootState) => state.chessboard.isKingInCheck
   );
   const currentTurn: "White" | "Black" = useSelector(
-    (state: RootState) => state.board.currentTurn
+    (state: RootState) => state.chessboard.currentTurn
   );
 
   return (

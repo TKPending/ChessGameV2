@@ -1,37 +1,37 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { RootState } from "@/app/redux/store";
-import {
-  setChessboard,
-  setEnemyMoves,
-} from "@/app/redux/slices/old/board/boardSlice";
+import { setChessboard } from "@/app/redux/slices/chessboard/chessboardSlice";
+import { setEnemyMoves } from "@/app/redux/slices/activeMoves/activeMovesSlice";
 import { generateTiles } from "@/app/utils/chessboard/generateTiles";
 import { generateAllEnemyMoves } from "@/app/utils/pieceMovements/generateMoves/generateAllEnemyMoves";
 import { isKingInCheckmate } from "@/app/utils/pieceMovements/checkmate/isKingInCheckmate";
 import ChessboardComponent from "./components/ChessboardComponent";
 import CheckmateContainer from "@/app/containers/checkmate/CheckmateContainer";
-import { EnemyAttackType } from "@/app/types/EnemyAttackType";
+import { EnemyAttackType } from "@/app/types/MoveTypes";
 import PawnPromotionContainer from "@/app/containers/chessboard/containers/PawnPromotionContainer";
 
 const Chessboard = () => {
   const dispatch = useDispatch();
-  const chessboard = useSelector((state: RootState) => state.board.chessboard);
+  const chessboard = useSelector((state: RootState) => state.chessboard.board);
   const currentTurn = useSelector(
-    (state: RootState) => state.board.currentTurn
+    (state: RootState) => state.chessboard.currentTurn
   );
-  const enemyMoves = useSelector((state: RootState) => state.board.enemyMoves);
+  const enemyMoves = useSelector(
+    (state: RootState) => state.activeMoves.enemyMoves
+  );
   const boardMoves: number = useSelector(
-    (state: RootState) => state.gameHistory.count
+    (state: RootState) => state.chessMoves.count
   );
 
   const isInCheckmate: boolean = useSelector(
-    (state: RootState) => state.board.isKingInCheckmate
+    (state: RootState) => state.chessboard.isKingInCheckmate
   );
   const isInCheck: boolean = useSelector(
-    (state: RootState) => state.board.isKingInCheck
+    (state: RootState) => state.chessboard.isKingInCheck
   );
   const pawnPromotion = useSelector(
-    (state: RootState) => state.board.pawnPromotion
+    (state: RootState) => state.chessboard.pawnPromotion
   );
 
   useEffect(() => {

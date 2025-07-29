@@ -1,11 +1,11 @@
 import { RootState } from "@/app/redux/store";
 import { useSelector } from "react-redux";
 import Moves from "@/app/containers/chessMoves/component/Moves";
-import { MoveHistoryType } from "@/app/types/GameHistoryType";
+import { MoveHistoryType } from "@/app/types/ChessTypes";
 
 const ChessMoves = () => {
   const moveHistory: MoveHistoryType[] = useSelector(
-    (state: RootState) => state.gameHistory.moveHistory
+    (state: RootState) => state.chessMoves.moveHistory
   );
 
   return (

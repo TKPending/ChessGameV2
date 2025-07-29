@@ -2,7 +2,7 @@ import { RootState } from "@/app/redux/store";
 import { useSelector } from "react-redux";
 import { getTileBackgroundColor } from "@/app/utils/chessboard/design/getTileBackgroundColor";
 import Piece from "@/app/containers/chessboard/components/Piece";
-import { TileType } from "@/app/types/TileType";
+import { TileType } from "@/app/types/ChessTypes";
 
 type TileProps = {
   tile: TileType;
@@ -11,10 +11,10 @@ type TileProps = {
 
 const Tile = ({ tile, handleTileClick }: TileProps) => {
   const currentTurn: "White" | "Black" = useSelector(
-    (state: RootState) => state.board.currentTurn
+    (state: RootState) => state.chessboard.currentTurn
   );
   const isInCheckmate: boolean = useSelector(
-    (state: RootState) => state.board.isKingInCheckmate
+    (state: RootState) => state.chessboard.isKingInCheckmate
   );
 
   const pieceOnTile = tile.pieceOnTile || null;

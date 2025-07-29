@@ -12,7 +12,7 @@ const PlayerNameInput = ({
   playerNo,
   handlePlayerNameChange,
 }: PlayerNameInputProps) => {
-  const players = useSelector((state: RootState) => state.board.players);
+  const players = useSelector((state: RootState) => state.gameState.players);
   const [invalidValue, setInvalidValue] = useState<boolean>(false);
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
 

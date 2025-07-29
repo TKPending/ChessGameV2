@@ -4,7 +4,7 @@ import ChessMovesButton from "./ChessMovesButton";
 
 const ChessMovesHeader = () => {
   const moveCount: number = useSelector(
-    (state: RootState) => state.gameHistory.count
+    (state: RootState) => state.chessMoves.count
   );
 
   return (

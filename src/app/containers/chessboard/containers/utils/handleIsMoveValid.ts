@@ -1,13 +1,13 @@
 import { Dispatch } from "@reduxjs/toolkit";
-import { setMoveCounter } from "@/app/redux/slices/old/gameHistory/gameHistorySlice";
+import { incrementMoveCounter } from "@/app/redux/slices/chessMoves/chessMovesSlice";
+import { setCurrentTurn } from "@/app/redux/slices/chessboard/chessboardSlice";
 import {
-  setCurrentTurn,
   setEnemyMoves,
   setPiecesAttackingKing,
-} from "@/app/redux/slices/old/board/boardSlice";
+} from "@/app/redux/slices/activeMoves/activeMovesSlice";
 import { handleMovePiece } from "@/app/utils/handlers/handleMovePiece";
 import { resetTiles } from "@/app/utils/chessboard/design/resetTiles";
-import { TileType } from "@/app/types/TileType";
+import { TileType } from "@/app/types/ChessTypes";
 
 export const handleValidMove = (
   dispatch: Dispatch<any>,
@@ -27,6 +27,6 @@ export const handleValidMove = (
 
   dispatch(setEnemyMoves([]));
   dispatch(setCurrentTurn());
-  dispatch(setMoveCounter());
+  dispatch(incrementMoveCounter());
   dispatch(setPiecesAttackingKing(null));
 };

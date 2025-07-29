@@ -5,11 +5,11 @@ import ChessMovesContainer from "./containers/ChessMovesContainer";
 import HiddenMovesDisplay from "./component/HiddenMovesDisplay";
 
 const ChessMoves = () => {
-  const isPreviousMovesHidden: boolean = useSelector(
-    (state: RootState) => state.gameHistory.isPreviousMovesHidden
+  const showMoves: boolean = useSelector(
+    (state: RootState) => state.chessMoves.isMovesHidden
   );
   const moveCount: number = useSelector(
-    (state: RootState) => state.gameHistory.count
+    (state: RootState) => state.chessMoves.count
   );
 
   return (
@@ -18,8 +18,8 @@ const ChessMoves = () => {
         <section className="h-full w-full flex flex-col gap-4 overflow-x-auto md:overflow-y-auto">
           <ChessMovesHeader />
 
-          {isPreviousMovesHidden && <ChessMovesContainer />}
-          {!isPreviousMovesHidden && moveCount > 0 && <HiddenMovesDisplay />}
+          {showMoves && <ChessMovesContainer />}
+          {!showMoves && moveCount > 0 && <HiddenMovesDisplay />}
         </section>
       </div>
     </div>

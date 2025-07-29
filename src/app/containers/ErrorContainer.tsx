@@ -3,15 +3,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamation } from "@fortawesome/free-solid-svg-icons";
-import { setErrorNotification } from "@/app/redux/slices/old/error/errorSlice";
+import { setError } from "@/app/redux/slices/gameState/gameStateSlice";
 
 const ErrorContainer = () => {
   const dispatch = useDispatch();
   const isError: boolean = useSelector(
-    (state: RootState) => state.error.isError
+    (state: RootState) => state.gameState.error.isError
   );
   const errorMessage: string = useSelector(
-    (state: RootState) => state.error.message
+    (state: RootState) => state.gameState.error.message
   );
 
   const [visible, setVisible] = useState(false);
@@ -22,7 +22,7 @@ const ErrorContainer = () => {
       const timeout = setTimeout(() => {
         setVisible(false);
         setTimeout(() => {
-          dispatch(setErrorNotification(true));
+          dispatch(setError(true));
         }, 500);
       }, 5000);
       return () => clearTimeout(timeout);

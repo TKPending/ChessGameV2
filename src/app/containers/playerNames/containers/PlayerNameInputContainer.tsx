@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { setPlayersName } from "@/app/redux/slices/old/board/boardSlice";
+import { setPlayerName } from "@/app/redux/slices/gameState/gameStateSlice";
 import PlayerNameInput from "../components/PlayerNameInput";
 
 type Props = {
@@ -11,7 +11,7 @@ const PlayerNameInputContainer = ({ playerNo }: Props) => {
 
   const handlePlayerNameChange = (newValue: string) => {
     dispatch(
-      setPlayersName({
+      setPlayerName({
         playerName: newValue,
         playerNo: playerNo === 0 ? 0 : 1,
       })

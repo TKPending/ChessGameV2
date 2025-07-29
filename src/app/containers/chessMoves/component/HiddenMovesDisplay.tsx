@@ -1,13 +1,13 @@
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/redux/store";
-import { PlayerType } from "@/app/types/PlayerType";
+import { PlayerType } from "@/app/types/ChessTypes";
 
 const HiddenMovesDisplay = () => {
   const currentTurn: "White" | "Black" = useSelector(
-    (state: RootState) => state.board.currentTurn
+    (state: RootState) => state.chessboard.currentTurn
   );
   const player: PlayerType[] = useSelector(
-    (state: RootState) => state.board.players
+    (state: RootState) => state.gameState.players
   );
 
   return (

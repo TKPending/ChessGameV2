@@ -1,11 +1,11 @@
 import { RootState } from "@/app/redux/store";
 import { useSelector } from "react-redux";
 import TileContainer from "../containers/TileContainer";
-import { TileType } from "@/app/types/TileType";
+import { TileType } from "@/app/types/ChessTypes";
 
 const ChessboardComponent = () => {
   const chessboard: TileType[][] = useSelector(
-    (state: RootState) => state.board.chessboard
+    (state: RootState) => state.chessboard.board
   );
 
   return (

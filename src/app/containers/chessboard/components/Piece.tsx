@@ -1,10 +1,9 @@
 import { useDispatch } from "react-redux";
 import {
   setErrorMessage,
-  setErrorNotification,
-} from "@/app/redux/slices/old/error/errorSlice";
-import { PieceType } from "@/app/types/PieceTypes";
-import { TileType } from "@/app/types/TileType";
+  setError,
+} from "@/app/redux/slices/gameState/gameStateSlice";
+import { TileType, PieceType } from "@/app/types/ChessTypes";
 
 type Props = {
   tile: TileType;
@@ -14,7 +13,7 @@ const Piece = ({ tile }: Props) => {
   const dispatch = useDispatch();
   const piece: PieceType | null = tile.pieceOnTile || null;
   if (!piece) {
-    dispatch(setErrorNotification(true));
+    dispatch(setError(true));
     dispatch(setErrorMessage("Problem loading images. Try refresh page"));
     return;
   }

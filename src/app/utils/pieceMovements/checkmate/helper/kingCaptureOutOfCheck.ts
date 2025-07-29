@@ -1,8 +1,7 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { getKingMoves } from "@/app/utils/pieceMovements/getKingMoves";
-import { TileType } from "@/app/types/TileType";
-import { EnemyAttackType } from "@/app/types/EnemyAttackType";
-import { setIsKingInCheckmate } from "@/app/redux/slices/old/board/boardSlice";
+import { TileType } from "@/app/types/ChessTypes";
+import { EnemyAttackType } from "@/app/types/MoveTypes";
+import { setKingInCheckmate } from "@/app/redux/slices/chessboard/chessboardSlice";
 
 /**
  * Check whether King can capture a piece attacking the King
@@ -42,7 +41,7 @@ export const kingCaptureOutOfCheck = (
   });
 
   if (kingValidCaptureMoves.length > 0) {
-    dispatch(setIsKingInCheckmate(false));
+    dispatch(setKingInCheckmate(false));
   }
 
   return kingValidCaptureMoves;

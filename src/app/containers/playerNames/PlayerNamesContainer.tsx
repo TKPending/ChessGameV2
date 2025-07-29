@@ -11,7 +11,7 @@ type Props = {
 };
 
 const PlayerNamesContainer = ({ transitionStyle, gameSetupStage }: Props) => {
-  const players = useSelector((state: RootState) => state.board.players);
+  const players = useSelector((state: RootState) => state.gameState.players);
 
   const validNames = players.every(
     (player) => player.playerName.length > MIN_NAME_LENGTH
