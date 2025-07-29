@@ -1,6 +1,6 @@
 import { RootState } from "@/app/redux/store";
 import { useSelector } from "react-redux";
-import CapturedPieces from "@/app/components/chessboardComponents/CapturedPieces";
+import CapturedPieces from "@/app/containers/players/components/CapturedPieces";
 import { faExclamation } from "@fortawesome/free-solid-svg-icons";
 import { PlayerType } from "@/app/types/PlayerType";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

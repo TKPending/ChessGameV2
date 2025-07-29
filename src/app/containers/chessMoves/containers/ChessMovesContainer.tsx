@@ -1,9 +1,9 @@
 import { RootState } from "@/app/redux/store";
 import { useSelector } from "react-redux";
-import PreviousMove from "@/app/components/moveHistoryComponents/PreviousMove";
+import Moves from "@/app/containers/chessMoves/component/Moves";
 import { MoveHistoryType } from "@/app/types/GameHistoryType";
 
-const PreviousMovesContainer = () => {
+const ChessMoves = () => {
   const moveHistory: MoveHistoryType[] = useSelector(
     (state: RootState) => state.gameHistory.moveHistory
   );
@@ -20,7 +20,7 @@ const PreviousMovesContainer = () => {
             .slice()
             .reverse()
             .map((move: MoveHistoryType, index: number) => (
-              <PreviousMove key={index} move={move} />
+              <Moves key={index} move={move} />
             ))}
         </div>
       )}
@@ -28,4 +28,4 @@ const PreviousMovesContainer = () => {
   );
 };
 
-export default PreviousMovesContainer;
+export default ChessMoves;

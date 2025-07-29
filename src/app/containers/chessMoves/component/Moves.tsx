@@ -1,6 +1,6 @@
-import CaptureMove from "./Moves/CaptureMove";
-import StandardMove from "./Moves/StandardMove";
-import PawnPromotionMove from "./Moves/PawnPromotionMove";
+import CaptureMove from "@/app/containers/chessMoves/component/moves/CaptureMove";
+import StandardMove from "@/app/containers/chessMoves/component/moves/StandardMove";
+import PawnPromotionMove from "@/app/containers/chessMoves/component/moves/PawnPromotionMove";
 import { MoveHistoryType } from "@/app/types/GameHistoryType";
 import { PieceType } from "@/app/types/PieceType";
 
@@ -8,7 +8,7 @@ type Props = {
   move: MoveHistoryType;
 };
 
-const PreviousMove = ({ move }: Props) => {
+const MovesContainer = ({ move }: Props) => {
   if (!move.from.pieceOnTile) return;
 
   const piece: PieceType | null = move.from.pieceOnTile;
@@ -34,4 +34,4 @@ const PreviousMove = ({ move }: Props) => {
   );
 };
 
-export default PreviousMove;
+export default MovesContainer;

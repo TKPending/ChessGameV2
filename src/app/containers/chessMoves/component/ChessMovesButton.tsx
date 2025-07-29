@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/app/redux/store";
 import { setMoveHistoryVisibility } from "@/app/redux/slices/gameHistory/gameHistorySlice";
 
-const DisplayMovesHistory = () => {
+const ChessMovesButton = () => {
   const dispatch = useDispatch();
   const isPreviousMovesHidden: boolean = useSelector(
     (state: RootState) => state.gameHistory.isPreviousMovesHidden
@@ -21,4 +21,4 @@ const DisplayMovesHistory = () => {
   );
 };
 
-export default DisplayMovesHistory;
+export default ChessMovesButton;
