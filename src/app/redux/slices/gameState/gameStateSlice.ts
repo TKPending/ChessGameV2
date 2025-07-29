@@ -1,4 +1,4 @@
-import { GameStateType } from "@/app/types/ChessTypes";
+import { ChessColors, GameStateType } from "@/app/types/ChessTypes";
 import { createSlice } from "@reduxjs/toolkit";
 import {
   addPlayerNameReducer,
@@ -10,7 +10,22 @@ import {
 
 const initialState: GameStateType = {
   stateIndex: 0,
-  players: [],
+  players: [
+    {
+      no: 0,
+      playerName: "",
+      capturedPieces: [],
+      team: ChessColors.white,
+      remainingTime: "",
+    },
+    {
+      no: 1,
+      playerName: "",
+      capturedPieces: [],
+      team: ChessColors.white,
+      remainingTime: "",
+    },
+  ],
   winner: undefined,
   isPlaying: false,
   error: {

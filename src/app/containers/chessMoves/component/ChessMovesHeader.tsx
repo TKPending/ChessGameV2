@@ -9,7 +9,7 @@ const ChessMovesHeader = () => {
 
   return (
     <div className="flex flex-row justify-between text-xs md:text-base px-2">
-      <p className="text-customGreen">Moves: {moveCount - 1}</p>
+      <p className="text-customGreen">Moves: {moveCount}</p>
       <ChessMovesButton />
     </div>
   );

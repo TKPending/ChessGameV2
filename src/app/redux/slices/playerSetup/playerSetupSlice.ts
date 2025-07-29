@@ -13,7 +13,7 @@ const initialState: PlayerSetupType = {
 };
 
 const playerSetupSlice = createSlice({
-  name: "",
+  name: "playerSetup",
   initialState,
   reducers: {
     setValidPlayerNames: validPlayerNamesReducer,
