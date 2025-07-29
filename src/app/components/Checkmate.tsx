@@ -6,7 +6,7 @@ import { useWindowSize } from "react-use";
 import { RootState } from "@/app/redux/store";
 import { resetGame } from "@/app/redux/slices/board/boardSlice";
 import { resetGameHistory } from "@/app/redux/slices/gameHistory/gameHistorySlice";
-import CheckmateButtons from "@/app/components/checkmateComponents/CheckmateButtons";
+import CheckmateButton from "@/app/components/buttons/CheckmateButton";
 import { PlayerType } from "@/app/types/PlayerType";
 
 const Checkmate = () => {
@@ -53,12 +53,12 @@ const Checkmate = () => {
         </div>
 
         <div className="flex gap-6 w-auto">
-          <CheckmateButtons
+          <CheckmateButton
             text="Play Again"
             className="bg-customGreen"
             onClick={handleResetGame}
           />
-          <CheckmateButtons
+          <CheckmateButton
             text="Exit"
             className="bg-red-400 text-white"
             onClick={handleExit}

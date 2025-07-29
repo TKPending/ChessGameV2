@@ -1,4 +1,4 @@
-import ChessboardContainer from "@/app/containers/ChessboardContainer";
+import Chessboard from "@/app/containers/chessboard/Chessboard";
 import Players from "@/app/components/Players";
 
 const PLAYERONE = 0;
@@ -12,7 +12,7 @@ const ChessboardAndPlayersLayout = () => {
       </div>
 
       <div className="h-auto w-full flex items-center justify-center">
-        <ChessboardContainer />
+        <Chessboard />
       </div>
 
       <div className="w-full flex items-center justify-start px-12">

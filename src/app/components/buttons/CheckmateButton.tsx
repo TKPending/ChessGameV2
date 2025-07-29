@@ -4,7 +4,7 @@ type Props = {
   onClick: () => void;
 };
 
-const CheckmateButtons = ({ text, className, onClick }: Props) => {
+const CheckmateButton = ({ text, className, onClick }: Props) => {
   return (
     <div
       onClick={onClick}
@@ -15,4 +15,4 @@ const CheckmateButtons = ({ text, className, onClick }: Props) => {
   );
 };
 
-export default CheckmateButtons;
+export default CheckmateButton;

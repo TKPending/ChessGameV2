@@ -1,7 +1,7 @@
 import { RootState } from "@/app/redux/store";
 import { useSelector } from "react-redux";
 import PlayerNameInput from "@/app/components/playerSetupComponents/PlayerNameInput";
-import ContinueButton from "@/app/components/playerSetupComponents/ContinueButton";
+import ContinueButton from "@/app/components/buttons/ContinueButton";
 
 const MIN_NAME_LENGTH = 2;
 
