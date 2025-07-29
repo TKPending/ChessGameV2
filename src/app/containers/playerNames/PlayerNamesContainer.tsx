@@ -27,11 +27,11 @@ const PlayerNamesContainer = ({ transitionStyle, gameSetupStage }: Props) => {
     >
       <div className="h-screen w-screen flex flex-col items-center justify-center gap-12 text-center">
         <div className="flex flex-col gap-2">
-          <h1 className="text-customGreen text-4xl font-semibold">
+          <h1 className="text-customGreen text-6xl font-semibold">
             Enter the name of each player
           </h1>
-          <p className="text-red-600 text-xs">
-            (Each player name must have 3 or more letters)
+          <p className="text-red-600 text-xl font-bold">
+            (Each players name must have 3 or more letters)
           </p>
         </div>
 
