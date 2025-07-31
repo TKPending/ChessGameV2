@@ -15,7 +15,7 @@ const CaptureMove = ({ piece, destination, enemy }: Props) => {
         src={`${piece.pieceColor}-${piece.pieceName}.png`}
         className="h-6 w-6"
       />
-      <span className="text-customGreen">{`→`}</span>
+      <span className="text-gray-800">{`→`}</span>
       <img
         src={`${enemy.pieceColor}-${enemy.pieceName}.png`}
         className="h-6 w-6"

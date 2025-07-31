@@ -9,7 +9,7 @@ const ChessMovesContainer = () => {
   );
 
   return (
-    <div className="w-screen md:w-full w-full md:h-full flex rounded-md p-2 overflow-x-auto md:overflow-y-auto scrollbar-thin scrollbar-thumb-rounded">
+    <div className="w-screen md:w-full w-full h-full flex rounded-md p-2 overflow-x-auto overflow-y-hidden md:overflow-y-auto scrollbar-thin scrollbar-thumb-rounded">
       {moveHistory.length === 0 ? (
         <div className="h-full w-full flex items-center justify-center text-center">
           <p className="text-customGreen">No Moves Have Been Made</p>

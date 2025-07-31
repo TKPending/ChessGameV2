@@ -21,7 +21,7 @@ const PawnPromotionMove = ({
           className="h-6 w-6 hidden lg:flex"
           alt={`${piece.pieceColor} ${piece.pieceName} piece`}
         />
-        <span className="text-customGreen text-xs">Promotion</span>
+        <span className="text-gray-800 text-xs">Promotion</span>
         <img
           src={`${piece.pieceColor}-${updatedPiece}.png`}
           className="h-6 w-6 hidden lg:flex"
@@ -34,7 +34,7 @@ const PawnPromotionMove = ({
           className="h-6 w-6"
           alt={`${piece.pieceColor} ${updatedPiece} piece`}
         />
-        <span className="text-customGreen text-base">{`→`}</span>
+        <span className="text-gray-800 text-base">{`→`}</span>
 
         {capturedPiece ? (
           <img
@@ -43,7 +43,7 @@ const PawnPromotionMove = ({
             alt={`${capturedPiece.pieceName} ${capturedPiece} piece`}
           />
         ) : (
-          <p className="text-customGreen">{destination.toUpperCase()}</p>
+          <p className="text-gray-800">{destination.toUpperCase()}</p>
         )}
       </div>
     </div>

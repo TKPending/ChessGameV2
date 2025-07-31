@@ -13,8 +13,8 @@ const StandardMove = ({ piece, destination }: Props) => {
         className="h-6 w-6"
         alt={`${piece.pieceColor} ${piece.pieceName} piece`}
       />
-      <span className="text-customGreen text-lg">{`→`}</span>
-      <p className="text-customGreen">{destination.toUpperCase()}</p>
+      <span className="text-gray-800 text-lg">{`→`}</span>
+      <p className="text-gray-800">{destination.toUpperCase()}</p>
     </div>
   );
 };

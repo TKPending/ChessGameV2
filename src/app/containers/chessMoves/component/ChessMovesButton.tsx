@@ -14,7 +14,10 @@ const ChessMovesButton = () => {
 
   return (
     <div>
-      <p onClick={handleDisplayMoves} className="text-white cursor-pointer">
+      <p
+        onClick={handleDisplayMoves}
+        className="text-customGreen cursor-pointer hover:underline"
+      >
         {isPreviousMovesHidden ? "Hide" : "Show"}
       </p>
     </div>
