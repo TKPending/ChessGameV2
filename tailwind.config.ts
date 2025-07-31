@@ -20,6 +20,7 @@ const config: Config = {
         "available-tile": "#0A4612",
         "error-red": "#CE0B0B",
         "page-background": "#25282b",
+        "chessMoves-background": "#3d4145ff",
         customGreen: "#14eaad",
       },
       fontFamily: {
