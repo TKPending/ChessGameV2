@@ -1,4 +1,4 @@
-import { GameStateType, PieceType } from "@/app/types/ChessTypes";
+import { ChessColors, GameStateType, PieceType } from "@/app/types/ChessTypes";
 import { PayloadAction } from "@reduxjs/toolkit";
 
 export const errorTriggerReducer = (
@@ -43,4 +43,35 @@ export const chessGamePlayingReducer = (
   action: PayloadAction<boolean>
 ) => {
   state.isPlaying = action.payload;
+};
+
+export const resetGameReducer = (state: GameStateType) => {
+  state.isReset = !state.isReset;
+};
+
+export const resetGameStateReducer = (state: GameStateType) => {
+  state.stateIndex = 0;
+  state.players = [
+    {
+      no: 0,
+      playerName: state.players[0].playerName,
+      capturedPieces: [],
+      team: ChessColors.white,
+      remainingTime: "",
+    },
+    {
+      no: 1,
+      playerName: state.players[1].playerName,
+      capturedPieces: [],
+      team: ChessColors.black,
+      remainingTime: "",
+    },
+  ];
+  state.winner = undefined;
+  state.isPlaying = true;
+  state.error = {
+    isError: false,
+    message: "",
+  };
+  state.isReset = false;
 };

@@ -5,6 +5,7 @@ import {
   enemyMovesReducer,
   inCheckPositionsReducer,
   piecesAttackingKingReeducer,
+  resetActiveMovesReducer,
   validCheckMovesReducer,
 } from "./activeMovesReducer";
 
@@ -25,6 +26,7 @@ const activeMovesSlice = createSlice({
     setValidCheckMoves: validCheckMovesReducer,
     setInCheckPositions: inCheckPositionsReducer,
     setPiecesAttackingKing: piecesAttackingKingReeducer,
+    resetActiveMoves: resetActiveMovesReducer,
   },
 });
 
@@ -34,6 +36,7 @@ export const {
   setValidCheckMoves,
   setInCheckPositions,
   setPiecesAttackingKing,
+  resetActiveMoves,
 } = activeMovesSlice.actions;
 
 export default activeMovesSlice.reducer;

@@ -69,6 +69,7 @@ export interface GameStateType {
   winner: PlayerType | undefined;
   isPlaying: boolean;
   error: ErrorType;
+  isReset: boolean;
 }
 
 export interface MoveHistoryType {

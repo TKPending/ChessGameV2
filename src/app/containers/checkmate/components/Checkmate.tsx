@@ -4,6 +4,7 @@ import { useWindowSize } from "react-use";
 import CheckmateButton from "@/app/containers/checkmate/components/CheckmateButton";
 import Confetti from "react-confetti";
 import { PlayerType } from "@/app/types/ChessTypes";
+import Button from "@/app/components/Button";
 
 type CheckmateProps = {
   displayCheckmate: boolean;
@@ -47,12 +48,13 @@ const Checkmate = ({
         </div>
 
         <div className="flex gap-6 w-auto">
-          <CheckmateButton
+          <Button
             text="Play Again"
             className="bg-customGreen"
             onClick={handleResetGame}
           />
-          <CheckmateButton
+
+          <Button
             text="Exit"
             className="bg-red-400 text-white"
             onClick={handleExit}

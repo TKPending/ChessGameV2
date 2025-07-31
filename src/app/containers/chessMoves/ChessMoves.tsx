@@ -4,6 +4,7 @@ import ChessMovesHeader from "./component/ChessMovesHeader";
 import ChessMovesContainer from "./containers/ChessMovesContainer";
 import HiddenMovesDisplay from "./component/HiddenMovesDisplay";
 import GameStartedText from "./component/GameStartedText";
+import ResetGame from "@/app/containers/resetGame/ResetGame";
 
 const ChessMoves = () => {
   const showMoves: boolean = useSelector(
@@ -23,6 +24,8 @@ const ChessMoves = () => {
           {!showMoves && moveCount > 0 && <HiddenMovesDisplay />}
           {!showMoves && moveCount === 0 && <GameStartedText />}
         </section>
+
+        <ResetGame />
       </div>
     </div>
   );

@@ -41,3 +41,11 @@ export const piecesAttackingKingReeducer = (
 
   state.pieceAttackingKing = [];
 };
+
+export const resetActiveMovesReducer = (state: ActiveMovesType) => {
+  state.currentPiecePotentialMoves = [];
+  state.enemyMoves = [];
+  state.pieceAttackingKing = [];
+  state.validCheckMoves = [];
+  state.inCheckPositions = [];
+};

@@ -3,11 +3,17 @@ import { useSelector } from "react-redux";
 import ChessboardAndPlayersLayout from "@/app/layouts/ChessboardAndPlayersLayout";
 import ChessMoves from "@/app/containers/chessMoves/ChessMoves";
 import ErrorContainer from "@/app/containers/ErrorContainer";
+import ResetGameModalContainer from "@/app/containers/resetGame/containers/ResetGameModalContainer";
 
 const GameLayout = () => {
   const isError: boolean = useSelector(
     (state: RootState) => state.gameState.error.isError
   );
+  const isReset: boolean = useSelector(
+    (state: RootState) => state.gameState.isReset
+  );
+
+  console.log(isReset);
 
   return (
     <div className="h-screen w-screen max-h-screen max-w-screen overflow-hidden">
@@ -16,6 +22,8 @@ const GameLayout = () => {
         <ChessboardAndPlayersLayout />
         <ChessMoves />
       </div>
+
+      {isReset && <ResetGameModalContainer />}
     </div>
   );
 };

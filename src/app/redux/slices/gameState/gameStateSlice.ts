@@ -6,6 +6,8 @@ import {
   chessGamePlayingReducer,
   errorMessageReducer,
   errorTriggerReducer,
+  resetGameReducer,
+  resetGameStateReducer,
 } from "./gameStateReducer";
 
 const initialState: GameStateType = {
@@ -32,6 +34,7 @@ const initialState: GameStateType = {
     isError: false,
     message: "",
   },
+  isReset: false,
 };
 
 const gameStateSlice = createSlice({
@@ -43,6 +46,8 @@ const gameStateSlice = createSlice({
     setPlayerName: addPlayerNameReducer,
     setCapturedPiece: capturedPiecesReducer,
     setIsGamePlaying: chessGamePlayingReducer,
+    setResetTrigger: resetGameReducer,
+    resetGameState: resetGameStateReducer,
   },
 });
 
@@ -52,6 +57,8 @@ export const {
   setPlayerName,
   setCapturedPiece,
   setIsGamePlaying,
+  setResetTrigger,
+  resetGameState,
 } = gameStateSlice.actions;
 
 export default gameStateSlice.reducer;
