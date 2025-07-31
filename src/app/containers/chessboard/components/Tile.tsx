@@ -26,12 +26,14 @@ const Tile = ({ tile, handleTileClick }: TileProps) => {
   const isLeftColumn = colLetter === "a"; // Leftmost column
   const isBottomRow = rowNumber === "1"; // Bottommost row
 
+  const tileBackgroundColor: string = getTileBackgroundColor(tile);
+
   return (
     <div
       onClick={() => handleTileClick(tile)}
-      className={`relative tile tileBorder  ${getTileBackgroundColor(tile)} ${
+      className={`relative tile tileBorder transition duration-200  ${tileBackgroundColor} ${
         currentTurn === pieceOnTile?.pieceColor && !isInCheckmate
-          ? "hover:bg-blue-200 hover:cursor-pointer transition duration-400"
+          ? "hover:bg-blue-200 hover:cursor-pointer"
           : ""
       }`}
       style={{
