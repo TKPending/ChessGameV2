@@ -22,7 +22,7 @@ const initialState: GameStateType = {
       no: 1,
       playerName: "",
       capturedPieces: [],
-      team: ChessColors.white,
+      team: ChessColors.black,
       remainingTime: "",
     },
   ],

@@ -1,7 +1,6 @@
 import { handlePieceOnTile } from "@/app/utils/handlers/handlePieceOnTile";
 import { Dispatch } from "@reduxjs/toolkit";
-import { TileType } from "@/app/types/TileType";
-import { PieceType } from "@/app/types/PieceTypes";
+import { PieceType, TileType } from "@/app/types/ChessTypes";
 
 export const handleFirstClick = (
   dispatch: Dispatch<any>,

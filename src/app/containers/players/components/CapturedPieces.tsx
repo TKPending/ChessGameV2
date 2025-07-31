@@ -1,5 +1,4 @@
-import { PlayerType } from "@/app/types/PlayerType";
-import { PieceType } from "@/app/types/PieceTypes";
+import { PieceType, PlayerType } from "@/app/types/ChessTypes";
 
 type Props = {
   player: PlayerType;

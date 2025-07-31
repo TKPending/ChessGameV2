@@ -8,7 +8,7 @@ const ChessboardAndPlayersLayout = () => {
   return (
     <div className="h-full w-[80%] flex flex-col items-center justify-around p-2 gap-4">
       <div className="w-full flex items-center justify-end px-12">
-        <Players playerNo={PLAYERONE} className="items-end" />
+        <Players playerNo={PLAYERTWO} className="items-end" />
       </div>
 
       <div className="h-auto w-full flex items-center justify-center">
@@ -16,7 +16,7 @@ const ChessboardAndPlayersLayout = () => {
       </div>
 
       <div className="w-full flex items-center justify-start px-12">
-        <Players playerNo={PLAYERTWO} className="items-start" />
+        <Players playerNo={PLAYERONE} className="items-start" />
       </div>
     </div>
   );
