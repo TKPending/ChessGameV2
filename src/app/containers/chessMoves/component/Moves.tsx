@@ -1,8 +1,7 @@
 import CaptureMove from "@/app/containers/chessMoves/component/moves/CaptureMove";
 import StandardMove from "@/app/containers/chessMoves/component/moves/StandardMove";
 import PawnPromotionMove from "@/app/containers/chessMoves/component/moves/PawnPromotionMove";
-import { MoveHistoryType } from "@/app/types/GameHistoryType";
-import { PieceType } from "@/app/types/PieceTypes";
+import { PieceType, MoveHistoryType } from "@/app/types/ChessTypes";
 
 type Props = {
   move: MoveHistoryType;
@@ -17,7 +16,7 @@ const MovesContainer = ({ move }: Props) => {
   const captured: boolean = enemy ? true : false;
 
   return (
-    <div className="bg-gray-800 min-h-[60px] max-h-[70px]  min-w-24 w-48 flex items-center justify-around rounded-md shadow-md overflow-hidden text-xs md:text-base font-semibold">
+    <div className="bg-gray-800 min-h-[60px] max-h-[70px] min-w-36 md:w-full flex items-center justify-around rounded-md shadow-md overflow-hidden text-xs md:text-base font-semibold">
       {move.pawnPromotion ? (
         <PawnPromotionMove
           piece={piece}

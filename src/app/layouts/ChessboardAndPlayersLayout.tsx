@@ -6,7 +6,7 @@ const PLAYERTWO = 1;
 
 const ChessboardAndPlayersLayout = () => {
   return (
-    <div className="h-full w-full flex flex-col items-center justify-around p-2 gap-4">
+    <div className="h-full w-[80%] flex flex-col items-center justify-around p-2 gap-4">
       <div className="w-full flex items-center justify-end px-12">
         <Players playerNo={PLAYERONE} className="items-end" />
       </div>

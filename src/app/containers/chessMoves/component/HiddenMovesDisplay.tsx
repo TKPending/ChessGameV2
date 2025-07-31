@@ -11,8 +11,8 @@ const HiddenMovesDisplay = () => {
   );
 
   return (
-    <div className="h-full w-full flex flex-col items-center justify-center gap-2">
-      <p className="text-customGreen">
+    <div className="h-10 w-full flex flex-row md:flex-col items-center justify-center gap-2">
+      <p className="text-customGreen text-lg">
         {currentTurn === "White" ? player[1].playerName : player[0].playerName}{" "}
         Turn
       </p>

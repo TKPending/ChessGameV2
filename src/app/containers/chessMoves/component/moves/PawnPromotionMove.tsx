@@ -1,4 +1,4 @@
-import { PieceName, PieceType } from "@/app/types/PieceTypes";
+import { PieceName, PieceType } from "@/app/types/ChessTypes";
 
 type Props = {
   piece: PieceType;

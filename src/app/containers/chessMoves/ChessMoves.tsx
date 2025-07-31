@@ -13,9 +13,9 @@ const ChessMoves = () => {
   );
 
   return (
-    <div className="min-h-[20px] h-[120px] md:h-full p-2 w-full md:w-64 flex items-center justify-center">
+    <div className="min-h-[20px] h-[120px] md:h-full p-2 w-full md:max-w-[20%] md:w-64 flex items-center justify-center">
       <div className="h-full w-full md:h-[80%] min-h-24">
-        <section className="h-full w-full flex flex-col gap-4 overflow-x-auto md:overflow-y-auto">
+        <section className="h-full w-full flex flex-col gap-1 md:gap-4 overflow-x-hidden overflow-y-hidden md:overflow-y-auto">
           <ChessMovesHeader />
 
           {showMoves && <ChessMovesContainer />}
