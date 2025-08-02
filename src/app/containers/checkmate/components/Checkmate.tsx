@@ -50,7 +50,7 @@ const Checkmate = ({
         <div className="flex gap-6 w-auto">
           <Button
             text="Play Again"
-            className="bg-customGreen"
+            className="bg-customGreen text-white w-auto"
             onClick={handleResetGame}
           />
 
