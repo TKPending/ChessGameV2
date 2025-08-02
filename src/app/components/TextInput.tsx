@@ -2,27 +2,29 @@ import React from "react";
 
 type Props = {
   value: string;
-  invalidValue: boolean;
-  isDisabled: boolean;
+  playerNo: number;
+  invalidValue?: boolean;
+  isDisabled?: boolean;
   customStyle?: string;
   placeholder: string;
-  onPlayerNameChange: (newValue: string) => void;
+  onChange: (newValue: string, playerNo: number) => void;
 };
 
 const TextInput = ({
   value = "",
+  playerNo,
   invalidValue = false,
   isDisabled = false,
   customStyle,
   placeholder,
-  onPlayerNameChange,
+  onChange,
 }: Props) => {
   const removeDefaultStyle: string =
     "appearance-none focus:outline-none focus:ring-0";
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue: string = e.target.value;
-    onPlayerNameChange(newValue);
+    onChange(newValue, playerNo);
   };
 
   const handleOnEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {

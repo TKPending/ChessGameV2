@@ -20,7 +20,7 @@ const PlayerNameInputContainer = ({ playerNo }: Props) => {
 
   return (
     <PlayerNameInput
-      playerNo={playerNo}
+      playerNo={playerNo + 0}
       handlePlayerNameChange={handlePlayerNameChange}
     />
   );

@@ -8,7 +8,7 @@ const Button = ({ text, className, onClick }: ButtonProps) => {
   return (
     <div
       onClick={onClick}
-      className={`${className} flex items-center justify-center p-2 rounded-lg cursor-pointer w-32`}
+      className={`flex items-center justify-center p-2 rounded-lg cursor-pointer w-32 ${className} `}
     >
       <p className="text-2xl">{text}</p>
     </div>
