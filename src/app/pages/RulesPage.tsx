@@ -1,11 +1,14 @@
-import React from "react";
-import Button from "../components/Button";
+import Button from "@/app/components/Button";
+import { useDispatch } from "react-redux";
+import { setPageToLanding } from "@/app/redux/slices/pageTransition/pageTransitionSlice";
 
-type RulesPageProps = {
-  handlePageChange: (page: boolean) => void;
-};
+const RulesPage = () => {
+  const dispatch = useDispatch();
 
-const RulesPage = ({ handlePageChange }: RulesPageProps) => {
+  const handleLandingPage = () => {
+    dispatch(setPageToLanding());
+  };
+
   return (
     // Main container for the rules page with responsive styling
     <div className="min-h-screen p-4 sm:p-8 md:p-12 lg:p-16 flex justify-center items-start text-gray-200">
@@ -158,7 +161,7 @@ const RulesPage = ({ handlePageChange }: RulesPageProps) => {
           <Button
             text="Return"
             className="bg-customGreen text-white font-semibold"
-            onClick={() => handlePageChange(true)}
+            onClick={handleLandingPage}
           />
         </div>
       </div>

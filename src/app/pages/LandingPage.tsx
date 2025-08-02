@@ -3,11 +3,7 @@ import LandingHeader from "@/app/containers/landing/components/LandingHeader";
 import LandingButtonsContainer from "@/app/containers/landing/containers/LandingButtonsContainer";
 import LandingPlayerContainer from "@/app/containers/landing/containers/LandingPlayerContainer";
 
-type LandingPageProps = {
-  handlePageChange: (page: boolean) => void;
-};
-
-const LandingPage = ({ handlePageChange }: LandingPageProps) => {
+const LandingPage = () => {
   return (
     <div className="h-screen w-screen flex flex-col items-center justify-center gap-12">
       <LandingHeader />
@@ -15,7 +11,7 @@ const LandingPage = ({ handlePageChange }: LandingPageProps) => {
       {/* <div className="h-20 w-20 bg-light-tile"></div> */}
 
       {/* <LandingPlayerContainer /> */}
-      <LandingButtonsContainer handlePageChange={handlePageChange} />
+      <LandingButtonsContainer />
       <FooterComponent />
     </div>
   );

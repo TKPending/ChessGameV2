@@ -99,3 +99,9 @@ export interface PlayerSetupType {
   validTimes: boolean;
   isStartVisible: boolean;
 }
+
+export interface PageTransitionType {
+  landingStatus: boolean;
+  readMoreStatus: boolean;
+  playerStatus: boolean;
+}
