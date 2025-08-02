@@ -1,7 +1,7 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { generateAllEnemyMoves } from "@/app/utils/pieceMovements/generateMoves/generateAllEnemyMoves";
 import { isKingSafeAfterMove } from "@/app/utils/handlers/helpers/handPieceOnTileHelpers/isKingSafeAfterMove";
-import { TileType } from "@/app/types/TileType";
+import { TileType } from "@/app/types/ChessTypes";
 
 export const preventCheckmate = (
   dispatch: Dispatch<UnknownAction>,

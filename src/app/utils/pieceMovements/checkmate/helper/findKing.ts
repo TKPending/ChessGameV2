@@ -1,4 +1,4 @@
-import { TileType } from "@/app/types/TileType";
+import { TileType } from "@/app/types/ChessTypes";
 
 export const findKing = (
   chessboard: TileType[][],

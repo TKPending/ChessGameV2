@@ -1,4 +1,4 @@
-import { EnemyAttackType } from "@/app/types/EnemyAttackType";
+import { EnemyAttackType } from "@/app/types/MoveTypes";
 
 /**
  * Checks if there are any king moves that are not under threat from enemy moves.

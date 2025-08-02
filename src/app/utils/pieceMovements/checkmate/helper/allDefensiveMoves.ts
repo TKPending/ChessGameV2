@@ -1,6 +1,6 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { pathToKing } from "./pathToKing";
-import { EnemyAttackType } from "@/app/types/EnemyAttackType";
+import { EnemyAttackType } from "@/app/types/MoveTypes";
 
 /**
  * Check all moves that the King can make when in Check
