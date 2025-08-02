@@ -1,6 +1,7 @@
 import { PageTransitionType } from "@/app/types/ChessTypes";
 import { createSlice } from "@reduxjs/toolkit";
 import {
+  resetTransitionReducer,
   transitionToLandingReducer,
   transitionToPlayersReducer,
   transitionToReadMoreReducer,
@@ -19,10 +20,15 @@ const pageTransitionSlice = createSlice({
     setPageToReadMore: transitionToReadMoreReducer,
     setPageToLanding: transitionToLandingReducer,
     setPageToPlayers: transitionToPlayersReducer,
+    resetTransition: resetTransitionReducer,
   },
 });
 
-export const { setPageToReadMore, setPageToLanding, setPageToPlayers } =
-  pageTransitionSlice.actions;
+export const {
+  setPageToReadMore,
+  setPageToLanding,
+  setPageToPlayers,
+  resetTransition,
+} = pageTransitionSlice.actions;
 
 export default pageTransitionSlice.reducer;

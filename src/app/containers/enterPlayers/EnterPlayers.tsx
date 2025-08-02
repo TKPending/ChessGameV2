@@ -1,6 +1,6 @@
 import { RootState } from "@/app/redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import LandingPlayersComponent from "../components/LandingPlayersComponent";
+import EnterPlayerComponent from "@/app/containers/enterPlayers/components/EnterPlayerComponent";
 import { setPlayerName } from "@/app/redux/slices/gameState/gameStateSlice";
 import { PlayerType } from "@/app/types/ChessTypes";
 
@@ -25,7 +25,7 @@ const LandingPlayerContainer = () => {
         Enter the names of your players
       </p>
       {players.map((player: PlayerType, index: number) => (
-        <LandingPlayersComponent
+        <EnterPlayerComponent
           key={index}
           playerNo={player.no}
           handleOnChange={handleOnChange}

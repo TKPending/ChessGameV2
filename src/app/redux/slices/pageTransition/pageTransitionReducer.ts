@@ -16,3 +16,9 @@ export const transitionToPlayersReducer = (state: PageTransitionType) => {
   state.landingStatus = false;
   state.playerStatus = true;
 };
+
+export const resetTransitionReducer = (state: PageTransitionType) => {
+  state.landingStatus = false;
+  state.playerStatus = false;
+  state.readMoreStatus = false;
+};
