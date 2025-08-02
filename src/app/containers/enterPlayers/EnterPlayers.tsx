@@ -20,7 +20,7 @@ const LandingPlayerContainer = () => {
   };
 
   return (
-    <div className="h-auto flex flex-col items-center justify-center gap-12 font-semibold">
+    <div className="h-auto flex flex-col items-center justify-center gap-12 font-semibold text-center">
       <div className="flex flex-col gap-4 items-center justify-center">
         <p className="text-customGreen text-6xl">Enter Player Names</p>
         <p className="text-white">Each player must have atleast 2 characters</p>
