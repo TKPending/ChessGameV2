@@ -4,7 +4,7 @@ import LandingButtonsContainer from "@/app/containers/landing/containers/Landing
 
 const LandingPage = () => {
   return (
-    <div className="h-screen w-screen flex flex-col items-center justify-center gap-12">
+    <div className="h-full w-full flex flex-col items-center justify-center gap-20">
       <LandingHeader />
       <LandingButtonsContainer />
       <FooterComponent />

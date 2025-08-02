@@ -15,7 +15,7 @@ const ChessGame = () => {
 
   return (
     <div className="relative w-screen h-screen font-semibold overflow-hidden bg-page-background">
-      <AnimatedFallingChessBackground count={50} />
+      <AnimatedFallingChessBackground count={30} />
       <AnimatePresence mode={"sync"}>
         {prevPage && PrevComponent && (
           <motion.div
