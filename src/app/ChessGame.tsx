@@ -1,27 +1,56 @@
 "use client";
 
 import { RootState } from "@/app/redux/store";
+import { PageComponents } from "@/app/types/PageTypes";
+import { AnimatePresence, motion } from "framer-motion";
 import { useSelector } from "react-redux";
-import GameLayout from "@/app/layouts/GameLayout";
-import LandingPage from "./pages/LandingPage";
-import RulesPage from "./pages/RulesPage";
-import { PageTransitionType } from "./types/ChessTypes";
-import EnterPlayersPage from "./pages/EnterPlayersPage";
 
 const ChessGame = () => {
-  const pageStatus: PageTransitionType = useSelector(
-    (state: RootState) => state.pageTransition
-  );
-  const isPlaying: boolean = useSelector(
-    (state: RootState) => state.gameState.isPlaying
-  );
+  const currentPage = useSelector((state: RootState) => state.page.currentPage);
+  const prevPage = useSelector((state: RootState) => state.page.prevPage);
+
+  const CurrentComponent = PageComponents[currentPage];
+  const PrevComponent = prevPage ? PageComponents[prevPage] : null;
 
   return (
-    <div className="min-h-screen w-screen bg-page-background">
-      {pageStatus.landingStatus && <LandingPage />}
-      {pageStatus.playerStatus && <EnterPlayersPage />}
-      {pageStatus.readMoreStatus && <RulesPage />}
-      {isPlaying && <GameLayout />}
+    <div className="relative w-screen h-screen overflow-y-auto overflow-x-hidden bg-page-background">
+      <AnimatePresence mode={"sync"}>
+        {prevPage && PrevComponent && (
+          <motion.div
+            key={`prev-${prevPage}`}
+            variants={{
+              initial: { x: 0, opacity: 1 },
+              animate: { x: "-200%", opacity: 0 },
+              exit: { x: "-200%", opacity: 0 },
+            }}
+            initial="animate"
+            animate="exit"
+            exit="exit"
+            transition={{ duration: 0.4 }}
+            className="absolute top-0 left-0 w-full h-full z-10"
+          >
+            <PrevComponent />
+          </motion.div>
+        )}
+
+        {CurrentComponent && (
+          <motion.div
+            key={`current-${currentPage}`}
+            variants={{
+              initial: { x: "100%", opacity: 0 },
+              animate: { x: 0, opacity: 1 },
+              exit: { x: "-100%", opacity: 0 },
+            }}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            transition={{ duration: 0.4 }}
+            className="absolute top-0 left-0 w-full h-full z-20"
+          >
+            <CurrentComponent />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

@@ -1,12 +1,13 @@
 import Button from "@/app/components/Button";
 import { useDispatch } from "react-redux";
-import { setPageToLanding } from "@/app/redux/slices/pageTransition/pageTransitionSlice";
+import { navigateToPage } from "../utils/page/navigateToPage";
+import { PageEnum } from "../types/PageTypes";
 
 const RulesPage = () => {
   const dispatch = useDispatch();
 
   const handleLandingPage = () => {
-    dispatch(setPageToLanding());
+    navigateToPage(dispatch, PageEnum.gameRules, PageEnum.landing);
   };
 
   return (

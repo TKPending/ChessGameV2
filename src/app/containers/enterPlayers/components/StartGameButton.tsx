@@ -1,14 +1,15 @@
 import { useDispatch } from "react-redux";
 import Button from "@/app/components/Button";
 import { setIsGamePlaying } from "@/app/redux/slices/gameState/gameStateSlice";
-import { resetTransition } from "@/app/redux/slices/pageTransition/pageTransitionSlice";
+import { navigateToPage } from "@/app/utils/page/navigateToPage";
+import { PageEnum } from "@/app/types/PageTypes";
 
 const StartGameButton = () => {
   const dispatch = useDispatch();
 
   const handleStartChessGame = () => {
-    dispatch(resetTransition());
     dispatch(setIsGamePlaying(true));
+    navigateToPage(dispatch, PageEnum.enterPlayers, PageEnum.chessGame);
   };
 
   return (
