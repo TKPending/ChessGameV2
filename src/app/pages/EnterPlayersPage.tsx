@@ -16,7 +16,7 @@ const EnterPlayersPage = () => {
   return (
     <div className="h-screen w-screen flex flex-col gap-12 items-center justify-center">
       <EnterPlayers />
-      {validPlayerNames && <StartGameButton />}
+      <StartGameButton isVisible={validPlayerNames} />
     </div>
   );
 };

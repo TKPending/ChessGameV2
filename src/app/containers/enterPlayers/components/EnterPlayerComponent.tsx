@@ -18,7 +18,7 @@ const LandingPlayersComponent = ({
 
   return (
     <div className="flex flex-col items-center justify-center gap-4">
-      <p className="text-white text-xl">Player {playerNo + 1}</p>
+      <p className="text-customGreen text-2xl">Player {playerNo + 1}</p>
       <div className="w-[400px] h-16">
         <TextInput
           value={player.playerName}

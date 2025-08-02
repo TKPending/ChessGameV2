@@ -13,7 +13,7 @@ const ChessGame = () => {
   const PrevComponent = prevPage ? PageComponents[prevPage] : null;
 
   return (
-    <div className="relative w-screen h-screen overflow-y-auto overflow-x-hidden bg-page-background">
+    <div className="relative w-screen h-screen overflow-hidden bg-page-background">
       <AnimatePresence mode={"sync"}>
         {prevPage && PrevComponent && (
           <motion.div
