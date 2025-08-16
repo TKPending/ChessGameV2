@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  margin: 0;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
+  min-height: 100%;
+  width: 100%;
+  background-color: #25282b;
+}
+
 /* Landing Page Gradient Animation */
 .landing-background {
   background: linear-gradient(135deg, #d2a679, #8b4513);
