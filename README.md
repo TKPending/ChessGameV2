@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# **♟️ Chess Game**
 
-## Getting Started
+This is a **local multiplayer chess game**, built using **React** and **TypeScript**. Play a simple game of chess against a friend or family member directly in the browser.
 
-First, run the development server:
+The game emphasises clean logic, simple design, and scalability for future improvements.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## **🚀 Tech Stack**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **React**: Used for building the interactive chess interface in the browser.
+- **TypeScript**: Provides static typing, better tooling, and increased reliability compared to plain JavaScript.
+- **Redux**: Manages the game state (board positions, turns, move history), ensuring predictable and maintainable logic.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+---
 
-## Learn More
+## **🎯 Purpose**
 
-To learn more about Next.js, take a look at the following resources:
+I created this project as a way to **improve my web development skills** while applying concepts of state management and type safety.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+I had previously built a version of chess in pure JavaScript, but as my programming skills grew, I decided to rebuild it with TypeScript. This helped me get more comfortable with **typing, code structure, and scalability** in real-world projects.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+This project combines my interest in games with my focus on **clean, maintainable frontend code**.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## **🛠️ Features**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Local multiplayer chess (two players on the same browser)
+- Full chess rules and movement logic implemented
+- Simple and intuitive UI for smooth gameplay
+- State management powered by Redux for consistency
+
+---
+
+## **🌱 Future Development**
+
+Planned improvements include:
+
+- **⏱ Timer**: Adding chess clocks for Blitz, Rapid, and Classical play.
+- **🎨 Design Update**: Revisiting the UI to enhance visual polish and responsiveness.
+- **📜 Move History**: Allowing players to view previous moves and rewind the board state.
+
+---
+
+## **📸 Preview**
+
+[Play Here](https://imgflip.com/gif/a3b7cn)
+
+---
+
+## **🧑‍💻 About the Developer**
+
+I enjoy building interactive, logic-driven projects that challenge both my problem-solving and design skills. Recreating chess in React + TypeScript gave me the chance to **apply best practices in modern frontend development** while working on something fun and technically engaging.
