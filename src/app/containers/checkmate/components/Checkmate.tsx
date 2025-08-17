@@ -56,7 +56,7 @@ const Checkmate = ({
 
           <Button
             text="Exit"
-            className="bg-red-400 text-white"
+            className="bg-red-400 text-white w-[90px]"
             onClick={handleExit}
           />
         </div>
