@@ -14,7 +14,7 @@ const HiddenMovesDisplay = () => {
 
   return (
     <div className="h-10 md:h-full w-full flex flex-row md:flex-col items-center justify-center gap-2">
-      {isWinner ? (
+      {!isWinner ? (
         <p className="text-customGreen text-md md:text-lg">
           {winner?.playerName} has won
         </p>

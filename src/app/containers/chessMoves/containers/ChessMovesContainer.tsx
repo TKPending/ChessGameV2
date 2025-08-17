@@ -18,7 +18,7 @@ const ChessMovesContainer = () => {
         </div>
       ) : (
         <div className="flex flex-row md:flex-col gap-4 max-h-[80px] w-full">
-          {isWinner && (
+          {!isWinner && (
             <div className="w-full text-center mb-2">
               <p className="text-customGreen font-semibold">
                 {winner?.playerName} Wins!
