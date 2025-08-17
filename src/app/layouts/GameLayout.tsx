@@ -13,8 +13,6 @@ const GameLayout = () => {
     (state: RootState) => state.gameState.isReset
   );
 
-  console.log(isReset);
-
   return (
     <div className="h-screen w-screen max-h-screen max-w-screen overflow-hidden">
       {isError && <ErrorContainer />}

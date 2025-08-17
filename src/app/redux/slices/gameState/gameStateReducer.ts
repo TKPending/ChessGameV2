@@ -66,14 +66,14 @@ export const resetGameStateReducer = (state: GameStateType) => {
   state.players = [
     {
       no: 0,
-      playerName: state.players[0].playerName,
+      playerName: state.players[1].playerName,
       capturedPieces: [],
       team: ChessColors.white,
       remainingTime: "",
     },
     {
       no: 1,
-      playerName: state.players[1].playerName,
+      playerName: state.players[0].playerName,
       capturedPieces: [],
       team: ChessColors.black,
       remainingTime: "",

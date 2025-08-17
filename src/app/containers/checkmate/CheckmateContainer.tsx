@@ -1,8 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import React from "react";
-import { resetChessMoves } from "@/app/redux/slices/chessMoves/chessMovesSlice";
-import { resetChessboard } from "@/app/redux/slices/chessboard/chessboardSlice";
+import { resetChessGame } from "@/app/utils/chessboard/resetChessGame";
 import Checkmate from "./components/Checkmate";
 
 // TODO: Batch reset states
@@ -12,8 +11,7 @@ const CheckmateContainer = () => {
   const [displayCheckmate, setDisplayCheckmate] = useState<boolean>(true);
 
   const handleResetGame = () => {
-    dispatch(resetChessMoves());
-    dispatch(resetChessboard());
+    resetChessGame(dispatch);
   };
 
   const handleExit = () => {

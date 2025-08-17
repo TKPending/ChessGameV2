@@ -28,7 +28,7 @@ const Checkmate = ({
     (state: RootState) => state.gameState.players
   );
 
-  const winner = currentTurn === "White" ? players[0] : players[1];
+  const winner = currentTurn === "White" ? players[1] : players[0];
 
   useEffect(() => {
     if (displayCheckmate) {
