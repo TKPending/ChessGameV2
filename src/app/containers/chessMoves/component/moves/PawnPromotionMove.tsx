@@ -19,21 +19,20 @@ const PawnPromotionMove = ({
         <img
           src={`${piece.pieceColor.toLowerCase()}-${piece.pieceName.toLowerCase()}.png`}
           className="h-6 w-6 hidden lg:flex"
-          alt={`${piece.pieceColor.toLowerCase()} ${piece.pieceName} piece`}
+          alt={`${piece.pieceColor} ${piece.pieceName} piece`}
         />
-        .toLowerCase()
         <span className="text-gray-800 text-xs">Promotion</span>
         <img
           src={`${piece.pieceColor.toLowerCase()}-${updatedPiece?.toLowerCase()}.png`}
           className="h-6 w-6 hidden lg:flex"
-          alt={`${piece.pieceColor.toLowerCase()} ${updatedPiece} piece`}
+          alt={`${piece.pieceColor} ${updatedPiece} piece`}
         />
       </div>
       <div className="flex items-center justify-between w-full">
         <img
           src={`${piece.pieceColor.toLowerCase()}-${updatedPiece?.toLowerCase()}.png`}
           className="h-6 w-6"
-          alt={`${piece.pieceColor.toLowerCase()} ${updatedPiece} piece`}
+          alt={`${piece.pieceColor} ${updatedPiece} piece`}
         />
         <span className="text-gray-800 text-base">{`→`}</span>
 
