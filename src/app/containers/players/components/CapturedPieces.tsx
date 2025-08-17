@@ -12,7 +12,7 @@ const CapturedPieces = ({ player }: Props) => {
       {capturedPieces.map((piece, index) => (
         <div key={index} className="h-8 w-8">
           <img
-            src={`/${piece.pieceColor}-${piece.pieceName}.png`}
+            src={`/${piece.pieceColor.toLowerCase()}-${piece.pieceName.toLowerCase()}.png`}
             className="min-h-8 min-w-8"
             alt={`${piece.pieceColor} ${piece.pieceName} piece`}
           />
