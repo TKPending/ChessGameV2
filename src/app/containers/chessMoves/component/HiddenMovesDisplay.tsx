@@ -9,18 +9,23 @@ const HiddenMovesDisplay = () => {
   const player: PlayerType[] = useSelector(
     (state: RootState) => state.gameState.players
   );
+  const winner = useSelector((state: RootState) => state.gameState.winner);
+  const isWinner = useSelector((state: RootState) => state.gameState.isPlaying);
 
   return (
     <div className="h-10 md:h-full w-full flex flex-row md:flex-col items-center justify-center gap-2">
-      <p className="text-customGreen text-md md:text-lg">
-        {currentTurn === "White" ? player[1].playerName : player[0].playerName}{" "}
-        Turn
-      </p>
-      {/* <img
-        src={`${currentTurn.toLowerCase()}-king.png`}
-        className="h-8 w-8 md:h-10 md:w-10"
-        alt={`${currentTurn} king piece`}
-      /> */}
+      {isWinner ? (
+        <p className="text-customGreen text-md md:text-lg">
+          {winner?.playerName} has won
+        </p>
+      ) : (
+        <p className="text-customGreen text-md md:text-lg">
+          {currentTurn === "White"
+            ? player[1].playerName
+            : player[0].playerName}{" "}
+          Turn
+        </p>
+      )}
     </div>
   );
 };

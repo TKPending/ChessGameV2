@@ -1,4 +1,9 @@
-import { ChessColors, GameStateType, PieceType } from "@/app/types/ChessTypes";
+import {
+  ChessColors,
+  GameStateType,
+  PieceType,
+  PlayerType,
+} from "@/app/types/ChessTypes";
 import { PayloadAction } from "@reduxjs/toolkit";
 
 export const errorTriggerReducer = (
@@ -13,6 +18,13 @@ export const errorMessageReducer = (
   action: PayloadAction<string>
 ) => {
   state.error.message = action.payload;
+};
+
+export const winnerReducer = (
+  state: GameStateType,
+  action: PayloadAction<PlayerType>
+) => {
+  state.winner = action.payload;
 };
 
 export const addPlayerNameReducer = (
