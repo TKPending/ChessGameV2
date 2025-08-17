@@ -18,11 +18,13 @@ const LandingButtonsContainer = () => {
     <div className="mt-4 flex items-center justify-center gap-8">
       <Button
         text="Read the Rules"
+        textStyle="text-md"
         className="border-customGreen border-2 text-customGreen hover:bg-opacity-90 w-auto rounded-full px-4 hover:bg-customGreen hover:text-white transition duration-300"
         onClick={handleRulesTransition}
       />
       <Button
         text="Play Now"
+        textStyle="text-md"
         className="bg-customGreen text-white hover:bg-opacity-90"
         onClick={handlePlayersTransition}
       />
