@@ -17,14 +17,12 @@ const LandingPlayersComponent = ({
   );
 
   return (
-    <div className="flex flex-col items-center justify-center gap-4">
+    <div className="flex flex-col items-center justify-center gap-4 w-full">
       <p className="text-customGreen text-2xl">Player {playerNo + 1}</p>
-      <div className="w-[400px] h-16">
+      <div className="w-full h-16">
         <TextInput
           value={player.playerName}
           playerNo={playerNo}
-          // invalidValue={invalidValue}
-          // isDisabled={isDisabled}
           customStyle="h-20 p-2 md:text-3xl"
           placeholder={`Enter name`}
           onChange={handleOnChange}
