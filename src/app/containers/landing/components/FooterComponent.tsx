@@ -4,7 +4,7 @@ import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 const FooterComponent = () => {
   return (
-    <div className="flex gap-4 absolute items-center right-[3%] bottom-[5%] hover:cursor-pointer z-50">
+    <div className="flex gap-4 absolute items-center right-[10%] bottom-[10%] hover:cursor-pointer z-50">
       <a href={"https://github.com/TKPending/ChessGameV2"} target={"_blank"}>
         <FontAwesomeIcon
           icon={faGithub}
