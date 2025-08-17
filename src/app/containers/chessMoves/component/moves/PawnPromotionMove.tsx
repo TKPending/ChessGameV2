@@ -17,28 +17,29 @@ const PawnPromotionMove = ({
     <div className="flex flex-col items-center justify-center h-full w-full px-4">
       <div className="flex items-center gap-2">
         <img
-          src={`${piece.pieceColor}-${piece.pieceName}.png`}
+          src={`${piece.pieceColor.toLowerCase()}-${piece.pieceName.toLowerCase()}.png`}
           className="h-6 w-6 hidden lg:flex"
-          alt={`${piece.pieceColor} ${piece.pieceName} piece`}
+          alt={`${piece.pieceColor.toLowerCase()} ${piece.pieceName} piece`}
         />
+        .toLowerCase()
         <span className="text-gray-800 text-xs">Promotion</span>
         <img
-          src={`${piece.pieceColor}-${updatedPiece}.png`}
+          src={`${piece.pieceColor.toLowerCase()}-${updatedPiece?.toLowerCase()}.png`}
           className="h-6 w-6 hidden lg:flex"
-          alt={`${piece.pieceColor} ${updatedPiece} piece`}
+          alt={`${piece.pieceColor.toLowerCase()} ${updatedPiece} piece`}
         />
       </div>
       <div className="flex items-center justify-between w-full">
         <img
-          src={`${piece.pieceColor}-${updatedPiece}.png`}
+          src={`${piece.pieceColor.toLowerCase()}-${updatedPiece?.toLowerCase()}.png`}
           className="h-6 w-6"
-          alt={`${piece.pieceColor} ${updatedPiece} piece`}
+          alt={`${piece.pieceColor.toLowerCase()} ${updatedPiece} piece`}
         />
         <span className="text-gray-800 text-base">{`→`}</span>
 
         {capturedPiece ? (
           <img
-            src={`${capturedPiece.pieceColor}-${capturedPiece.pieceName}.png`}
+            src={`${capturedPiece.pieceColor.toLowerCase()}-${capturedPiece.pieceName.toLowerCase()}.png`}
             className="h-6 w-6"
             alt={`${capturedPiece.pieceName} ${capturedPiece} piece`}
           />

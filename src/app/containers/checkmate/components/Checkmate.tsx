@@ -41,7 +41,7 @@ const Checkmate = ({
           <p className="text-white text-3xl">Checkmate!</p>
           <p className="text-customGreen">{`${winner.playerName} has won`}</p>
           <img
-            src={`${currentTurn === "White" ? "Black" : "White"}-king.png`}
+            src={`${currentTurn === "White" ? "black" : "white"}-king.png`}
             className="h-20 w-20"
             alt={`${currentTurn} king piece`}
           />

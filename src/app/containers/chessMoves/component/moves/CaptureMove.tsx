@@ -12,12 +12,12 @@ const CaptureMove = ({ piece, destination, enemy }: Props) => {
   return (
     <div className="flex items-center justify-between h-full w-full px-4">
       <img
-        src={`${piece.pieceColor}-${piece.pieceName}.png`}
+        src={`${piece.pieceColor.toLowerCase()}-${piece.pieceName.toLowerCase()}.png`}
         className="h-6 w-6"
       />
       <span className="text-gray-800">{`→`}</span>
       <img
-        src={`${enemy.pieceColor}-${enemy.pieceName}.png`}
+        src={`${enemy.pieceColor.toLowerCase()}-${enemy.pieceName.toLowerCase()}.png`}
         className="h-6 w-6"
       />
     </div>
