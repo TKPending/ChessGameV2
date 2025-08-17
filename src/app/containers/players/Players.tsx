@@ -12,12 +12,6 @@ const Players = ({ playerNo, className }: Props) => {
   const player: PlayerType = useSelector(
     (state: RootState) => state.gameState.players[playerNo]
   );
-  const isInCheck: boolean = useSelector(
-    (state: RootState) => state.chessboard.isKingInCheck
-  );
-  const currentTurn: "White" | "Black" = useSelector(
-    (state: RootState) => state.chessboard.currentTurn
-  );
 
   return (
     <div

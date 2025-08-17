@@ -13,7 +13,7 @@ const CapturedPieces = ({ player }: Props) => {
         <div key={index} className="h-8 w-8">
           <img
             src={`/${piece.pieceColor}-${piece.pieceName}.png`}
-            className="h-8 w-8"
+            className="min-h-8 min-w-8"
             alt={`${piece.pieceColor} ${piece.pieceName} piece`}
           />
         </div>
