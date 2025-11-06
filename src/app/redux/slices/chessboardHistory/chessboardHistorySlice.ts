@@ -1,4 +1,4 @@
-import { ChessMoveType } from "@/app/types/ChessTypes";
+import { ChessboardHistoryStateType } from "@/app/types/StateTypes";
 import { createSlice } from "@reduxjs/toolkit";
 import {
   isMovesHiddenReducer,
@@ -7,16 +7,16 @@ import {
   updateChessboardHistoryReducer,
   updateMoveCounterReducer,
   updateMoveHistoryReducer,
-} from "./chessMovesReducer";
+} from "./chessboardHistoryReducer";
 
-const initialState: ChessMoveType = {
-  count: 0,
+const initialState: ChessboardHistoryStateType = {
+  currentMoveCount: 0,
   chessboardHistory: [],
-  moveHistory: [],
+  movesHistory: [],
   isMovesHidden: false,
 };
 
-const chessMovesSlice = createSlice({
+const chessboardHistorySlice = createSlice({
   name: "chessMoves",
   initialState,
   reducers: {
@@ -36,6 +36,6 @@ export const {
   updateMovePawnPromotion,
   setIsMovesHidden,
   resetChessMoves,
-} = chessMovesSlice.actions;
+} = chessboardHistorySlice.actions;
 
-export default chessMovesSlice.reducer;
+export default chessboardHistorySlice.reducer;

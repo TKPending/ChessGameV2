@@ -1,10 +1,10 @@
 import { Dispatch } from "@reduxjs/toolkit";
-import { incrementMoveCounter } from "@/app/redux/slices/chessMoves/chessMovesSlice";
-import { setCurrentTurn } from "@/app/redux/slices/chessboard/chessboardSlice";
+import { incrementMoveCounter } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
+import { setCurrentTurn } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
 import {
   setEnemyMoves,
   setPiecesAttackingKing,
-} from "@/app/redux/slices/activeMoves/activeMovesSlice";
+} from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
 import { handleMovePiece } from "@/app/utils/handlers/handleMovePiece";
 import { resetTiles } from "@/app/utils/chessboard/design/resetTiles";
 import { TileType } from "@/app/types/ChessTypes";

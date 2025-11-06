@@ -3,8 +3,8 @@ import { clearTileHighlights } from "@/app/utils/chessboard/design/clearTileHigh
 import {
   setPreviouslyClickedTile,
   updateTile,
-} from "@/app/redux/slices/chessboard/chessboardSlice";
-import { setCurrentPiecePotentialMoves } from "@/app/redux/slices/activeMoves/activeMovesSlice";
+} from "@/app/redux/slices/chessboardState/chessboardStateSlice";
+import { setCurrentPiecePotentialMoves } from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
 import { generateSelectedPieceValidMoves } from "@/app/utils/pieceMovements/generateMoves/generateSelectedPiece";
 import { highlightValidMoves } from "@/app/utils/chessboard/design/highlightValidMoves";
 import { isKingSafeAfterMove } from "@/app/utils/handlers/helpers/handPieceOnTileHelpers/isKingSafeAfterMove";

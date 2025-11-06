@@ -35,8 +35,3 @@ export const PageComponents: Record<string, ComponentType<any>> = {
   enterPlayers: EnterPlayersPage,
   chessGame: GameLayout,
 };
-
-export type PageState = {
-  currentPage: string;
-  prevPage: string;
-};

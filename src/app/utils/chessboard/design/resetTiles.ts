@@ -2,8 +2,8 @@ import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import {
   setCurrentTile,
   setPreviouslyClickedTile,
-} from "@/app/redux/slices/chessboard/chessboardSlice";
-import { setCurrentPiecePotentialMoves } from "@/app/redux/slices/activeMoves/activeMovesSlice";
+} from "@/app/redux/slices/chessboardState/chessboardStateSlice";
+import { setCurrentPiecePotentialMoves } from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
 import { clearTileHighlights } from "@/app/utils/chessboard/design/clearTileHighlights";
 import { TileType } from "@/app/types/ChessTypes";
 

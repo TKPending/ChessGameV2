@@ -3,7 +3,7 @@ import { setCapturedPiece } from "@/app/redux/slices/gameState/gameStateSlice";
 import {
   updateChessboardHistory,
   updateMoveHistory,
-} from "@/app/redux/slices/chessMoves/chessMovesSlice";
+} from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
 import { updateChessboard } from "./helpers/handleMovePieceHelpers/updateChessboard";
 import { handleMovesSpecialCases } from "./helpers/handleMovePieceHelpers/handleMovesSpecialCases";
 import { CastleType } from "@/app/types/MoveTypes";

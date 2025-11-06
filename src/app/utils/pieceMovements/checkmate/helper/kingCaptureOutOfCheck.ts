@@ -1,7 +1,7 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { TileType } from "@/app/types/ChessTypes";
 import { EnemyAttackType } from "@/app/types/MoveTypes";
-import { setKingInCheckmate } from "@/app/redux/slices/chessboard/chessboardSlice";
+import { setKingInCheckmate } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
 
 /**
  * Check whether King can capture a piece attacking the King

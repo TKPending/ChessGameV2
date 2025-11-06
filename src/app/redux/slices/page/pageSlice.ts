@@ -1,8 +1,8 @@
-import { PageComponents, PageState } from "@/app/types/PageTypes";
 import { createSlice } from "@reduxjs/toolkit";
+import { PageStateType } from "@/app/types/StateTypes";
 import { pageTransitionReducer } from "./pageReducer";
 
-const initialState: PageState = {
+const initialState: PageStateType = {
   currentPage: "landing",
   prevPage: "",
 };

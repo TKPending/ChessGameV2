@@ -1,36 +1,35 @@
 import { combineReducers, configureStore, Reducer } from "@reduxjs/toolkit";
-import chessboardReducer from "./slices/chessboard/chessboardSlice";
-import chessMovesReducer from "./slices/chessMoves/chessMovesSlice";
-import playerSetupReducer from "./slices/playerSetup/playerSetupSlice";
-import activeMovesReducer from "./slices/activeMoves/activeMovesSlice";
+import chessboardReducer from "./slices/chessboardState/chessboardStateSlice";
+import chessboardHistoryReducer from "./slices/chessboardHistory/chessboardHistorySlice";
+import gameSetupReducer from "./slices/gameSetupState/gameSetupSlice";
+import moveAnalysisReducer from "./slices/moveAnalysis/moveAnalysisSlice";
 import gameStateReducer from "./slices/gameState/gameStateSlice";
 import pageReducer from "./slices/page/pageSlice";
-
 import {
-  ActiveMovesType,
-  BoardType,
-  ChessMoveType,
-  PlayerSetupType,
+  ChessboardHistoryStateType,
+  ChessboardStateType,
+  GameSetupStateType,
   GameStateType,
-} from "@/app/types/ChessTypes";
-import { PageState } from "@/app/types/PageTypes";
+  MoveAnalysisStateType,
+  PageStateType,
+} from "@/app/types/StateTypes";
 
 interface State {
-  chessboard: BoardType;
+  chessboardState: ChessboardStateType;
   gameState: GameStateType;
-  chessMoves: ChessMoveType;
-  activeMoves: ActiveMovesType;
-  playerSetup: PlayerSetupType;
-  page: PageState;
+  chessboardHistoryState: ChessboardHistoryStateType;
+  moveAnalysisState: MoveAnalysisStateType;
+  gameSetupState: GameSetupStateType;
+  pageState: PageStateType;
 }
 
 const rootReducer: Reducer<State> = combineReducers({
-  chessboard: chessboardReducer,
-  chessMoves: chessMovesReducer,
+  chessboardState: chessboardReducer,
   gameState: gameStateReducer,
-  activeMoves: activeMovesReducer,
-  playerSetup: playerSetupReducer,
-  page: pageReducer,
+  chessboardHistoryState: chessboardHistoryReducer,
+  moveAnalysisState: moveAnalysisReducer,
+  gameSetupState: gameSetupReducer,
+  pageState: pageReducer,
 });
 
 const store = configureStore({

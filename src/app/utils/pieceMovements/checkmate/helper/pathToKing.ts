@@ -1,4 +1,4 @@
-import { setPiecesAttackingKing } from "@/app/redux/slices/activeMoves/activeMovesSlice";
+import { setPiecesAttackingKing } from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
 import { EnemyAttackType } from "@/app/types/MoveTypes";
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 

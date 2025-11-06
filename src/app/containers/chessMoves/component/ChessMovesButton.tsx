@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/app/redux/store";
-import { setIsMovesHidden } from "@/app/redux/slices/chessMoves/chessMovesSlice";
+import { setIsMovesHidden } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
 
 const ChessMovesButton = () => {
   const dispatch = useDispatch();

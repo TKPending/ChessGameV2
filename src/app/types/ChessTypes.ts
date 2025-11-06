@@ -1,5 +1,3 @@
-import { EnemyAttackType, PawnPromotionType, CastleType } from "./MoveTypes";
-
 export enum ChessColors {
   white = "White",
   black = "Black",
@@ -12,6 +10,12 @@ export enum PieceName {
   bishop = "Bishop",
   queen = "Queen",
   king = "King",
+}
+
+export enum TimeCatergories {
+  blitz = "Blitz",
+  rapid = "Rapid",
+  infinite = "Infinite",
 }
 
 export interface PieceType {
@@ -28,17 +32,6 @@ export interface PieceType {
   };
 }
 
-export interface BoardType {
-  board: TileType[][];
-  currentTurn: "White" | "Black";
-  clickedTile: TileType | null;
-  previouslyClickedTile: TileType | null;
-  isKingInCheck: boolean;
-  isKingInCheckmate: boolean;
-  castling: CastleType;
-  pawnPromotion: PawnPromotionType;
-}
-
 export interface TileType {
   tilePosition: string;
   defaultTileColor: ChessColors;
@@ -53,6 +46,14 @@ export interface ErrorType {
   message: string;
 }
 
+export interface TimeType {
+  timeCategory:
+    | TimeCatergories.blitz
+    | TimeCatergories.rapid
+    | TimeCatergories.infinite;
+  minutes: number;
+}
+
 export interface PlayerType {
   no: number;
   playerName: string;
@@ -63,39 +64,9 @@ export interface PlayerType {
   isInCheckmate?: boolean;
 }
 
-export interface GameStateType {
-  stateIndex: number;
-  players: PlayerType[];
-  winner: PlayerType | undefined;
-  isPlaying: boolean;
-  error: ErrorType;
-  isReset: boolean;
-}
-
 export interface MoveHistoryType {
   from: TileType;
   to: TileType;
   pawnPromotion?: boolean;
   updatedPiece?: PieceName;
-}
-
-export interface ChessMoveType {
-  count: number;
-  chessboardHistory: TileType[][][];
-  moveHistory: MoveHistoryType[];
-  isMovesHidden: boolean;
-}
-
-export interface ActiveMovesType {
-  currentPiecePotentialMoves: number[][];
-  enemyMoves: EnemyAttackType[];
-  pieceAttackingKing: EnemyAttackType[];
-  validCheckMoves: number[][];
-  inCheckPositions: number[][];
-}
-
-export interface PlayerSetupType {
-  validPlayerNames: boolean;
-  validTimes: boolean;
-  isStartVisible: boolean;
 }

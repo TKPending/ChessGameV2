@@ -1,5 +1,5 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { updateTile } from "@/app/redux/slices/chessboard/chessboardSlice";
+import { updateTile } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
 import { TileType } from "@/app/types/ChessTypes";
 
 /**

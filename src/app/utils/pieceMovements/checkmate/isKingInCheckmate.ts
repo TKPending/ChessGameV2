@@ -1,11 +1,11 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { TileType } from "@/app/types/ChessTypes";
 import { convertTilePosition } from "@/app/utils/chessboard/convertTilePosition";
-import { setValidCheckMoves } from "@/app/redux/slices/activeMoves/activeMovesSlice";
+import { setValidCheckMoves } from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
 import {
   setKingInCheck,
   setKingInCheckmate,
-} from "@/app/redux/slices/chessboard/chessboardSlice";
+} from "@/app/redux/slices/chessboardState/chessboardStateSlice";
 import { allDefensiveMoves } from "./helper/allDefensiveMoves";
 import { findKing } from "./helper/findKing";
 import { getKingMoves } from "@/app/utils/pieceMovements/getKingMoves";

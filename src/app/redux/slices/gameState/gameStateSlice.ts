@@ -1,4 +1,5 @@
-import { ChessColors, GameStateType } from "@/app/types/ChessTypes";
+import { ChessColors, TimeCatergories } from "@/app/types/ChessTypes";
+import { GameStateType } from "@/app/types/StateTypes";
 import { createSlice } from "@reduxjs/toolkit";
 import {
   addPlayerNameReducer,
@@ -6,13 +7,12 @@ import {
   chessGamePlayingReducer,
   errorMessageReducer,
   errorTriggerReducer,
+  kingInCheckmateReducer,
   resetGameReducer,
   resetGameStateReducer,
-  winnerReducer,
 } from "./gameStateReducer";
 
 const initialState: GameStateType = {
-  stateIndex: 0,
   players: [
     {
       no: 0,
@@ -29,13 +29,20 @@ const initialState: GameStateType = {
       remainingTime: "",
     },
   ],
-  winner: undefined,
   isPlaying: false,
+  currentTurn: ChessColors.white,
+  isGameReset: false,
+  isKingInCheckmate: false,
+  isRedoAvailable: true,
+  isRedoVisible: false,
+  timeSettings: {
+    timeCategory: TimeCatergories.infinite,
+    minutes: 0,
+  },
   error: {
     isError: false,
     message: "",
   },
-  isReset: false,
 };
 
 const gameStateSlice = createSlice({
@@ -46,8 +53,8 @@ const gameStateSlice = createSlice({
     setErrorMessage: errorMessageReducer,
     setPlayerName: addPlayerNameReducer,
     setCapturedPiece: capturedPiecesReducer,
-    setWinner: winnerReducer,
     setIsGamePlaying: chessGamePlayingReducer,
+    setWinner: kingInCheckmateReducer,
     setResetTrigger: resetGameReducer,
     resetGameState: resetGameStateReducer,
   },
@@ -58,8 +65,8 @@ export const {
   setErrorMessage,
   setPlayerName,
   setCapturedPiece,
-  setWinner,
   setIsGamePlaying,
+  setWinner,
   setResetTrigger,
   resetGameState,
 } = gameStateSlice.actions;

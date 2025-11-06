@@ -1,29 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { generateTiles } from "@/app/utils/chessboard/generateTiles";
-import { BoardType } from "@/app/types/ChessTypes";
+import { ChessboardStateType } from "@/app/types/StateTypes";
 import {
   castlingOptionGoneReducer,
   chessboardReducer,
   currentlyClickedTileReducer,
-  kingInCheckmateReducer,
-  kingInCheckReducer,
   kingMovedReducer,
   pawnPromotionStateReducer,
-  previouslyClickedTileReducer,
+  prevClickedTileReducer,
   resetGameReducer,
   rookMovedReducer,
-  updateCurrentTurnReducer,
   updateSpecificTileReducer,
   updateTileWithPromotedPieceReducer,
-} from "./chessboardReducer";
+} from "./chessboardStateReducer";
 
-const initialState: BoardType = {
-  board: generateTiles(),
-  currentTurn: "White",
+const initialState: ChessboardStateType = {
+  chessboard: generateTiles(),
   clickedTile: null,
-  previouslyClickedTile: null,
-  isKingInCheck: false,
-  isKingInCheckmate: false,
+  prevClickedTile: null,
   castling: {
     blackKing: {
       kingMoved: false,
@@ -55,15 +49,12 @@ const chessboardSlice = createSlice({
   initialState,
   reducers: {
     setChessboard: chessboardReducer,
-    setCurrentTurn: updateCurrentTurnReducer,
     updateTile: updateSpecificTileReducer,
     setCurrentTile: currentlyClickedTileReducer,
-    setPreviouslyClickedTile: previouslyClickedTileReducer,
-    setKingHasMoved: kingMovedReducer,
+    setPreviousTile: prevClickedTileReducer,
     setCastlingOption: castlingOptionGoneReducer,
     setRookHasMoved: rookMovedReducer,
-    setKingInCheck: kingInCheckReducer,
-    setKingInCheckmate: kingInCheckmateReducer,
+    setKingHasMoved: kingMovedReducer,
     setPawnPromotion: pawnPromotionStateReducer,
     setTileWithPromotedPawn: updateTileWithPromotedPieceReducer,
     resetChessboard: resetGameReducer,
@@ -72,15 +63,12 @@ const chessboardSlice = createSlice({
 
 export const {
   setChessboard,
-  setCurrentTurn,
   updateTile,
   setCurrentTile,
-  setPreviouslyClickedTile,
-  setKingHasMoved,
+  setPreviousTile,
   setCastlingOption,
   setRookHasMoved,
-  setKingInCheck,
-  setKingInCheckmate,
+  setKingHasMoved,
   setPawnPromotion,
   setTileWithPromotedPawn,
   resetChessboard,

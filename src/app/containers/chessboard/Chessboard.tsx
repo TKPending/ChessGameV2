@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { RootState } from "@/app/redux/store";
-import { setChessboard } from "@/app/redux/slices/chessboard/chessboardSlice";
-import { setEnemyMoves } from "@/app/redux/slices/activeMoves/activeMovesSlice";
+import { setChessboard } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
+import { setEnemyMoves } from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
 import { generateTiles } from "@/app/utils/chessboard/generateTiles";
 import { generateAllEnemyMoves } from "@/app/utils/pieceMovements/generateMoves/generateAllEnemyMoves";
 import { isKingInCheckmate } from "@/app/utils/pieceMovements/checkmate/isKingInCheckmate";

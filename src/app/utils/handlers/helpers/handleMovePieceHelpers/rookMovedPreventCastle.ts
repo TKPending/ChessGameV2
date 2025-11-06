@@ -1,7 +1,7 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { CastleType } from "@/app/types/MoveTypes";
 import { TileType } from "@/app/types/ChessTypes";
-import { setRookHasMoved } from "@/app/redux/slices/chessboard/chessboardSlice";
+import { setRookHasMoved } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
 
 /**
  * Checks whether a Rook has been moved

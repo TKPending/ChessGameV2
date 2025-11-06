@@ -1,5 +1,5 @@
-import { setTileWithPromotedPawn } from "@/app/redux/slices/chessboard/chessboardSlice";
-import { updateMovePawnPromotion } from "@/app/redux/slices/chessMoves/chessMovesSlice";
+import { setTileWithPromotedPawn } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
+import { updateMovePawnPromotion } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
 import { useDispatch } from "react-redux";
 import { PieceType, PieceName } from "@/app/types/ChessTypes";
 import PawnPromotionComponent from "@/app/containers/chessboard/components/PawnPromotionComponent";

@@ -4,6 +4,7 @@ import {
   MoveHistoryType,
   PlayerType,
   TileType,
+  TimeType,
 } from "./ChessTypes";
 import { CastleType, EnemyAttackType, PawnPromotionType } from "./MoveTypes";
 
@@ -27,17 +28,16 @@ export interface GameStateType {
   isKingInCheckmate: boolean;
   isRedoAvailable: boolean;
   isRedoVisible: boolean;
-  // timeSettings: TimeType;
+  timeSettings: TimeType;
   error: ErrorType;
 }
 
 // Tracks chessboard and move history
 export interface ChessboardHistoryStateType {
-  isMovesHidden: boolean;
-  currentMove: number;
+  currentMoveCount: number;
   chessboardHistory: TileType[][][];
   movesHistory: MoveHistoryType[];
-  isKingInCheck: boolean;
+  isMovesHidden: boolean;
 }
 
 // Tracks all game potential moves including enemy moves
@@ -47,13 +47,12 @@ export interface MoveAnalysisStateType {
   piecesAttackingKing: EnemyAttackType[];
   validMovesWhenInCheck: number[][];
   invalidMovesWhenInCheck: number[][];
+  isKingInCheck: boolean;
 }
 
 // Checks player setup is valid
 export interface GameSetupStateType {
   isPlayerNameValid: boolean;
-  isContinueVisible: boolean;
-  isStartVisible: boolean;
 }
 
 // Tracks current and previous page for navigation
