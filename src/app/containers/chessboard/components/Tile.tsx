@@ -10,11 +10,8 @@ type TileProps = {
 };
 
 const Tile = ({ tile, handleTileClick }: TileProps) => {
-  const currentTurn: "White" | "Black" = useSelector(
-    (state: RootState) => state.chessboard.currentTurn
-  );
-  const isInCheckmate: boolean = useSelector(
-    (state: RootState) => state.chessboard.isKingInCheckmate
+  const { currentTurn, isKingInCheckmate } = useSelector(
+    (state: RootState) => state.gameState
   );
 
   const pieceOnTile = tile.pieceOnTile || null;
@@ -32,7 +29,7 @@ const Tile = ({ tile, handleTileClick }: TileProps) => {
     <div
       onClick={() => handleTileClick(tile)}
       className={`relative tile tileBorder transition duration-200  ${tileBackgroundColor} ${
-        currentTurn === pieceOnTile?.pieceColor && !isInCheckmate
+        currentTurn === pieceOnTile?.pieceColor && !isKingInCheckmate
           ? "hover:bg-blue-200 hover:cursor-pointer"
           : ""
       }`}

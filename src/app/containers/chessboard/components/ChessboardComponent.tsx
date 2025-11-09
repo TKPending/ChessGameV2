@@ -5,7 +5,7 @@ import { TileType } from "@/app/types/ChessTypes";
 
 const ChessboardComponent = () => {
   const chessboard: TileType[][] = useSelector(
-    (state: RootState) => state.chessboard.board
+    (state: RootState) => state.chessboardState.chessboard
   );
 
   return (

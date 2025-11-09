@@ -13,6 +13,7 @@ import {
 } from "./gameStateReducer";
 
 const initialState: GameStateType = {
+  currentTurn: ChessColors.white,
   players: [
     {
       no: 0,
@@ -30,7 +31,6 @@ const initialState: GameStateType = {
     },
   ],
   isPlaying: false,
-  currentTurn: ChessColors.white,
   isGameReset: false,
   isKingInCheckmate: false,
   isRedoAvailable: true,
@@ -54,7 +54,7 @@ const gameStateSlice = createSlice({
     setPlayerName: addPlayerNameReducer,
     setCapturedPiece: capturedPiecesReducer,
     setIsGamePlaying: chessGamePlayingReducer,
-    setWinner: kingInCheckmateReducer,
+    setKingInCheckmate: kingInCheckmateReducer,
     setResetTrigger: resetGameReducer,
     resetGameState: resetGameStateReducer,
   },
@@ -66,7 +66,7 @@ export const {
   setPlayerName,
   setCapturedPiece,
   setIsGamePlaying,
-  setWinner,
+  setKingInCheckmate,
   setResetTrigger,
   resetGameState,
 } = gameStateSlice.actions;

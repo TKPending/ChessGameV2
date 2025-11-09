@@ -6,8 +6,7 @@ import { isMoveValid } from "@/app/utils/pieceMovements/helpers/isMoveValid";
 import { handleFirstClick } from "./utils/handleFirstClick";
 import { handleReClickSamePiece } from "./utils/handleReClickSamePiece";
 import { handleValidMove } from "./utils/handleIsMoveValid";
-import { EnemyAttackType, CastleType } from "@/app/types/MoveTypes";
-import { TileType, PieceType } from "@/app/types/ChessTypes";
+import { TileType, PieceType, ChessColors } from "@/app/types/ChessTypes";
 
 type Props = {
   tile: TileType;
@@ -15,46 +14,33 @@ type Props = {
 
 const TileContainer = ({ tile }: Props) => {
   const dispatch = useDispatch();
-  const chessboard: TileType[][] = useSelector(
-    (state: RootState) => state.chessboard.board
+  const { chessboard, prevClickedTile, castling } = useSelector(
+    (state: RootState) => state.chessboardState
   );
-  const currentTurn: "White" | "Black" = useSelector(
-    (state: RootState) => state.chessboard.currentTurn
-  );
-  const previousClickedTile: TileType | null = useSelector(
-    (state: RootState) => state.chessboard.previouslyClickedTile
-  );
-  const isInCheck: boolean = useSelector(
-    (state: RootState) => state.chessboard.isKingInCheck
-  );
-  const validMoves: number[][] = useSelector(
-    (state: RootState) => state.activeMoves.currentPiecePotentialMoves
-  );
-  const validCheckMoves: number[][] = useSelector(
-    (state: RootState) => state.activeMoves.validCheckMoves
-  );
-  const pieceOnTile: PieceType | null = tile.pieceOnTile || null;
-  const enemyMoves: EnemyAttackType[] = useSelector(
-    (state: RootState) => state.activeMoves.enemyMoves
-  );
-  const castling: CastleType = useSelector(
-    (state: RootState) => state.chessboard.castling
-  );
-  const piecesAttackingKing = useSelector(
-    (state: RootState) => state.activeMoves.pieceAttackingKing
+  const {
+    isKingInCheck,
+    currentPieceMoves,
+    validMovesWhenInCheck,
+    piecesAttackingKing,
+    allEnemyMoves,
+  } = useSelector((state: RootState) => state.moveAnalysisState);
+  const currentTurn: ChessColors.black | ChessColors.white = useSelector(
+    (state: RootState) => state.gameState.currentTurn
   );
 
+  const pieceOnTile: PieceType | null = tile.pieceOnTile || null;
+
   const handleTileClick = (clickedTile: TileType) => {
-    if (!previousClickedTile) {
+    if (!prevClickedTile) {
       handleFirstClick(
         dispatch,
         pieceOnTile,
         clickedTile,
         chessboard,
-        isInCheck,
+        isKingInCheck,
         piecesAttackingKing,
-        validCheckMoves,
-        enemyMoves,
+        validMovesWhenInCheck,
+        allEnemyMoves,
         currentTurn
       );
       return;
@@ -63,25 +49,25 @@ const TileContainer = ({ tile }: Props) => {
     if (
       pieceOnTile &&
       pieceOnTile.pieceColor === currentTurn &&
-      clickedTile.tilePosition !== previousClickedTile.tilePosition
+      clickedTile.tilePosition !== prevClickedTile.tilePosition
     ) {
       handleReClickSamePiece(
         dispatch,
         clickedTile,
         chessboard,
-        isInCheck,
+        isKingInCheck,
         piecesAttackingKing,
-        validCheckMoves,
-        enemyMoves,
+        validMovesWhenInCheck,
+        allEnemyMoves,
         currentTurn
       );
       return;
     }
 
-    if (isMoveValid(validMoves, clickedTile.tilePosition)) {
+    if (isMoveValid(currentPieceMoves, clickedTile.tilePosition)) {
       handleValidMove(
         dispatch,
-        previousClickedTile,
+        prevClickedTile,
         clickedTile,
         chessboard,
         castling

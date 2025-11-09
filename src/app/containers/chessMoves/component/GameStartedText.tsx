@@ -3,7 +3,7 @@ import { RootState } from "@/app/redux/store";
 
 const GameStartedText = () => {
   const currentTurn: "White" | "Black" = useSelector(
-    (state: RootState) => state.chessboard.currentTurn
+    (state: RootState) => state.gameState.currentTurn
   );
   return (
     <div className="h-full w-full flex md:flex-col gap-4 items-center justify-center">

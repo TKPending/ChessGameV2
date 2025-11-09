@@ -20,7 +20,7 @@ export enum TimeCatergories {
 
 export interface PieceType {
   pieceName: PieceName;
-  pieceColor: "White" | "Black";
+  pieceColor: ChessColors.white | ChessColors.black;
   isAlive: boolean;
   hasMoved: boolean;
   isPromotion?: boolean;

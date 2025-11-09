@@ -6,6 +6,7 @@ import {
   invalidMovesWhenInCheckReducer,
   piecesAttackingKingReducer,
   resetActiveMovesReducer,
+  isKingInCheckReducer,
   validMovesWhenInCheckReducer,
 } from "./moveAnalysisReducer";
 
@@ -27,6 +28,7 @@ const moveAnalysisSlice = createSlice({
     setValidMovesWhenInCheck: validMovesWhenInCheckReducer,
     setInvalidMovesWhenInCheck: invalidMovesWhenInCheckReducer,
     setPiecesAttackingKing: piecesAttackingKingReducer,
+    setIsKingInCheck: isKingInCheckReducer,
     resetActiveMoves: resetActiveMovesReducer,
   },
 });
@@ -37,6 +39,7 @@ export const {
   setValidMovesWhenInCheck,
   setInvalidMovesWhenInCheck,
   setPiecesAttackingKing,
+  setIsKingInCheck,
   resetActiveMoves,
 } = moveAnalysisSlice.actions;
 

@@ -10,7 +10,7 @@ const GameLayout = () => {
     (state: RootState) => state.gameState.error.isError
   );
   const isReset: boolean = useSelector(
-    (state: RootState) => state.gameState.isReset
+    (state: RootState) => state.gameState.isGameReset
   );
 
   return (

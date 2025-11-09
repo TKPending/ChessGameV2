@@ -7,14 +7,13 @@ import { AnimatePresence, motion } from "framer-motion";
 import AnimatedFallingChessBackground from "./containers/animatedBackground/AimatedFallingChessBackground";
 
 const ChessGame = () => {
-  const currentPage = useSelector((state: RootState) => state.page.currentPage);
-  const prevPage = useSelector((state: RootState) => state.page.prevPage);
+  const currentPage = useSelector(
+    (state: RootState) => state.pageState.currentPage
+  );
+  const prevPage = useSelector((state: RootState) => state.pageState.prevPage);
 
   const CurrentComponent = PageComponents[currentPage];
   const PrevComponent = prevPage ? PageComponents[prevPage] : null;
-  const isPlaying: boolean = useSelector(
-    (state: RootState) => state.gameState.isPlaying
-  );
 
   return (
     <div className="relative w-screen h-screen font-semibold overflow-none bg-page-background">

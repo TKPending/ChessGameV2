@@ -5,7 +5,7 @@ import { setChessboard } from "@/app/redux/slices/chessboardState/chessboardStat
 import { setEnemyMoves } from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
 import { generateTiles } from "@/app/utils/chessboard/generateTiles";
 import { generateAllEnemyMoves } from "@/app/utils/pieceMovements/generateMoves/generateAllEnemyMoves";
-import { isKingInCheckmate } from "@/app/utils/pieceMovements/checkmate/isKingInCheckmate";
+import { checkForCheckmate } from "@/app/utils/pieceMovements/checkmate/checkForCheckmate";
 import ChessboardComponent from "./components/ChessboardComponent";
 import CheckmateContainer from "@/app/containers/checkmate/CheckmateContainer";
 import { EnemyAttackType } from "@/app/types/MoveTypes";
@@ -13,25 +13,18 @@ import PawnPromotionContainer from "@/app/containers/chessboard/containers/PawnP
 
 const Chessboard = () => {
   const dispatch = useDispatch();
-  const chessboard = useSelector((state: RootState) => state.chessboard.board);
-  const currentTurn = useSelector(
-    (state: RootState) => state.chessboard.currentTurn
+  const { chessboard, pawnPromotion } = useSelector(
+    (state: RootState) => state.chessboardState
   );
-  const enemyMoves = useSelector(
-    (state: RootState) => state.activeMoves.enemyMoves
+  const { currentTurn, isKingInCheckmate } = useSelector(
+    (state: RootState) => state.gameState
   );
-  const boardMoves: number = useSelector(
-    (state: RootState) => state.chessMoves.count
+  const { allEnemyMoves, isKingInCheck } = useSelector(
+    (state: RootState) => state.moveAnalysisState
   );
 
-  const isInCheckmate: boolean = useSelector(
-    (state: RootState) => state.chessboard.isKingInCheckmate
-  );
-  const isInCheck: boolean = useSelector(
-    (state: RootState) => state.chessboard.isKingInCheck
-  );
-  const pawnPromotion = useSelector(
-    (state: RootState) => state.chessboard.pawnPromotion
+  const currentMoveCount: number = useSelector(
+    (state: RootState) => state.chessboardHistoryState.currentMoveCount
   );
 
   useEffect(() => {
@@ -39,7 +32,11 @@ const Chessboard = () => {
       dispatch(setChessboard(generateTiles()));
     }
 
-    if (chessboard.length > 0 && enemyMoves.length === 0 && boardMoves > 3) {
+    if (
+      chessboard.length > 0 &&
+      allEnemyMoves.length === 0 &&
+      currentMoveCount > 3
+    ) {
       const oppositeColor: "White" | "Black" =
         currentTurn === "White" ? "Black" : "White";
 
@@ -51,15 +48,22 @@ const Chessboard = () => {
         oppositeColor,
         notSimulation
       );
-      isKingInCheckmate(dispatch, chessboard, enemyLegalMoves, currentTurn);
+      checkForCheckmate(dispatch, chessboard, enemyLegalMoves, currentTurn);
 
       dispatch(setEnemyMoves(enemyLegalMoves));
     }
-  }, [chessboard, currentTurn, enemyMoves, isInCheck, dispatch, isInCheckmate]);
+  }, [
+    chessboard,
+    currentTurn,
+    allEnemyMoves,
+    isKingInCheck,
+    dispatch,
+    isKingInCheckmate,
+  ]);
 
   return (
     <div className="h-auto w-auto">
-      {isInCheckmate && <CheckmateContainer />}
+      {isKingInCheckmate && <CheckmateContainer />}
       {pawnPromotion.isPawnPromotion && (
         <PawnPromotionContainer currentTurn={currentTurn} />
       )}

@@ -13,7 +13,7 @@ export const currentPieceValidMovesReducer = (
 // Track all potential enemy moves
 export const enemyMovesReducer = (
   state: MoveAnalysisStateType,
-  action: PayloadAction<number[][]>
+  action: PayloadAction<EnemyAttackType[]>
 ) => {
   state.allEnemyMoves = action.payload;
 };
@@ -49,8 +49,11 @@ export const piecesAttackingKingReducer = (
 };
 
 // Track if King is in check
-export const isKingInCheckReducer = (state: MoveAnalysisStateType) => {
-  state.isKingInCheck = !state.isKingInCheck;
+export const isKingInCheckReducer = (
+  state: MoveAnalysisStateType,
+  action: PayloadAction<boolean>
+) => {
+  state.isKingInCheck = action.payload;
 };
 
 // Reset State

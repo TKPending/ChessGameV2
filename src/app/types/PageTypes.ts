@@ -1,7 +1,7 @@
-import LandingPage from "../pages/LandingPage";
-import EnterPlayersPage from "../pages/EnterPlayersPage";
-import RulesPage from "../pages/RulesPage";
-import GameLayout from "../layouts/GameLayout";
+import LandingPage from "@/app/pages/LandingPage";
+import EnterPlayersPage from "@/app/pages/EnterPlayersPage";
+import RulesPage from "@/app/pages/RulesPage";
+import GameLayout from "@/app/layouts/GameLayout";
 import { ComponentType } from "react";
 
 export type TransitionType = {

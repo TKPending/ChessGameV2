@@ -1,11 +1,11 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { TileType } from "@/app/types/ChessTypes";
 import { convertTilePosition } from "@/app/utils/chessboard/convertTilePosition";
-import { setValidCheckMoves } from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
 import {
-  setKingInCheck,
-  setKingInCheckmate,
-} from "@/app/redux/slices/chessboardState/chessboardStateSlice";
+  setValidMovesWhenInCheck,
+  setIsKingInCheck,
+} from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
+import { setKingInCheckmate } from "@/app/redux/slices/gameState/gameStateSlice";
 import { allDefensiveMoves } from "./helper/allDefensiveMoves";
 import { findKing } from "./helper/findKing";
 import { getKingMoves } from "@/app/utils/pieceMovements/getKingMoves";
@@ -21,7 +21,7 @@ import { EnemyAttackType } from "@/app/types/MoveTypes";
  * @param currentTurn The current turn in the game
  */
 
-export const isKingInCheckmate = (
+export const checkForCheckmate = (
   dispatch: Dispatch<UnknownAction>,
   chessboard: TileType[][],
   enemyMoves: EnemyAttackType[],
@@ -37,7 +37,7 @@ export const isKingInCheckmate = (
     enemy.moves.some(([row, col]) => row === kingRow && col === kingCol)
   );
 
-  dispatch(setKingInCheck(isKingInCheck));
+  dispatch(setIsKingInCheck(isKingInCheck));
 
   if (!isKingInCheck) {
     dispatch(setKingInCheckmate(false));
@@ -61,7 +61,7 @@ export const isKingInCheckmate = (
     kingRow,
     kingCol
   );
-  dispatch(setValidCheckMoves(kingDefensiveMoves));
+  dispatch(setValidMovesWhenInCheck(kingDefensiveMoves));
 
   if (kingMovesOutOfCheck(kingMoves, enemyMoves)) {
     return;

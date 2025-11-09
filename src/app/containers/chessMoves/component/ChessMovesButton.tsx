@@ -5,7 +5,7 @@ import { setIsMovesHidden } from "@/app/redux/slices/chessboardHistory/chessboar
 const ChessMovesButton = () => {
   const dispatch = useDispatch();
   const isPreviousMovesHidden: boolean = useSelector(
-    (state: RootState) => state.chessMoves.isMovesHidden
+    (state: RootState) => state.chessboardHistoryState.isMovesHidden
   );
 
   const handleDisplayMoves = () => {
