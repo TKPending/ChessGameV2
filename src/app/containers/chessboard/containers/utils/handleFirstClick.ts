@@ -1,6 +1,6 @@
 import { handlePieceOnTile } from "@/app/utils/handlers/handlePieceOnTile";
 import { Dispatch } from "@reduxjs/toolkit";
-import { PieceType, TileType } from "@/app/types/ChessTypes";
+import { ChessColors, PieceType, TileType } from "@/app/types/ChessTypes";
 
 export const handleFirstClick = (
   dispatch: Dispatch<any>,
@@ -11,7 +11,7 @@ export const handleFirstClick = (
   piecesAttackingKing: any,
   validCheckMoves: any,
   enemyMoves: any,
-  currentTurn: any
+  currentTurn: ChessColors.white | ChessColors.black
 ) => {
   if (pieceOnTile && pieceOnTile.pieceColor === currentTurn) {
     handlePieceOnTile(

@@ -1,6 +1,6 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { allSelectedPieceLegalMoves } from "@/app/utils/pieceMovements/helpers/allSelectedPieceLegalMoves";
-import { TileType } from "@/app/types/ChessTypes";
+import { ChessColors, TileType } from "@/app/types/ChessTypes";
 
 /**
  * Returns all the moves that a Pawn can do
@@ -14,7 +14,7 @@ import { TileType } from "@/app/types/ChessTypes";
 export const getPawnMoves = (
   dispatch: Dispatch<UnknownAction>,
   chessboard: TileType[][],
-  pieceToMoveColor: "White" | "Black",
+  pieceToMoveColor: ChessColors.white | ChessColors.black,
   currentRow: number,
   currentCol: number,
   simulation: boolean

@@ -1,6 +1,6 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { allSelectedPieceLegalMoves } from "@/app/utils/pieceMovements/helpers/allSelectedPieceLegalMoves";
-import { TileType } from "@/app/types/ChessTypes";
+import { ChessColors, TileType } from "@/app/types/ChessTypes";
 
 /**
  * Returns all the moves of a Knight piece
@@ -16,7 +16,7 @@ export const getKnightMoves = (
   chessboard: TileType[][],
   currentRow: number,
   currentCol: number,
-  pieceToMoveColor: "White" | "Black",
+  pieceToMoveColor: ChessColors.white | ChessColors.black,
   simulation: boolean
 ): [number, number][] => {
   const knightMoves: [number, number][] = [

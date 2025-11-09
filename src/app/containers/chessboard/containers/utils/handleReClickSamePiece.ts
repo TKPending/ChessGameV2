@@ -1,6 +1,6 @@
 import { handlePieceOnTile } from "@/app/utils/handlers/handlePieceOnTile";
 import { Dispatch } from "@reduxjs/toolkit";
-import { TileType } from "@/app/types/ChessTypes";
+import { ChessColors, TileType } from "@/app/types/ChessTypes";
 
 export const handleReClickSamePiece = (
   dispatch: Dispatch<any>,
@@ -10,7 +10,7 @@ export const handleReClickSamePiece = (
   piecesAttackingKing: any,
   validCheckMoves: any,
   enemyMoves: any,
-  currentTurn: any
+  currentTurn: ChessColors.white | ChessColors.black
 ) => {
   handlePieceOnTile(
     dispatch,

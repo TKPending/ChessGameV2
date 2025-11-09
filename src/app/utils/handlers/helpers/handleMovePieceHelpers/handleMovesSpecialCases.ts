@@ -4,7 +4,12 @@ import { rookMovedPreventCastle } from "./rookMovedPreventCastle";
 import { isPawnPromotion } from "@/app/utils/pawnPromotion/isPawnPromoting";
 import { setPawnPromotion } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
 import { CastleType } from "@/app/types/MoveTypes";
-import { TileType, PieceType, PieceName } from "@/app/types/ChessTypes";
+import {
+  TileType,
+  PieceType,
+  PieceName,
+  ChessColors,
+} from "@/app/types/ChessTypes";
 
 /**
  * Handles King castling and Pawn Promotion checks.
@@ -20,7 +25,7 @@ export const handleMovesSpecialCases = (
   piece: PieceType,
   targetTile: TileType,
   previousClickedTile: TileType,
-  currentTurn: "White" | "Black",
+  currentTurn: ChessColors.white | ChessColors.black,
   castling: CastleType
 ) => {
   const pieceName: PieceName = piece.pieceName;

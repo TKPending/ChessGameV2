@@ -3,15 +3,15 @@ import { updateMovePawnPromotion } from "@/app/redux/slices/chessboardHistory/ch
 import { useDispatch } from "react-redux";
 import { PieceType, PieceName, ChessColors } from "@/app/types/ChessTypes";
 import PawnPromotionComponent from "@/app/containers/chessboard/components/PawnPromotionComponent";
+import { getPlayerColor } from "@/app/utils/chessColors/getPlayerColor";
 
 type Props = {
-  currentTurn: "White" | "Black";
+  currentTurn: ChessColors.white | ChessColors.black;
 };
 
 const PawnPromotionContainer = ({ currentTurn }: Props) => {
   const dispatch = useDispatch();
-  const turnToChange: ChessColors =
-    currentTurn === ChessColors.white ? ChessColors.black : ChessColors.white;
+  const turnToChange: ChessColors = getPlayerColor(currentTurn);
 
   const handlePiecePromotion = (pieceName: PieceName) => {
     const promotedPiece: PieceType = {

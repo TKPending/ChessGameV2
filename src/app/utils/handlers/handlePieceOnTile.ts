@@ -8,10 +8,11 @@ import { setCurrentPiecePotentialMoves } from "@/app/redux/slices/moveAnalysis/m
 import { generateSelectedPieceValidMoves } from "@/app/utils/pieceMovements/generateMoves/generateSelectedPiece";
 import { highlightValidMoves } from "@/app/utils/chessboard/design/highlightValidMoves";
 import { isKingSafeAfterMove } from "@/app/utils/handlers/helpers/handPieceOnTileHelpers/isKingSafeAfterMove";
-import { TileType } from "@/app/types/ChessTypes";
+import { ChessColors, TileType } from "@/app/types/ChessTypes";
 import { EnemyAttackType } from "@/app/types/MoveTypes";
 import { getKingSpecificMoves } from "./helpers/handPieceOnTileHelpers/getKingSpecificMoves";
 import { getValidPieceMoves } from "./helpers/handPieceOnTileHelpers/getValidPieceMoves";
+import { getPlayerColor } from "../chessColors/getPlayerColor";
 
 /**
  * Deals with the piece being clicked on the tile
@@ -32,7 +33,7 @@ export const handlePieceOnTile = (
   pieceAttackingKing: EnemyAttackType[],
   validCheckMoves: number[][],
   enemyMoves: EnemyAttackType[],
-  currentTurn: "White" | "Black"
+  currentTurn: ChessColors.white | ChessColors.black
 ) => {
   clearTileHighlights(dispatch, chessboard);
 
@@ -74,8 +75,10 @@ export const handlePieceOnTile = (
   );
 
   let pieceLegalMoves = [...validPieceMoves, ...kingSpecificMoves];
-  const enemyTeamColor: "White" | "Black" =
-    currentTurn === "White" ? "Black" : "White";
+  const enemyTeamColor: ChessColors.black | ChessColors.white = getPlayerColor(
+    currentTurn,
+    true
+  );
 
   pieceLegalMoves = pieceLegalMoves.filter(
     ([row, col]) =>

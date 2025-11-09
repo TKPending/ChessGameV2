@@ -10,6 +10,7 @@ import ChessboardComponent from "./components/ChessboardComponent";
 import CheckmateContainer from "@/app/containers/checkmate/CheckmateContainer";
 import { EnemyAttackType } from "@/app/types/MoveTypes";
 import PawnPromotionContainer from "@/app/containers/chessboard/containers/PawnPromotionContainer";
+import { ChessColors } from "@/app/types/ChessTypes";
 
 const Chessboard = () => {
   const dispatch = useDispatch();
@@ -37,8 +38,10 @@ const Chessboard = () => {
       allEnemyMoves.length === 0 &&
       currentMoveCount > 3
     ) {
-      const oppositeColor: "White" | "Black" =
-        currentTurn === "White" ? "Black" : "White";
+      const oppositeColor: ChessColors.white | ChessColors.black =
+        currentTurn === ChessColors.white
+          ? ChessColors.black
+          : ChessColors.white;
 
       const notSimulation: boolean = false;
 

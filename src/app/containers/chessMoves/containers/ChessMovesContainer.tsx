@@ -5,7 +5,7 @@ import { MoveHistoryType } from "@/app/types/ChessTypes";
 
 const ChessMovesContainer = () => {
   const moveHistory: MoveHistoryType[] = useSelector(
-    (state: RootState) => state.chessMoves.moveHistory
+    (state: RootState) => state.chessboardHistoryState.movesHistory
   );
   const winner = useSelector((state: RootState) => state.gameState.winner);
   const isWinner = useSelector((state: RootState) => state.gameState.isPlaying);

@@ -2,8 +2,8 @@ import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { generatePieceLegalMoves } from "./helper/generatePieceLegalMoves";
 import { classifySlidingDirections } from "@/app/utils/pieceMovements/helpers/classifySlidingDirections";
 import { EnemyAttackType } from "@/app/types/MoveTypes";
-import { TileType, PieceType } from "@/app/types/ChessTypes";
-import { convertTilePosition } from "../../chessboard/convertTilePosition";
+import { TileType, PieceType, ChessColors } from "@/app/types/ChessTypes";
+import { convertTilePosition } from "@/app/utils/chessboard/convertTilePosition";
 
 /**
  * Generates all moves for the enemy team
@@ -15,7 +15,7 @@ import { convertTilePosition } from "../../chessboard/convertTilePosition";
 export const generateAllEnemyMoves = (
   dispatch: Dispatch<UnknownAction>,
   chessboard: TileType[][],
-  enemyColor: "White" | "Black",
+  enemyColor: ChessColors.white | ChessColors.black,
   simulation: boolean
 ): EnemyAttackType[] => {
   const enemyMoves: EnemyAttackType[] = [];

@@ -41,7 +41,7 @@ export const pawnPromotionUpdateMoveReducer = (
 
 // Display Move History
 export const isMovesHiddenReducer = (state: ChessboardHistoryStateType) => {
-  state.isMovesHidden = true;
+  state.isMovesHidden = !state.isMovesHidden;
 };
 
 // Reset Chess Move History

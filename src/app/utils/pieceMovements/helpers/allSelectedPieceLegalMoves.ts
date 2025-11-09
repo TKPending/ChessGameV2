@@ -1,6 +1,6 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { updateTile } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
-import { TileType, PieceType } from "@/app/types/ChessTypes";
+import { TileType, PieceType, ChessColors } from "@/app/types/ChessTypes";
 import { TileEmptyOrHasEnemy } from "./TileEmptyOrHasEnemy";
 
 /**
@@ -15,7 +15,7 @@ export const allSelectedPieceLegalMoves = (
   dispatch: Dispatch<UnknownAction>,
   chessboard: TileType[][],
   defaultMoves: [number, number][],
-  pieceToMoveColor: "White" | "Black",
+  pieceToMoveColor: ChessColors.white | ChessColors.black,
   simulation: boolean
 ): [number, number][] => {
   const pieceValidMoves: [number, number][] = [];

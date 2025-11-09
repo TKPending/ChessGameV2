@@ -1,6 +1,6 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { allSelectedPieceLegalMoves } from "@/app/utils/pieceMovements/helpers/allSelectedPieceLegalMoves";
-import { TileType } from "@/app/types/ChessTypes";
+import { ChessColors, TileType } from "@/app/types/ChessTypes";
 import { EnemyAttackType } from "@/app/types/MoveTypes";
 
 /**
@@ -18,7 +18,7 @@ export const getKingMoves = (
   chessboard: TileType[][],
   currentRow: number,
   currentCol: number,
-  pieceToMoveColor: "White" | "Black",
+  pieceToMoveColor: ChessColors.white | ChessColors.black,
   simulation: boolean,
   enemyMoves?: EnemyAttackType[],
   test?: boolean

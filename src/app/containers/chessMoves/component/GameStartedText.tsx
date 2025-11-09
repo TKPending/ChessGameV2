@@ -1,8 +1,9 @@
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/redux/store";
+import { ChessColors } from "@/app/types/ChessTypes";
 
 const GameStartedText = () => {
-  const currentTurn: "White" | "Black" = useSelector(
+  const currentTurn: ChessColors.black | ChessColors.white = useSelector(
     (state: RootState) => state.gameState.currentTurn
   );
   return (

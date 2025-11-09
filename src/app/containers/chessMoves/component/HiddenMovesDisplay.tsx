@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/redux/store";
-import { PlayerType } from "@/app/types/ChessTypes";
+import { ChessColors, PlayerType } from "@/app/types/ChessTypes";
 
 const HiddenMovesDisplay = () => {
-  const currentTurn: "White" | "Black" = useSelector(
+  const currentTurn: ChessColors.white | ChessColors.black = useSelector(
     (state: RootState) => state.gameState.currentTurn
   );
   const player: PlayerType[] = useSelector(
@@ -20,7 +20,7 @@ const HiddenMovesDisplay = () => {
         </p>
       ) : (
         <p className="text-customGreen text-md md:text-lg">
-          {currentTurn === "White"
+          {currentTurn === ChessColors.white
             ? player[1].playerName
             : player[0].playerName}{" "}
           Turn
