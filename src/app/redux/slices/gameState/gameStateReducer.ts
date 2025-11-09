@@ -89,6 +89,7 @@ export const resetGameStateReducer = (state: GameStateType) => {
     isError: false,
     message: "",
   };
+  state.isKingInCheckmate = false;
   state.isGameReset = false;
 };
 
