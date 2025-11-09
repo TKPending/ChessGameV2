@@ -1,8 +1,8 @@
-import { TileType } from "@/app/types/ChessTypes";
+import { ChessColors, TileType } from "@/app/types/ChessTypes";
 
 export const findKing = (
   chessboard: TileType[][],
-  currentTurn: "White" | "Black"
+  currentTurn: ChessColors.white | ChessColors.black
 ) => {
   for (let row = 0; row < 8; row++) {
     for (let col = 0; col < 8; col++) {

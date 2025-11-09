@@ -1,7 +1,7 @@
 import { canCastle } from "@/app/utils/pieceMovements/castling/canCastle";
 import { convertTilePosition } from "@/app/utils/chessboard/convertTilePosition";
 import { EnemyAttackType } from "@/app/types/MoveTypes";
-import { TileType } from "@/app/types/ChessTypes";
+import { ChessColors, TileType } from "@/app/types/ChessTypes";
 
 /**
  * Filters all moves to see if King can Castle
@@ -15,7 +15,7 @@ export const filterCastleMoves = (
   chessboard: TileType[][],
   clickedTile: TileType,
   enemyMoves: EnemyAttackType[],
-  currentTurn: "White" | "Black"
+  currentTurn: ChessColors.white | ChessColors.black
 ): number[][] => {
   const kingCastleMoves: number[][] = [];
   const [kingRow, kingCol] = convertTilePosition(clickedTile.tilePosition);

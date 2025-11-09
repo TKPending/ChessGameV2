@@ -1,10 +1,10 @@
-import { TileType } from "@/app/types/ChessTypes";
+import { ChessColors, TileType } from "@/app/types/ChessTypes";
 
 export const areTilesBetweenOccupiedByFriendlyPieces = (
   chessboard: TileType[][],
   kingPosition: [number, number],
   rookPosition: [number, number],
-  currentTurn: "White" | "Black"
+  currentTurn: ChessColors.white | ChessColors.black
 ): boolean => {
   const [kingRow, kingCol] = kingPosition;
   const [rookRow, rookCol] = rookPosition;

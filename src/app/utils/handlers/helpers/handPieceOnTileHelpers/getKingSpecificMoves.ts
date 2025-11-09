@@ -2,7 +2,7 @@ import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { filterKingSafeMoves } from "./filterKingSafeMoves";
 import { filterCastleMoves } from "./filterCastleMoves";
 import { EnemyAttackType } from "@/app/types/MoveTypes";
-import { TileType, PieceName } from "@/app/types/ChessTypes";
+import { TileType, PieceName, ChessColors } from "@/app/types/ChessTypes";
 
 /**
  * Gathers the moves specifically for the King such as Castling and Safe Moves
@@ -20,7 +20,7 @@ export const getKingSpecificMoves = (
   chessboard: TileType[][],
   enemyMoves: EnemyAttackType[],
   attackingPositions: number[][],
-  currentTurn: "White" | "Black"
+  currentTurn: ChessColors.white | ChessColors.black
 ): number[][] => {
   const pieceName: PieceName | undefined = clickedTile.pieceOnTile?.pieceName;
   if (!pieceName || pieceName !== "King") return [];

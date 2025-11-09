@@ -1,3 +1,4 @@
+import { ChessColors } from "@/app/types/ChessTypes";
 import { convertTilePosition } from "@/app/utils/chessboard/convertTilePosition";
 /**
  * Checks whether a pawn is in a position to promote
@@ -7,13 +8,13 @@ import { convertTilePosition } from "@/app/utils/chessboard/convertTilePosition"
  */
 export const isPawnPromotion = (
   tilePosition: string,
-  currentTurn: "White" | "Black"
+  currentTurn: ChessColors.white | ChessColors.black
 ): boolean => {
   const tilePositionIndex: [number, number] = convertTilePosition(tilePosition);
 
-  if (currentTurn === "White" && tilePositionIndex[0] === 0) {
+  if (currentTurn === ChessColors.white && tilePositionIndex[0] === 0) {
     return true;
-  } else if (currentTurn === "Black" && tilePositionIndex[0] === 7) {
+  } else if (currentTurn === ChessColors.black && tilePositionIndex[0] === 7) {
     return true;
   }
 

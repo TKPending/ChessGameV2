@@ -1,5 +1,5 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { TileType } from "@/app/types/ChessTypes";
+import { ChessColors, TileType } from "@/app/types/ChessTypes";
 import { convertTilePosition } from "@/app/utils/chessboard/convertTilePosition";
 import {
   setValidMovesWhenInCheck,
@@ -25,7 +25,7 @@ export const checkForCheckmate = (
   dispatch: Dispatch<UnknownAction>,
   chessboard: TileType[][],
   enemyMoves: EnemyAttackType[],
-  currentTurn: "White" | "Black"
+  currentTurn: ChessColors.white | ChessColors.black
 ) => {
   const kingTile = findKing(chessboard, currentTurn);
   if (!kingTile || !kingTile.pieceOnTile) return;

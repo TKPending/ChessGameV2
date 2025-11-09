@@ -1,7 +1,7 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import {
   setCurrentTile,
-  setPreviouslyClickedTile,
+  setPreviousTile,
 } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
 import { setCurrentPiecePotentialMoves } from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
 import { clearTileHighlights } from "@/app/utils/chessboard/design/clearTileHighlights";
@@ -17,7 +17,7 @@ export const resetTiles = (
   updatedChessboard: TileType[][]
 ) => {
   dispatch(setCurrentTile(null));
-  dispatch(setPreviouslyClickedTile(null));
+  dispatch(setPreviousTile(null));
   dispatch(setCurrentPiecePotentialMoves([]));
   clearTileHighlights(dispatch, updatedChessboard);
 };

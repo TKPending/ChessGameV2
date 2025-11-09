@@ -1,10 +1,10 @@
-import { TileType } from "@/app/types/ChessTypes";
+import { ChessColors, TileType } from "@/app/types/ChessTypes";
 
 export const arePiecesInStartingPositions = (
   chessboard: TileType[][],
-  currentTurn: "White" | "Black"
+  currentTurn: ChessColors.white | ChessColors.black
 ): boolean => {
-  const row = currentTurn === "White" ? 7 : 0;
+  const row = currentTurn === ChessColors.white ? 7 : 0;
 
   const kingTile = chessboard[row][4];
   if (!kingTile.pieceOnTile || kingTile.pieceOnTile.pieceName !== "King")

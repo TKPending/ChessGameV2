@@ -1,7 +1,7 @@
 import { setTileWithPromotedPawn } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
 import { updateMovePawnPromotion } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
 import { useDispatch } from "react-redux";
-import { PieceType, PieceName } from "@/app/types/ChessTypes";
+import { PieceType, PieceName, ChessColors } from "@/app/types/ChessTypes";
 import PawnPromotionComponent from "@/app/containers/chessboard/components/PawnPromotionComponent";
 
 type Props = {
@@ -10,8 +10,8 @@ type Props = {
 
 const PawnPromotionContainer = ({ currentTurn }: Props) => {
   const dispatch = useDispatch();
-  const turnToChange: "White" | "Black" =
-    currentTurn === "White" ? "Black" : "White";
+  const turnToChange: ChessColors =
+    currentTurn === ChessColors.white ? ChessColors.black : ChessColors.white;
 
   const handlePiecePromotion = (pieceName: PieceName) => {
     const promotedPiece: PieceType = {

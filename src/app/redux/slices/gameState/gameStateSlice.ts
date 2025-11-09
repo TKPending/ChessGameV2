@@ -3,6 +3,7 @@ import { GameStateType } from "@/app/types/StateTypes";
 import { createSlice } from "@reduxjs/toolkit";
 import {
   addPlayerNameReducer,
+  setWinnerReducer,
   capturedPiecesReducer,
   chessGamePlayingReducer,
   errorMessageReducer,
@@ -10,10 +11,12 @@ import {
   kingInCheckmateReducer,
   resetGameReducer,
   resetGameStateReducer,
+  updateCurrentTurnReducer,
 } from "./gameStateReducer";
 
 const initialState: GameStateType = {
   currentTurn: ChessColors.white,
+  winner: null,
   players: [
     {
       no: 0,
@@ -49,6 +52,8 @@ const gameStateSlice = createSlice({
   name: "gameState",
   initialState,
   reducers: {
+    setCurrentTurn: updateCurrentTurnReducer,
+    setWinner: setWinnerReducer,
     setError: errorTriggerReducer,
     setErrorMessage: errorMessageReducer,
     setPlayerName: addPlayerNameReducer,
@@ -61,6 +66,8 @@ const gameStateSlice = createSlice({
 });
 
 export const {
+  setCurrentTurn,
+  setWinner,
   setError,
   setErrorMessage,
   setPlayerName,

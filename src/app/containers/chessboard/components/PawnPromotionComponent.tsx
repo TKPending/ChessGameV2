@@ -16,7 +16,7 @@ const PawnPromotionComponent = ({
   handlePiecePromotion,
 }: PawnPromotionComponentProps) => {
   const currentTurn = useSelector(
-    (state: RootState) => state.chessboard.currentTurn
+    (state: RootState) => state.gameState.currentTurn
   );
   const pieceColor: "white" | "black" =
     currentTurn === "White" ? "black" : "white";

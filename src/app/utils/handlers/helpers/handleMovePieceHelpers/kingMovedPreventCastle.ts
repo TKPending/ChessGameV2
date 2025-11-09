@@ -1,4 +1,5 @@
 import { setKingHasMoved } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
+import { ChessColors } from "@/app/types/ChessTypes";
 import { CastleType } from "@/app/types/MoveTypes";
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 
@@ -11,11 +12,11 @@ import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
  */
 export const kingMovedPreventCastle = (
   dispatch: Dispatch<UnknownAction>,
-  currentTurn: "White" | "Black",
+  currentTurn: ChessColors.white | ChessColors.black,
   castling: CastleType
 ) => {
   if (castling[`${currentTurn === "White" ? "white" : "black"}King`].kingMoved)
     return;
 
-  dispatch(setKingHasMoved());
+  dispatch(setKingHasMoved(currentTurn));
 };

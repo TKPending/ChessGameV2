@@ -1,12 +1,12 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { generateAllEnemyMoves } from "@/app/utils/pieceMovements/generateMoves/generateAllEnemyMoves";
 import { isKingSafeAfterMove } from "@/app/utils/handlers/helpers/handPieceOnTileHelpers/isKingSafeAfterMove";
-import { TileType } from "@/app/types/ChessTypes";
+import { ChessColors, TileType } from "@/app/types/ChessTypes";
 
 export const preventCheckmate = (
   dispatch: Dispatch<UnknownAction>,
   chessboard: TileType[][],
-  currentTurn: "White" | "Black",
+  currentTurn: ChessColors.white | ChessColors.black,
   defensiveMoves: number[][]
 ): boolean => {
   // Generate all legal moves for the current team
@@ -32,8 +32,10 @@ export const preventCheckmate = (
         const previousTile = chessboard[row][col];
         const targetTile = chessboard[moveRow][moveCol];
 
-        const enemyTeamColor: "White" | "Black" =
-          currentTurn === "White" ? "Black" : "White";
+        const enemyTeamColor: ChessColors.white | ChessColors.black =
+          currentTurn === ChessColors.white
+            ? ChessColors.black
+            : ChessColors.white;
 
         if (
           !isKingSafeAfterMove(

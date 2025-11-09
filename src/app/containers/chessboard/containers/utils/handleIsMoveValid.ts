@@ -1,6 +1,6 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import { incrementMoveCounter } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
-import { setCurrentTurn } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
+import { setCurrentTurn } from "@/app/redux/slices/gameState/gameStateSlice";
 import {
   setEnemyMoves,
   setPiecesAttackingKing,

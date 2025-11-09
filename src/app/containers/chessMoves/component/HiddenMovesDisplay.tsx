@@ -4,7 +4,7 @@ import { PlayerType } from "@/app/types/ChessTypes";
 
 const HiddenMovesDisplay = () => {
   const currentTurn: "White" | "Black" = useSelector(
-    (state: RootState) => state.chessboard.currentTurn
+    (state: RootState) => state.gameState.currentTurn
   );
   const player: PlayerType[] = useSelector(
     (state: RootState) => state.gameState.players

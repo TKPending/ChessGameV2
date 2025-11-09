@@ -1,18 +1,18 @@
 import { areTilesBetweenUnderAttack } from "./helpers/areTilesBetweenUnderAttack";
 import { arePiecesInStartingPositions } from "./helpers/arePiecesInStartingPositions";
-import { TileType } from "@/app/types/ChessTypes";
+import { ChessColors, TileType } from "@/app/types/ChessTypes";
 import { areTilesBetweenOccupiedByFriendlyPieces } from "./helpers/areTilesBetweenOccupiedByFriendlyPieces.ts";
 
 export const canCastle = (
   chessboard: TileType[][],
   enemyMoves: any,
-  currentTurn: "White" | "Black"
+  currentTurn: ChessColors.white | ChessColors.black
 ): { canCastleLeft: boolean; canCastleRight: boolean } => {
   if (!arePiecesInStartingPositions(chessboard, currentTurn)) {
     return { canCastleLeft: false, canCastleRight: false };
   }
 
-  const row = currentTurn === "White" ? 7 : 0;
+  const row = currentTurn === ChessColors.white ? 7 : 0;
   const kingPosition: [number, number] = [row, 4];
   const leftRookPosition: [number, number] = [row, 0];
   const rightRookPosition: [number, number] = [row, 7];

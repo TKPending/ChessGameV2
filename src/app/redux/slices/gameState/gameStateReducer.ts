@@ -50,6 +50,13 @@ export const chessGamePlayingReducer = (
   state.isPlaying = action.payload;
 };
 
+export const setWinnerReducer = (
+  state: GameStateType,
+  action: PayloadAction<PlayerType>
+) => {
+  state.winner = action.payload;
+};
+
 export const updateCurrentTurnReducer = (state: GameStateType) => {
   const turn: string = state.currentTurn;
   const { white, black } = ChessColors;

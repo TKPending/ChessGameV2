@@ -22,7 +22,7 @@ const Checkmate = ({
   const { width, height } = useWindowSize();
 
   const currentTurn: "White" | "Black" = useSelector(
-    (state: RootState) => state.chessboard.currentTurn
+    (state: RootState) => state.gameState.currentTurn
   );
   const players: PlayerType[] = useSelector(
     (state: RootState) => state.gameState.players

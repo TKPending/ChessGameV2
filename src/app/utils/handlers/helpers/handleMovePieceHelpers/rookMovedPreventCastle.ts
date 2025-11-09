@@ -1,6 +1,6 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { CastleType } from "@/app/types/MoveTypes";
-import { TileType } from "@/app/types/ChessTypes";
+import { ChessColors, TileType } from "@/app/types/ChessTypes";
 import { setRookHasMoved } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
 
 /**
@@ -13,7 +13,7 @@ import { setRookHasMoved } from "@/app/redux/slices/chessboardState/chessboardSt
  */
 export const rookMovedPreventCastle = (
   dispatch: Dispatch<UnknownAction>,
-  currentTurn: "White" | "Black",
+  currentTurn: ChessColors.white | ChessColors.black,
   castling: CastleType,
   tile: TileType
 ) => {
@@ -31,15 +31,23 @@ export const rookMovedPreventCastle = (
   // Determine which castle option to disable based on the rook's position
   if (currentTurn === "White") {
     if (rookPosition === whiteRookLeft) {
-      dispatch(setRookHasMoved("left"));
+      dispatch(
+        setRookHasMoved({ direction: "left", currentTurnColor: currentTurn })
+      );
     } else if (rookPosition === whiteRookRight) {
-      dispatch(setRookHasMoved("right"));
+      dispatch(
+        setRookHasMoved({ direction: "right", currentTurnColor: currentTurn })
+      );
     }
   } else if (currentTurn === "Black") {
     if (rookPosition === blackRookLeft) {
-      dispatch(setRookHasMoved("left"));
+      dispatch(
+        setRookHasMoved({ direction: "left", currentTurnColor: currentTurn })
+      );
     } else if (rookPosition === blackRookRight) {
-      dispatch(setRookHasMoved("right"));
+      dispatch(
+        setRookHasMoved({ direction: "right", currentTurnColor: currentTurn })
+      );
     }
   }
 };

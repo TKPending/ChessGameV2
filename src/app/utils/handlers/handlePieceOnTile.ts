@@ -1,7 +1,7 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { clearTileHighlights } from "@/app/utils/chessboard/design/clearTileHighlights";
 import {
-  setPreviouslyClickedTile,
+  setPreviousTile,
   updateTile,
 } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
 import { setCurrentPiecePotentialMoves } from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
@@ -44,7 +44,7 @@ export const handlePieceOnTile = (
     })
   );
 
-  dispatch(setPreviouslyClickedTile(clickedTile));
+  dispatch(setPreviousTile(clickedTile));
 
   const selectedPieceValidMoves: number[][] = generateSelectedPieceValidMoves(
     dispatch,

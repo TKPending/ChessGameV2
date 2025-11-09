@@ -1,7 +1,7 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { TileType } from "@/app/types/ChessTypes";
+import { ChessColors, TileType } from "@/app/types/ChessTypes";
 import { EnemyAttackType } from "@/app/types/MoveTypes";
-import { setKingInCheckmate } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
+import { setKingInCheckmate } from "@/app/redux/slices/gameState/gameStateSlice";
 
 /**
  * Check whether King can capture a piece attacking the King
@@ -20,7 +20,7 @@ export const kingCaptureOutOfCheck = (
   kingMoves: [number, number][],
   kingTile: TileType,
   enemyMoves: EnemyAttackType[],
-  currentTurn: "White" | "Black"
+  currentTurn: ChessColors.white | ChessColors.black
 ): number[][] => {
   if (!kingTile || !kingTile.pieceOnTile) return [];
 
