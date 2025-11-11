@@ -1,7 +1,7 @@
 import Button from "@/app/components/Button";
 import { useDispatch } from "react-redux";
-import { navigateToPage } from "../utils/page/navigateToPage";
-import { PageEnum } from "../types/PageTypes";
+import { navigateToPage } from "@/app/utils/navigateToPage";
+import { PageEnum } from "@/app/types/PageTypes";
 
 const RulesPage = () => {
   const dispatch = useDispatch();

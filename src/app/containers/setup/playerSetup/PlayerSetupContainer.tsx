@@ -5,7 +5,7 @@ import PlayerSetupHeader from "./components/PlayerSetupHeader";
 import StartGameButton from "@/app/containers/setup/playerSetup/components/StartGameButton";
 import { setPlayerName } from "@/app/redux/slices/gameState/gameStateSlice";
 import { setIsGamePlaying } from "@/app/redux/slices/gameState/gameStateSlice";
-import { navigateToPage } from "@/app/utils/page/navigateToPage";
+import { navigateToPage } from "@/app/utils/navigateToPage";
 import { PageEnum } from "@/app/types/PageTypes";
 import { PlayerType } from "@/app/types/ChessTypes";
 

@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import Button from "@/app/components/Button";
 import { PageEnum } from "@/app/types/PageTypes";
-import { navigateToPage } from "@/app/utils/page/navigateToPage";
+import { navigateToPage } from "@/app/utils/navigateToPage";
 
 const LandingButtonsContainer = () => {
   const dispatch = useDispatch();
