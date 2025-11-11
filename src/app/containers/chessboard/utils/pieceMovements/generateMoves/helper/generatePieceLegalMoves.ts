@@ -14,6 +14,7 @@ import { TileType, PieceType, PieceName } from "@/app/types/ChessTypes";
  * @param piece Piece that the moves are being generate for
  * @param tile Current tile the piece is on
  * @param isEnemy Whether we're generating moves for friendly or enemy
+ * @param simulation Whether this is a simulation or not
  * @param enemyMoves All enemy moves
  * @returns Legal moves for a piece
  */

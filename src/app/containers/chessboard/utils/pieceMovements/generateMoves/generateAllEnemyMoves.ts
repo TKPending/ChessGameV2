@@ -10,6 +10,7 @@ import { convertTilePosition } from "@/app/utils/convertTilePosition";
  * @param dispatch Update redux state
  * @param chessboard Current chessboard state
  * @param enemyColor Color of the enemy / Opposite team
+ * @param simulation Whether this is a simulation or not
  * @returns All legal enemy moves
  */
 export const generateAllEnemyMoves = (
