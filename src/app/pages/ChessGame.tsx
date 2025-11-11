@@ -15,13 +15,6 @@ const ChessGame = () => {
   const CurrentComponent = PageComponents[currentPage];
   const PrevComponent = prevPage ? PageComponents[prevPage] : null;
 
-  console.log({
-    currentPage,
-    prevPage,
-    CurrentComponent,
-    PrevComponent,
-  });
-
   return (
     <div className="relative w-screen h-screen font-semibold overflow-none bg-page-background">
       <AnimatedFallingChessBackground count={30} />

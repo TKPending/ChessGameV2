@@ -15,19 +15,25 @@ const Players = ({ playerNo, className }: Props) => {
 
   return (
     <div
-      className={`bg-section-background shadow-lg w-full md:w-1/2 h-20 gap-1 p-2 px-4 flex flex-col rounded-lg justify-start ${className}`}
+      className={`w-full flex items-center ${
+        playerNo === 0 ? "justify-start" : "justify-end"
+      } px-6 md:px-12`}
     >
-      <p
-        className={`flex items-center justify-start gap-2 text-md text-customGreen`}
+      <section
+        className={`bg-section-background shadow-lg w-full md:w-1/2 h-20 gap-1 p-2 px-4 flex flex-col rounded-lg justify-start ${className}`}
       >
-        {player.playerName}
-        <img
-          src={`${player.team.toLowerCase()}-king.png`}
-          className="h-6 w-6"
-          alt={`${player.team} king piece`}
-        />
-      </p>
-      <CapturedPieces player={player} />
+        <p
+          className={`flex items-center justify-start gap-2 text-md text-customGreen`}
+        >
+          {player.playerName}
+          <img
+            src={`${player.team.toLowerCase()}-king.png`}
+            className="h-6 w-6"
+            alt={`${player.team} king piece`}
+          />
+        </p>
+        <CapturedPieces player={player} />
+      </section>
     </div>
   );
 };

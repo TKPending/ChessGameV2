@@ -65,7 +65,7 @@ const Chessboard = () => {
   ]);
 
   return (
-    <div className="h-auto w-auto">
+    <div className="h-auto w-full flex items-center justify-center">
       {isKingInCheckmate && <CheckmateContainer />}
       {pawnPromotion.isPawnPromotion && (
         <PawnPromotionContainer currentTurn={currentTurn} />
