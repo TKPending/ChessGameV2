@@ -1,5 +1,5 @@
-import { canCastle } from "@/app/utils/pieceMovements/castling/canCastle";
-import { convertTilePosition } from "@/app/utils/chessboard/convertTilePosition";
+import { canCastle } from "@/app/containers/chessboard/utils/pieceMovements/castling/canCastle";
+import { convertTilePosition } from "@/app/utils/convertTilePosition";
 import { EnemyAttackType } from "@/app/types/MoveTypes";
 import { ChessColors, TileType } from "@/app/types/ChessTypes";
 

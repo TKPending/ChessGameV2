@@ -1,5 +1,5 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { allSelectedPieceLegalMoves } from "@/app/utils/pieceMovements/helpers/allSelectedPieceLegalMoves";
+import { allSelectedPieceLegalMoves } from "./helpers/allSelectedPieceLegalMoves";
 import { ChessColors, TileType } from "@/app/types/ChessTypes";
 
 /**

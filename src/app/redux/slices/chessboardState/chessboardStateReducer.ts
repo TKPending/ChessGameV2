@@ -1,5 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { generateTiles } from "@/app/utils/chessboard/generateTiles";
+import { generateTiles } from "@/app/containers/chessboard/utils/chessboard/generateTiles";
 import { TileType, PieceType, ChessColors } from "@/app/types/ChessTypes";
 import { ChessboardStateType } from "@/app/types/StateTypes";
 

@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import React from "react";
-import { resetChessGame } from "@/app/utils/chessboard/resetChessGame";
+import { resetChessGame } from "@/app/utils/resetChessGame";
 import Checkmate from "./components/Checkmate";
 
 // TODO: Batch reset states

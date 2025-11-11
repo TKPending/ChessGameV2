@@ -7,7 +7,7 @@ import {
 import { updateChessboard } from "./helpers/handleMovePieceHelpers/updateChessboard";
 import { handleMovesSpecialCases } from "./helpers/handleMovePieceHelpers/handleMovesSpecialCases";
 import { CastleType } from "@/app/types/MoveTypes";
-import { TileType, PieceType } from "@/app/types/ChessTypes";
+import { TileType, PieceType, ChessColors } from "@/app/types/ChessTypes";
 
 /**
  * Deals with moving pieces
@@ -28,7 +28,8 @@ export const handleMovePiece = (
   if (!previousClickedTile?.pieceOnTile) return [];
 
   const pieceToMove: PieceType = previousClickedTile.pieceOnTile;
-  const currentTurn: "White" | "Black" = pieceToMove.pieceColor;
+  const currentTurn: ChessColors.white | ChessColors.black =
+    pieceToMove.pieceColor;
 
   handleMovesSpecialCases(
     dispatch,

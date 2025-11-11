@@ -4,7 +4,7 @@ import {
   setPreviousTile,
 } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
 import { setCurrentPiecePotentialMoves } from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
-import { clearTileHighlights } from "@/app/utils/chessboard/design/clearTileHighlights";
+import { clearTileHighlights } from "@/app/containers/chessboard/utils/chessboard/design/clearTileHighlights";
 import { TileType } from "@/app/types/ChessTypes";
 
 /**

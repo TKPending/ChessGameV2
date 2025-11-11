@@ -1,7 +1,7 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { kingMovedPreventCastle } from "./kingMovedPreventCastle";
 import { rookMovedPreventCastle } from "./rookMovedPreventCastle";
-import { isPawnPromotion } from "@/app/utils/pawnPromotion/isPawnPromoting";
+import { isPawnPromotion } from "@/app/containers/chessboard/utils/helpers/isPawnPromoting";
 import { setPawnPromotion } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
 import { CastleType } from "@/app/types/MoveTypes";
 import {

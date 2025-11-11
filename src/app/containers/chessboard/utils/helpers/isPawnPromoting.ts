@@ -1,5 +1,5 @@
 import { ChessColors } from "@/app/types/ChessTypes";
-import { convertTilePosition } from "@/app/utils/chessboard/convertTilePosition";
+import { convertTilePosition } from "@/app/utils/convertTilePosition";
 /**
  * Checks whether a pawn is in a position to promote
  * @param tilePosition The current position a pawn is in

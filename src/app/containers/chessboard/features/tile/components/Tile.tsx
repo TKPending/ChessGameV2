@@ -1,6 +1,6 @@
 import { RootState } from "@/app/redux/store";
 import { useSelector } from "react-redux";
-import { getTileBackgroundColor } from "@/app/utils/chessboard/design/getTileBackgroundColor";
+import { getTileBackgroundColor } from "@/app/containers/chessboard/utils/chessboard/design/getTileBackgroundColor";
 import Piece from "@/app/containers/chessboard/features/tile/components/Piece";
 import { TileType } from "@/app/types/ChessTypes";
 

@@ -1,4 +1,4 @@
-import { convertTilePosition } from "@/app/utils/chessboard/convertTilePosition";
+import { convertTilePosition } from "@/app/utils/convertTilePosition";
 
 const validMoveCheck = (
   validMoves: number[][],

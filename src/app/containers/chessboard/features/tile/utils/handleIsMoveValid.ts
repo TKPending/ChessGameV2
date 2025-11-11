@@ -5,8 +5,8 @@ import {
   setEnemyMoves,
   setPiecesAttackingKing,
 } from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
-import { handleMovePiece } from "@/app/utils/handlers/handleMovePiece";
-import { resetTiles } from "@/app/utils/chessboard/design/resetTiles";
+import { handleMovePiece } from "@/app/containers/chessboard/utils/handlers/handleMovePiece";
+import { resetTiles } from "@/app/containers/chessboard/utils/chessboard/design/resetTiles";
 import { TileType } from "@/app/types/ChessTypes";
 
 export const handleValidMove = (

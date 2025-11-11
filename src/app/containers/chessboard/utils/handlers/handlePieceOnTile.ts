@@ -1,18 +1,18 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { clearTileHighlights } from "@/app/utils/chessboard/design/clearTileHighlights";
+import { clearTileHighlights } from "@/app/containers/chessboard/utils/chessboard/design/clearTileHighlights";
 import {
   setPreviousTile,
   updateTile,
 } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
 import { setCurrentPiecePotentialMoves } from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
-import { generateSelectedPieceValidMoves } from "@/app/utils/pieceMovements/generateMoves/generateSelectedPiece";
-import { highlightValidMoves } from "@/app/utils/chessboard/design/highlightValidMoves";
-import { isKingSafeAfterMove } from "@/app/utils/handlers/helpers/handPieceOnTileHelpers/isKingSafeAfterMove";
+import { generateSelectedPieceValidMoves } from "@/app/containers/chessboard/utils/pieceMovements/generateMoves/generateSelectedPiece";
+import { highlightValidMoves } from "@/app/containers/chessboard/utils/chessboard/design/highlightValidMoves";
+import { isKingSafeAfterMove } from "@/app/containers/chessboard/utils/handlers/helpers/handPieceOnTileHelpers/isKingSafeAfterMove";
 import { ChessColors, TileType } from "@/app/types/ChessTypes";
 import { EnemyAttackType } from "@/app/types/MoveTypes";
 import { getKingSpecificMoves } from "./helpers/handPieceOnTileHelpers/getKingSpecificMoves";
 import { getValidPieceMoves } from "./helpers/handPieceOnTileHelpers/getValidPieceMoves";
-import { getPlayerColor } from "../chessColors/getPlayerColor";
+import { getPlayerColor } from "@/app/utils/getPlayerColor";
 
 /**
  * Deals with the piece being clicked on the tile

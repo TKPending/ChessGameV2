@@ -1,8 +1,8 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { findKing } from "@/app/utils/pieceMovements/checkmate/helper/findKing";
-import { convertTilePosition } from "@/app/utils/chessboard/convertTilePosition";
-import { updateChessboard } from "@/app/utils/handlers/helpers/handleMovePieceHelpers/updateChessboard";
-import { generateAllEnemyMoves } from "@/app/utils/pieceMovements/generateMoves/generateAllEnemyMoves";
+import { findKing } from "@/app/containers/chessboard/utils/pieceMovements/checkmate/helper/findKing";
+import { convertTilePosition } from "@/app/utils/convertTilePosition";
+import { updateChessboard } from "@/app/containers/chessboard/utils/handlers/helpers/handleMovePieceHelpers/updateChessboard";
+import { generateAllEnemyMoves } from "@/app/containers/chessboard/utils/pieceMovements/generateMoves/generateAllEnemyMoves";
 import { EnemyAttackType } from "@/app/types/MoveTypes";
 import { ChessColors, TileType } from "@/app/types/ChessTypes";
 

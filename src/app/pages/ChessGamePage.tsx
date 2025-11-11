@@ -1,6 +1,6 @@
 import { RootState } from "@/app/redux/store";
 import { useSelector } from "react-redux";
-import ErrorContainer from "@/app/containers/ErrorContainer";
+import ErrorContainer from "@/app/containers/errors/ErrorContainer";
 import ResetGameModalContainer from "@/app/containers/features/resetGame/containers/ResetGameModalContainer";
 import Chessboard from "@/app/containers/chessboard/Chessboard";
 import PlayerContainer from "@/app/containers/players/PlayerContainer";

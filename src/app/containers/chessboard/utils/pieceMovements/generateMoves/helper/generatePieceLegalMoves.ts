@@ -1,9 +1,9 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { getPawnMoves } from "@/app/utils/pieceMovements/getPawnMoves";
-import { getKnightMoves } from "@/app/utils/pieceMovements/getKnightMoves";
-import { getSlidingPieceMoves } from "@/app/utils/pieceMovements/getSlidingPieceMoves";
-import { getKingMoves } from "@/app/utils/pieceMovements/getKingMoves";
-import { convertTilePosition } from "@/app/utils/chessboard/convertTilePosition";
+import { getPawnMoves } from "@/app/containers/chessboard/utils/pieceMovements/getPawnMoves";
+import { getKnightMoves } from "@/app/containers/chessboard/utils/pieceMovements/getKnightMoves";
+import { getSlidingPieceMoves } from "@/app/containers/chessboard/utils/pieceMovements/getSlidingPieceMoves";
+import { getKingMoves } from "@/app/containers/chessboard/utils/pieceMovements/getKingMoves";
+import { convertTilePosition } from "@/app/utils/convertTilePosition";
 import { EnemyAttackType } from "@/app/types/MoveTypes";
 import { TileType, PieceType, PieceName } from "@/app/types/ChessTypes";
 

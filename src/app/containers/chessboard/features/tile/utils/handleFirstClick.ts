@@ -1,4 +1,4 @@
-import { handlePieceOnTile } from "@/app/utils/handlers/handlePieceOnTile";
+import { handlePieceOnTile } from "@/app/containers/chessboard/utils/handlers/handlePieceOnTile";
 import { Dispatch } from "@reduxjs/toolkit";
 import { ChessColors, PieceType, TileType } from "@/app/types/ChessTypes";
 

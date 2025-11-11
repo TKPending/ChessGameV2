@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import ResetGameModal from "../components/ResetGameModal";
-import { resetChessGame } from "@/app/utils/chessboard/resetChessGame";
+import { resetChessGame } from "@/app/utils/resetChessGame";
 import { setResetTrigger } from "@/app/redux/slices/gameState/gameStateSlice";
 
 const ResetGameModalContainer = () => {

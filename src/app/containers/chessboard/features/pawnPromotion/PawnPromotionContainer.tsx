@@ -3,7 +3,7 @@ import { updateMovePawnPromotion } from "@/app/redux/slices/chessboardHistory/ch
 import { useDispatch } from "react-redux";
 import { PieceType, PieceName, ChessColors } from "@/app/types/ChessTypes";
 import PawnPromotionComponent from "@/app/containers/chessboard/features/pawnPromotion/components/PawnPromotionComponent";
-import { getPlayerColor } from "@/app/utils/chessColors/getPlayerColor";
+import { getPlayerColor } from "@/app/utils/getPlayerColor";
 
 type Props = {
   currentTurn: ChessColors.white | ChessColors.black;
