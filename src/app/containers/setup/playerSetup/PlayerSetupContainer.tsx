@@ -2,7 +2,7 @@ import { RootState } from "@/app/redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import PlayerNameEntry from "./components/PlayerNameEntry";
 import PlayerSetupHeader from "./components/PlayerSetupHeader";
-import StartGameButton from "@/app/containers/gameSetup/playerSetup/components/StartGameButton";
+import StartGameButton from "@/app/containers/setup/playerSetup/components/StartGameButton";
 import { setPlayerName } from "@/app/redux/slices/gameState/gameStateSlice";
 import { setIsGamePlaying } from "@/app/redux/slices/gameState/gameStateSlice";
 import { navigateToPage } from "@/app/utils/page/navigateToPage";

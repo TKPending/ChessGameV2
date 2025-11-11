@@ -1,7 +1,7 @@
 import { ComponentType } from "react";
 import ChessGamePage from "@/app/pages/ChessGamePage";
-import GamePlayerPage from "@/app/pages/gameSetup/GamePlayerPage";
-import GameSetupPage from "@/app/pages/gameSetup/GameSetupPage";
+import GamePlayerPage from "@/app/pages/setup/GamePlayerPage";
+import GameSetupPage from "@/app/pages/setup/GameSetupPage";
 import LandingPage from "@/app/pages/LandingPage";
 import RulesPage from "@/app/pages/RulesPage";
 

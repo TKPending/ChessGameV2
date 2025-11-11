@@ -1,4 +1,4 @@
-import PlayerSetupContainer from "@/app/containers/gameSetup/playerSetup/PlayerSetupContainer";
+import PlayerSetupContainer from "@/app/containers/setup/playerSetup/PlayerSetupContainer";
 
 const GamePlayerPage = () => {
   return (
