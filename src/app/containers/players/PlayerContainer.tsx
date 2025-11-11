@@ -8,7 +8,7 @@ type Props = {
   className: string;
 };
 
-const Players = ({ playerNo, className }: Props) => {
+const PlayerContainer = ({ playerNo, className }: Props) => {
   const player: PlayerType = useSelector(
     (state: RootState) => state.gameState.players[playerNo]
   );
@@ -38,4 +38,4 @@ const Players = ({ playerNo, className }: Props) => {
   );
 };
 
-export default Players;
+export default PlayerContainer;

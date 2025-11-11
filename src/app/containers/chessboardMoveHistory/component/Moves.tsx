@@ -1,6 +1,6 @@
-import CaptureMove from "@/app/containers/chessMoves/component/moves/CaptureMove";
-import StandardMove from "@/app/containers/chessMoves/component/moves/StandardMove";
-import PawnPromotionMove from "@/app/containers/chessMoves/component/moves/PawnPromotionMove";
+import CaptureMove from "@/app/containers/chessboardMoveHistory/component/moves/CaptureMove";
+import StandardMove from "@/app/containers/chessboardMoveHistory/component/moves/StandardMove";
+import PawnPromotionMove from "@/app/containers/chessboardMoveHistory/component/moves/PawnPromotionMove";
 import {
   PieceType,
   MoveHistoryType,

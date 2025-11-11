@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/app/redux/store";
 import { PageComponents } from "@/app/types/PageTypes";
 import { AnimatePresence, motion } from "framer-motion";
-import AnimatedFallingChessBackground from "@/app/containers/animatedBackground/AimatedFallingChessBackground";
+import AnimatedFallingChessBackground from "@/app/layouts/animatedBackground/AimatedFallingChessBackground";
 
 const ChessGame = () => {
   const currentPage = useSelector(

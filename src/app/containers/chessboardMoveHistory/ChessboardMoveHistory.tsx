@@ -4,9 +4,9 @@ import ChessMovesHeader from "./component/ChessMovesHeader";
 import ChessMovesContainer from "./containers/ChessMovesContainer";
 import HiddenMovesDisplay from "./component/HiddenMovesDisplay";
 import GameStartedText from "./component/GameStartedText";
-import ResetGame from "@/app/containers/resetGame/ResetGame";
+import ResetGame from "@/app/containers/features/resetGame/ResetGame";
 
-const ChessMoves = () => {
+const ChessboardMoveHistory = () => {
   const { isMovesHidden, currentMoveCount } = useSelector(
     (state: RootState) => state.chessboardHistoryState
   );
@@ -28,4 +28,4 @@ const ChessMoves = () => {
   );
 };
 
-export default ChessMoves;
+export default ChessboardMoveHistory;

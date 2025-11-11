@@ -2,7 +2,7 @@ import { setTileWithPromotedPawn } from "@/app/redux/slices/chessboardState/ches
 import { updateMovePawnPromotion } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
 import { useDispatch } from "react-redux";
 import { PieceType, PieceName, ChessColors } from "@/app/types/ChessTypes";
-import PawnPromotionComponent from "@/app/containers/chessboard/components/PawnPromotionComponent";
+import PawnPromotionComponent from "@/app/containers/chessboard/features/pawnPromotion/components/PawnPromotionComponent";
 import { getPlayerColor } from "@/app/utils/chessColors/getPlayerColor";
 
 type Props = {

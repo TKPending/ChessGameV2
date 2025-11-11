@@ -1,6 +1,6 @@
 import { RootState } from "@/app/redux/store";
 import { useSelector, useDispatch } from "react-redux";
-import Tile from "@/app/containers/chessboard/components/Tile";
+import Tile from "@/app/containers/chessboard/features/tile/components/Tile";
 import { resetTiles } from "@/app/utils/chessboard/design/resetTiles";
 import { isMoveValid } from "@/app/utils/pieceMovements/helpers/isMoveValid";
 import { handleFirstClick } from "./utils/handleFirstClick";

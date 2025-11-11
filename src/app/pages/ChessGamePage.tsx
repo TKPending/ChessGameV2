@@ -1,10 +1,10 @@
 import { RootState } from "@/app/redux/store";
 import { useSelector } from "react-redux";
 import ErrorContainer from "@/app/containers/ErrorContainer";
-import ResetGameModalContainer from "@/app/containers/resetGame/containers/ResetGameModalContainer";
+import ResetGameModalContainer from "@/app/containers/features/resetGame/containers/ResetGameModalContainer";
 import Chessboard from "@/app/containers/chessboard/Chessboard";
-import Players from "@/app/containers/players/Players";
-import ChessMoves from "@/app/containers/chessMoves/ChessMoves";
+import PlayerContainer from "@/app/containers/players/PlayerContainer";
+import ChessboardMoveHistory from "@/app/containers/chessboardMoveHistory/ChessboardMoveHistory";
 
 const PLAYERONE = 0;
 const PLAYERTWO = 1;
@@ -24,14 +24,14 @@ const ChessGamePage = () => {
       {/* Renders the Chessboard, Players and ChessMoves */}
       <div className="h-full w-full flex flex-col items-center md:flex-row gap-4 p-2">
         <div className="h-full md:w-[80%] flex flex-col items-center justify-around p-2 gap-4">
-          <Players playerNo={PLAYERTWO} className="items-end" />
+          <PlayerContainer playerNo={PLAYERTWO} className="items-end" />
 
           <Chessboard />
 
-          <Players playerNo={PLAYERONE} className="items-start" />
+          <PlayerContainer playerNo={PLAYERONE} className="items-start" />
         </div>
 
-        <ChessMoves />
+        <ChessboardMoveHistory />
       </div>
 
       {isReset && <ResetGameModalContainer />}

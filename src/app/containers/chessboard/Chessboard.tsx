@@ -6,11 +6,12 @@ import { setEnemyMoves } from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice
 import { generateTiles } from "@/app/utils/chessboard/generateTiles";
 import { generateAllEnemyMoves } from "@/app/utils/pieceMovements/generateMoves/generateAllEnemyMoves";
 import { checkForCheckmate } from "@/app/utils/pieceMovements/checkmate/checkForCheckmate";
-import ChessboardComponent from "./components/ChessboardComponent";
-import CheckmateContainer from "@/app/containers/checkmate/CheckmateContainer";
+import CheckmateContainer from "@/app/containers/features/checkmate/CheckmateContainer";
 import { EnemyAttackType } from "@/app/types/MoveTypes";
-import PawnPromotionContainer from "@/app/containers/chessboard/containers/PawnPromotionContainer";
+import PawnPromotionContainer from "@/app/containers/chessboard/features/pawnPromotion/PawnPromotionContainer";
 import { ChessColors } from "@/app/types/ChessTypes";
+import TileContainer from "@/app/containers/chessboard/features/tile/TileContainer";
+import { TileType } from "@/app/types/ChessTypes";
 
 const Chessboard = () => {
   const dispatch = useDispatch();
@@ -23,7 +24,6 @@ const Chessboard = () => {
   const { allEnemyMoves, isKingInCheck } = useSelector(
     (state: RootState) => state.moveAnalysisState
   );
-
   const currentMoveCount: number = useSelector(
     (state: RootState) => state.chessboardHistoryState.currentMoveCount
   );
@@ -70,7 +70,13 @@ const Chessboard = () => {
       {pawnPromotion.isPawnPromotion && (
         <PawnPromotionContainer currentTurn={currentTurn} />
       )}
-      <ChessboardComponent />
+      <div className="h-full w-full chessboard">
+        {chessboard.map((row: TileType[], rowIndex: number) =>
+          row.map((tile: TileType, colIndex: number) => (
+            <TileContainer key={`${rowIndex}-${colIndex}`} tile={tile} />
+          ))
+        )}
+      </div>
     </div>
   );
 };
