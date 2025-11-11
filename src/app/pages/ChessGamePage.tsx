@@ -5,7 +5,7 @@ import ChessMoves from "@/app/containers/chessMoves/ChessMoves";
 import ErrorContainer from "@/app/containers/ErrorContainer";
 import ResetGameModalContainer from "@/app/containers/resetGame/containers/ResetGameModalContainer";
 
-const GameLayout = () => {
+const ChessGamePage = () => {
   const isError: boolean = useSelector(
     (state: RootState) => state.gameState.error.isError
   );
@@ -26,4 +26,4 @@ const GameLayout = () => {
   );
 };
 
-export default GameLayout;
+export default ChessGamePage;

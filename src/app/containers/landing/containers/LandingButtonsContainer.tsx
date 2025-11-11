@@ -11,7 +11,7 @@ const LandingButtonsContainer = () => {
   };
 
   const handlePlayersTransition = () => {
-    navigateToPage(dispatch, PageEnum.landing, PageEnum.enterPlayers);
+    navigateToPage(dispatch, PageEnum.landing, PageEnum.gamePlayers);
   };
 
   return (

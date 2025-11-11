@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/app/redux/store";
 import { PageComponents } from "@/app/types/PageTypes";
 import { AnimatePresence, motion } from "framer-motion";
-import AnimatedFallingChessBackground from "./containers/animatedBackground/AimatedFallingChessBackground";
+import AnimatedFallingChessBackground from "@/app/containers/animatedBackground/AimatedFallingChessBackground";
 
 const ChessGame = () => {
   const currentPage = useSelector(
@@ -14,6 +14,13 @@ const ChessGame = () => {
 
   const CurrentComponent = PageComponents[currentPage];
   const PrevComponent = prevPage ? PageComponents[prevPage] : null;
+
+  console.log({
+    currentPage,
+    prevPage,
+    CurrentComponent,
+    PrevComponent,
+  });
 
   return (
     <div className="relative w-screen h-screen font-semibold overflow-none bg-page-background">

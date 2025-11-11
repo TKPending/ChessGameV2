@@ -4,7 +4,7 @@ import EnterPlayers from "@/app/containers/enterPlayers/EnterPlayers";
 import StartGameButton from "@/app/containers/enterPlayers/components/StartGameButton";
 import { PlayerType } from "@/app/types/ChessTypes";
 
-const EnterPlayersPage = () => {
+const GamePlayerPage = () => {
   const players: PlayerType[] = useSelector(
     (state: RootState) => state.gameState.players
   );
@@ -21,4 +21,4 @@ const EnterPlayersPage = () => {
   );
 };
 
-export default EnterPlayersPage;
+export default GamePlayerPage;
