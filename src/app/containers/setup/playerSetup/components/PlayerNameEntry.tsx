@@ -1,4 +1,4 @@
-import TextInput from "@/app/components/TextInput";
+import CustomTextInputComponent from "@/app/components/CustomTextInputComponent";
 import { PlayerType } from "@/app/types/ChessTypes";
 
 type PlayerNameEntryProps = {
@@ -12,7 +12,7 @@ const PlayerNameEntry = ({ player, onChange }: PlayerNameEntryProps) => {
       <p className="text-customGreen text-2xl">Player {player.no + 1}</p>
 
       <div className="w-full h-16">
-        <TextInput
+        <CustomTextInputComponent
           value={player.playerName}
           playerNo={player.no}
           customStyle="h-20 p-2 md:text-3xl"

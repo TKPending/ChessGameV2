@@ -10,7 +10,7 @@ type Props = {
   onChange: (newValue: string, playerNo: number) => void;
 };
 
-const TextInput = ({
+const CustomTextInputComponent = ({
   value = "",
   playerNo,
   invalidValue = false,
@@ -48,4 +48,4 @@ const TextInput = ({
   );
 };
 
-export default TextInput;
+export default CustomTextInputComponent;
