@@ -2,8 +2,6 @@ import { useSelector, useDispatch } from "react-redux";
 import Tile from "@/app/containers/chessboard/features/tile/components/Tile";
 import { resetTiles } from "@/app/containers/chessboard/utils/chessboard/design/resetTiles";
 import { isMoveValid } from "@/app/containers/chessboard/utils/pieceMovements/helpers/isMoveValid";
-import { handleFirstClick } from "@/app/containers/chessboard/features/tile/utils/handleFirstClick";
-import { handleReClickSamePiece } from "@/app/containers/chessboard/features/tile/utils/handleReClickSamePiece";
 import { handleValidMove } from "./utils/handleIsMoveValid";
 import { TileType, PieceType, ChessColors } from "@/app/types/ChessTypes";
 import {
@@ -20,6 +18,7 @@ import {
 } from "@/app/utils/selectors/moveAnalysisStateSelector";
 import { selectCurrentTurn } from "@/app/utils/selectors/gameStateSelectors";
 import { CastleType, EnemyAttackType } from "@/app/types/MoveTypes";
+import { tileClickHandler } from "./utils/tileClickHandler";
 
 type Props = {
   tile: TileType;
@@ -43,42 +42,30 @@ const TileContainer = ({ tile }: Props) => {
   const currentTurn: ChessColors = useSelector(selectCurrentTurn);
 
   const pieceOnTile: PieceType | null = tile.pieceOnTile || null;
+  const isSameTeamAsPrev: boolean = pieceOnTile?.pieceColor === currentTurn;
 
   const handleTileClick = (clickedTile: TileType) => {
-    if (!prevClickedTile) {
-      handleFirstClick(
+    // Select a piece to move
+    if (!prevClickedTile || isSameTeamAsPrev) {
+      tileClickHandler(
         dispatch,
-        pieceOnTile,
-        clickedTile,
         chessboard,
+        currentTurn,
+        clickedTile,
         isKingInCheck,
         piecesAttackingKing,
         validMovesWhenInCheck,
-        allEnemyMoves,
-        currentTurn
+        allEnemyMoves
       );
+
       return;
     }
 
+    // Check moves are valid
     if (
-      pieceOnTile &&
-      pieceOnTile.pieceColor === currentTurn &&
-      clickedTile.tilePosition !== prevClickedTile.tilePosition
+      isMoveValid(currentPieceMoves, clickedTile.tilePosition) &&
+      prevClickedTile
     ) {
-      handleReClickSamePiece(
-        dispatch,
-        clickedTile,
-        chessboard,
-        isKingInCheck,
-        piecesAttackingKing,
-        validMovesWhenInCheck,
-        allEnemyMoves,
-        currentTurn
-      );
-      return;
-    }
-
-    if (isMoveValid(currentPieceMoves, clickedTile.tilePosition)) {
       handleValidMove(
         dispatch,
         prevClickedTile,
