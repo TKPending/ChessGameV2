@@ -6,6 +6,8 @@ import Chessboard from "@/app/containers/chessboard/Chessboard";
 import PlayerContainer from "@/app/containers/players/PlayerContainer";
 import ChessboardMoveHistory from "@/app/containers/chessboardMoveHistory/ChessboardMoveHistory";
 import { selectIsGameReset } from "@/app/utils/selectors/gameStateSelectors";
+import BackButtonContainer from "@/app/containers/features/backButton/BackButtonContainer";
+import { PageEnum } from "@/app/types/PageTypes";
 
 const PLAYERONE = 0;
 const PLAYERTWO = 1;
@@ -18,6 +20,10 @@ const ChessGamePage = () => {
 
   return (
     <div className="h-screen w-screen max-h-screen max-w-screen overflow-hidden">
+      <BackButtonContainer
+        currentPage={PageEnum.chessGame}
+        nextPage={PageEnum.gamePlayers}
+      />
       {isError && <ErrorContainer />}
 
       {/* Renders the Chessboard, Players and ChessMoves */}
