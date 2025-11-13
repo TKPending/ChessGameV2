@@ -1,12 +1,10 @@
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "@/app/redux/store";
 import { setIsMovesHidden } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
+import { selectIsMovesHidden } from "@/app/utils/selectors/chessboardHistoryStateSelector";
 
 const ChessMovesButton = () => {
   const dispatch = useDispatch();
-  const isPreviousMovesHidden: boolean = useSelector(
-    (state: RootState) => state.chessboardHistoryState.isMovesHidden
-  );
+  const isMovesHidden: boolean = useSelector(selectIsMovesHidden);
 
   const handleDisplayMoves = () => {
     dispatch(setIsMovesHidden());
@@ -18,7 +16,7 @@ const ChessMovesButton = () => {
         onClick={handleDisplayMoves}
         className="text-customGreen cursor-pointer hover:underline"
       >
-        {isPreviousMovesHidden ? "Hide" : "Show"}
+        {isMovesHidden ? "Hide" : "Show"}
       </p>
     </div>
   );

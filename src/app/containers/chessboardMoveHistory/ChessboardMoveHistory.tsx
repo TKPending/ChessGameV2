@@ -1,15 +1,17 @@
 import { useSelector } from "react-redux";
-import { RootState } from "@/app/redux/store";
 import ChessMovesHeader from "./component/ChessMovesHeader";
 import ChessMovesContainer from "./containers/ChessMovesContainer";
 import HiddenMovesDisplay from "./component/HiddenMovesDisplay";
 import GameStartedText from "./component/GameStartedText";
 import ResetGame from "@/app/containers/features/resetGame/ResetGame";
+import {
+  selectCurrentMoveCount,
+  selectIsMovesHidden,
+} from "@/app/utils/selectors/chessboardHistoryStateSelector";
 
 const ChessboardMoveHistory = () => {
-  const { isMovesHidden, currentMoveCount } = useSelector(
-    (state: RootState) => state.chessboardHistoryState
-  );
+  const isMovesHidden: boolean = useSelector(selectIsMovesHidden);
+  const currentMoveCount: number = useSelector(selectCurrentMoveCount);
 
   return (
     <div className="min-h-[20px] h-[120px] md:h-full p-2 w-full md:max-w-[300px] flex items-center justify-center">

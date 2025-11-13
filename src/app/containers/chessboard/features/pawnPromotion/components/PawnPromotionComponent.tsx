@@ -1,6 +1,7 @@
-import { RootState } from "@/app/redux/store";
 import { useSelector } from "react-redux";
-import { PieceName } from "@/app/types/ChessTypes";
+import { ChessColors, PieceName } from "@/app/types/ChessTypes";
+import { selectCurrentTurn } from "@/app/utils/selectors/gameStateSelectors";
+import { getPlayerColor } from "@/app/utils/getPlayerColor";
 
 type PawnPromotionComponentProps = {
   handlePiecePromotion: (pieceName: PieceName) => void;
@@ -15,11 +16,8 @@ interface PromotionOptionType {
 const PawnPromotionComponent = ({
   handlePiecePromotion,
 }: PawnPromotionComponentProps) => {
-  const currentTurn = useSelector(
-    (state: RootState) => state.gameState.currentTurn
-  );
-  const pieceColor: "white" | "black" =
-    currentTurn === "White" ? "black" : "white";
+  const currentTurn: ChessColors = useSelector(selectCurrentTurn);
+  const pieceColor: ChessColors = getPlayerColor(currentTurn, true);
 
   const promotionOptions: PromotionOptionType[] = [
     {

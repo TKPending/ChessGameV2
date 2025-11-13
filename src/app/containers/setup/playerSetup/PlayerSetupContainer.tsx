@@ -1,4 +1,3 @@
-import { RootState } from "@/app/redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import PlayerNameEntry from "./components/PlayerNameEntry";
 import PlayerSetupHeader from "./components/PlayerSetupHeader";
@@ -6,14 +5,13 @@ import StartGameButton from "@/app/containers/setup/playerSetup/components/Start
 import { setPlayerName } from "@/app/redux/slices/gameState/gameStateSlice";
 import { setIsGamePlaying } from "@/app/redux/slices/gameState/gameStateSlice";
 import { navigateToPage } from "@/app/utils/navigateToPage";
+import { selectPlayers } from "@/app/utils/selectors/gameStateSelectors";
 import { PageEnum } from "@/app/types/PageTypes";
 import { PlayerType } from "@/app/types/ChessTypes";
 
 const PlayerSetupContainer = () => {
   const dispatch = useDispatch();
-  const players: PlayerType[] = useSelector(
-    (state: RootState) => state.gameState.players
-  );
+  const players: PlayerType[] = useSelector(selectPlayers);
   const isPlayerNamesValid: boolean = players.every(
     (name: PlayerType) => name.playerName.length > 2
   );

@@ -30,18 +30,19 @@ const Chessboard = () => {
   const dispatch = useDispatch();
   const chessboard: TileType[][] = useSelector(selectChessboard);
   const pawnPromotion: PawnPromotionType = useSelector(selectPawnPromotion);
-  const currentTurn: ChessColors.white | ChessColors.black =
-    useSelector(selectCurrentTurn);
+  const currentTurn: ChessColors = useSelector(selectCurrentTurn);
   const isKingInCheckmate: boolean = useSelector(selectIsKingInCheckmate);
   const allEnemyMoves: EnemyAttackType[] = useSelector(selectAllEnemyMoves);
   const isKingInCheck: boolean = useSelector(selectIsKingInCheck);
   const currentMoveCount: number = useSelector(selectCurrentMoveCount);
 
   useEffect(() => {
+    // If the board hasn't been initialised yet, generate tiles
     if (chessboard.length === 0) {
       dispatch(setChessboard(generateTiles()));
     }
 
+    // Simulate moves once the board has more than 3 moves to avoid unnecessary calculations
     if (
       chessboard.length > 0 &&
       allEnemyMoves.length === 0 &&
@@ -49,16 +50,18 @@ const Chessboard = () => {
     ) {
       const enemyColor: ChessColors = getPlayerColor(currentTurn, true);
 
-      const notSimulation: boolean = false;
+      const isSimulatingEnemyMoves: boolean = false;
 
+      // Generate all possible enemy moves and check for checkmate
       const enemyLegalMoves: EnemyAttackType[] = generateAllEnemyMoves(
         dispatch,
         chessboard,
         enemyColor,
-        notSimulation
+        isSimulatingEnemyMoves
       );
       checkForCheckmate(dispatch, chessboard, enemyLegalMoves, currentTurn);
 
+      // Store enemy moves
       dispatch(setEnemyMoves(enemyLegalMoves));
     }
   }, [
@@ -72,10 +75,13 @@ const Chessboard = () => {
 
   return (
     <div className="h-auto w-full flex items-center justify-center">
+      {/* Game is in checkmate */}
       {isKingInCheckmate && <CheckmateContainer />}
-      {pawnPromotion.isPawnPromotion && (
-        <PawnPromotionContainer currentTurn={currentTurn} />
-      )}
+
+      {/* Pawn promotion is possible */}
+      {pawnPromotion.isPawnPromotion && <PawnPromotionContainer />}
+
+      {/* Render Chessboard */}
       <div className="h-full w-full chessboard">
         {chessboard.map((row: TileType[], rowIndex: number) =>
           row.map((tile: TileType, colIndex: number) => (

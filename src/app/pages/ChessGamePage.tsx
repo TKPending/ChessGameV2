@@ -5,6 +5,7 @@ import ResetGameModalContainer from "@/app/containers/features/resetGame/contain
 import Chessboard from "@/app/containers/chessboard/Chessboard";
 import PlayerContainer from "@/app/containers/players/PlayerContainer";
 import ChessboardMoveHistory from "@/app/containers/chessboardMoveHistory/ChessboardMoveHistory";
+import { selectIsGameReset } from "@/app/utils/selectors/gameStateSelectors";
 
 const PLAYERONE = 0;
 const PLAYERTWO = 1;
@@ -13,9 +14,7 @@ const ChessGamePage = () => {
   const isError: boolean = useSelector(
     (state: RootState) => state.gameState.error.isError
   );
-  const isReset: boolean = useSelector(
-    (state: RootState) => state.gameState.isGameReset
-  );
+  const isGameReset: boolean = useSelector(selectIsGameReset);
 
   return (
     <div className="h-screen w-screen max-h-screen max-w-screen overflow-hidden">
@@ -34,7 +33,7 @@ const ChessGamePage = () => {
         <ChessboardMoveHistory />
       </div>
 
-      {isReset && <ResetGameModalContainer />}
+      {isGameReset && <ResetGameModalContainer />}
     </div>
   );
 };

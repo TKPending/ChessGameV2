@@ -1,11 +1,14 @@
-import { RootState } from "@/app/redux/store";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useWindowSize } from "react-use";
 import Confetti from "react-confetti";
 import Button from "@/app/components/Button";
 import { setWinner } from "@/app/redux/slices/gameState/gameStateSlice";
-import { PlayerType } from "@/app/types/ChessTypes";
+import {
+  selectCurrentTurn,
+  selectPlayers,
+} from "@/app/utils/selectors/gameStateSelectors";
+import { ChessColors, PlayerType } from "@/app/types/ChessTypes";
 
 type CheckmateProps = {
   displayCheckmate: boolean;
@@ -21,12 +24,8 @@ const Checkmate = ({
   const dispatch = useDispatch();
   const { width, height } = useWindowSize();
 
-  const currentTurn: "White" | "Black" = useSelector(
-    (state: RootState) => state.gameState.currentTurn
-  );
-  const players: PlayerType[] = useSelector(
-    (state: RootState) => state.gameState.players
-  );
+  const currentTurn: ChessColors = useSelector(selectCurrentTurn);
+  const players: PlayerType[] = useSelector(selectPlayers);
 
   const winner = currentTurn === "White" ? players[1] : players[0];
 

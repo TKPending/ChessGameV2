@@ -1,11 +1,9 @@
 import { useSelector } from "react-redux";
-import { RootState } from "@/app/redux/store";
+import { selectCurrentTurn } from "@/app/utils/selectors/gameStateSelectors";
 import { ChessColors } from "@/app/types/ChessTypes";
 
 const GameStartedText = () => {
-  const currentTurn: ChessColors.black | ChessColors.white = useSelector(
-    (state: RootState) => state.gameState.currentTurn
-  );
+  const currentTurn: ChessColors = useSelector(selectCurrentTurn);
   return (
     <div className="h-full w-full flex md:flex-col gap-4 items-center justify-center">
       <img

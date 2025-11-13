@@ -1,11 +1,9 @@
 import { useSelector } from "react-redux";
-import { RootState } from "@/app/redux/store";
 import ChessMovesButton from "./ChessMovesButton";
+import { selectCurrentMoveCount } from "@/app/utils/selectors/chessboardHistoryStateSelector";
 
 const ChessMovesHeader = () => {
-  const currentMoveCount: number = useSelector(
-    (state: RootState) => state.chessboardHistoryState.currentMoveCount
-  );
+  const currentMoveCount: number = useSelector(selectCurrentMoveCount);
 
   return (
     <div className="flex flex-row justify-between text-xs md:text-base px-2">

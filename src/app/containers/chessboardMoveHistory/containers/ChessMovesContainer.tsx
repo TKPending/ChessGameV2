@@ -1,14 +1,16 @@
-import { RootState } from "@/app/redux/store";
 import { useSelector } from "react-redux";
 import Moves from "@/app/containers/chessboardMoveHistory/component/Moves";
+import { selectMovesHistory } from "@/app/utils/selectors/chessboardHistoryStateSelector";
+import {
+  selectIsPlaying,
+  selectWinner,
+} from "@/app/utils/selectors/gameStateSelectors";
 import { MoveHistoryType } from "@/app/types/ChessTypes";
 
 const ChessMovesContainer = () => {
-  const moveHistory: MoveHistoryType[] = useSelector(
-    (state: RootState) => state.chessboardHistoryState.movesHistory
-  );
-  const winner = useSelector((state: RootState) => state.gameState.winner);
-  const isWinner = useSelector((state: RootState) => state.gameState.isPlaying);
+  const moveHistory: MoveHistoryType[] = useSelector(selectMovesHistory);
+  const winner = useSelector(selectWinner);
+  const isWinner = useSelector(selectIsPlaying);
 
   return (
     <div className="w-screen md:w-full w-full h-full flex rounded-md p-2 overflow-x-auto overflow-y-hidden md:overflow-y-auto scrollbar-thin scrollbar-thumb-rounded">

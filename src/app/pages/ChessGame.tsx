@@ -2,15 +2,17 @@
 
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/redux/store";
-import { PageComponents } from "@/app/types/PageTypes";
 import { AnimatePresence, motion } from "framer-motion";
 import AnimatedFallingChessBackground from "@/app/layouts/animatedBackground/AimatedFallingChessBackground";
+import {
+  selectCurrentPage,
+  selectPrevPage,
+} from "@/app/utils/selectors/pageStateSelector";
+import { PageComponents } from "@/app/types/PageTypes";
 
 const ChessGame = () => {
-  const currentPage = useSelector(
-    (state: RootState) => state.pageState.currentPage
-  );
-  const prevPage = useSelector((state: RootState) => state.pageState.prevPage);
+  const currentPage: string = useSelector(selectCurrentPage);
+  const prevPage: string = useSelector(selectPrevPage);
 
   const CurrentComponent = PageComponents[currentPage];
   const PrevComponent = prevPage ? PageComponents[prevPage] : null;

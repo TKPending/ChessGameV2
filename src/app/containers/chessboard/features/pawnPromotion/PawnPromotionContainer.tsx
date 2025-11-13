@@ -1,17 +1,15 @@
+import { useDispatch, useSelector } from "react-redux";
+import { selectCurrentTurn } from "@/app/utils/selectors/gameStateSelectors";
 import { setTileWithPromotedPawn } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
 import { updateMovePawnPromotion } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
-import { useDispatch } from "react-redux";
 import { PieceType, PieceName, ChessColors } from "@/app/types/ChessTypes";
 import PawnPromotionComponent from "@/app/containers/chessboard/features/pawnPromotion/components/PawnPromotionComponent";
 import { getPlayerColor } from "@/app/utils/getPlayerColor";
 
-type Props = {
-  currentTurn: ChessColors.white | ChessColors.black;
-};
-
-const PawnPromotionContainer = ({ currentTurn }: Props) => {
+const PawnPromotionContainer = () => {
   const dispatch = useDispatch();
-  const turnToChange: ChessColors = getPlayerColor(currentTurn);
+  const currentTurn: ChessColors = useSelector(selectCurrentTurn);
+  const turnToChange: ChessColors = getPlayerColor(currentTurn, true);
 
   const handlePiecePromotion = (pieceName: PieceName) => {
     const promotedPiece: PieceType = {
