@@ -1,9 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import Tile from "@/app/containers/chessboard/features/tile/components/Tile";
-import { resetTiles } from "@/app/containers/chessboard/utils/chessboard/design/resetTiles";
-import { isMoveValid } from "@/app/containers/chessboard/utils/pieceMovements/helpers/isMoveValid";
-import { handleValidMove } from "./utils/handleIsMoveValid";
-import { TileType, PieceType, ChessColors } from "@/app/types/ChessTypes";
+
 import {
   selectCastling,
   selectChessboard,
@@ -16,9 +13,33 @@ import {
   selectPiecesAttackingKing,
   selectValidMovesWhenInCheck,
 } from "@/app/utils/selectors/moveAnalysisStateSelector";
+
+import { resetTiles } from "@/app/containers/chessboard/utils/chessboard/design/resetTiles";
+import { isMoveValid } from "@/app/containers/chessboard/utils/pieceMovements/helpers/isMoveValid";
 import { selectCurrentTurn } from "@/app/utils/selectors/gameStateSelectors";
+import { clearTileHighlights } from "@/app/containers/chessboard/utils/chessboard/design/clearTileHighlights";
+import { generateSelectedPieceValidMoves } from "@/app/containers/chessboard/utils/pieceMovements/generateMoves/generateSelectedPiece";
+import { getValidPieceMoves } from "@/app/containers/chessboard/utils/handlers/helpers/handPieceOnTileHelpers/getValidPieceMoves";
+import { getKingSpecificMoves } from "@/app/containers/chessboard/utils/handlers/helpers/handPieceOnTileHelpers/getKingSpecificMoves";
+import { isKingSafeAfterMove } from "@/app/containers/chessboard/utils/handlers/helpers/handPieceOnTileHelpers/isKingSafeAfterMove";
+import { highlightValidMoves } from "@/app/containers/chessboard/utils/chessboard/design/highlightValidMoves";
+import { handleMovePiece } from "@/app/containers/chessboard/utils/handlers/handleMovePiece";
+import { getPlayerColor } from "@/app/utils/getPlayerColor";
+
+import {
+  setCurrentPiecePotentialMoves,
+  setEnemyMoves,
+  setPiecesAttackingKing,
+} from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
+import {
+  updateTile,
+  setPreviousTile,
+} from "@/app/redux/slices/chessboardState/chessboardStateSlice";
+import { setCurrentTurn } from "@/app/redux/slices/gameState/gameStateSlice";
+import { incrementMoveCounter } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
+
+import { TileType, PieceType, ChessColors } from "@/app/types/ChessTypes";
 import { CastleType, EnemyAttackType } from "@/app/types/MoveTypes";
-import { tileClickHandler } from "./utils/tileClickHandler";
 
 type Props = {
   tile: TileType;
@@ -41,22 +62,89 @@ const TileContainer = ({ tile }: Props) => {
   const allEnemyMoves: EnemyAttackType[] = useSelector(selectAllEnemyMoves);
   const currentTurn: ChessColors = useSelector(selectCurrentTurn);
 
-  const pieceOnTile: PieceType | null = tile.pieceOnTile || null;
-  const isSameTeamAsPrev: boolean = pieceOnTile?.pieceColor === currentTurn;
-
   const handleTileClick = (clickedTile: TileType) => {
+    const pieceOnClickedTile: PieceType | null = clickedTile.pieceOnTile;
+    const clickedWrongColorFirst: boolean | null =
+      pieceOnClickedTile &&
+      pieceOnClickedTile.pieceColor !== currentTurn &&
+      !prevClickedTile;
+    const isSameTeamAsPrev: boolean =
+      pieceOnClickedTile?.pieceColor === currentTurn;
+
+    // Check if selected piece belongs to the current player
+    if (clickedWrongColorFirst) {
+      resetTiles(dispatch, chessboard);
+      return;
+    }
+
+    //
     // Select a piece to move
     if (!prevClickedTile || isSameTeamAsPrev) {
-      tileClickHandler(
-        dispatch,
-        chessboard,
-        currentTurn,
-        clickedTile,
-        isKingInCheck,
-        piecesAttackingKing,
-        validMovesWhenInCheck,
-        allEnemyMoves
+      // Clear previously highlighted tiles
+      clearTileHighlights(dispatch, chessboard);
+
+      // Highlight the selected tile
+      dispatch(
+        updateTile({
+          ...clickedTile,
+          isHighlighted: true,
+          highlightReason: "selected",
+        })
       );
+
+      // Set the previous clicked tile in state
+      dispatch(setPreviousTile(clickedTile));
+
+      // Generate all valid moves for the selected piece
+      const selectedPieceValidMoves: number[][] =
+        generateSelectedPieceValidMoves(
+          dispatch,
+          chessboard,
+          clickedTile,
+          allEnemyMoves
+        );
+
+      // Get positions of pieces attacking the king
+      const attackingPositions = piecesAttackingKing.map(
+        (piece) => piece.piecePosition
+      );
+
+      // Determine valid moves considering check status
+      let validPieceMoves: number[][] = getValidPieceMoves(
+        isKingInCheck,
+        attackingPositions,
+        validMovesWhenInCheck,
+        selectedPieceValidMoves
+      );
+
+      // Get king specific moves
+      const kingSpecificMoves: number[][] = getKingSpecificMoves(
+        dispatch,
+        clickedTile,
+        chessboard,
+        allEnemyMoves,
+        attackingPositions,
+        currentTurn
+      );
+
+      // Combine all legal moves
+      const enemyTeamColor: ChessColors = getPlayerColor(currentTurn, true);
+      const pieceLegalMoves = [...validPieceMoves, ...kingSpecificMoves].filter(
+        ([row, col]) =>
+          !isKingSafeAfterMove(
+            dispatch,
+            chessboard,
+            clickedTile,
+            chessboard[row][col],
+            currentTurn,
+            enemyTeamColor
+          )
+      );
+
+      // Highliht valid moves on the chessboard
+      highlightValidMoves(dispatch, chessboard, pieceLegalMoves, currentTurn);
+      // Store the potential moves in state
+      dispatch(setCurrentPiecePotentialMoves(pieceLegalMoves));
 
       return;
     }
@@ -66,13 +154,21 @@ const TileContainer = ({ tile }: Props) => {
       isMoveValid(currentPieceMoves, clickedTile.tilePosition) &&
       prevClickedTile
     ) {
-      handleValidMove(
+      // Move piece and update the chessboard state
+      const updatedChessboard: TileType[][] | [] = handleMovePiece(
         dispatch,
         prevClickedTile,
         clickedTile,
         chessboard,
         castling
       );
+      //
+      resetTiles(dispatch, updatedChessboard);
+
+      dispatch(setEnemyMoves([]));
+      dispatch(setCurrentTurn());
+      dispatch(incrementMoveCounter());
+      dispatch(setPiecesAttackingKing(null));
 
       return;
     }
