@@ -1,15 +1,18 @@
 import Button from "@/app/components/Button";
 
-type StartGameButtonProps = {
+type ChessSettingButtonProps = {
   isVisible: boolean;
   onClick: () => void;
 };
 
-const StartGameButton = ({ isVisible, onClick }: StartGameButtonProps) => {
+const ChessSettingButton = ({
+  isVisible,
+  onClick,
+}: ChessSettingButtonProps) => {
   return (
     <div>
       <Button
-        text="Start Game"
+        text="Game Settings"
         className={`${
           isVisible ? "flex" : "opacity-0 cursor-default"
         } bg-customGreen text-white w-auto p-4 transition duration-400 hover:bg-opacity-90`}
@@ -19,4 +22,4 @@ const StartGameButton = ({ isVisible, onClick }: StartGameButtonProps) => {
   );
 };
 
-export default StartGameButton;
+export default ChessSettingButton;
