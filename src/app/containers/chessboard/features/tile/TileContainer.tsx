@@ -63,6 +63,11 @@ const TileContainer = ({ tile }: Props) => {
   const currentTurn: ChessColors = useSelector(selectCurrentTurn);
 
   const handleTileClick = (clickedTile: TileType) => {
+    // No action on empty click
+    if (!prevClickedTile && !clickedTile.pieceOnTile) {
+      return;
+    }
+
     const pieceOnClickedTile: PieceType | null = clickedTile.pieceOnTile;
     const clickedWrongColorFirst: boolean | null =
       pieceOnClickedTile &&
