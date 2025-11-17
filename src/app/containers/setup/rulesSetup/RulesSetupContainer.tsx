@@ -1,4 +1,4 @@
-import TimeSettings from "./components/TimeSettings";
+import TimeSettings from "./containers/TimeSettingsContainer";
 import UndoOptionSlider from "./components/UndoOptionSlider";
 
 const RulesSetupContainer = () => {

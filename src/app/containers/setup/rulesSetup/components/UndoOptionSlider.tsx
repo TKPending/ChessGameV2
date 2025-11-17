@@ -1,6 +1,10 @@
 import { motion } from "framer-motion";
 
 const UndoOptionSlider = () => {
+  const handleOnClick = () => {
+    console.log("Toggle");
+  };
+
   return (
     <div
       className="flex flex-col items-center justify-start w-full md:w-1/2
@@ -20,6 +24,7 @@ const UndoOptionSlider = () => {
           <motion.div
             className="absolute top-1 left-1 w-8 h-8 bg-customGreen rounded-full shadow-md"
             layout
+            onClick={handleOnClick}
             transition={{
               type: "spring",
               stiffness: 700,
