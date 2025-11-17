@@ -1,8 +1,11 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 const UndoOptionSlider = () => {
+  const [allowed, setAllowed] = useState(false);
+
   const handleOnClick = () => {
-    console.log("Toggle");
+    setAllowed((prev) => !prev);
   };
 
   return (
@@ -16,19 +19,27 @@ const UndoOptionSlider = () => {
       <div className="flex items-center justify-between w-full">
         <span className="text-lg text-gray-300">Disallow</span>
 
-        <div className="relative w-20 h-10">
+        <div
+          className="relative w-20 h-10 cursor-pointer"
+          onClick={handleOnClick}
+        >
           <motion.div
-            className="absolute inset-0 rounded-full bg-gray-600"
+            className={`absolute inset-0 rounded-full ${
+              allowed ? "bg-customGreen opacity-50" : "bg-gray-600"
+            }`}
             whileTap={{ scale: 0.95 }}
           />
+
           <motion.div
-            className="absolute top-1 left-1 w-8 h-8 bg-customGreen rounded-full shadow-md"
+            className={`absolute top-1 w-8 h-8 bg-customGreen rounded-full shadow-md`}
             layout
-            onClick={handleOnClick}
             transition={{
               type: "spring",
               stiffness: 700,
               damping: 30,
+            }}
+            style={{
+              left: allowed ? "calc(100% - 2.5rem)" : "0.25rem",
             }}
           />
         </div>

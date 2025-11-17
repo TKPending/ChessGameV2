@@ -8,6 +8,8 @@ type TimeSettingsType = {
   increments: string[];
 };
 
+// TODO: This can be optimised further
+
 const TimeSettings = () => {
   const [selectedCategory, setSelectedCategory] = useState("Blitz");
   const [selectedDuration, setSelectedDuration] = useState("1 Minutes");
@@ -48,7 +50,7 @@ const TimeSettings = () => {
   };
 
   return (
-    <div className="flex flex-col items-center w-full md:w-1/2 bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl shadow-xl p-8 border border-gray-700 h-[400px]">
+    <div className="flex flex-col items-center w-full md:w-1/2 bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl shadow-xl p-8 border border-gray-700 h-[350px]">
       <h2 className="text-2xl font-semibold text-white mb-6">Time Settings</h2>
 
       {/* CATEGORY */}
