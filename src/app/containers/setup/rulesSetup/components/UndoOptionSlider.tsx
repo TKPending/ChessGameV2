@@ -1,11 +1,13 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
 
-const UndoOptionSlider = () => {
-  const [allowed, setAllowed] = useState(false);
+type UndoOptionSliderProps = {
+  allowed: boolean;
+  setAllowed: (allowed: boolean) => void;
+};
 
+const UndoOptionSlider = ({ allowed, setAllowed }: UndoOptionSliderProps) => {
   const handleOnClick = () => {
-    setAllowed((prev) => !prev);
+    setAllowed(!allowed);
   };
 
   return (

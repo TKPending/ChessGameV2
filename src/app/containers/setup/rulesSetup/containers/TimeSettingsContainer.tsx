@@ -2,44 +2,59 @@ import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import DropdownOption from "../components/DropdownOption";
 
-type TimeSettingsType = {
+type TimeSettingsProps = {
+  category: string;
+  duration: string;
+  increment: string;
+  onChangeCategory: (
+    category: string,
+    duration: string,
+    increment: string
+  ) => void;
+  onChangeDuration: (duration: string) => void;
+  onChangeIncrement: (increment: string) => void;
+};
+
+type Test = {
   name: string;
   durations: string[];
   increments: string[];
 };
 
+const timeSettingsOptions: Test[] = [
+  {
+    name: "Blitz",
+    durations: ["1 Minutes", "3 Minutes", "5 Minutes"],
+    increments: ["0 Seconds", "5 Seconds", "10 Seconds"],
+  },
+  {
+    name: "Rapid",
+    durations: ["5 Minutes", "10 Minutes"],
+    increments: ["0 Seconds", "10 Seconds", "15 Seconds"],
+  },
+  {
+    name: "Classical",
+    durations: ["10 Minutes", "Infinite"],
+    increments: ["0 Seconds", "15 Seconds", "Infinite"],
+  },
+];
+
 // TODO: This can be optimised further
-
-const TimeSettings = () => {
-  const [selectedCategory, setSelectedCategory] = useState("Blitz");
-  const [selectedDuration, setSelectedDuration] = useState("1 Minutes");
-  const [selectedIncrement, setSelectedIncrement] = useState("0 Seconds");
-
+const TimeSettings = ({
+  category,
+  duration,
+  increment,
+  onChangeCategory,
+  onChangeDuration,
+  onChangeIncrement,
+}: TimeSettingsProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState<{
     name: string;
     open: boolean;
   }>({ name: "", open: false });
 
-  const timeSettingsOptions: TimeSettingsType[] = [
-    {
-      name: "Blitz",
-      durations: ["1 Minutes", "3 Minutes", "5 Minutes"],
-      increments: ["0 Seconds", "5 Seconds", "10 Seconds"],
-    },
-    {
-      name: "Rapid",
-      durations: ["5 Minutes", "10 Minutes"],
-      increments: ["0 Seconds", "10 Seconds", "15 Seconds"],
-    },
-    {
-      name: "Classical",
-      durations: ["10 Minutes", "Infinite"],
-      increments: ["0 Seconds", "15 Seconds", "Infinite"],
-    },
-  ];
-
   const categoryData = timeSettingsOptions.find(
-    (option) => option.name === selectedCategory
+    (option) => option.name === category
   );
 
   const toggleDropdown = (section: string) => {
@@ -59,7 +74,7 @@ const TimeSettings = () => {
           className="appearance-none w-full px-4 py-3 bg-gray-700 text-white rounded-lg text-lg cursor-pointer"
           onClick={() => toggleDropdown("category")}
         >
-          <p>{selectedCategory}</p>
+          <p>{category}</p>
           <ChevronDown
             className="absolute right-4 top-3.5 text-gray-400"
             size={24}
@@ -68,14 +83,18 @@ const TimeSettings = () => {
 
         {isDropdownOpen.open && isDropdownOpen.name === "category" && (
           <div className="absolute mt-2 w-full bg-gray-700 rounded-lg shadow-lg z-20">
-            {timeSettingsOptions.map((option) => (
+            {timeSettingsOptions.map((option: Test) => (
               <DropdownOption
                 key={option.name}
                 text={option.name}
                 onClick={() => {
-                  setSelectedCategory(option.name);
-                  setSelectedDuration(option.durations[0]);
-                  setSelectedIncrement(option.increments[0]);
+                  onChangeDuration(option.durations[0]);
+                  onChangeIncrement(option.increments[0]);
+                  onChangeCategory(
+                    option.name,
+                    option.durations[0],
+                    option.increments[0]
+                  );
                   setIsDropdownOpen({ name: "", open: false });
                 }}
               />
@@ -90,7 +109,7 @@ const TimeSettings = () => {
           className="appearance-none w-full px-4 py-3 bg-gray-700 text-white rounded-lg text-lg cursor-pointer"
           onClick={() => toggleDropdown("duration")}
         >
-          <p>{selectedDuration}</p>
+          <p>{duration}</p>
           <ChevronDown
             className="absolute right-4 top-3.5 text-gray-400"
             size={24}
@@ -101,12 +120,12 @@ const TimeSettings = () => {
           isDropdownOpen.name === "duration" &&
           categoryData && (
             <div className="absolute mt-2 w-full bg-gray-700 rounded-lg shadow-lg z-20">
-              {categoryData.durations.map((duration) => (
+              {categoryData.durations.map((duration: string) => (
                 <DropdownOption
                   key={duration}
                   text={duration}
                   onClick={() => {
-                    setSelectedDuration(duration);
+                    onChangeDuration(duration);
                     setIsDropdownOpen({ name: "", open: false });
                   }}
                 />
@@ -121,7 +140,7 @@ const TimeSettings = () => {
           className="appearance-none w-full px-4 py-3 bg-gray-700 text-white rounded-lg text-lg cursor-pointer"
           onClick={() => toggleDropdown("increments")}
         >
-          <p>{selectedIncrement}</p>
+          <p>{increment}</p>
           <ChevronDown
             className="absolute right-4 top-3.5 text-gray-400"
             size={24}
@@ -132,12 +151,12 @@ const TimeSettings = () => {
           isDropdownOpen.name === "increments" &&
           categoryData && (
             <div className="absolute mt-2 w-full bg-gray-700 rounded-lg shadow-lg z-20">
-              {categoryData.increments.map((increment) => (
+              {categoryData.increments.map((increment: string) => (
                 <DropdownOption
                   key={increment}
                   text={increment}
                   onClick={() => {
-                    setSelectedIncrement(increment);
+                    onChangeIncrement(increment);
                     setIsDropdownOpen({ name: "", open: false });
                   }}
                 />

@@ -1,8 +1,22 @@
+import { useDispatch } from "react-redux";
 import Button from "@/app/components/Button";
 
-const StartGameButton = () => {
+type StartGameButtonProps = {
+  category: string;
+  duration: string;
+  increment: string;
+  undoAllowed: boolean;
+};
+
+const StartGameButton = ({
+  category,
+  duration,
+  increment,
+  undoAllowed,
+}: StartGameButtonProps) => {
+  const dispatch = useDispatch();
   const handleStartGame = () => {
-    console.log("Game Started");
+    // TODO: Handle redux state updates to start the game
   };
 
   return (
