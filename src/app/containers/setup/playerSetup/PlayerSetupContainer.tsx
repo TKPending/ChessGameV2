@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from "react-redux";
 import PlayerSetupHeader from "./components/PlayerSetupHeader";
 import StartGameButton from "@/app/containers/setup/playerSetup/components/ChessSettingButton";
 import { setPlayerName } from "@/app/redux/slices/gameState/gameStateSlice";
-import { setIsGamePlaying } from "@/app/redux/slices/gameState/gameStateSlice";
 import { navigateToPage } from "@/app/utils/navigateToPage";
 import { selectPlayers } from "@/app/utils/selectors/gameStateSelectors";
 import { PageEnum } from "@/app/types/PageTypes";

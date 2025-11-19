@@ -2,6 +2,7 @@ import { RootState } from "@/app/redux/store";
 import { useSelector } from "react-redux";
 import CapturedPieces from "@/app/containers/players/components/CapturedPieces";
 import { PlayerType } from "@/app/types/ChessTypes";
+import PlayerTimer from "./components/PlayerTimer";
 
 type Props = {
   playerNo: number;
@@ -22,16 +23,19 @@ const PlayerContainer = ({ playerNo, className }: Props) => {
       <section
         className={`bg-section-background shadow-lg w-full md:w-1/2 h-20 gap-1 p-2 px-4 flex flex-col rounded-lg justify-start ${className}`}
       >
-        <p
-          className={`flex items-center justify-start gap-2 text-md text-customGreen`}
+        <div
+          className={`flex items-center justify-between text-md text-customGreen w-full`}
         >
-          {player.playerName}
-          <img
-            src={`${player.team.toLowerCase()}-king.png`}
-            className="h-6 w-6"
-            alt={`${player.team} king piece`}
-          />
-        </p>
+          <PlayerTimer playerNo={playerNo} />
+          <div className="flex gap-2">
+            <p>{player.playerName}</p>
+            <img
+              src={`${player.team.toLowerCase()}-king.png`}
+              className="h-6 w-6"
+              alt={`${player.team} king piece`}
+            />
+          </div>
+        </div>
         <CapturedPieces player={player} />
       </section>
     </div>

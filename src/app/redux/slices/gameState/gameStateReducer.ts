@@ -110,11 +110,11 @@ export const setGameSettingsReducer = (
 
 export const updatePlayerTimeReducer = (
   state: GameStateType,
-  action: PayloadAction<number>
+  action: PayloadAction<{ currentTurn: ChessColors; newTime: number }>
 ) => {
   state.players.map((player: PlayerType) => {
-    if (player.team === state.currentTurn) {
-      player.remainingTime = action.payload;
+    if (player.team !== action.payload.currentTurn) {
+      player.remainingTime = action.payload.newTime;
     }
   });
 };
