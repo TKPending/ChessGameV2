@@ -135,35 +135,37 @@ const TimeSettings = ({
       </div>
 
       {/* INCREMENT */}
-      <div className="relative w-full">
-        <div
-          className="appearance-none w-full px-4 py-3 bg-gray-700 text-white rounded-lg text-lg cursor-pointer"
-          onClick={() => toggleDropdown("increments")}
-        >
-          <p>{increment}</p>
-          <ChevronDown
-            className="absolute right-4 top-3.5 text-gray-400"
-            size={24}
-          />
-        </div>
+      {duration !== "Infinite" && (
+        <div className="relative w-full">
+          <div
+            className="appearance-none w-full px-4 py-3 bg-gray-700 text-white rounded-lg text-lg cursor-pointer"
+            onClick={() => toggleDropdown("increments")}
+          >
+            <p>{increment}</p>
+            <ChevronDown
+              className="absolute right-4 top-3.5 text-gray-400"
+              size={24}
+            />
+          </div>
 
-        {isDropdownOpen.open &&
-          isDropdownOpen.name === "increments" &&
-          categoryData && (
-            <div className="absolute mt-2 w-full bg-gray-700 rounded-lg shadow-lg z-20">
-              {categoryData.increments.map((increment: string) => (
-                <DropdownOption
-                  key={increment}
-                  text={increment}
-                  onClick={() => {
-                    onChangeIncrement(increment);
-                    setIsDropdownOpen({ name: "", open: false });
-                  }}
-                />
-              ))}
-            </div>
-          )}
-      </div>
+          {isDropdownOpen.open &&
+            isDropdownOpen.name === "increments" &&
+            categoryData && (
+              <div className="absolute mt-2 w-full bg-gray-700 rounded-lg shadow-lg z-20">
+                {categoryData.increments.map((increment: string) => (
+                  <DropdownOption
+                    key={increment}
+                    text={increment}
+                    onClick={() => {
+                      onChangeIncrement(increment);
+                      setIsDropdownOpen({ name: "", open: false });
+                    }}
+                  />
+                ))}
+              </div>
+            )}
+        </div>
+      )}
     </div>
   );
 };

@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import {
   selectCurrentTurn,
   selectIsKingInCheckmate,
+  selectIsPlaying,
 } from "@/app/utils/selectors/gameStateSelectors";
 import { getTileBackgroundColor } from "@/app/containers/chessboard/utils/chessboard/design/getTileBackgroundColor";
 import Piece from "@/app/containers/chessboard/features/tile/components/Piece";
@@ -14,6 +15,7 @@ type TileProps = {
 
 const Tile = ({ tile, handleTileClick }: TileProps) => {
   const currentTurn: ChessColors = useSelector(selectCurrentTurn);
+  const isPlaying: boolean = useSelector(selectIsPlaying);
   const isKingInCheckmate: boolean = useSelector(selectIsKingInCheckmate);
 
   const pieceOnTile = tile.pieceOnTile || null;
@@ -31,7 +33,9 @@ const Tile = ({ tile, handleTileClick }: TileProps) => {
     <div
       onClick={() => handleTileClick(tile)}
       className={`relative tile tileBorder transition duration-200  ${tileBackgroundColor} ${
-        currentTurn === pieceOnTile?.pieceColor && !isKingInCheckmate
+        isPlaying &&
+        currentTurn === pieceOnTile?.pieceColor &&
+        !isKingInCheckmate
           ? "hover:bg-blue-200 hover:cursor-pointer"
           : ""
       }`}

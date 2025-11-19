@@ -52,6 +52,7 @@ export interface TimeType {
     | TimeCatergories.rapid
     | TimeCatergories.infinite;
   minutes: number;
+  increment: string;
 }
 
 export interface PlayerType {

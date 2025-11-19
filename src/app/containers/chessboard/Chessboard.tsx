@@ -18,6 +18,7 @@ import {
 import {
   selectCurrentTurn,
   selectIsKingInCheckmate,
+  selectWinner,
 } from "@/app/utils/selectors/gameStateSelectors";
 import {
   selectAllEnemyMoves,
@@ -35,6 +36,7 @@ const Chessboard = () => {
   const allEnemyMoves: EnemyAttackType[] = useSelector(selectAllEnemyMoves);
   const isKingInCheck: boolean = useSelector(selectIsKingInCheck);
   const currentMoveCount: number = useSelector(selectCurrentMoveCount);
+  const isWinner = useSelector(selectWinner);
 
   useEffect(() => {
     // If the board hasn't been initialised yet, generate tiles
@@ -78,9 +80,11 @@ const Chessboard = () => {
       {/* Game is in checkmate */}
       {isKingInCheckmate && <CheckmateContainer />}
 
+      {/* TODO: Create a component for winner on time */}
+      {isWinner && <CheckmateContainer />}
+
       {/* Pawn promotion is possible */}
       {pawnPromotion.isPawnPromotion && <PawnPromotionContainer />}
-
       {/* Render Chessboard */}
       <div className="h-full w-full chessboard">
         {chessboard.map((row: TileType[], rowIndex: number) =>

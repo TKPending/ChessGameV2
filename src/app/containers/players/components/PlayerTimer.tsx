@@ -3,10 +3,18 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   selectPlayers,
   selectCurrentTurn,
+  selectTimeSettings,
 } from "@/app/utils/selectors/gameStateSelectors";
-import { setPlayerTime } from "@/app/redux/slices/gameState/gameStateSlice";
-import { PlayerType } from "@/app/types/ChessTypes";
+import {
+  setPlayerTime,
+  setWinner,
+} from "@/app/redux/slices/gameState/gameStateSlice";
 import { showReadableTime } from "@/app/utils/convertTimeSettings";
+import {
+  ChessColors,
+  PlayerType,
+  TimeCatergories,
+} from "@/app/types/ChessTypes";
 
 type PlayerTimerProps = { playerNo: number };
 
@@ -14,15 +22,14 @@ const PlayerTimer = ({ playerNo }: PlayerTimerProps) => {
   const dispatch = useDispatch();
   const players: PlayerType[] = useSelector(selectPlayers);
   const currentTurn = useSelector(selectCurrentTurn);
+  const timeSettings = useSelector(selectTimeSettings);
 
   const currentPlayer = players[playerNo];
 
-  // local state shown in UI (seconds)
   const [localTime, setLocalTime] = useState<number>(
     currentPlayer.remainingTime
   );
 
-  // refs for timing logic
   const intervalRef = useRef<number | null>(null);
   const startTsRef = useRef<number | null>(null);
   const baseTimeRef = useRef<number>(currentPlayer.remainingTime);
@@ -52,6 +59,15 @@ const PlayerTimer = ({ playerNo }: PlayerTimerProps) => {
       intervalRef.current = window.setInterval(() => {
         const newRemaining = computeRemaining();
         setLocalTime(newRemaining);
+
+        if (
+          newRemaining === 0 &&
+          timeSettings.timeCategory !== TimeCatergories.infinite
+        ) {
+          dispatch(setWinner(currentPlayer));
+          clearInterval(intervalRef.current!);
+          intervalRef.current = null;
+        }
       }, 200);
 
       return () => {
@@ -82,7 +98,7 @@ const PlayerTimer = ({ playerNo }: PlayerTimerProps) => {
         clearInterval(intervalRef.current);
         intervalRef.current = null;
       }
-      // compute 'final' remaining using refs
+
       const finalRemaining = (() => {
         if (startTsRef.current === null) return baseTimeRef.current;
         const elapsedSec = Math.floor((Date.now() - startTsRef.current) / 1000);

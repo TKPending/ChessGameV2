@@ -16,7 +16,10 @@ import {
 
 import { resetTiles } from "@/app/containers/chessboard/utils/chessboard/design/resetTiles";
 import { isMoveValid } from "@/app/containers/chessboard/utils/pieceMovements/helpers/isMoveValid";
-import { selectCurrentTurn } from "@/app/utils/selectors/gameStateSelectors";
+import {
+  selectCurrentTurn,
+  selectIsPlaying,
+} from "@/app/utils/selectors/gameStateSelectors";
 import { clearTileHighlights } from "@/app/containers/chessboard/utils/chessboard/design/clearTileHighlights";
 import { generateSelectedPieceValidMoves } from "@/app/containers/chessboard/utils/pieceMovements/generateMoves/generateSelectedPiece";
 import { getValidPieceMoves } from "@/app/containers/chessboard/utils/handlers/helpers/handPieceOnTileHelpers/getValidPieceMoves";
@@ -61,8 +64,13 @@ const TileContainer = ({ tile }: Props) => {
   );
   const allEnemyMoves: EnemyAttackType[] = useSelector(selectAllEnemyMoves);
   const currentTurn: ChessColors = useSelector(selectCurrentTurn);
+  const isPlaying: boolean = useSelector(selectIsPlaying);
 
   const handleTileClick = (clickedTile: TileType) => {
+    if (!isPlaying) {
+      return;
+    }
+
     // No action on empty click
     if (!prevClickedTile && !clickedTile.pieceOnTile) {
       return;

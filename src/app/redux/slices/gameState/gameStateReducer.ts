@@ -1,15 +1,10 @@
 import { GameStateType } from "@/app/types/StateTypes";
-import {
-  ChessColors,
-  PieceType,
-  PlayerType,
-  TimeCatergories,
-} from "@/app/types/ChessTypes";
+import { ChessColors, PieceType, PlayerType } from "@/app/types/ChessTypes";
 import { PayloadAction } from "@reduxjs/toolkit";
 import {
   convertTimeCategory,
   convertTimeToInt,
-  showReadableTime,
+  incrementTime,
 } from "@/app/utils/convertTimeSettings";
 
 // Error Handling Reducers
@@ -65,6 +60,7 @@ export const setWinnerReducer = (
   action: PayloadAction<PlayerType>
 ) => {
   state.winner = action.payload;
+  state.isPlaying = false;
 };
 
 export const updateCurrentTurnReducer = (state: GameStateType) => {
@@ -101,6 +97,7 @@ export const setGameSettingsReducer = (
   state.timeSettings = {
     timeCategory: convertTimeCategory(action.payload.category),
     minutes: convertTimeToInt(action.payload.duration),
+    increment: action.payload.increment,
   };
 
   // Player Time
@@ -114,7 +111,10 @@ export const updatePlayerTimeReducer = (
 ) => {
   state.players.map((player: PlayerType) => {
     if (player.team !== action.payload.currentTurn) {
-      player.remainingTime = action.payload.newTime;
+      player.remainingTime = incrementTime(
+        action.payload.newTime,
+        state.timeSettings.increment
+      );
     }
   });
 };

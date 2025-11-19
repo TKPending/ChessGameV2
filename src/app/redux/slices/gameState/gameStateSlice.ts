@@ -45,6 +45,7 @@ const initialState: GameStateType = {
   timeSettings: {
     timeCategory: TimeCatergories.infinite,
     minutes: 0,
+    increment: "",
   },
   error: {
     isError: false,

@@ -35,8 +35,6 @@ export const showReadableTime = (time: number): string => {
   return `${minutes}:${paddedSeconds}`;
 };
 
-export const convertReadableTimeToInt = () => {};
-
 export const incrementTime = (time: number, incrementTime: string): number => {
   switch (incrementTime) {
     case "5 Seconds":
