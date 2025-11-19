@@ -1,6 +1,16 @@
 import { GameStateType } from "@/app/types/StateTypes";
-import { ChessColors, PieceType, PlayerType } from "@/app/types/ChessTypes";
+import {
+  ChessColors,
+  PieceType,
+  PlayerType,
+  TimeCatergories,
+} from "@/app/types/ChessTypes";
 import { PayloadAction } from "@reduxjs/toolkit";
+import {
+  convertTimeCategory,
+  convertTimeToInt,
+  showReadableTime,
+} from "@/app/utils/convertTimeSettings";
 
 // Error Handling Reducers
 export const errorTriggerReducer = (
@@ -63,6 +73,53 @@ export const updateCurrentTurnReducer = (state: GameStateType) => {
   state.currentTurn = turn === white ? black : white;
 };
 
+// Redo Availability
+export const updateRedoAvailabilityReducer = (
+  state: GameStateType,
+  action: PayloadAction<boolean>
+) => {
+  state.isRedoAvailable = action.payload;
+  if (!action.payload) {
+    state.isRedoVisible = false;
+  }
+};
+
+export const updateRedoVisibilityReducer = (state: GameStateType) => {
+  state.isRedoVisible = !state.isRedoVisible;
+};
+
+// Time Settings
+export const setGameSettingsReducer = (
+  state: GameStateType,
+  action: PayloadAction<{
+    category: string;
+    duration: string;
+    increment: string;
+  }>
+) => {
+  // Time Settings
+  state.timeSettings = {
+    timeCategory: convertTimeCategory(action.payload.category),
+    minutes: convertTimeToInt(action.payload.duration),
+  };
+
+  // Player Time
+  state.players[0].remainingTime = state.timeSettings.minutes;
+  state.players[1].remainingTime = state.timeSettings.minutes;
+};
+
+export const updatePlayerTimeReducer = (
+  state: GameStateType,
+  action: PayloadAction<number>
+) => {
+  state.players.map((player: PlayerType) => {
+    if (player.team === state.currentTurn) {
+      player.remainingTime = action.payload;
+    }
+  });
+};
+
+// Reset Game
 export const resetGameReducer = (state: GameStateType) => {
   state.isGameReset = !state.isGameReset;
 };
@@ -74,14 +131,14 @@ export const resetGameStateReducer = (state: GameStateType) => {
       playerName: state.players[1].playerName,
       capturedPieces: [],
       team: ChessColors.white,
-      remainingTime: "",
+      remainingTime: 0,
     },
     {
       no: 1,
       playerName: state.players[0].playerName,
       capturedPieces: [],
       team: ChessColors.black,
-      remainingTime: "",
+      remainingTime: 0,
     },
   ];
   state.isPlaying = true;
