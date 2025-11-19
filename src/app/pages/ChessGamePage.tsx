@@ -5,8 +5,8 @@ import ResetGameModalContainer from "@/app/containers/features/resetGame/contain
 import Chessboard from "@/app/containers/chessboard/Chessboard";
 import PlayerContainer from "@/app/containers/players/PlayerContainer";
 import ChessboardMoveHistory from "@/app/containers/chessboardMoveHistory/ChessboardMoveHistory";
-import { selectIsGameReset } from "@/app/utils/selectors/gameStateSelectors";
 import BackButtonContainer from "@/app/containers/features/backButton/BackButtonContainer";
+import { selectIsGameReset } from "@/app/utils/selectors/gameStateSelectors";
 import { PageEnum } from "@/app/types/PageTypes";
 
 const PLAYERONE = 0;

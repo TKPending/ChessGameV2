@@ -1,6 +1,12 @@
 import { useDispatch } from "react-redux";
-// import set
 import Button from "@/app/components/Button";
+import {
+  setGameSettings,
+  setIsGamePlaying,
+  setRedoAvailiability,
+} from "@/app/redux/slices/gameState/gameStateSlice";
+import { navigateToPage } from "@/app/utils/navigateToPage";
+import { PageEnum } from "@/app/types/PageTypes";
 
 type StartGameButtonProps = {
   category: string;
@@ -17,7 +23,17 @@ const StartGameButton = ({
 }: StartGameButtonProps) => {
   const dispatch = useDispatch();
   const handleStartGame = () => {
-    // TODO: Handle redux state updates to start the game
+    dispatch(setRedoAvailiability(undoAllowed));
+    dispatch(
+      setGameSettings({
+        category,
+        duration,
+        increment,
+      })
+    );
+
+    dispatch(setIsGamePlaying(true));
+    navigateToPage(dispatch, PageEnum.gameSetup, PageEnum.chessGame);
   };
 
   return (

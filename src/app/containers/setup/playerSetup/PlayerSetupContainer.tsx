@@ -27,7 +27,6 @@ const PlayerSetupContainer = () => {
 
   const handleStartChessGame = () => {
     if (!isPlayerNamesValid) return;
-    dispatch(setIsGamePlaying(true));
     navigateToPage(dispatch, PageEnum.gamePlayers, PageEnum.gameSetup);
   };
 
