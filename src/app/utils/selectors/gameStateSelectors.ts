@@ -14,8 +14,6 @@ export const selectIsRedoAvaialble = (state: RootState) =>
   state.gameState.isRedoAvailable;
 export const selectIsRedoVisible = (state: RootState) =>
   state.gameState.isRedoVisible;
-export const selectRedoClicked = (state: RootState) =>
-  state.gameState.redoClicked;
 export const selectTimeSettings = (state: RootState) =>
   state.gameState.timeSettings;
 export const selectError = (state: RootState) => state.gameState.error;
