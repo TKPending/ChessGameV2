@@ -26,9 +26,9 @@ const RulesSetupContainer = () => {
             category: string,
             duration: string,
             increment: string
-          ) =>
-            setGameSettings({ ...gameSettings, category, duration, increment })
-          }
+          ) => {
+            setGameSettings({ ...gameSettings, category, duration, increment });
+          }}
           onChangeDuration={(duration: string) =>
             setGameSettings({ ...gameSettings, duration })
           }

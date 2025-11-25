@@ -37,7 +37,11 @@ const Dropdown = ({
             <DropdownOption
               key={opt}
               text={opt}
-              onClick={() => onSelect(opt)}
+              onClick={() =>
+                onSelect(
+                  String(opt).charAt(0).toUpperCase() + String(opt).slice(1)
+                )
+              }
             />
           ))}
         </div>

@@ -1,6 +1,9 @@
 import { useState } from "react";
 import Dropdown from "../components/Dropdown";
-import { timeSettingsOptions } from "@/app/types/ChessTypes";
+import {
+  timeSettingsOptions,
+  TimeSettingsOptionsType,
+} from "@/app/types/ChessTypes";
 
 type TimeSettingsProps = {
   category: string;
@@ -43,11 +46,13 @@ const TimeSettings = ({
         options={timeSettingsOptions.map((o) => o.name)}
         isOpen={open === "category"}
         onToggle={() => toggle("category")}
-        onSelect={(newCategory) => {
-          const data = timeSettingsOptions.find((o) => o.name === newCategory)!;
-          onChangeCategory(newCategory, data.durations[0], data.increments[0]);
+        onSelect={(newCategory: string) => {
+          const data: TimeSettingsOptionsType = timeSettingsOptions.find(
+            (o) => o.name === newCategory
+          )!;
           onChangeDuration(data.durations[0]);
           onChangeIncrement(data.increments[0]);
+          onChangeCategory(newCategory, data.durations[0], data.increments[0]);
           setOpen(null);
         }}
       />

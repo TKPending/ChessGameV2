@@ -32,7 +32,7 @@ export const timeSettingsOptions: TimeSettingsOptionsType[] = [
   {
     name: "Classical",
     durations: ["10 Minutes", "Infinite"],
-    increments: ["0 Seconds", "15 Seconds", "Infinite"],
+    increments: ["0 Seconds", "15 Seconds"],
   },
 ];
 
