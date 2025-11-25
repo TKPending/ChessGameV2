@@ -1,0 +1,49 @@
+import { useDispatch } from "react-redux";
+import Button from "@/app/components/Button";
+import {
+  setGameSettings,
+  setIsGamePlaying,
+  setRedoAvailiability,
+} from "@/app/redux/slices/gameState/gameStateSlice";
+import { navigateToPage } from "@/app/utils/navigateToPage";
+import { PageEnum } from "@/app/types/PageTypes";
+
+type StartGameButtonProps = {
+  category: string;
+  duration: string;
+  increment: string;
+  undoAllowed: boolean;
+};
+
+const StartGameButton = ({
+  category,
+  duration,
+  increment,
+  undoAllowed,
+}: StartGameButtonProps) => {
+  const dispatch = useDispatch();
+  const handleStartGame = () => {
+    dispatch(setRedoAvailiability(undoAllowed));
+    dispatch(
+      setGameSettings({
+        category,
+        duration,
+        increment,
+      })
+    );
+
+    dispatch(setIsGamePlaying(true));
+    navigateToPage(dispatch, PageEnum.gameSetup, PageEnum.chessGame);
+  };
+
+  return (
+    <Button
+      text="Start Game"
+      className="w-auto bg-customGreen hover:bg-green-700 text-white font-semibold transition-colors p-4"
+      textStyle="text-lg"
+      onClick={handleStartGame}
+    />
+  );
+};
+
+export default StartGameButton;

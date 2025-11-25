@@ -1,69 +1,111 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { RootState } from "@/app/redux/store";
-import { setChessboard } from "@/app/redux/slices/chessboard/chessboardSlice";
-import { setEnemyMoves } from "@/app/redux/slices/activeMoves/activeMovesSlice";
-import { generateTiles } from "@/app/utils/chessboard/generateTiles";
-import { generateAllEnemyMoves } from "@/app/utils/pieceMovements/generateMoves/generateAllEnemyMoves";
-import { isKingInCheckmate } from "@/app/utils/pieceMovements/checkmate/isKingInCheckmate";
-import ChessboardComponent from "./components/ChessboardComponent";
-import CheckmateContainer from "@/app/containers/checkmate/CheckmateContainer";
-import { EnemyAttackType } from "@/app/types/MoveTypes";
-import PawnPromotionContainer from "@/app/containers/chessboard/containers/PawnPromotionContainer";
+
+import { setChessboard } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
+import { setEnemyMoves } from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
+import { generateTiles } from "@/app/containers/chessboard/utils/chessboard/generateTiles";
+import { generateAllEnemyMoves } from "@/app/containers/chessboard/utils/pieceMovements/generateMoves/generateAllEnemyMoves";
+import { checkForCheckmate } from "@/app/containers/chessboard/utils/pieceMovements/checkmate/checkForCheckmate";
+import CheckmateContainer from "@/app/containers/features/checkmate/CheckmateContainer";
+import PawnPromotionContainer from "@/app/containers/chessboard/features/pawnPromotion/PawnPromotionContainer";
+import TileContainer from "@/app/containers/chessboard/features/tile/TileContainer";
+
+import { getPlayerColor } from "@/app/utils/getPlayerColor";
+
+import {
+  selectChessboard,
+  selectPawnPromotion,
+} from "@/app/utils/selectors/chessboardStateSelectors";
+import {
+  selectCurrentTurn,
+  selectGameState,
+  selectIsKingInCheckmate,
+  selectIsRedoAvaialble,
+  selectWinner,
+} from "@/app/utils/selectors/gameStateSelectors";
+import {
+  selectAllEnemyMoves,
+  selectIsKingInCheck,
+} from "@/app/utils/selectors/moveAnalysisStateSelector";
+import { selectCurrentMoveCount } from "@/app/utils/selectors/chessboardHistoryStateSelector";
+import { updatePreviousGameState } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
+
+import { ChessColors, TileType } from "@/app/types/ChessTypes";
+import { EnemyAttackType, PawnPromotionType } from "@/app/types/MoveTypes";
 
 const Chessboard = () => {
   const dispatch = useDispatch();
-  const chessboard = useSelector((state: RootState) => state.chessboard.board);
-  const currentTurn = useSelector(
-    (state: RootState) => state.chessboard.currentTurn
-  );
-  const enemyMoves = useSelector(
-    (state: RootState) => state.activeMoves.enemyMoves
-  );
-  const boardMoves: number = useSelector(
-    (state: RootState) => state.chessMoves.count
-  );
-
-  const isInCheckmate: boolean = useSelector(
-    (state: RootState) => state.chessboard.isKingInCheckmate
-  );
-  const isInCheck: boolean = useSelector(
-    (state: RootState) => state.chessboard.isKingInCheck
-  );
-  const pawnPromotion = useSelector(
-    (state: RootState) => state.chessboard.pawnPromotion
-  );
+  const chessboard: TileType[][] = useSelector(selectChessboard);
+  const pawnPromotion: PawnPromotionType = useSelector(selectPawnPromotion);
+  const currentTurn: ChessColors = useSelector(selectCurrentTurn);
+  const isKingInCheckmate: boolean = useSelector(selectIsKingInCheckmate);
+  const allEnemyMoves: EnemyAttackType[] = useSelector(selectAllEnemyMoves);
+  const isKingInCheck: boolean = useSelector(selectIsKingInCheck);
+  const currentMoveCount: number = useSelector(selectCurrentMoveCount);
+  const isWinner = useSelector(selectWinner);
+  const currentGameState = useSelector(selectGameState);
+  const isRedoAvailable: boolean = useSelector(selectIsRedoAvaialble);
 
   useEffect(() => {
+    // If the board hasn't been initialised yet, generate tiles
     if (chessboard.length === 0) {
       dispatch(setChessboard(generateTiles()));
     }
 
-    if (chessboard.length > 0 && enemyMoves.length === 0 && boardMoves > 3) {
-      const oppositeColor: "White" | "Black" =
-        currentTurn === "White" ? "Black" : "White";
+    // Store previous state for potential undo.
+    if (isRedoAvailable) {
+      dispatch(updatePreviousGameState(currentGameState));
+    }
 
-      const notSimulation: boolean = false;
+    // Simulate moves once the board has more than 3 moves to avoid unnecessary calculations
+    if (
+      chessboard.length > 0 &&
+      allEnemyMoves.length === 0 &&
+      currentMoveCount > 3
+    ) {
+      const enemyColor: ChessColors = getPlayerColor(currentTurn, true);
 
+      const isSimulatingEnemyMoves: boolean = false;
+
+      // Generate all possible enemy moves and check for checkmate
       const enemyLegalMoves: EnemyAttackType[] = generateAllEnemyMoves(
         dispatch,
         chessboard,
-        oppositeColor,
-        notSimulation
+        enemyColor,
+        isSimulatingEnemyMoves
       );
-      isKingInCheckmate(dispatch, chessboard, enemyLegalMoves, currentTurn);
+      checkForCheckmate(dispatch, chessboard, enemyLegalMoves, currentTurn);
 
+      // Store enemy moves
       dispatch(setEnemyMoves(enemyLegalMoves));
     }
-  }, [chessboard, currentTurn, enemyMoves, isInCheck, dispatch, isInCheckmate]);
+  }, [
+    chessboard,
+    currentTurn,
+    allEnemyMoves,
+    isKingInCheck,
+    dispatch,
+    isKingInCheckmate,
+  ]);
 
   return (
-    <div className="h-auto w-auto">
-      {isInCheckmate && <CheckmateContainer />}
-      {pawnPromotion.isPawnPromotion && (
-        <PawnPromotionContainer currentTurn={currentTurn} />
-      )}
-      <ChessboardComponent />
+    <div className="h-auto w-full flex items-center justify-center">
+      {/* Game is in checkmate */}
+      {isKingInCheckmate && <CheckmateContainer />}
+
+      {/* TODO: Create a component for winner on time */}
+      {isWinner && <CheckmateContainer />}
+
+      {/* Pawn promotion is possible */}
+      {pawnPromotion.isPawnPromotion && <PawnPromotionContainer />}
+      {/* Render Chessboard */}
+      <div className="h-full w-full chessboard">
+        {chessboard.map((row: TileType[], rowIndex: number) =>
+          row.map((tile: TileType, colIndex: number) => (
+            <TileContainer key={`${rowIndex}-${colIndex}`} tile={tile} />
+          ))
+        )}
+      </div>
     </div>
   );
 };

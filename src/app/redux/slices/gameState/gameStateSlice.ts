@@ -1,65 +1,98 @@
-import { ChessColors, GameStateType } from "@/app/types/ChessTypes";
+import { ChessColors, TimeCatergories } from "@/app/types/ChessTypes";
+import { GameStateType } from "@/app/types/StateTypes";
 import { createSlice } from "@reduxjs/toolkit";
 import {
   addPlayerNameReducer,
+  setWinnerReducer,
   capturedPiecesReducer,
   chessGamePlayingReducer,
   errorMessageReducer,
   errorTriggerReducer,
+  kingInCheckmateReducer,
   resetGameReducer,
   resetGameStateReducer,
-  winnerReducer,
+  updateCurrentTurnReducer,
+  updateRedoAvailabilityReducer,
+  updateRedoVisibilityReducer,
+  setGameSettingsReducer,
+  setPlayerTimeReducer,
+  incrementPlayerTimeReducer,
+  setGameStateToPreviousReducer,
 } from "./gameStateReducer";
 
 const initialState: GameStateType = {
-  stateIndex: 0,
+  currentTurn: ChessColors.white,
+  winner: null,
   players: [
     {
       no: 0,
       playerName: "",
       capturedPieces: [],
       team: ChessColors.white,
-      remainingTime: "",
+      remainingTime: 0,
     },
     {
       no: 1,
       playerName: "",
       capturedPieces: [],
       team: ChessColors.black,
-      remainingTime: "",
+      remainingTime: 0,
     },
   ],
-  winner: undefined,
   isPlaying: false,
+  isGameReset: false,
+  isKingInCheckmate: false,
+  isRedoAvailable: true,
+  isRedoVisible: false,
+  timeSettings: {
+    timeCategory: TimeCatergories.infinite,
+    minutes: 0,
+    increment: "",
+  },
   error: {
     isError: false,
     message: "",
   },
-  isReset: false,
 };
 
 const gameStateSlice = createSlice({
   name: "gameState",
   initialState,
   reducers: {
+    setCurrentTurn: updateCurrentTurnReducer,
+    setWinner: setWinnerReducer,
     setError: errorTriggerReducer,
     setErrorMessage: errorMessageReducer,
     setPlayerName: addPlayerNameReducer,
     setCapturedPiece: capturedPiecesReducer,
-    setWinner: winnerReducer,
     setIsGamePlaying: chessGamePlayingReducer,
+    setKingInCheckmate: kingInCheckmateReducer,
+    setRedoAvailiability: updateRedoAvailabilityReducer,
+    setRedoVisibility: updateRedoVisibilityReducer,
+    setGameSettings: setGameSettingsReducer,
+    setPlayerTime: setPlayerTimeReducer,
+    incrementPlayerTime: incrementPlayerTimeReducer,
+    setGameStateToPrevious: setGameStateToPreviousReducer,
     setResetTrigger: resetGameReducer,
     resetGameState: resetGameStateReducer,
   },
 });
 
 export const {
+  setCurrentTurn,
+  setWinner,
   setError,
   setErrorMessage,
   setPlayerName,
   setCapturedPiece,
-  setWinner,
   setIsGamePlaying,
+  setKingInCheckmate,
+  setRedoAvailiability,
+  setRedoVisibility,
+  setGameSettings,
+  setPlayerTime,
+  incrementPlayerTime,
+  setGameStateToPrevious,
   setResetTrigger,
   resetGameState,
 } = gameStateSlice.actions;

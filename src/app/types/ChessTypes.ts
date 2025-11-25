@@ -1,5 +1,3 @@
-import { EnemyAttackType, PawnPromotionType, CastleType } from "./MoveTypes";
-
 export enum ChessColors {
   white = "White",
   black = "Black",
@@ -14,9 +12,33 @@ export enum PieceName {
   king = "King",
 }
 
+export enum TimeCatergories {
+  blitz = "Blitz",
+  rapid = "Rapid",
+  infinite = "Infinite",
+}
+
+export const timeSettingsOptions: TimeSettingsOptionsType[] = [
+  {
+    name: "Blitz",
+    durations: ["1 Minutes", "3 Minutes", "5 Minutes"],
+    increments: ["0 Seconds", "5 Seconds", "10 Seconds"],
+  },
+  {
+    name: "Rapid",
+    durations: ["5 Minutes", "10 Minutes"],
+    increments: ["0 Seconds", "10 Seconds", "15 Seconds"],
+  },
+  {
+    name: "Classical",
+    durations: ["10 Minutes", "Infinite"],
+    increments: ["0 Seconds", "15 Seconds"],
+  },
+];
+
 export interface PieceType {
   pieceName: PieceName;
-  pieceColor: "White" | "Black";
+  pieceColor: ChessColors.white | ChessColors.black;
   isAlive: boolean;
   hasMoved: boolean;
   isPromotion?: boolean;
@@ -26,17 +48,6 @@ export interface PieceType {
     canCastle: true;
     checkmate: false;
   };
-}
-
-export interface BoardType {
-  board: TileType[][];
-  currentTurn: "White" | "Black";
-  clickedTile: TileType | null;
-  previouslyClickedTile: TileType | null;
-  isKingInCheck: boolean;
-  isKingInCheckmate: boolean;
-  castling: CastleType;
-  pawnPromotion: PawnPromotionType;
 }
 
 export interface TileType {
@@ -53,23 +64,29 @@ export interface ErrorType {
   message: string;
 }
 
+export interface TimeType {
+  timeCategory:
+    | TimeCatergories.blitz
+    | TimeCatergories.rapid
+    | TimeCatergories.infinite;
+  minutes: number;
+  increment: string;
+}
+
+export interface TimeSettingsOptionsType {
+  name: string;
+  durations: string[];
+  increments: string[];
+}
+
 export interface PlayerType {
   no: number;
   playerName: string;
   team: ChessColors;
   capturedPieces: PieceType[];
-  remainingTime: string;
+  remainingTime: number;
   isInCheck?: boolean;
   isInCheckmate?: boolean;
-}
-
-export interface GameStateType {
-  stateIndex: number;
-  players: PlayerType[];
-  winner: PlayerType | undefined;
-  isPlaying: boolean;
-  error: ErrorType;
-  isReset: boolean;
 }
 
 export interface MoveHistoryType {
@@ -77,25 +94,4 @@ export interface MoveHistoryType {
   to: TileType;
   pawnPromotion?: boolean;
   updatedPiece?: PieceName;
-}
-
-export interface ChessMoveType {
-  count: number;
-  chessboardHistory: TileType[][][];
-  moveHistory: MoveHistoryType[];
-  isMovesHidden: boolean;
-}
-
-export interface ActiveMovesType {
-  currentPiecePotentialMoves: number[][];
-  enemyMoves: EnemyAttackType[];
-  pieceAttackingKing: EnemyAttackType[];
-  validCheckMoves: number[][];
-  inCheckPositions: number[][];
-}
-
-export interface PlayerSetupType {
-  validPlayerNames: boolean;
-  validTimes: boolean;
-  isStartVisible: boolean;
 }
