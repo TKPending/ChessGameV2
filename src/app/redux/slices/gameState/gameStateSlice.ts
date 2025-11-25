@@ -30,7 +30,6 @@ const initialState: GameStateType = {
       capturedPieces: [],
       team: ChessColors.white,
       remainingTime: 0,
-      turnStartTimestamp: null,
     },
     {
       no: 1,
@@ -38,7 +37,6 @@ const initialState: GameStateType = {
       capturedPieces: [],
       team: ChessColors.black,
       remainingTime: 0,
-      turnStartTimestamp: null,
     },
   ],
   isPlaying: false,

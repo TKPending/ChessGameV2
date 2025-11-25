@@ -11,7 +11,7 @@ const CheckmateContainer = () => {
   const [displayCheckmate, setDisplayCheckmate] = useState<boolean>(true);
 
   const handleResetGame = () => {
-    resetChessGame(dispatch);
+    resetChessGame(dispatch, { swapColors: true });
   };
 
   const handleExit = () => {

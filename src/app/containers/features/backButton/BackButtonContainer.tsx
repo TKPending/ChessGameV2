@@ -3,19 +3,26 @@ import { ArrowLeft } from "lucide-react";
 import { motion } from "framer-motion";
 import { navigateToPage } from "@/app/utils/navigateToPage";
 import { PageEnum } from "@/app/types/PageTypes";
+import { resetChessGame } from "@/app/utils/resetChessGame";
 
 type BackButtonContainerProps = {
   currentPage: PageEnum;
   nextPage: PageEnum;
+  midGame?: boolean;
 };
 
 const BackButtonContainer = ({
   currentPage,
   nextPage,
+  midGame,
 }: BackButtonContainerProps) => {
   const dispatch = useDispatch();
 
   const handleBackButtonClick = () => {
+    if (midGame) {
+      resetChessGame(dispatch, { swapColors: false });
+    }
+
     navigateToPage(dispatch, currentPage, nextPage);
   };
 

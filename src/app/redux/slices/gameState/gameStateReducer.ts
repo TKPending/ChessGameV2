@@ -1,3 +1,9 @@
+import { PayloadAction } from "@reduxjs/toolkit";
+import {
+  convertTimeCategory,
+  convertTimeToInt,
+  incrementTime,
+} from "@/app/utils/convertTimeSettings";
 import { GameStateType } from "@/app/types/StateTypes";
 import {
   ChessColors,
@@ -5,12 +11,6 @@ import {
   PlayerType,
   TimeCatergories,
 } from "@/app/types/ChessTypes";
-import { PayloadAction } from "@reduxjs/toolkit";
-import {
-  convertTimeCategory,
-  convertTimeToInt,
-  incrementTime,
-} from "@/app/utils/convertTimeSettings";
 
 // Error Handling Reducers
 export const errorTriggerReducer = (
@@ -154,34 +154,44 @@ export const resetGameReducer = (state: GameStateType) => {
   state.isGameReset = !state.isGameReset;
 };
 
-export const resetGameStateReducer = (state: GameStateType) => {
+export const resetGameStateReducer = (
+  state: GameStateType,
+  action: PayloadAction<{ swapColors: boolean }>
+) => {
   const time = state.timeSettings.minutes;
+  const swapColors = action.payload;
 
-  state.players = [
-    {
-      no: 0,
-      playerName: state.players[1].playerName,
+  if (swapColors) {
+    state.players = [
+      {
+        no: 0,
+        playerName: state.players[1].playerName,
+        capturedPieces: [],
+        team: ChessColors.white,
+        remainingTime: time,
+      },
+      {
+        no: 1,
+        playerName: state.players[0].playerName,
+        capturedPieces: [],
+        team: ChessColors.black,
+        remainingTime: time,
+      },
+    ];
+    state.currentTurn = ChessColors.white;
+  } else {
+    state.players = state.players.map((p, idx) => ({
+      ...p,
       capturedPieces: [],
-      team: ChessColors.white,
       remainingTime: time,
-      turnStartTimestamp: null,
-    },
-    {
-      no: 1,
-      playerName: state.players[0].playerName,
-      capturedPieces: [],
-      team: ChessColors.black,
-      remainingTime: time,
-      turnStartTimestamp: null,
-    },
-  ];
+      team: idx === 0 ? ChessColors.white : ChessColors.black,
+    }));
+    state.currentTurn = ChessColors.white;
+  }
+
   state.winner = null;
-  state.currentTurn = ChessColors.white;
   state.isPlaying = true;
-  state.error = {
-    isError: false,
-    message: "",
-  };
+  state.error = { isError: false, message: "" };
   state.isKingInCheckmate = false;
   state.isGameReset = false;
 };

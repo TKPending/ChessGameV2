@@ -27,6 +27,7 @@ const ChessGamePage = () => {
       <BackButtonContainer
         currentPage={PageEnum.chessGame}
         nextPage={PageEnum.gamePlayers}
+        midGame={true}
       />
       {isError && <ErrorContainer />}
 

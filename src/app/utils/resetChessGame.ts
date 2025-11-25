@@ -4,9 +4,12 @@ import { resetChessboard } from "@/app/redux/slices/chessboardState/chessboardSt
 import { resetChessMoves } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
 import { resetGameState } from "@/app/redux/slices/gameState/gameStateSlice";
 
-export const resetChessGame = (dispatch: Dispatch<UnknownAction>) => {
+export const resetChessGame = (
+  dispatch: Dispatch<UnknownAction>,
+  options: { swapColors: boolean }
+) => {
   dispatch(resetChessMoves());
   dispatch(resetChessboard());
   dispatch(resetActiveMoves());
-  dispatch(resetGameState());
+  dispatch(resetGameState(options));
 };
