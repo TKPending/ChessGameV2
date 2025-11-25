@@ -1,9 +1,9 @@
 import { useDispatch } from "react-redux";
-import { ArrowLeft } from "lucide-react";
 import { motion } from "framer-motion";
+import { ArrowLeft } from "lucide-react";
 import { navigateToPage } from "@/app/utils/navigateToPage";
-import { PageEnum } from "@/app/types/PageTypes";
 import { resetChessGame } from "@/app/utils/resetChessGame";
+import { PageEnum } from "@/app/types/PageTypes";
 
 type BackButtonContainerProps = {
   currentPage: PageEnum;

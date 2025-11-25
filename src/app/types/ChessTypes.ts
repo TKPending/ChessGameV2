@@ -18,6 +18,24 @@ export enum TimeCatergories {
   infinite = "Infinite",
 }
 
+export const timeSettingsOptions: TimeSettingsOptionsType[] = [
+  {
+    name: "Blitz",
+    durations: ["1 Minutes", "3 Minutes", "5 Minutes"],
+    increments: ["0 Seconds", "5 Seconds", "10 Seconds"],
+  },
+  {
+    name: "Rapid",
+    durations: ["5 Minutes", "10 Minutes"],
+    increments: ["0 Seconds", "10 Seconds", "15 Seconds"],
+  },
+  {
+    name: "Classical",
+    durations: ["10 Minutes", "Infinite"],
+    increments: ["0 Seconds", "15 Seconds", "Infinite"],
+  },
+];
+
 export interface PieceType {
   pieceName: PieceName;
   pieceColor: ChessColors.white | ChessColors.black;
@@ -53,6 +71,12 @@ export interface TimeType {
     | TimeCatergories.infinite;
   minutes: number;
   increment: string;
+}
+
+export interface TimeSettingsOptionsType {
+  name: string;
+  durations: string[];
+  increments: string[];
 }
 
 export interface PlayerType {
