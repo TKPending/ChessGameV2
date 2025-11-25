@@ -21,7 +21,8 @@
     "react-confetti": "^6.2.2",
     "react-dom": "^18",
     "react-redux": "^9.1.2",
-    "react-use": "^17.6.0"
+    "react-use": "^17.6.0",
+    "lucide-react": "0.554.0"
   },
   "devDependencies": {
     "@types/node": "^20",
