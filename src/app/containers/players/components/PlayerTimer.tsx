@@ -38,6 +38,11 @@ const PlayerTimer = ({ playerNo }: PlayerTimerProps) => {
       intervalRef.current = null;
     }
 
+    if (currentPlayer.remainingTime === 0) {
+      dispatch(setWinner(currentPlayer));
+      return;
+    }
+
     // Active Player Timer
     if (!isActivePlayer) return;
 
