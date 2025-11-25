@@ -61,6 +61,7 @@ export interface PlayerType {
   team: ChessColors;
   capturedPieces: PieceType[];
   remainingTime: number;
+  turnStartTimestamp: number | null;
   isInCheck?: boolean;
   isInCheckmate?: boolean;
 }

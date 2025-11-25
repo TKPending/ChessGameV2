@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   selectPlayers,
   selectCurrentTurn,
@@ -9,11 +9,13 @@ import {
   setPlayerTime,
   setWinner,
 } from "@/app/redux/slices/gameState/gameStateSlice";
+
 import { showReadableTime } from "@/app/utils/convertTimeSettings";
 import {
   ChessColors,
   PlayerType,
   TimeCatergories,
+  TimeType,
 } from "@/app/types/ChessTypes";
 
 type PlayerTimerProps = { playerNo: number };
@@ -21,96 +23,57 @@ type PlayerTimerProps = { playerNo: number };
 const PlayerTimer = ({ playerNo }: PlayerTimerProps) => {
   const dispatch = useDispatch();
   const players: PlayerType[] = useSelector(selectPlayers);
-  const currentTurn = useSelector(selectCurrentTurn);
-  const timeSettings = useSelector(selectTimeSettings);
+  const currentTurn: ChessColors = useSelector(selectCurrentTurn);
+  const timeSettings: TimeType = useSelector(selectTimeSettings);
 
   const currentPlayer = players[playerNo];
-
-  const [localTime, setLocalTime] = useState<number>(
-    currentPlayer.remainingTime
-  );
+  const isActivePlayer = currentPlayer.team === currentTurn;
 
   const intervalRef = useRef<number | null>(null);
-  const startTsRef = useRef<number | null>(null);
-  const baseTimeRef = useRef<number>(currentPlayer.remainingTime);
-
-  const isActivePlayer = currentTurn === currentPlayer.team;
 
   useEffect(() => {
-    setLocalTime(currentPlayer.remainingTime);
-    baseTimeRef.current = currentPlayer.remainingTime;
-    startTsRef.current = null;
-  }, [currentPlayer.remainingTime]);
-
-  useEffect(() => {
-    const computeRemaining = () => {
-      if (startTsRef.current === null) return baseTimeRef.current;
-      const elapsedMs = Date.now() - startTsRef.current;
-      const elapsedSec = Math.floor(elapsedMs / 1000);
-      return Math.max(baseTimeRef.current - elapsedSec, 0);
-    };
-
-    if (isActivePlayer) {
-      if (startTsRef.current === null) {
-        startTsRef.current = Date.now();
-        baseTimeRef.current = localTime;
-      }
-
-      intervalRef.current = window.setInterval(() => {
-        const newRemaining = computeRemaining();
-        setLocalTime(newRemaining);
-
-        if (
-          newRemaining === 0 &&
-          timeSettings.timeCategory !== TimeCatergories.infinite
-        ) {
-          dispatch(setWinner(currentPlayer));
-          clearInterval(intervalRef.current!);
-          intervalRef.current = null;
-        }
-      }, 200);
-
-      return () => {
-        if (intervalRef.current !== null) {
-          clearInterval(intervalRef.current);
-          intervalRef.current = null;
-        }
-      };
-    } else {
-      if (intervalRef.current !== null) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-      }
-
-      const finalRemaining = computeRemaining();
-      setLocalTime(finalRemaining);
-      baseTimeRef.current = finalRemaining;
-      startTsRef.current = null;
-
-      dispatch(setPlayerTime({ currentTurn, newTime: finalRemaining }));
+    // Reset Interval
+    if (intervalRef.current !== null) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isActivePlayer]);
 
-  useEffect(() => {
+    // Active Player Timer
+    if (!isActivePlayer) return;
+
+    intervalRef.current = window.setInterval(() => {
+      const latestPlayer = players[playerNo];
+
+      // Player has ran out of time
+      if (latestPlayer.remainingTime <= 0) {
+        clearInterval(intervalRef.current!);
+        intervalRef.current = null;
+
+        if (timeSettings.timeCategory !== TimeCatergories.infinite) {
+          dispatch(setWinner(latestPlayer));
+        }
+
+        return;
+      }
+
+      // Update Player Time
+      dispatch(
+        setPlayerTime({
+          currentPlayer: latestPlayer,
+          newTime: latestPlayer.remainingTime - 1,
+        })
+      );
+    }, 1000);
+
     return () => {
       if (intervalRef.current !== null) {
         clearInterval(intervalRef.current);
         intervalRef.current = null;
       }
-
-      const finalRemaining = (() => {
-        if (startTsRef.current === null) return baseTimeRef.current;
-        const elapsedSec = Math.floor((Date.now() - startTsRef.current) / 1000);
-        return Math.max(baseTimeRef.current - elapsedSec, 0);
-      })();
-
-      dispatch(setPlayerTime({ currentTurn, newTime: finalRemaining }));
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isActivePlayer, players, playerNo, dispatch, timeSettings]);
 
-  return <p>{showReadableTime(localTime)}</p>;
+  return <p>{showReadableTime(currentPlayer.remainingTime)}</p>;
 };
 
 export default PlayerTimer;

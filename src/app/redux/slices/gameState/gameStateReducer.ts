@@ -1,5 +1,10 @@
 import { GameStateType } from "@/app/types/StateTypes";
-import { ChessColors, PieceType, PlayerType } from "@/app/types/ChessTypes";
+import {
+  ChessColors,
+  PieceType,
+  PlayerType,
+  TimeCatergories,
+} from "@/app/types/ChessTypes";
 import { PayloadAction } from "@reduxjs/toolkit";
 import {
   convertTimeCategory,
@@ -93,7 +98,6 @@ export const setGameSettingsReducer = (
     increment: string;
   }>
 ) => {
-  // Time Settings
   state.timeSettings = {
     timeCategory: convertTimeCategory(action.payload.category),
     minutes: convertTimeToInt(action.payload.duration),
@@ -105,18 +109,33 @@ export const setGameSettingsReducer = (
   state.players[1].remainingTime = state.timeSettings.minutes;
 };
 
-export const updatePlayerTimeReducer = (
+export const setPlayerTimeReducer = (
   state: GameStateType,
-  action: PayloadAction<{ currentTurn: ChessColors; newTime: number }>
+  action: PayloadAction<{ currentPlayer: PlayerType; newTime: number }>
 ) => {
-  state.players.map((player: PlayerType) => {
-    if (player.team !== action.payload.currentTurn) {
-      player.remainingTime = incrementTime(
-        action.payload.newTime,
-        state.timeSettings.increment
-      );
-    }
-  });
+  const { currentPlayer, newTime } = action.payload;
+
+  const target = state.players.find(
+    (p) => p.playerName === currentPlayer.playerName
+  );
+
+  if (!target) return;
+
+  target.remainingTime = newTime;
+};
+
+export const incrementPlayerTimeReducer = (state: GameStateType) => {
+  const increment = state.timeSettings.increment;
+  if (increment === TimeCatergories.infinite) {
+    return;
+  }
+
+  const currentPlayer: PlayerType =
+    state.players[state.currentTurn === ChessColors.white ? 0 : 1];
+  currentPlayer.remainingTime = incrementTime(
+    currentPlayer.remainingTime,
+    increment
+  );
 };
 
 // Reset Game
@@ -125,22 +144,28 @@ export const resetGameReducer = (state: GameStateType) => {
 };
 
 export const resetGameStateReducer = (state: GameStateType) => {
+  const time = state.timeSettings.minutes;
+
   state.players = [
     {
       no: 0,
       playerName: state.players[1].playerName,
       capturedPieces: [],
       team: ChessColors.white,
-      remainingTime: 0,
+      remainingTime: time,
+      turnStartTimestamp: null,
     },
     {
       no: 1,
       playerName: state.players[0].playerName,
       capturedPieces: [],
       team: ChessColors.black,
-      remainingTime: 0,
+      remainingTime: time,
+      turnStartTimestamp: null,
     },
   ];
+  state.winner = null;
+  state.currentTurn = ChessColors.white;
   state.isPlaying = true;
   state.error = {
     isError: false,

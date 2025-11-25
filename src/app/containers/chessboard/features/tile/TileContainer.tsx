@@ -19,6 +19,7 @@ import { isMoveValid } from "@/app/containers/chessboard/utils/pieceMovements/he
 import {
   selectCurrentTurn,
   selectIsPlaying,
+  selectPlayers,
 } from "@/app/utils/selectors/gameStateSelectors";
 import { clearTileHighlights } from "@/app/containers/chessboard/utils/chessboard/design/clearTileHighlights";
 import { generateSelectedPieceValidMoves } from "@/app/containers/chessboard/utils/pieceMovements/generateMoves/generateSelectedPiece";
@@ -38,7 +39,10 @@ import {
   updateTile,
   setPreviousTile,
 } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
-import { setCurrentTurn } from "@/app/redux/slices/gameState/gameStateSlice";
+import {
+  incrementPlayerTime,
+  setCurrentTurn,
+} from "@/app/redux/slices/gameState/gameStateSlice";
 import { incrementMoveCounter } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
 
 import { TileType, PieceType, ChessColors } from "@/app/types/ChessTypes";
@@ -65,6 +69,7 @@ const TileContainer = ({ tile }: Props) => {
   const allEnemyMoves: EnemyAttackType[] = useSelector(selectAllEnemyMoves);
   const currentTurn: ChessColors = useSelector(selectCurrentTurn);
   const isPlaying: boolean = useSelector(selectIsPlaying);
+  const players = useSelector(selectPlayers);
 
   const handleTileClick = (clickedTile: TileType) => {
     if (!isPlaying) {
@@ -179,6 +184,7 @@ const TileContainer = ({ tile }: Props) => {
       resetTiles(dispatch, updatedChessboard);
 
       dispatch(setEnemyMoves([]));
+      dispatch(incrementPlayerTime());
       dispatch(setCurrentTurn());
       dispatch(incrementMoveCounter());
       dispatch(setPiecesAttackingKing(null));

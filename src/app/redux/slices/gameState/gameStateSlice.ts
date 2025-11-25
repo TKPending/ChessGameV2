@@ -15,7 +15,8 @@ import {
   updateRedoAvailabilityReducer,
   updateRedoVisibilityReducer,
   setGameSettingsReducer,
-  updatePlayerTimeReducer,
+  setPlayerTimeReducer,
+  incrementPlayerTimeReducer,
 } from "./gameStateReducer";
 
 const initialState: GameStateType = {
@@ -28,6 +29,7 @@ const initialState: GameStateType = {
       capturedPieces: [],
       team: ChessColors.white,
       remainingTime: 0,
+      turnStartTimestamp: null,
     },
     {
       no: 1,
@@ -35,6 +37,7 @@ const initialState: GameStateType = {
       capturedPieces: [],
       team: ChessColors.black,
       remainingTime: 0,
+      turnStartTimestamp: null,
     },
   ],
   isPlaying: false,
@@ -68,7 +71,8 @@ const gameStateSlice = createSlice({
     setRedoAvailiability: updateRedoAvailabilityReducer,
     setRedoVisibility: updateRedoVisibilityReducer,
     setGameSettings: setGameSettingsReducer,
-    setPlayerTime: updatePlayerTimeReducer,
+    setPlayerTime: setPlayerTimeReducer,
+    incrementPlayerTime: incrementPlayerTimeReducer,
     setResetTrigger: resetGameReducer,
     resetGameState: resetGameStateReducer,
   },
@@ -87,6 +91,7 @@ export const {
   setRedoVisibility,
   setGameSettings,
   setPlayerTime,
+  incrementPlayerTime,
   setResetTrigger,
   resetGameState,
 } = gameStateSlice.actions;

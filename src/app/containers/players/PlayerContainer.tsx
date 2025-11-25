@@ -1,9 +1,12 @@
 import { RootState } from "@/app/redux/store";
 import { useSelector } from "react-redux";
 import CapturedPieces from "@/app/containers/players/components/CapturedPieces";
-import { PlayerType, TimeCatergories } from "@/app/types/ChessTypes";
 import PlayerTimer from "./components/PlayerTimer";
-import { selectTimeSettings } from "@/app/utils/selectors/gameStateSelectors";
+import {
+  selectIsPlaying,
+  selectTimeSettings,
+} from "@/app/utils/selectors/gameStateSelectors";
+import { PlayerType, TimeCatergories, TimeType } from "@/app/types/ChessTypes";
 
 type Props = {
   playerNo: number;
@@ -14,7 +17,7 @@ const PlayerContainer = ({ playerNo, className }: Props) => {
   const player: PlayerType = useSelector(
     (state: RootState) => state.gameState.players[playerNo]
   );
-  const timeSettings = useSelector(selectTimeSettings);
+  const timeSettings: TimeType = useSelector(selectTimeSettings);
 
   return (
     <div
