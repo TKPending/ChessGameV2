@@ -17,6 +17,7 @@ import {
   setGameSettingsReducer,
   setPlayerTimeReducer,
   incrementPlayerTimeReducer,
+  setGameStateToPreviousReducer,
 } from "./gameStateReducer";
 
 const initialState: GameStateType = {
@@ -73,6 +74,7 @@ const gameStateSlice = createSlice({
     setGameSettings: setGameSettingsReducer,
     setPlayerTime: setPlayerTimeReducer,
     incrementPlayerTime: incrementPlayerTimeReducer,
+    setGameStateToPrevious: setGameStateToPreviousReducer,
     setResetTrigger: resetGameReducer,
     resetGameState: resetGameStateReducer,
   },
@@ -92,6 +94,7 @@ export const {
   setGameSettings,
   setPlayerTime,
   incrementPlayerTime,
+  setGameStateToPrevious,
   setResetTrigger,
   resetGameState,
 } = gameStateSlice.actions;

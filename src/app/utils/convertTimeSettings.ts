@@ -14,7 +14,7 @@ export const convertTimeCategory = (category: string): TimeCatergories => {
 export const convertTimeToInt = (timeStr: string): number => {
   switch (timeStr) {
     case "1 Minutes":
-      return 3;
+      return 60;
     case "3 Minutes":
       return 180;
     case "5 Minutes":

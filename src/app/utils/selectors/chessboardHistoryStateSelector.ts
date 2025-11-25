@@ -6,5 +6,7 @@ export const selectChessboardHistory = (state: RootState) =>
   state.chessboardHistoryState.chessboardHistory;
 export const selectMovesHistory = (state: RootState) =>
   state.chessboardHistoryState.movesHistory;
+export const selectPreviousGameState = (state: RootState) =>
+  state.chessboardHistoryState.previousGameState;
 export const selectIsMovesHidden = (state: RootState) =>
   state.chessboardHistoryState.isMovesHidden;

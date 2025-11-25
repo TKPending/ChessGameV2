@@ -17,7 +17,9 @@ import {
 } from "@/app/utils/selectors/chessboardStateSelectors";
 import {
   selectCurrentTurn,
+  selectGameState,
   selectIsKingInCheckmate,
+  selectIsRedoAvaialble,
   selectWinner,
 } from "@/app/utils/selectors/gameStateSelectors";
 import {
@@ -26,6 +28,7 @@ import {
 } from "@/app/utils/selectors/moveAnalysisStateSelector";
 import { selectCurrentMoveCount } from "@/app/utils/selectors/chessboardHistoryStateSelector";
 import { getPlayerColor } from "@/app/utils/getPlayerColor";
+import { updatePreviousGameState } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
 
 const Chessboard = () => {
   const dispatch = useDispatch();
@@ -37,11 +40,18 @@ const Chessboard = () => {
   const isKingInCheck: boolean = useSelector(selectIsKingInCheck);
   const currentMoveCount: number = useSelector(selectCurrentMoveCount);
   const isWinner = useSelector(selectWinner);
+  const currentGameState = useSelector(selectGameState);
+  const isRedoAvailable: boolean = useSelector(selectIsRedoAvaialble);
 
   useEffect(() => {
     // If the board hasn't been initialised yet, generate tiles
     if (chessboard.length === 0) {
       dispatch(setChessboard(generateTiles()));
+    }
+
+    // Store previous state for potential undo.
+    if (isRedoAvailable) {
+      dispatch(updatePreviousGameState(currentGameState));
     }
 
     // Simulate moves once the board has more than 3 moves to avoid unnecessary calculations

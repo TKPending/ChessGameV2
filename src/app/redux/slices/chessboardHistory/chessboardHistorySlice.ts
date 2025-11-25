@@ -3,16 +3,20 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   isMovesHiddenReducer,
   pawnPromotionUpdateMoveReducer,
+  removeRecentChessboardHistoryReducer,
   resetChessMovesReducer,
   updateChessboardHistoryReducer,
+  updatePreviousGameStateReducer,
   updateMoveCounterReducer,
   updateMoveHistoryReducer,
+  removePreviousGameStateReducer,
 } from "./chessboardHistoryReducer";
 
 const initialState: ChessboardHistoryStateType = {
   currentMoveCount: 0,
   chessboardHistory: [],
   movesHistory: [],
+  previousGameState: null,
   isMovesHidden: false,
 };
 
@@ -22,7 +26,10 @@ const chessboardHistorySlice = createSlice({
   reducers: {
     incrementMoveCounter: updateMoveCounterReducer,
     updateChessboardHistory: updateChessboardHistoryReducer,
+    removeRecentChessboardHistory: removeRecentChessboardHistoryReducer,
     updateMoveHistory: updateMoveHistoryReducer,
+    updatePreviousGameState: updatePreviousGameStateReducer,
+    removePreviousGameState: removePreviousGameStateReducer,
     updateMovePawnPromotion: pawnPromotionUpdateMoveReducer,
     setIsMovesHidden: isMovesHiddenReducer,
     resetChessMoves: resetChessMovesReducer,
@@ -32,6 +39,9 @@ const chessboardHistorySlice = createSlice({
 export const {
   incrementMoveCounter,
   updateChessboardHistory,
+  removeRecentChessboardHistory,
+  updatePreviousGameState,
+  removePreviousGameState,
   updateMoveHistory,
   updateMovePawnPromotion,
   setIsMovesHidden,

@@ -1,5 +1,6 @@
 import { RootState } from "@/app/redux/store";
 
+export const selectGameState = (state: RootState) => state.gameState;
 export const selectPlayers = (state: RootState) => state.gameState.players;
 export const selectIsPlaying = (state: RootState) => state.gameState.isPlaying;
 export const selectCurrentTurn = (state: RootState) =>
@@ -13,6 +14,8 @@ export const selectIsRedoAvaialble = (state: RootState) =>
   state.gameState.isRedoAvailable;
 export const selectIsRedoVisible = (state: RootState) =>
   state.gameState.isRedoVisible;
+export const selectRedoClicked = (state: RootState) =>
+  state.gameState.redoClicked;
 export const selectTimeSettings = (state: RootState) =>
   state.gameState.timeSettings;
 export const selectError = (state: RootState) => state.gameState.error;

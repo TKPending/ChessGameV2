@@ -85,8 +85,11 @@ export const updateRedoAvailabilityReducer = (
   }
 };
 
-export const updateRedoVisibilityReducer = (state: GameStateType) => {
-  state.isRedoVisible = !state.isRedoVisible;
+export const updateRedoVisibilityReducer = (
+  state: GameStateType,
+  action: PayloadAction<boolean>
+) => {
+  state.isRedoVisible = action.payload;
 };
 
 // Time Settings
@@ -136,6 +139,14 @@ export const incrementPlayerTimeReducer = (state: GameStateType) => {
     currentPlayer.remainingTime,
     increment
   );
+};
+
+// Previous Game State
+export const setGameStateToPreviousReducer = (
+  state: GameStateType,
+  action: PayloadAction<GameStateType>
+) => {
+  state = action.payload;
 };
 
 // Reset Game

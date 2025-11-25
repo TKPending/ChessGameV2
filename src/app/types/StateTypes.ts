@@ -38,6 +38,7 @@ export interface ChessboardHistoryStateType {
   currentMoveCount: number;
   chessboardHistory: TileType[][][];
   movesHistory: MoveHistoryType[];
+  previousGameState: GameStateType | null;
   isMovesHidden: boolean;
 }
 

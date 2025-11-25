@@ -1,5 +1,8 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { ChessboardHistoryStateType } from "@/app/types/StateTypes";
+import {
+  ChessboardHistoryStateType,
+  GameStateType,
+} from "@/app/types/StateTypes";
 import { TileType, MoveHistoryType, PieceName } from "@/app/types/ChessTypes";
 
 // Increment move counter
@@ -15,11 +18,30 @@ export const updateChessboardHistoryReducer = (
   state.chessboardHistory.push(action.payload);
 };
 
+export const removeRecentChessboardHistoryReducer = (
+  state: ChessboardHistoryStateType
+) => {
+  state.chessboardHistory.pop();
+};
+
 export const updateMoveHistoryReducer = (
   state: ChessboardHistoryStateType,
   action: PayloadAction<MoveHistoryType>
 ) => {
   state.movesHistory.push(action.payload);
+};
+
+export const updatePreviousGameStateReducer = (
+  state: ChessboardHistoryStateType,
+  action: PayloadAction<GameStateType>
+) => {
+  state.previousGameState = action.payload;
+};
+
+export const removePreviousGameStateReducer = (
+  state: ChessboardHistoryStateType
+) => {
+  state.previousGameState = null;
 };
 
 // Update last move with Pawn Promotion Info
