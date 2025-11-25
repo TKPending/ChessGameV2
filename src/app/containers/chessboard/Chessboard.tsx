@@ -1,16 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+
 import { setChessboard } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
 import { setEnemyMoves } from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
 import { generateTiles } from "@/app/containers/chessboard/utils/chessboard/generateTiles";
 import { generateAllEnemyMoves } from "@/app/containers/chessboard/utils/pieceMovements/generateMoves/generateAllEnemyMoves";
 import { checkForCheckmate } from "@/app/containers/chessboard/utils/pieceMovements/checkmate/checkForCheckmate";
 import CheckmateContainer from "@/app/containers/features/checkmate/CheckmateContainer";
-import { EnemyAttackType, PawnPromotionType } from "@/app/types/MoveTypes";
 import PawnPromotionContainer from "@/app/containers/chessboard/features/pawnPromotion/PawnPromotionContainer";
-import { ChessColors } from "@/app/types/ChessTypes";
 import TileContainer from "@/app/containers/chessboard/features/tile/TileContainer";
-import { TileType } from "@/app/types/ChessTypes";
+
+import { getPlayerColor } from "@/app/utils/getPlayerColor";
+
 import {
   selectChessboard,
   selectPawnPromotion,
@@ -27,8 +28,10 @@ import {
   selectIsKingInCheck,
 } from "@/app/utils/selectors/moveAnalysisStateSelector";
 import { selectCurrentMoveCount } from "@/app/utils/selectors/chessboardHistoryStateSelector";
-import { getPlayerColor } from "@/app/utils/getPlayerColor";
 import { updatePreviousGameState } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
+
+import { ChessColors, TileType } from "@/app/types/ChessTypes";
+import { EnemyAttackType, PawnPromotionType } from "@/app/types/MoveTypes";
 
 const Chessboard = () => {
   const dispatch = useDispatch();

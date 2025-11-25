@@ -1,13 +1,14 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
+
 import Button from "@/app/components/Button";
+
 import { selectIsRedoVisible } from "@/app/utils/selectors/gameStateSelectors";
 import {
   setCurrentTurn,
   setGameStateToPrevious,
   setRedoVisibility,
 } from "@/app/redux/slices/gameState/gameStateSlice";
-import { GameStateType } from "@/app/types/StateTypes";
 import {
   selectChessboardHistory,
   selectPreviousGameState,
@@ -18,6 +19,8 @@ import {
 } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
 import { setChessboard } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
 import { resetTiles } from "@/app/containers/chessboard/utils/chessboard/design/resetTiles";
+
+import { GameStateType } from "@/app/types/StateTypes";
 import { TileType } from "@/app/types/ChessTypes";
 
 const UndoButtonContainer = () => {

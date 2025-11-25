@@ -3,12 +3,14 @@ import { useSelector } from "react-redux";
 import ErrorContainer from "@/app/containers/errors/ErrorContainer";
 import ResetGameModalContainer from "@/app/containers/features/resetGame/containers/ResetGameModalContainer";
 import Chessboard from "@/app/containers/chessboard/Chessboard";
+import ChessboardMoveHistory from "@/app/containers/chessboardMoveHistory/ChessboardMoveHistory";
 import PlayerContainer from "@/app/containers/players/PlayerContainer";
 import BackButtonContainer from "@/app/containers/features/backButton/BackButtonContainer";
 import UndoButtonContainer from "@/app/containers/features/undoButton/UndoButtonContainer";
 import {
   selectIsGameReset,
-  selectIsRedoAvaialble,
+  selectIsPlaying,
+  selectIsRedoVisible,
 } from "@/app/utils/selectors/gameStateSelectors";
 import { PageEnum } from "@/app/types/PageTypes";
 
@@ -20,7 +22,8 @@ const ChessGamePage = () => {
     (state: RootState) => state.gameState.error.isError
   );
   const isGameReset: boolean = useSelector(selectIsGameReset);
-  const isRedoAvailable: boolean = useSelector(selectIsRedoAvaialble);
+  const isRedoVisible: boolean = useSelector(selectIsRedoVisible);
+  const isPlaying: boolean = useSelector(selectIsPlaying);
 
   return (
     <div className="h-screen w-screen max-h-screen max-w-screen overflow-hidden">
@@ -40,10 +43,10 @@ const ChessGamePage = () => {
         <PlayerContainer playerNo={PLAYERONE} className="items-start" />
       </div>
 
-      {isRedoAvailable && <UndoButtonContainer />}
+      {isRedoVisible && <UndoButtonContainer />}
+      {!isPlaying && <ChessboardMoveHistory />}
 
       {isGameReset && <ResetGameModalContainer />}
-      {/* <ChessboardMoveHistory /> */}
     </div>
   );
 };

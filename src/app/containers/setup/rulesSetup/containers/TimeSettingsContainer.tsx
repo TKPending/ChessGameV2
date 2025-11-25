@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Dropdown from "../components/Dropdown";
+import Dropdown from "@/app/containers/setup/rulesSetup/components/Dropdown";
 import {
   timeSettingsOptions,
   TimeSettingsOptionsType,

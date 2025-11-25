@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import ResetGameModal from "../components/ResetGameModal";
+import ResetGameModal from "@/app/containers/features/resetGame/components/ResetGameModal";
 import { resetChessGame } from "@/app/utils/resetChessGame";
 import { setResetTrigger } from "@/app/redux/slices/gameState/gameStateSlice";
 
@@ -7,7 +7,7 @@ const ResetGameModalContainer = () => {
   const dispatch = useDispatch();
 
   const handleResetGame = () => {
-    resetChessGame(dispatch);
+    resetChessGame(dispatch, { swapColors: true });
   };
 
   const handleCancelReset = () => {
