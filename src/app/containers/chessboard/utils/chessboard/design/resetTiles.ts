@@ -11,13 +11,15 @@ import { TileType } from "@/app/types/ChessTypes";
  * Function to reset tiles and get them ready for the next turn
  * @param dispatch Update redux state
  * @param updatedChessboard The updated version of the Chessboard. Could be updated or original version if an error.
+ * @param highlightPreviousMove Prevent the previous move highlight from being removed
  */
 export const resetTiles = (
   dispatch: Dispatch<UnknownAction>,
-  updatedChessboard: TileType[][]
+  updatedChessboard: TileType[][],
+  highlightPreviousMove?: boolean
 ) => {
   dispatch(setCurrentTile(null));
   dispatch(setPreviousTile(null));
   dispatch(setCurrentPiecePotentialMoves([]));
-  clearTileHighlights(dispatch, updatedChessboard);
+  clearTileHighlights(dispatch, updatedChessboard, highlightPreviousMove);
 };

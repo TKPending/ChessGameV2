@@ -185,8 +185,18 @@ const TileContainer = ({ tile }: Props) => {
         chessboard,
         castling
       );
-      //
-      resetTiles(dispatch, updatedChessboard);
+
+      // Highlight tile piece has moved from
+      dispatch(
+        updateTile({
+          ...prevClickedTile,
+          pieceOnTile: null,
+          isHighlighted: true,
+          highlightReason: "previous",
+        })
+      );
+
+      resetTiles(dispatch, updatedChessboard, true);
 
       if (isRedoAvailable) {
         dispatch(setRedoVisibility(true));
