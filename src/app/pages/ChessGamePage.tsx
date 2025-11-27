@@ -10,6 +10,7 @@ import UndoButtonContainer from "@/app/containers/features/undoButton/UndoButton
 import {
   selectIsGameReset,
   selectIsPlaying,
+  selectIsRedoAvaialble,
   selectIsRedoVisible,
 } from "@/app/utils/selectors/gameStateSelectors";
 import { PageEnum } from "@/app/types/PageTypes";
@@ -22,6 +23,7 @@ const ChessGamePage = () => {
     (state: RootState) => state.gameState.error.isError
   );
   const isGameReset: boolean = useSelector(selectIsGameReset);
+  const isRedoAvailable: boolean = useSelector(selectIsRedoAvaialble);
   const isRedoVisible: boolean = useSelector(selectIsRedoVisible);
   const isPlaying: boolean = useSelector(selectIsPlaying);
 
@@ -43,7 +45,7 @@ const ChessGamePage = () => {
         <PlayerContainer playerNo={PLAYERONE} className="items-start" />
       </div>
 
-      {isRedoVisible && <UndoButtonContainer />}
+      {isRedoAvailable && isRedoVisible && <UndoButtonContainer />}
       {!isPlaying && <ChessboardMoveHistory />}
 
       {isGameReset && <ResetGameModalContainer />}

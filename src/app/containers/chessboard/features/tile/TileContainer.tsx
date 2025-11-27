@@ -19,6 +19,7 @@ import { isMoveValid } from "@/app/containers/chessboard/utils/pieceMovements/he
 import {
   selectCurrentTurn,
   selectIsPlaying,
+  selectIsRedoAvaialble,
 } from "@/app/utils/selectors/gameStateSelectors";
 import { clearTileHighlights } from "@/app/containers/chessboard/utils/chessboard/design/clearTileHighlights";
 import { generateSelectedPieceValidMoves } from "@/app/containers/chessboard/utils/pieceMovements/generateMoves/generateSelectedPiece";
@@ -69,6 +70,7 @@ const TileContainer = ({ tile }: Props) => {
   const allEnemyMoves: EnemyAttackType[] = useSelector(selectAllEnemyMoves);
   const currentTurn: ChessColors = useSelector(selectCurrentTurn);
   const isPlaying: boolean = useSelector(selectIsPlaying);
+  const isRedoAvailable: boolean = useSelector(selectIsRedoAvaialble);
 
   const handleTileClick = (clickedTile: TileType) => {
     if (!isPlaying) {
@@ -158,7 +160,9 @@ const TileContainer = ({ tile }: Props) => {
           )
       );
 
-      dispatch(setRedoVisibility(false));
+      if (isRedoAvailable) {
+        dispatch(setRedoVisibility(false));
+      }
 
       // Highliht valid moves on the chessboard
       highlightValidMoves(dispatch, chessboard, pieceLegalMoves, currentTurn);
@@ -184,7 +188,9 @@ const TileContainer = ({ tile }: Props) => {
       //
       resetTiles(dispatch, updatedChessboard);
 
-      dispatch(setRedoVisibility(true));
+      if (isRedoAvailable) {
+        dispatch(setRedoVisibility(true));
+      }
       dispatch(setEnemyMoves([]));
       dispatch(incrementPlayerTime());
       dispatch(setCurrentTurn());
