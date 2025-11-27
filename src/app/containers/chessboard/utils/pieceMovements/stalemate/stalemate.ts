@@ -1,14 +1,10 @@
-import { ChessColors, TileType } from "@/app/types/ChessTypes";
-import { EnemyAttackType } from "@/app/types/MoveTypes";
-import { generateAllTeamMoves } from "../generateMoves/generateAllTeamMoves";
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { allDefensiveMoves } from "../checkmate/helper/allDefensiveMoves";
-import { findKing } from "../checkmate/helper/findKing";
-import { convertTilePosition } from "@/app/utils/convertTilePosition";
-import { preventCheckmate } from "../checkmate/helper/preventCheckmate";
-import { isKingSafeAfterMove } from "../../handlers/helpers/handPieceOnTileHelpers/isKingSafeAfterMove";
+import { generateAllTeamMoves } from "@/app/containers/chessboard/utils/pieceMovements/generateMoves/generateAllTeamMoves";
+import { isKingSafeAfterMove } from "@/app/containers/chessboard/utils/handlers/helpers/handPieceOnTileHelpers/isKingSafeAfterMove";
 import { getPlayerColor } from "@/app/utils/getPlayerColor";
 import { setStalemate } from "@/app/redux/slices/gameState/gameStateSlice";
+import { ChessColors, TileType } from "@/app/types/ChessTypes";
+import { EnemyAttackType } from "@/app/types/MoveTypes";
 
 export const stalemate = (
   dispatch: Dispatch<UnknownAction>,

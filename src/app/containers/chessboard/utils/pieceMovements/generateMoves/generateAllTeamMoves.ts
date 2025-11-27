@@ -37,7 +37,7 @@ export const generateAllTeamMoves = (
         );
 
         if (moves.length > 0) {
-          moves.push(convertTilePosition(tile.tilePosition));
+          // moves.push(convertTilePosition(tile.tilePosition)); - Redundant?
           const direction = classifySlidingDirections(piece.pieceName);
           enemyMoves.push({
             piecePosition: [row, col],

@@ -58,8 +58,6 @@ const Chessboard = () => {
       dispatch(updatePreviousGameState(currentGameState));
     }
 
-    stalemate(dispatch, chessboard, currentTurn, allEnemyMoves, isKingInCheck);
-
     // Simulate moves once the board has more than 3 moves to avoid unnecessary calculations
     if (
       chessboard.length > 0 &&
@@ -82,6 +80,7 @@ const Chessboard = () => {
       // Store enemy moves
       dispatch(setEnemyMoves(enemyLegalMoves));
     }
+    stalemate(dispatch, chessboard, currentTurn, allEnemyMoves, isKingInCheck);
   }, [
     chessboard,
     currentTurn,
