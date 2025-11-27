@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import ErrorContainer from "@/app/containers/errors/ErrorContainer";
 import ResetGameModalContainer from "@/app/containers/features/resetGame/containers/ResetGameModalContainer";
 import Chessboard from "@/app/containers/chessboard/Chessboard";
+import EndGameModal from "@/app/containers/features/endGame/EndGameModal";
+
 import ChessboardMoveHistory from "@/app/containers/chessboardMoveHistory/ChessboardMoveHistory";
 import PlayerContainer from "@/app/containers/players/PlayerContainer";
 import BackButtonContainer from "@/app/containers/features/backButton/BackButtonContainer";
@@ -14,6 +16,7 @@ import {
   selectIsRedoVisible,
 } from "@/app/utils/selectors/gameStateSelectors";
 import { PageEnum } from "@/app/types/PageTypes";
+import { PlayerType } from "@/app/types/ChessTypes";
 
 const PLAYERONE = 0;
 const PLAYERTWO = 1;
@@ -27,6 +30,10 @@ const ChessGamePage = () => {
   const isRedoVisible: boolean = useSelector(selectIsRedoVisible);
   const isPlaying: boolean = useSelector(selectIsPlaying);
 
+  const isWinner: PlayerType | null = null;
+  const isKingInCheckmate: boolean = true;
+  const isStalemate: boolean = false;
+
   return (
     <div className="h-screen w-screen max-h-screen max-w-screen overflow-hidden">
       <BackButtonContainer
@@ -35,6 +42,8 @@ const ChessGamePage = () => {
         midGame={true}
       />
       {isError && <ErrorContainer />}
+
+      {(isKingInCheckmate || isWinner || isStalemate) && <EndGameModal />}
 
       {/* Renders the Chessboard, Players and ChessMoves */}
       <div className="h-full md:w-full flex flex-col items-center justify-around p-2 px-20 gap-4">
