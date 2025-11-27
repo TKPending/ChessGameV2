@@ -208,3 +208,10 @@ export const kingInCheckmateReducer = (
 ) => {
   state.isKingInCheckmate = action.payload;
 };
+
+export const closeModalReducer = (state: GameStateType) => {
+  state.winner = null;
+  state.stalemate = false;
+  state.isKingInCheckmate = false;
+  state.isPlaying = false;
+};

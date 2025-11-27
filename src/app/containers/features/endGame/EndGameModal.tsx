@@ -11,6 +11,7 @@ import {
   selectWinner,
 } from "@/app/utils/selectors/gameStateSelectors";
 import { resetChessGame } from "@/app/utils/resetChessGame";
+import { closeModal } from "@/app/redux/slices/gameState/gameStateSlice";
 
 const EndGameModal = () => {
   const dispatch = useDispatch();
@@ -25,7 +26,9 @@ const EndGameModal = () => {
     resetChessGame(dispatch, { swapColors: true });
   };
 
-  const handleExitModal = () => {};
+  const handleExitModal = () => {
+    dispatch(closeModal());
+  };
 
   let content = null;
 

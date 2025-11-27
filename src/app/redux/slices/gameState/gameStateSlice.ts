@@ -19,6 +19,7 @@ import {
   incrementPlayerTimeReducer,
   setGameStateToPreviousReducer,
   setStalemateReducer,
+  closeModalReducer,
 } from "./gameStateReducer";
 
 const initialState: GameStateType = {
@@ -77,6 +78,7 @@ const gameStateSlice = createSlice({
     incrementPlayerTime: incrementPlayerTimeReducer,
     setGameStateToPrevious: setGameStateToPreviousReducer,
     setResetTrigger: resetGameReducer,
+    closeModal: closeModalReducer,
     resetGameState: resetGameStateReducer,
   },
 });
@@ -98,6 +100,7 @@ export const {
   incrementPlayerTime,
   setGameStateToPrevious,
   setResetTrigger,
+  closeModal,
   resetGameState,
 } = gameStateSlice.actions;
 
