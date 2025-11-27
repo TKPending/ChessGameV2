@@ -1,30 +1,23 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useWindowSize } from "react-use";
-
 import Confetti from "react-confetti";
-
 import Checkmate from "./components/Checkmate";
 import Button from "@/app/components/Button";
 import Stalemate from "./components/Stalemate";
 import WinnerOnTime from "./components/WinnerOnTime";
-// import {
-//   selectIsKingInCheckmate,
-//   selectStalemate,
-//   selectWinner,
-// } from "@/app/utils/selectors/gameStateSelectors";
+import {
+  selectIsKingInCheckmate,
+  selectStalemate,
+  selectWinner,
+} from "@/app/utils/selectors/gameStateSelectors";
 import { resetChessGame } from "@/app/utils/resetChessGame";
-import { PlayerType } from "@/app/types/ChessTypes";
 
 const EndGameModal = () => {
   const dispatch = useDispatch();
 
-  // const isCheckmate = useSelector(selectIsKingInCheckmate);
-  // const isStalemate = useSelector(selectStalemate);
-  // const winner = useSelector(selectWinner); // null | "white" | "black"
-
-  const winner: PlayerType | null = null;
-  const isCheckmate: boolean = true;
-  const isStalemate: boolean = false;
+  const isCheckmate = useSelector(selectIsKingInCheckmate);
+  const isStalemate = useSelector(selectStalemate);
+  const winner = useSelector(selectWinner);
 
   const { width, height } = useWindowSize();
 
@@ -43,7 +36,7 @@ const EndGameModal = () => {
   } else if (winner) {
     content = <WinnerOnTime />;
   } else {
-    return null; // no end state
+    return null;
   }
 
   return (

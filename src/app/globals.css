@@ -149,3 +149,15 @@ body {
 .animate-softPulse {
   animation: softPulse 2.8s ease-in-out infinite;
 }
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
