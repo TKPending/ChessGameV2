@@ -18,11 +18,13 @@ import {
   setPlayerTimeReducer,
   incrementPlayerTimeReducer,
   setGameStateToPreviousReducer,
+  setStalemateReducer,
 } from "./gameStateReducer";
 
 const initialState: GameStateType = {
   currentTurn: ChessColors.white,
   winner: null,
+  stalemate: false,
   players: [
     {
       no: 0,
@@ -61,6 +63,7 @@ const gameStateSlice = createSlice({
   reducers: {
     setCurrentTurn: updateCurrentTurnReducer,
     setWinner: setWinnerReducer,
+    setStalemate: setStalemateReducer,
     setError: errorTriggerReducer,
     setErrorMessage: errorMessageReducer,
     setPlayerName: addPlayerNameReducer,
@@ -81,6 +84,7 @@ const gameStateSlice = createSlice({
 export const {
   setCurrentTurn,
   setWinner,
+  setStalemate,
   setError,
   setErrorMessage,
   setPlayerName,

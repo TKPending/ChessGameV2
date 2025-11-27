@@ -27,6 +27,7 @@ export interface GameStateType {
   isGameReset: boolean;
   isKingInCheckmate: boolean;
   winner: PlayerType | null;
+  stalemate: boolean;
   isRedoAvailable: boolean;
   isRedoVisible: boolean;
   timeSettings: TimeType;

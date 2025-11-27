@@ -68,6 +68,10 @@ export const setWinnerReducer = (
   state.isPlaying = false;
 };
 
+export const setStalemateReducer = (state: GameStateType) => {
+  state.stalemate = true;
+};
+
 export const updateCurrentTurnReducer = (state: GameStateType) => {
   const turn: string = state.currentTurn;
   const { white, black } = ChessColors;
@@ -190,6 +194,7 @@ export const resetGameStateReducer = (
   }
 
   state.winner = null;
+  state.stalemate = false;
   state.isPlaying = true;
   state.error = { isError: false, message: "" };
   state.isKingInCheckmate = false;
