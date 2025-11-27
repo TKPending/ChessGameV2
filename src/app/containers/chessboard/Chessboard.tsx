@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import { setChessboard } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
 import { setEnemyMoves } from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
 import { generateTiles } from "@/app/containers/chessboard/utils/chessboard/generateTiles";
-import { generateAllEnemyMoves } from "@/app/containers/chessboard/utils/pieceMovements/generateMoves/generateAllEnemyMoves";
 import { checkForCheckmate } from "@/app/containers/chessboard/utils/pieceMovements/checkmate/checkForCheckmate";
 import CheckmateContainer from "@/app/containers/features/checkmate/CheckmateContainer";
 import PawnPromotionContainer from "@/app/containers/chessboard/features/pawnPromotion/PawnPromotionContainer";
@@ -32,6 +31,8 @@ import { updatePreviousGameState } from "@/app/redux/slices/chessboardHistory/ch
 
 import { ChessColors, TileType } from "@/app/types/ChessTypes";
 import { EnemyAttackType, PawnPromotionType } from "@/app/types/MoveTypes";
+import { generateAllTeamMoves } from "./utils/pieceMovements/generateMoves/generateAllTeamMoves";
+import { stalemate } from "./utils/pieceMovements/stalemate/stalemate";
 
 const Chessboard = () => {
   const dispatch = useDispatch();
@@ -57,6 +58,8 @@ const Chessboard = () => {
       dispatch(updatePreviousGameState(currentGameState));
     }
 
+    stalemate(dispatch, chessboard, currentTurn, allEnemyMoves, isKingInCheck);
+
     // Simulate moves once the board has more than 3 moves to avoid unnecessary calculations
     if (
       chessboard.length > 0 &&
@@ -68,7 +71,7 @@ const Chessboard = () => {
       const isSimulatingEnemyMoves: boolean = false;
 
       // Generate all possible enemy moves and check for checkmate
-      const enemyLegalMoves: EnemyAttackType[] = generateAllEnemyMoves(
+      const enemyLegalMoves: EnemyAttackType[] = generateAllTeamMoves(
         dispatch,
         chessboard,
         enemyColor,

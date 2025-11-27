@@ -76,6 +76,9 @@ export const checkForCheckmate = (
     currentTurn
   );
 
+  const test = [...kingDefensiveMoves, ...kingValidCaptureMoves];
+  console.log(test);
+
   const isCheckmate = !preventCheckmate(dispatch, chessboard, currentTurn, [
     ...kingDefensiveMoves,
     ...kingValidCaptureMoves,

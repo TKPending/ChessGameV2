@@ -2,9 +2,9 @@ import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { findKing } from "@/app/containers/chessboard/utils/pieceMovements/checkmate/helper/findKing";
 import { convertTilePosition } from "@/app/utils/convertTilePosition";
 import { updateChessboard } from "@/app/containers/chessboard/utils/handlers/helpers/handleMovePieceHelpers/updateChessboard";
-import { generateAllEnemyMoves } from "@/app/containers/chessboard/utils/pieceMovements/generateMoves/generateAllEnemyMoves";
 import { EnemyAttackType } from "@/app/types/MoveTypes";
 import { ChessColors, TileType } from "@/app/types/ChessTypes";
+import { generateAllTeamMoves } from "../../../pieceMovements/generateMoves/generateAllTeamMoves";
 
 /**
  * Simulates a move, to verify that the King doesn't get placed in check / checkmate
@@ -34,7 +34,7 @@ export const isKingSafeAfterMove = (
   );
   if (!currentTurnKing) return true;
 
-  const simulatedEnemyMoves: EnemyAttackType[] = generateAllEnemyMoves(
+  const simulatedEnemyMoves: EnemyAttackType[] = generateAllTeamMoves(
     dispatch,
     simulatedChessboard,
     enemyTeamColor,

@@ -1,8 +1,8 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { generateAllEnemyMoves } from "@/app/containers/chessboard/utils/pieceMovements/generateMoves/generateAllEnemyMoves";
 import { isKingSafeAfterMove } from "@/app/containers/chessboard/utils/handlers/helpers/handPieceOnTileHelpers/isKingSafeAfterMove";
 import { ChessColors, TileType } from "@/app/types/ChessTypes";
 import { getPlayerColor } from "@/app/utils/getPlayerColor";
+import { generateAllTeamMoves } from "../../generateMoves/generateAllTeamMoves";
 
 export const preventCheckmate = (
   dispatch: Dispatch<UnknownAction>,
@@ -11,7 +11,7 @@ export const preventCheckmate = (
   defensiveMoves: number[][]
 ): boolean => {
   // Generate all legal moves for the current team
-  const currentTeamLegalMoves = generateAllEnemyMoves(
+  const currentTeamLegalMoves = generateAllTeamMoves(
     dispatch,
     chessboard,
     currentTurn,
@@ -28,6 +28,7 @@ export const preventCheckmate = (
           ([defRow, defCol]) => defRow === moveRow && defCol === moveCol
         )
       ) {
+        console.log("Here");
         const [row, col] = move.piecePosition;
 
         const previousTile = chessboard[row][col];

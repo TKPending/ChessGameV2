@@ -9,14 +9,14 @@ import { convertTilePosition } from "@/app/utils/convertTilePosition";
  * Generates all moves for the enemy team
  * @param dispatch Update redux state
  * @param chessboard Current chessboard state
- * @param enemyColor Color of the enemy / Opposite team
+ * @param teamColor Color of the enemy / Opposite team
  * @param simulation Whether this is a simulation or not
  * @returns All legal enemy moves
  */
-export const generateAllEnemyMoves = (
+export const generateAllTeamMoves = (
   dispatch: Dispatch<UnknownAction>,
   chessboard: TileType[][],
-  enemyColor: ChessColors.white | ChessColors.black,
+  teamColor: ChessColors.white | ChessColors.black,
   simulation: boolean
 ): EnemyAttackType[] => {
   const enemyMoves: EnemyAttackType[] = [];
@@ -26,7 +26,7 @@ export const generateAllEnemyMoves = (
       const tile = chessboard[row][col];
       const piece: PieceType | null = tile.pieceOnTile;
 
-      if (piece && piece.pieceColor === enemyColor) {
+      if (piece && piece.pieceColor === teamColor) {
         const moves = generatePieceLegalMoves(
           dispatch,
           chessboard,
