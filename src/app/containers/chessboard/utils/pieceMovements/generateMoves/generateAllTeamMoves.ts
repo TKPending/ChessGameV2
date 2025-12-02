@@ -12,7 +12,8 @@ import { indiviualPieceMoves } from "./helper/indiviualPieceMoves";
  */
 export const generateAllTeamMoves = (
   chessboard: TileType[][],
-  teamColor: ChessColors.white | ChessColors.black
+  teamColor: ChessColors.white | ChessColors.black,
+  isEnemy: boolean = false
 ): EnemyAttackType[] => {
   const enemyMoves: EnemyAttackType[] = [];
 
@@ -22,7 +23,12 @@ export const generateAllTeamMoves = (
       const piece: PieceType | null = tile.pieceOnTile;
 
       if (piece && piece.pieceColor === teamColor) {
-        const moves: number[][] = indiviualPieceMoves(chessboard, piece, tile);
+        const moves: number[][] = indiviualPieceMoves(
+          chessboard,
+          piece,
+          tile,
+          isEnemy
+        );
 
         if (moves.length > 0) {
           const direction = classifySlidingDirections(piece.pieceName);

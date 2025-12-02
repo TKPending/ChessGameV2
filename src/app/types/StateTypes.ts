@@ -49,6 +49,7 @@ export interface MoveAnalysisStateType {
   isKingInCheck: boolean;
   currentTeamMoves: EnemyAttackType[];
   enemyTeamMoves: EnemyAttackType[];
+  selectedPieceMoves: number[][];
 }
 
 // Checks player setup is valid

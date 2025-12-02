@@ -8,6 +8,7 @@ import { TileType } from "@/app/types/ChessTypes";
 import {
   resetActiveMoves,
   setCurrentTeamMoves,
+  setSelectedPieceMoves,
 } from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
 
 /**
@@ -25,5 +26,6 @@ export const resetTiles = (
   dispatch(setPreviousTile(null));
   dispatch(setCurrentTeamMoves([]));
   dispatch(resetActiveMoves());
+  dispatch(setSelectedPieceMoves([]));
   clearTileHighlights(dispatch, updatedChessboard, highlightPreviousMove);
 };

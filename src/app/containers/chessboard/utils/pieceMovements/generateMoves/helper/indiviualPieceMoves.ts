@@ -3,7 +3,6 @@ import { getKnightMoves } from "@/app/containers/chessboard/utils/pieceMovements
 import { getSlidingPieceMoves } from "@/app/containers/chessboard/utils/pieceMovements/getSlidingPieceMoves";
 import { getKingMoves } from "@/app/containers/chessboard/utils/pieceMovements/getKingMoves";
 import { convertTilePosition } from "@/app/utils/convertTilePosition";
-import { EnemyAttackType } from "@/app/types/MoveTypes";
 import { TileType, PieceType, PieceName } from "@/app/types/ChessTypes";
 
 /**
@@ -11,28 +10,33 @@ import { TileType, PieceType, PieceName } from "@/app/types/ChessTypes";
  * @param chessboard Current chessboard state
  * @param piece Piece that the moves are being generate for
  * @param tile Current tile the piece is on
- * @param isEnemy Whether we're generating moves for friendly or enemy
- * @param  Whether this is a  or not
- * @param enemyMoves All enemy moves
+ * @param isEnemy When generating enemy moves, include Pawn Capture moves
  * @returns Legal moves for a piece
  */
 export const indiviualPieceMoves = (
   chessboard: TileType[][],
   piece: PieceType,
-  tile: TileType
+  tile: TileType,
+  isEnemy: boolean = false
 ): number[][] => {
   const [currentRow, currentCol] = convertTilePosition(tile.tilePosition);
 
   switch (piece.pieceName) {
     case PieceName.pawn: {
-      return getPawnMoves(chessboard, piece.pieceColor, currentRow, currentCol);
-      // return isEnemy
-      //   ? moves.filter(
-      //       ([moveRow, moveCol]) =>
-      //         Math.abs(moveRow - currentRow) === 1 &&
-      //         Math.abs(moveCol - currentCol) === 1 // Only diagonal captures for enemies
-      //     )
-      //   : moves;
+      const moves = getPawnMoves(
+        chessboard,
+        piece.pieceColor,
+        currentRow,
+        currentCol
+      );
+
+      return isEnemy
+        ? moves.filter(
+            ([moveRow, moveCol]) =>
+              Math.abs(moveRow - currentRow) === 1 &&
+              Math.abs(moveCol - currentCol) === 1 // Only diagonal captures for enemies
+          )
+        : moves;
     }
     case PieceName.knight: {
       return getKnightMoves(

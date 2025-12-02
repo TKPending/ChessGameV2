@@ -1,10 +1,9 @@
-import { TileType, ChessColors, PieceName } from "@/app/types/ChessTypes";
+import { TileType, ChessColors } from "@/app/types/ChessTypes";
 import { EnemyAttackType } from "@/app/types/MoveTypes";
 import { generateAllTeamMoves } from "@/app/containers/chessboard/utils/pieceMovements/generateMoves/generateAllTeamMoves";
 import { getPlayerColor } from "@/app/utils/getPlayerColor";
 import { findKingPosition } from "../../helpers/findKingPosition";
 import { isSquareAttacked } from "../../helpers/isSquareAttacked";
-import { setIsKingInCheck } from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
 
 /**
  * Simulates moves to filter out those that leave the King in check.
@@ -14,7 +13,6 @@ import { setIsKingInCheck } from "@/app/redux/slices/moveAnalysis/moveAnalysisSl
  * @returns A filtered list of EnemyAttackType containing only legal moves
  */
 export const simulateTeamMoves = (
-  dispatch: any,
   chessboard: TileType[][],
   currentTeamMoves: EnemyAttackType[],
   currentTurn: ChessColors.white | ChessColors.black
@@ -51,7 +49,11 @@ export const simulateTeamMoves = (
       const enemyColor = getPlayerColor(currentTurn, true);
 
       // Regenerate enemy moves because the board state changed!
-      const enemyResponses = generateAllTeamMoves(simulatedBoard, enemyColor);
+      const enemyResponses = generateAllTeamMoves(
+        simulatedBoard,
+        enemyColor,
+        true
+      );
 
       // Check if the King is attacked by any of those responses
       const kingIsSafe = !isSquareAttacked(enemyResponses, kingPosition);

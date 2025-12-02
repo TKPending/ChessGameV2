@@ -16,6 +16,13 @@ export const updateEnemyTeamMovesReducer = (
   state.enemyTeamMoves = action.payload;
 };
 
+export const updateSelectedPieceMovesReducer = (
+  state: MoveAnalysisStateType,
+  action: PayloadAction<number[][]>
+) => {
+  state.selectedPieceMoves = action.payload;
+};
+
 // Track if King is in check
 export const isKingInCheckReducer = (
   state: MoveAnalysisStateType,

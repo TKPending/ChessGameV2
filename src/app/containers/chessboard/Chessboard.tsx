@@ -13,7 +13,6 @@ import {
   selectGameState,
   selectIsRedoAvaialble,
 } from "@/app/utils/selectors/gameStateSelectors";
-import { selectCurrentMoveCount } from "@/app/utils/selectors/chessboardHistoryStateSelector";
 import { updatePreviousGameState } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
 
 import { generateTiles } from "@/app/containers/chessboard/utils/chessboard/generateTiles";
@@ -31,14 +30,14 @@ import {
 
 import { ChessColors, TileType } from "@/app/types/ChessTypes";
 import { EnemyAttackType, PawnPromotionType } from "@/app/types/MoveTypes";
+import { GameStateType } from "@/app/types/StateTypes";
 
 const Chessboard = () => {
   const dispatch = useDispatch();
   const chessboard: TileType[][] = useSelector(selectChessboard);
   const pawnPromotion: PawnPromotionType = useSelector(selectPawnPromotion);
   const currentTurn: ChessColors = useSelector(selectCurrentTurn);
-  const currentMoveCount: number = useSelector(selectCurrentMoveCount);
-  const currentGameState = useSelector(selectGameState);
+  const currentGameState: GameStateType = useSelector(selectGameState);
   const isRedoAvailable: boolean = useSelector(selectIsRedoAvaialble);
 
   useEffect(() => {
@@ -52,47 +51,41 @@ const Chessboard = () => {
       dispatch(updatePreviousGameState(currentGameState));
     }
 
-    // Avoid overanlysing impossible check/checkmate/stalemate states
-    if (currentMoveCount > 3) {
-      const currentTeamMoves: EnemyAttackType[] = generateAllTeamMoves(
-        chessboard,
-        currentTurn
-      );
-      const currentTeamLegalMoves: EnemyAttackType[] = simulateTeamMoves(
-        dispatch,
-        chessboard,
-        currentTeamMoves,
-        currentTurn
-      );
+    // Get all possible moves for current turn team
+    const currentTeamMoves: EnemyAttackType[] = generateAllTeamMoves(
+      chessboard,
+      currentTurn,
+      false
+    );
+    // Simulate moves checking if moves put King in check
+    const currentTeamLegalMoves: EnemyAttackType[] = simulateTeamMoves(
+      chessboard,
+      currentTeamMoves,
+      currentTurn
+    );
 
-      // Must be Checkmate or Stalemate
-      if (currentTeamLegalMoves.length === 0) {
-        const enemyMoves: EnemyAttackType[] = generateAllTeamMoves(
-          chessboard,
-          getPlayerColor(currentTurn, true)
-        );
-        const kingPos: [number, number] | null = findKingPosition(
-          chessboard,
-          currentTurn
-        );
-        const isKingAttacked: boolean = kingPos
-          ? isSquareAttacked(enemyMoves, kingPos)
-          : false;
-        if (isKingAttacked) {
-          dispatch(setKingInCheckmate(true));
-        } else {
-          dispatch(setStalemate());
-        }
+    // Must be Checkmate or Stalemate
+    if (currentTeamLegalMoves.length === 0) {
+      const enemyMoves: EnemyAttackType[] = generateAllTeamMoves(
+        chessboard,
+        getPlayerColor(currentTurn, true),
+        true
+      );
+      const kingPos: [number, number] | null = findKingPosition(
+        chessboard,
+        currentTurn
+      );
+      const isKingAttacked: boolean = kingPos
+        ? isSquareAttacked(enemyMoves, kingPos)
+        : false;
+      if (isKingAttacked) {
+        dispatch(setKingInCheckmate(true));
+      } else {
+        dispatch(setStalemate());
       }
-
-      dispatch(setCurrentTeamMoves(currentTeamLegalMoves));
-    } else {
-      const currentTeamMoves: EnemyAttackType[] = generateAllTeamMoves(
-        chessboard,
-        currentTurn
-      );
-      dispatch(setCurrentTeamMoves(currentTeamMoves));
     }
+
+    dispatch(setCurrentTeamMoves(currentTeamLegalMoves));
   }, [chessboard, currentTurn]);
 
   return (

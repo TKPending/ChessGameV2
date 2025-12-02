@@ -5,12 +5,14 @@ import {
   updateCurrentTeamMovesReducer,
   updateEnemyTeamMovesReducer,
   resetActiveMovesReducer,
+  updateSelectedPieceMovesReducer,
 } from "./moveAnalysisReducer";
 
 const initialState: MoveAnalysisStateType = {
   isKingInCheck: false,
   currentTeamMoves: [],
   enemyTeamMoves: [],
+  selectedPieceMoves: [],
 };
 
 const moveAnalysisSlice = createSlice({
@@ -20,6 +22,7 @@ const moveAnalysisSlice = createSlice({
     setIsKingInCheck: isKingInCheckReducer,
     setCurrentTeamMoves: updateCurrentTeamMovesReducer,
     setEnemyTeamMoves: updateEnemyTeamMovesReducer,
+    setSelectedPieceMoves: updateSelectedPieceMovesReducer,
     resetActiveMoves: resetActiveMovesReducer,
   },
 });
@@ -28,6 +31,7 @@ export const {
   setIsKingInCheck,
   setCurrentTeamMoves,
   setEnemyTeamMoves,
+  setSelectedPieceMoves,
   resetActiveMoves,
 } = moveAnalysisSlice.actions;
 
