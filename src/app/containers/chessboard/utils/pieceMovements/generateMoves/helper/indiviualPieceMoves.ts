@@ -16,11 +16,10 @@ import { TileType, PieceType, PieceName } from "@/app/types/ChessTypes";
  * @param enemyMoves All enemy moves
  * @returns Legal moves for a piece
  */
-export const generatePieceMoves = (
+export const indiviualPieceMoves = (
   chessboard: TileType[][],
   piece: PieceType,
-  tile: TileType,
-  isEnemy: boolean = false
+  tile: TileType
 ): number[][] => {
   const [currentRow, currentCol] = convertTilePosition(tile.tilePosition);
 

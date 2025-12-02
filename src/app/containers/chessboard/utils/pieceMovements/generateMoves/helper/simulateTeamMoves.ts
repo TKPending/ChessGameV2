@@ -1,0 +1,108 @@
+import { TileType, ChessColors, PieceName } from "@/app/types/ChessTypes";
+import { EnemyAttackType } from "@/app/types/MoveTypes";
+import { generateAllTeamMoves } from "@/app/containers/chessboard/utils/pieceMovements/generateMoves/generateAllTeamMoves";
+import { getPlayerColor } from "@/app/utils/getPlayerColor";
+
+/**
+ * Simulates moves to filter out those that leave the King in check.
+ * * @param chessboard The current actual state of the board
+ * @param currentTeamMoves The pseudo-legal moves generated for the current turn
+ * @param currentTurn The color of the player currently moving
+ * @returns A filtered list of EnemyAttackType containing only legal moves
+ */
+export const simulateTeamMoves = (
+  chessboard: TileType[][],
+  currentTeamMoves: EnemyAttackType[],
+  currentTurn: ChessColors.white | ChessColors.black
+): EnemyAttackType[] => {
+  const legalMoves: EnemyAttackType[] = [];
+
+  // Iterate through every piece that attempts to move
+  currentTeamMoves.forEach((pieceEntry) => {
+    const validMovesForPiece: number[][] = [];
+    const [startRow, startCol] = pieceEntry.piecePosition;
+
+    // Iterate through every target square that piece tries to go to
+    pieceEntry.moves.forEach(([targetRow, targetCol]) => {
+      // Create a Deep Copy of the board to simulate on.
+      const simulatedBoard: TileType[][] = JSON.parse(
+        JSON.stringify(chessboard)
+      );
+
+      // Execute the move on the simulated board
+      simulatedBoard[startRow][startCol].pieceOnTile = null;
+      simulatedBoard[targetRow][targetCol].pieceOnTile = {
+        ...pieceEntry.piece,
+        hasMoved: true,
+      };
+
+      // Find where our King is on this new board state
+      const kingPosition = findKingPosition(simulatedBoard, currentTurn);
+      if (!kingPosition) return;
+
+      // Generate ALL enemy responses on this new board
+      const enemyColor = getPlayerColor(currentTurn, true);
+
+      // Regenerate enemy moves because the board state changed!
+      const enemyResponses = generateAllTeamMoves(simulatedBoard, enemyColor);
+
+      // Check if the King is attacked by any of those responses
+      const kingIsSafe = !isSquareAttacked(enemyResponses, kingPosition);
+
+      // If King is safe, this is a valid move
+      if (kingIsSafe) {
+        validMovesForPiece.push([targetRow, targetCol]);
+      }
+    });
+
+    // Only add this piece to the final list if it actually has valid moves
+    if (validMovesForPiece.length > 0) {
+      legalMoves.push({
+        ...pieceEntry,
+        moves: validMovesForPiece,
+      });
+    }
+  });
+
+  return legalMoves;
+};
+
+// --- Helper Functions ---
+
+/**
+ * Scans the board to find the [row, col] of the King of the specified color
+ */
+const findKingPosition = (
+  board: TileType[][],
+  color: ChessColors
+): [number, number] | null => {
+  for (let r = 0; r < 8; r++) {
+    for (let c = 0; c < 8; c++) {
+      const piece = board[r][c].pieceOnTile;
+      if (
+        piece &&
+        piece.pieceName === PieceName.king &&
+        piece.pieceColor === color
+      ) {
+        return [r, c];
+      }
+    }
+  }
+  return null;
+};
+
+/**
+ * Checks if a specific square (the King's position) is included in any enemy move list
+ */
+const isSquareAttacked = (
+  enemyMoves: EnemyAttackType[],
+  targetPos: [number, number]
+): boolean => {
+  const [targetRow, targetCol] = targetPos;
+
+  // Check every enemy piece
+  return enemyMoves.some((enemy) =>
+    // Check every move that enemy piece makes
+    enemy.moves.some(([r, c]) => r === targetRow && c === targetCol)
+  );
+};

@@ -1,13 +1,10 @@
-import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { classifySlidingDirections } from "@/app/containers/chessboard/utils/pieceMovements/helpers/classifySlidingDirections";
 import { EnemyAttackType } from "@/app/types/MoveTypes";
 import { TileType, PieceType, ChessColors } from "@/app/types/ChessTypes";
-import { convertTilePosition } from "@/app/utils/convertTilePosition";
-import { generatePieceMoves } from "./helper/generatePieceMoves";
+import { indiviualPieceMoves } from "./helper/indiviualPieceMoves";
 
 /**
  * Generates all moves for the enemy team
- * @param dispatch Update redux state
  * @param chessboard Current chessboard state
  * @param teamColor Color of the enemy / Opposite team
  * @param simulation Whether this is a simulation or not
@@ -25,19 +22,7 @@ export const generateAllTeamMoves = (
       const piece: PieceType | null = tile.pieceOnTile;
 
       if (piece && piece.pieceColor === teamColor) {
-        const moves: number[][] = generatePieceMoves(
-          chessboard,
-          piece,
-          tile,
-          true
-        );
-
-        // if (teamColor === ChessColors.white) {
-        //   console.log({
-        //     piece: piece.pieceName,
-        //     moves,
-        //   });
-        // }
+        const moves: number[][] = indiviualPieceMoves(chessboard, piece, tile);
 
         if (moves.length > 0) {
           const direction = classifySlidingDirections(piece.pieceName);

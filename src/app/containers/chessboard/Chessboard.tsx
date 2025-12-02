@@ -23,7 +23,8 @@ import { updatePreviousGameState } from "@/app/redux/slices/chessboardHistory/ch
 import { ChessColors, TileType } from "@/app/types/ChessTypes";
 import { EnemyAttackType, PawnPromotionType } from "@/app/types/MoveTypes";
 import { generateAllTeamMoves } from "./utils/pieceMovements/generateMoves/generateAllTeamMoves";
-import { getPlayerColor } from "@/app/utils/getPlayerColor";
+import { simulateTeamMoves } from "./utils/pieceMovements/generateMoves/helper/simulateTeamMoves";
+import { setCurrentTeamMoves } from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
 
 const Chessboard = () => {
   const dispatch = useDispatch();
@@ -48,20 +49,23 @@ const Chessboard = () => {
       dispatch(updatePreviousGameState(currentGameState));
     }
 
-    const allEnemyMoves = generateAllTeamMoves(
-      chessboard,
-      getPlayerColor(currentTurn)
-    );
-    const currentTeamMoves = generateAllTeamMoves(chessboard, currentTurn);
-
-    console.log({ allEnemyMoves, currentTeamMoves });
-
     if (currentMoveCount > 3) {
-      const allEnemyMoves = generateAllTeamMoves(
+      const currentTeamMoves: EnemyAttackType[] = generateAllTeamMoves(
         chessboard,
-        getPlayerColor(currentTurn)
+        currentTurn
       );
-      const currentTeamMoves = generateAllTeamMoves(chessboard, currentTurn);
+      const currentTeamLegalMoves = simulateTeamMoves(
+        chessboard,
+        currentTeamMoves,
+        currentTurn
+      );
+      dispatch(setCurrentTeamMoves(currentTeamLegalMoves));
+    } else {
+      const currentTeamMoves: EnemyAttackType[] = generateAllTeamMoves(
+        chessboard,
+        currentTurn
+      );
+      dispatch(setCurrentTeamMoves(currentTeamMoves));
     }
   }, [chessboard, currentTurn, isKingInCheck, dispatch, isKingInCheckmate]);
 
