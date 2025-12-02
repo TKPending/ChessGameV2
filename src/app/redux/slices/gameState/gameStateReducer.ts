@@ -153,6 +153,12 @@ export const setGameStateToPreviousReducer = (
   state = action.payload;
 };
 
+// View Mode
+
+export const cancelViewModeReducer = (state: GameStateType) => {
+  state.isViewMode = false;
+};
+
 // Reset Game
 export const resetGameReducer = (state: GameStateType) => {
   state.isGameReset = !state.isGameReset;
@@ -214,4 +220,5 @@ export const closeModalReducer = (state: GameStateType) => {
   state.stalemate = false;
   state.isKingInCheckmate = false;
   state.isPlaying = false;
+  state.isViewMode = true;
 };

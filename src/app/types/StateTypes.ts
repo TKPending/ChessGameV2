@@ -31,6 +31,7 @@ export interface GameStateType {
   isRedoAvailable: boolean;
   isRedoVisible: boolean;
   timeSettings: TimeType;
+  isViewMode: boolean;
   error: ErrorType;
 }
 

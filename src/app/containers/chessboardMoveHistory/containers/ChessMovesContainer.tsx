@@ -10,6 +10,7 @@ import { MoveHistoryType } from "@/app/types/ChessTypes";
 const ChessMovesContainer = () => {
   const moveHistory: MoveHistoryType[] = useSelector(selectMovesHistory);
   const winner = useSelector(selectWinner);
+  console.log(winner);
   const isWinner = useSelector(selectIsPlaying);
 
   return (

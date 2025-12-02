@@ -13,6 +13,7 @@ import {
   selectIsPlaying,
   selectIsRedoAvaialble,
   selectIsRedoVisible,
+  selectViewingMode,
 } from "@/app/utils/selectors/gameStateSelectors";
 import {
   selectIsKingInCheckmate,
@@ -32,7 +33,7 @@ const ChessGamePage = () => {
   const isGameReset: boolean = useSelector(selectIsGameReset);
   const isRedoAvailable: boolean = useSelector(selectIsRedoAvaialble);
   const isRedoVisible: boolean = useSelector(selectIsRedoVisible);
-  const isPlaying: boolean = useSelector(selectIsPlaying);
+  const viewingMode: boolean = useSelector(selectViewingMode);
 
   const isCheckmate: boolean = useSelector(selectIsKingInCheckmate);
   const isStalemate: boolean = useSelector(selectStalemate);
@@ -50,16 +51,18 @@ const ChessGamePage = () => {
       {(isCheckmate || winner || isStalemate) && <EndGameModal />}
 
       {/* Renders the Chessboard, Players and ChessMoves */}
-      <div className="h-full md:w-full flex flex-col items-center justify-around p-2 px-20 gap-4">
-        <PlayerContainer playerNo={PLAYERTWO} className="items-end" />
+      <div className="flex h-full md:w-full p-2 px-20 gap-4">
+        <div className="h-full md:w-full flex flex-col items-center justify-around p-2 px-20 gap-4">
+          <PlayerContainer playerNo={PLAYERTWO} className="items-end" />
 
-        <Chessboard />
+          <Chessboard />
 
-        <PlayerContainer playerNo={PLAYERONE} className="items-start" />
+          <PlayerContainer playerNo={PLAYERONE} className="items-start" />
+        </div>
+
+        {viewingMode && <ChessboardMoveHistory />}
       </div>
-
       {isRedoAvailable && isRedoVisible && <UndoButtonContainer />}
-      {!isPlaying && <ChessboardMoveHistory />}
 
       {isGameReset && <ResetGameModalContainer />}
     </div>
