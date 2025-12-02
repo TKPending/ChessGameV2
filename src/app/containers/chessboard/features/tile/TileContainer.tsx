@@ -1,14 +1,16 @@
 import { useSelector, useDispatch } from "react-redux";
 import Tile from "@/app/containers/chessboard/features/tile/components/Tile";
-import { selectCurrentTeamMoves } from "@/app/utils/selectors/moveAnalysisStateSelector";
+
+import {
+  selectCurrentTeamMoves,
+  selectIsKingInCheck,
+} from "@/app/utils/selectors/moveAnalysisStateSelector";
 import {
   selectCastling,
   selectChessboard,
-  selectClickedTile,
   selectPrevClickedTile,
 } from "@/app/utils/selectors/chessboardStateSelectors";
 import {
-  setCurrentTile,
   setPreviousTile,
   updateTile,
 } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
@@ -16,17 +18,21 @@ import {
   selectCurrentTurn,
   selectIsPlaying,
 } from "@/app/utils/selectors/gameStateSelectors";
-import { resetTiles } from "../../utils/chessboard/design/resetTiles";
-import { EnemyAttackType } from "@/app/types/MoveTypes";
-import { ChessColors, PieceType, TileType } from "@/app/types/ChessTypes";
-import { getPieceMoves } from "../../utils/pieceMovements/helpers/getPieceMoves";
-import { highlightValidMoves } from "../../utils/chessboard/design/highlightValidMoves";
-import { clearTileHighlights } from "../../utils/chessboard/design/clearTileHighlights";
-import { handleMovePiece } from "../../utils/handlers/handleMovePiece";
+
+import { resetTiles } from "@/app/containers/chessboard/utils/chessboard/design/resetTiles";
+import { getPieceMoves } from "@/app/containers/chessboard/utils/pieceMovements/helpers/getPieceMoves";
+import { highlightValidMoves } from "@/app/containers/chessboard/utils/chessboard/design/highlightValidMoves";
+import { clearTileHighlights } from "@/app/containers/chessboard/utils/chessboard/design/clearTileHighlights";
+import { handleMovePiece } from "@/app/containers/chessboard/utils/handlers/handleMovePiece";
 import {
   incrementPlayerTime,
   setCurrentTurn,
 } from "@/app/redux/slices/gameState/gameStateSlice";
+
+import { EnemyAttackType } from "@/app/types/MoveTypes";
+import { ChessColors, PieceType, TileType } from "@/app/types/ChessTypes";
+import { incrementMoveCounter } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
+import { setIsKingInCheck } from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
 
 type Props = {
   tile: TileType;
@@ -40,6 +46,9 @@ const TileContainer = ({ tile }: Props) => {
   const prevClickedTile: TileType | null = useSelector(selectPrevClickedTile);
   const potentialMoves: EnemyAttackType[] = useSelector(selectCurrentTeamMoves);
   const castling = useSelector(selectCastling);
+  const kingInCheck: boolean = useSelector(selectIsKingInCheck);
+
+  console.log({ currentTurn, kingInCheck });
 
   const handleTileClick = (clickedTile: TileType) => {
     if (!isPlaying) {
@@ -98,6 +107,7 @@ const TileContainer = ({ tile }: Props) => {
 
       resetTiles(dispatch, updatedChessboard);
       dispatch(incrementPlayerTime());
+      dispatch(incrementMoveCounter());
       dispatch(setCurrentTurn());
     }
   };

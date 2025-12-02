@@ -5,7 +5,10 @@ import {
 } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
 import { clearTileHighlights } from "@/app/containers/chessboard/utils/chessboard/design/clearTileHighlights";
 import { TileType } from "@/app/types/ChessTypes";
-import { setCurrentTeamMoves } from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
+import {
+  resetActiveMoves,
+  setCurrentTeamMoves,
+} from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
 
 /**
  * Function to reset tiles and get them ready for the next turn
@@ -21,5 +24,6 @@ export const resetTiles = (
   dispatch(setCurrentTile(null));
   dispatch(setPreviousTile(null));
   dispatch(setCurrentTeamMoves([]));
+  dispatch(resetActiveMoves());
   clearTileHighlights(dispatch, updatedChessboard, highlightPreviousMove);
 };

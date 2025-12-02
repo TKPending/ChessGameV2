@@ -1,8 +1,6 @@
-import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { setChessboard } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
-import { generateTiles } from "@/app/containers/chessboard/utils/chessboard/generateTiles";
 import PawnPromotionContainer from "@/app/containers/chessboard/features/pawnPromotion/PawnPromotionContainer";
 import TileContainer from "@/app/containers/chessboard/features/tile/TileContainer";
 
@@ -13,30 +11,35 @@ import {
 import {
   selectCurrentTurn,
   selectGameState,
-  selectIsKingInCheckmate,
   selectIsRedoAvaialble,
 } from "@/app/utils/selectors/gameStateSelectors";
-import { selectIsKingInCheck } from "@/app/utils/selectors/moveAnalysisStateSelector";
 import { selectCurrentMoveCount } from "@/app/utils/selectors/chessboardHistoryStateSelector";
 import { updatePreviousGameState } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
 
-import { ChessColors, TileType } from "@/app/types/ChessTypes";
-import { EnemyAttackType, PawnPromotionType } from "@/app/types/MoveTypes";
+import { generateTiles } from "@/app/containers/chessboard/utils/chessboard/generateTiles";
+import { setChessboard } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
+import { getPlayerColor } from "@/app/utils/getPlayerColor";
 import { generateAllTeamMoves } from "./utils/pieceMovements/generateMoves/generateAllTeamMoves";
 import { simulateTeamMoves } from "./utils/pieceMovements/generateMoves/helper/simulateTeamMoves";
 import { setCurrentTeamMoves } from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
+import { isSquareAttacked } from "./utils/pieceMovements/helpers/isSquareAttacked";
+import { findKingPosition } from "./utils/pieceMovements/helpers/findKingPosition";
+import {
+  setKingInCheckmate,
+  setStalemate,
+} from "@/app/redux/slices/gameState/gameStateSlice";
+
+import { ChessColors, TileType } from "@/app/types/ChessTypes";
+import { EnemyAttackType, PawnPromotionType } from "@/app/types/MoveTypes";
 
 const Chessboard = () => {
   const dispatch = useDispatch();
   const chessboard: TileType[][] = useSelector(selectChessboard);
   const pawnPromotion: PawnPromotionType = useSelector(selectPawnPromotion);
   const currentTurn: ChessColors = useSelector(selectCurrentTurn);
-  const isKingInCheck: boolean = useSelector(selectIsKingInCheck);
   const currentMoveCount: number = useSelector(selectCurrentMoveCount);
   const currentGameState = useSelector(selectGameState);
   const isRedoAvailable: boolean = useSelector(selectIsRedoAvaialble);
-  // End Game
-  const isKingInCheckmate: boolean = useSelector(selectIsKingInCheckmate);
 
   useEffect(() => {
     // If the board hasn't been initialised yet, generate tiles
@@ -49,16 +52,39 @@ const Chessboard = () => {
       dispatch(updatePreviousGameState(currentGameState));
     }
 
+    // Avoid overanlysing impossible check/checkmate/stalemate states
     if (currentMoveCount > 3) {
       const currentTeamMoves: EnemyAttackType[] = generateAllTeamMoves(
         chessboard,
         currentTurn
       );
-      const currentTeamLegalMoves = simulateTeamMoves(
+      const currentTeamLegalMoves: EnemyAttackType[] = simulateTeamMoves(
+        dispatch,
         chessboard,
         currentTeamMoves,
         currentTurn
       );
+
+      // Must be Checkmate or Stalemate
+      if (currentTeamLegalMoves.length === 0) {
+        const enemyMoves: EnemyAttackType[] = generateAllTeamMoves(
+          chessboard,
+          getPlayerColor(currentTurn, true)
+        );
+        const kingPos: [number, number] | null = findKingPosition(
+          chessboard,
+          currentTurn
+        );
+        const isKingAttacked: boolean = kingPos
+          ? isSquareAttacked(enemyMoves, kingPos)
+          : false;
+        if (isKingAttacked) {
+          dispatch(setKingInCheckmate(true));
+        } else {
+          dispatch(setStalemate());
+        }
+      }
+
       dispatch(setCurrentTeamMoves(currentTeamLegalMoves));
     } else {
       const currentTeamMoves: EnemyAttackType[] = generateAllTeamMoves(
@@ -67,7 +93,7 @@ const Chessboard = () => {
       );
       dispatch(setCurrentTeamMoves(currentTeamMoves));
     }
-  }, [chessboard, currentTurn, isKingInCheck, dispatch, isKingInCheckmate]);
+  }, [chessboard, currentTurn]);
 
   return (
     <div className="h-auto w-full flex items-center justify-center">
