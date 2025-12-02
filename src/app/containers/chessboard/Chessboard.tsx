@@ -2,13 +2,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
 import { setChessboard } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
-import { setEnemyMoves } from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
 import { generateTiles } from "@/app/containers/chessboard/utils/chessboard/generateTiles";
-import { checkForCheckmate } from "@/app/containers/chessboard/utils/pieceMovements/checkmate/checkForCheckmate";
 import PawnPromotionContainer from "@/app/containers/chessboard/features/pawnPromotion/PawnPromotionContainer";
 import TileContainer from "@/app/containers/chessboard/features/tile/TileContainer";
-
-import { getPlayerColor } from "@/app/utils/getPlayerColor";
 
 import {
   selectChessboard,
@@ -20,24 +16,20 @@ import {
   selectIsKingInCheckmate,
   selectIsRedoAvaialble,
 } from "@/app/utils/selectors/gameStateSelectors";
-import {
-  selectAllEnemyMoves,
-  selectIsKingInCheck,
-} from "@/app/utils/selectors/moveAnalysisStateSelector";
+import { selectIsKingInCheck } from "@/app/utils/selectors/moveAnalysisStateSelector";
 import { selectCurrentMoveCount } from "@/app/utils/selectors/chessboardHistoryStateSelector";
 import { updatePreviousGameState } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
 
 import { ChessColors, TileType } from "@/app/types/ChessTypes";
 import { EnemyAttackType, PawnPromotionType } from "@/app/types/MoveTypes";
 import { generateAllTeamMoves } from "./utils/pieceMovements/generateMoves/generateAllTeamMoves";
-import { stalemate } from "./utils/pieceMovements/stalemate/stalemate";
+import { getPlayerColor } from "@/app/utils/getPlayerColor";
 
 const Chessboard = () => {
   const dispatch = useDispatch();
   const chessboard: TileType[][] = useSelector(selectChessboard);
   const pawnPromotion: PawnPromotionType = useSelector(selectPawnPromotion);
   const currentTurn: ChessColors = useSelector(selectCurrentTurn);
-  const allEnemyMoves: EnemyAttackType[] = useSelector(selectAllEnemyMoves);
   const isKingInCheck: boolean = useSelector(selectIsKingInCheck);
   const currentMoveCount: number = useSelector(selectCurrentMoveCount);
   const currentGameState = useSelector(selectGameState);
@@ -56,43 +48,22 @@ const Chessboard = () => {
       dispatch(updatePreviousGameState(currentGameState));
     }
 
-    // Simulate moves once the board has more than 3 moves to avoid unnecessary calculations
-    if (
-      chessboard.length > 0 &&
-      allEnemyMoves.length === 0 &&
-      currentMoveCount > 3
-    ) {
-      const enemyColor: ChessColors = getPlayerColor(currentTurn, true);
+    const allEnemyMoves = generateAllTeamMoves(
+      chessboard,
+      getPlayerColor(currentTurn)
+    );
+    const currentTeamMoves = generateAllTeamMoves(chessboard, currentTurn);
 
-      const isSimulatingEnemyMoves: boolean = false;
+    console.log({ allEnemyMoves, currentTeamMoves });
 
-      // Generate all possible enemy moves and check for checkmate
-      const enemyLegalMoves: EnemyAttackType[] = generateAllTeamMoves(
-        dispatch,
+    if (currentMoveCount > 3) {
+      const allEnemyMoves = generateAllTeamMoves(
         chessboard,
-        enemyColor,
-        isSimulatingEnemyMoves
+        getPlayerColor(currentTurn)
       );
-      checkForCheckmate(dispatch, chessboard, enemyLegalMoves, currentTurn);
-      stalemate(
-        dispatch,
-        chessboard,
-        currentTurn,
-        allEnemyMoves,
-        isKingInCheck
-      );
-
-      // Store enemy moves
-      dispatch(setEnemyMoves(enemyLegalMoves));
+      const currentTeamMoves = generateAllTeamMoves(chessboard, currentTurn);
     }
-  }, [
-    chessboard,
-    currentTurn,
-    allEnemyMoves,
-    isKingInCheck,
-    dispatch,
-    isKingInCheckmate,
-  ]);
+  }, [chessboard, currentTurn, isKingInCheck, dispatch, isKingInCheckmate]);
 
   return (
     <div className="h-auto w-full flex items-center justify-center">

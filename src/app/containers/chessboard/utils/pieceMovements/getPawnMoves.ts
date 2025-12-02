@@ -1,10 +1,8 @@
-import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { allSelectedPieceLegalMoves } from "./helpers/allSelectedPieceLegalMoves";
+import { pieceMoves } from "./helpers/pieceMoves";
 import { ChessColors, TileType } from "@/app/types/ChessTypes";
 
 /**
  * Returns all the moves that a Pawn can do
- * @param dispatch Update Redux State
  * @param chessboard Object that keeps track of the Chessboard
  * @param pieceToMoveColor Color of the piece that is going to be moved
  * @param currentRow Row of the current Pawn
@@ -12,12 +10,10 @@ import { ChessColors, TileType } from "@/app/types/ChessTypes";
  * @returns All the moves that a Pawn can make
  */
 export const getPawnMoves = (
-  dispatch: Dispatch<UnknownAction>,
   chessboard: TileType[][],
   pieceToMoveColor: ChessColors.white | ChessColors.black,
   currentRow: number,
-  currentCol: number,
-  simulation: boolean
+  currentCol: number
 ) => {
   const direction: number = pieceToMoveColor === "White" ? -1 : 1;
   const isFirstMove =
@@ -90,11 +86,5 @@ export const getPawnMoves = (
 
   const allPawnMoves = [...pawnMoves, ...diagonalMoves];
 
-  return allSelectedPieceLegalMoves(
-    dispatch,
-    chessboard,
-    allPawnMoves,
-    pieceToMoveColor,
-    simulation
-  );
+  return pieceMoves(chessboard, allPawnMoves, pieceToMoveColor);
 };

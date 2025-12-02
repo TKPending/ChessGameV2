@@ -1,9 +1,9 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { generatePieceLegalMoves } from "./helper/generatePieceLegalMoves";
 import { classifySlidingDirections } from "@/app/containers/chessboard/utils/pieceMovements/helpers/classifySlidingDirections";
 import { EnemyAttackType } from "@/app/types/MoveTypes";
 import { TileType, PieceType, ChessColors } from "@/app/types/ChessTypes";
 import { convertTilePosition } from "@/app/utils/convertTilePosition";
+import { generatePieceMoves } from "./helper/generatePieceMoves";
 
 /**
  * Generates all moves for the enemy team
@@ -14,10 +14,8 @@ import { convertTilePosition } from "@/app/utils/convertTilePosition";
  * @returns All legal enemy moves
  */
 export const generateAllTeamMoves = (
-  dispatch: Dispatch<UnknownAction>,
   chessboard: TileType[][],
-  teamColor: ChessColors.white | ChessColors.black,
-  simulation: boolean
+  teamColor: ChessColors.white | ChessColors.black
 ): EnemyAttackType[] => {
   const enemyMoves: EnemyAttackType[] = [];
 
@@ -27,17 +25,21 @@ export const generateAllTeamMoves = (
       const piece: PieceType | null = tile.pieceOnTile;
 
       if (piece && piece.pieceColor === teamColor) {
-        const moves = generatePieceLegalMoves(
-          dispatch,
+        const moves: number[][] = generatePieceMoves(
           chessboard,
           piece,
           tile,
-          simulation,
           true
         );
 
+        // if (teamColor === ChessColors.white) {
+        //   console.log({
+        //     piece: piece.pieceName,
+        //     moves,
+        //   });
+        // }
+
         if (moves.length > 0) {
-          // moves.push(convertTilePosition(tile.tilePosition)); - Redundant?
           const direction = classifySlidingDirections(piece.pieceName);
           enemyMoves.push({
             piecePosition: [row, col],

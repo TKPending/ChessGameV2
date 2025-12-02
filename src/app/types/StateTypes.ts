@@ -46,12 +46,9 @@ export interface ChessboardHistoryStateType {
 
 // Tracks all game potential moves including enemy moves
 export interface MoveAnalysisStateType {
-  currentPieceMoves: number[][];
-  allEnemyMoves: EnemyAttackType[];
-  piecesAttackingKing: EnemyAttackType[];
-  validMovesWhenInCheck: number[][];
-  invalidMovesWhenInCheck: number[][];
   isKingInCheck: boolean;
+  currentTeamMoves: EnemyAttackType[];
+  enemyTeamMoves: EnemyAttackType[];
 }
 
 // Checks player setup is valid
