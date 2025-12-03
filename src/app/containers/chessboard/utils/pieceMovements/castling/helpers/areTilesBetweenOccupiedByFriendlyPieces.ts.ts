@@ -3,11 +3,10 @@ import { ChessColors, TileType } from "@/app/types/ChessTypes";
 export const areTilesBetweenOccupiedByFriendlyPieces = (
   chessboard: TileType[][],
   kingPosition: [number, number],
-  rookPosition: [number, number],
+  rookCol: number,
   currentTurn: ChessColors.white | ChessColors.black
 ): boolean => {
   const [kingRow, kingCol] = kingPosition;
-  const [rookRow, rookCol] = rookPosition;
 
   const startCol = Math.min(kingCol, rookCol) + 1;
   const endCol = Math.max(kingCol, rookCol);
