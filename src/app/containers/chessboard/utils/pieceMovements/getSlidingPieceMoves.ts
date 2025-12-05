@@ -1,10 +1,8 @@
-import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { allSelectedPieceLegalMoves } from "./helpers/allSelectedPieceLegalMoves";
+import { pieceMoves } from "./helpers/pieceMoves";
 import { ChessColors, TileType } from "@/app/types/ChessTypes";
 
 /**
  * Returns all the moves of the Bishop, Rook and Queen
- * @param dispatch Update the Redux State
  * @param chessboard Object keeping track of the Chessboard
  * @param currentRow Row of the current piece
  * @param currentCol Col of the current piece
@@ -13,13 +11,11 @@ import { ChessColors, TileType } from "@/app/types/ChessTypes";
  * @returns All possible moves that the piece can make
  */
 export const getSlidingPieceMoves = (
-  dispatch: Dispatch<UnknownAction>,
   chessboard: TileType[][],
   currentRow: number,
   currentCol: number,
   directions: number[][],
-  pieceToMoveColor: ChessColors.white | ChessColors.black,
-  simulation: boolean
+  pieceToMoveColor: ChessColors.white | ChessColors.black
 ): number[][] => {
   const validMoves: [number, number][] = [];
 
@@ -46,11 +42,5 @@ export const getSlidingPieceMoves = (
     }
   });
 
-  return allSelectedPieceLegalMoves(
-    dispatch,
-    chessboard,
-    validMoves,
-    pieceToMoveColor,
-    simulation
-  );
+  return pieceMoves(chessboard, validMoves, pieceToMoveColor);
 };

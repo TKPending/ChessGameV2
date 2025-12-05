@@ -11,7 +11,7 @@ const Button = ({ text, className, textStyle, onClick }: ButtonProps) => {
       onClick={onClick}
       className={`flex items-center justify-center p-2 rounded-lg cursor-pointer w-32 ${className} `}
     >
-      <p className={`${textStyle} md:text-2xl`}>{text}</p>
+      <p className={`md:text-2xl ${textStyle}`}>{text}</p>
     </div>
   );
 };

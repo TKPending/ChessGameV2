@@ -19,6 +19,8 @@ import {
   incrementPlayerTimeReducer,
   setGameStateToPreviousReducer,
   setStalemateReducer,
+  closeModalReducer,
+  cancelViewModeReducer,
 } from "./gameStateReducer";
 
 const initialState: GameStateType = {
@@ -51,6 +53,7 @@ const initialState: GameStateType = {
     minutes: 0,
     increment: "",
   },
+  isViewMode: false,
   error: {
     isError: false,
     message: "",
@@ -77,6 +80,8 @@ const gameStateSlice = createSlice({
     incrementPlayerTime: incrementPlayerTimeReducer,
     setGameStateToPrevious: setGameStateToPreviousReducer,
     setResetTrigger: resetGameReducer,
+    closeModal: closeModalReducer,
+    endViewingMode: cancelViewModeReducer,
     resetGameState: resetGameStateReducer,
   },
 });
@@ -98,6 +103,8 @@ export const {
   incrementPlayerTime,
   setGameStateToPrevious,
   setResetTrigger,
+  closeModal,
+  endViewingMode,
   resetGameState,
 } = gameStateSlice.actions;
 

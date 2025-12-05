@@ -3,9 +3,13 @@ import {
   setCurrentTile,
   setPreviousTile,
 } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
-import { setCurrentPiecePotentialMoves } from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
 import { clearTileHighlights } from "@/app/containers/chessboard/utils/chessboard/design/clearTileHighlights";
 import { TileType } from "@/app/types/ChessTypes";
+import {
+  resetActiveMoves,
+  setCurrentTeamMoves,
+  setSelectedPieceMoves,
+} from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
 
 /**
  * Function to reset tiles and get them ready for the next turn
@@ -20,6 +24,8 @@ export const resetTiles = (
 ) => {
   dispatch(setCurrentTile(null));
   dispatch(setPreviousTile(null));
-  dispatch(setCurrentPiecePotentialMoves([]));
+  dispatch(setCurrentTeamMoves([]));
+  dispatch(resetActiveMoves());
+  dispatch(setSelectedPieceMoves([]));
   clearTileHighlights(dispatch, updatedChessboard, highlightPreviousMove);
 };

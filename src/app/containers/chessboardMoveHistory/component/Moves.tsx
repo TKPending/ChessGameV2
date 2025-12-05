@@ -35,7 +35,7 @@ const MovesContainer = ({ move }: Props) => {
           destination={position}
         />
       ) : captured ? (
-        <CaptureMove piece={piece} destination={position} enemy={enemy} />
+        <CaptureMove piece={piece} enemy={enemy} />
       ) : (
         <StandardMove piece={piece} destination={position} />
       )}

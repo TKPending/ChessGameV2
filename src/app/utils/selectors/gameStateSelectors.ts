@@ -17,4 +17,6 @@ export const selectIsRedoVisible = (state: RootState) =>
   state.gameState.isRedoVisible;
 export const selectTimeSettings = (state: RootState) =>
   state.gameState.timeSettings;
+export const selectViewingMode = (state: RootState) =>
+  state.gameState.isViewMode;
 export const selectError = (state: RootState) => state.gameState.error;

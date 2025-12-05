@@ -1,27 +1,19 @@
-import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { allSelectedPieceLegalMoves } from "./helpers/allSelectedPieceLegalMoves";
+import { pieceMoves } from "./helpers/pieceMoves";
 import { ChessColors, TileType } from "@/app/types/ChessTypes";
-import { EnemyAttackType } from "@/app/types/MoveTypes";
 
 /**
  * Get's all the moves that the King can make
- * @param dispatch Update the Redux State
  * @param chessboard Object that keeps track of the current state
  * @param currentRow The current row that the King is in
  * @param currentCol The current col that the King is in
  * @param pieceToMoveColor The color of the piece that needs to be moved
- * @param enemyMoves All enemy moves to check whether a King move is valid
  * @returns All valid King Moves
  */
 export const getKingMoves = (
-  dispatch: Dispatch<UnknownAction>,
   chessboard: TileType[][],
   currentRow: number,
   currentCol: number,
-  pieceToMoveColor: ChessColors.white | ChessColors.black,
-  simulation: boolean,
-  enemyMoves?: EnemyAttackType[],
-  test?: boolean
+  pieceToMoveColor: ChessColors.white | ChessColors.black
 ): [number, number][] => {
   let kingMoves: [number, number][] = [
     [currentRow + 1, currentCol],
@@ -34,23 +26,10 @@ export const getKingMoves = (
     [currentRow - 1, currentCol - 1],
   ];
 
-  if (enemyMoves) {
-    kingMoves = kingMoves.filter(
-      ([row, col]) =>
-        !enemyMoves.some((enemy) =>
-          enemy.moves.some(([moveRow, moveCol]) => {
-            return moveRow === row && moveCol === col;
-          })
-        )
-    );
-  }
-
-  const kingPotentialMoves = allSelectedPieceLegalMoves(
-    dispatch,
+  const kingPotentialMoves = pieceMoves(
     chessboard,
     kingMoves,
-    pieceToMoveColor,
-    simulation
+    pieceToMoveColor
   );
 
   return kingPotentialMoves;

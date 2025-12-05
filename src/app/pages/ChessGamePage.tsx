@@ -3,17 +3,24 @@ import { useSelector } from "react-redux";
 import ErrorContainer from "@/app/containers/errors/ErrorContainer";
 import ResetGameModalContainer from "@/app/containers/features/resetGame/containers/ResetGameModalContainer";
 import Chessboard from "@/app/containers/chessboard/Chessboard";
+import EndGameModal from "@/app/containers/features/endGame/EndGameModal";
 import ChessboardMoveHistory from "@/app/containers/chessboardMoveHistory/ChessboardMoveHistory";
 import PlayerContainer from "@/app/containers/players/PlayerContainer";
 import BackButtonContainer from "@/app/containers/features/backButton/BackButtonContainer";
 import UndoButtonContainer from "@/app/containers/features/undoButton/UndoButtonContainer";
 import {
   selectIsGameReset,
-  selectIsPlaying,
   selectIsRedoAvaialble,
   selectIsRedoVisible,
+  selectViewingMode,
+} from "@/app/utils/selectors/gameStateSelectors";
+import {
+  selectIsKingInCheckmate,
+  selectStalemate,
+  selectWinner,
 } from "@/app/utils/selectors/gameStateSelectors";
 import { PageEnum } from "@/app/types/PageTypes";
+import { PlayerType } from "@/app/types/ChessTypes";
 
 const PLAYERONE = 0;
 const PLAYERTWO = 1;
@@ -25,7 +32,11 @@ const ChessGamePage = () => {
   const isGameReset: boolean = useSelector(selectIsGameReset);
   const isRedoAvailable: boolean = useSelector(selectIsRedoAvaialble);
   const isRedoVisible: boolean = useSelector(selectIsRedoVisible);
-  const isPlaying: boolean = useSelector(selectIsPlaying);
+  const viewingMode: boolean = useSelector(selectViewingMode);
+
+  const isCheckmate: boolean = useSelector(selectIsKingInCheckmate);
+  const isStalemate: boolean = useSelector(selectStalemate);
+  const winner: PlayerType | null = useSelector(selectWinner);
 
   return (
     <div className="h-screen w-screen max-h-screen max-w-screen overflow-hidden">
@@ -36,17 +47,21 @@ const ChessGamePage = () => {
       />
       {isError && <ErrorContainer />}
 
+      {(isCheckmate || winner || isStalemate) && <EndGameModal />}
+
       {/* Renders the Chessboard, Players and ChessMoves */}
-      <div className="h-full md:w-full flex flex-col items-center justify-around p-2 px-20 gap-4">
-        <PlayerContainer playerNo={PLAYERTWO} className="items-end" />
+      <div className="flex h-full md:w-full p-2 px-20 gap-4">
+        <div className="h-full md:w-full flex flex-col items-center justify-around p-2 px-20 gap-4">
+          <PlayerContainer playerNo={PLAYERTWO} className="items-end" />
 
-        <Chessboard />
+          <Chessboard />
 
-        <PlayerContainer playerNo={PLAYERONE} className="items-start" />
+          <PlayerContainer playerNo={PLAYERONE} className="items-start" />
+        </div>
+
+        {viewingMode && <ChessboardMoveHistory />}
       </div>
-
       {isRedoAvailable && isRedoVisible && <UndoButtonContainer />}
-      {!isPlaying && <ChessboardMoveHistory />}
 
       {isGameReset && <ResetGameModalContainer />}
     </div>

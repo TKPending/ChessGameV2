@@ -2,10 +2,7 @@ import { RootState } from "@/app/redux/store";
 import { useSelector } from "react-redux";
 import CapturedPieces from "@/app/containers/players/components/CapturedPieces";
 import PlayerTimer from "./components/PlayerTimer";
-import {
-  selectIsPlaying,
-  selectTimeSettings,
-} from "@/app/utils/selectors/gameStateSelectors";
+import { selectTimeSettings } from "@/app/utils/selectors/gameStateSelectors";
 import { PlayerType, TimeCatergories, TimeType } from "@/app/types/ChessTypes";
 
 type Props = {

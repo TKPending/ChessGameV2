@@ -1,6 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import ResetGameComponent from "./components/ResetGameComponent";
-import { setResetTrigger } from "@/app/redux/slices/gameState/gameStateSlice";
+import {
+  endViewingMode,
+  setResetTrigger,
+} from "@/app/redux/slices/gameState/gameStateSlice";
 import { selectCurrentMoveCount } from "@/app/utils/selectors/chessboardHistoryStateSelector";
 
 const ResetGameContainer = () => {
@@ -9,6 +12,7 @@ const ResetGameContainer = () => {
 
   const handleOnClick = () => {
     dispatch(setResetTrigger());
+    dispatch(endViewingMode());
   };
 
   return currentMoveCount > 0 && <ResetGameComponent onReset={handleOnClick} />;

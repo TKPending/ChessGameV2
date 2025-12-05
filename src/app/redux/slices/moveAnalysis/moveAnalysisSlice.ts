@@ -1,45 +1,37 @@
 import { MoveAnalysisStateType } from "@/app/types/StateTypes";
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  currentPieceValidMovesReducer,
-  enemyMovesReducer,
-  invalidMovesWhenInCheckReducer,
-  piecesAttackingKingReducer,
-  resetActiveMovesReducer,
   isKingInCheckReducer,
-  validMovesWhenInCheckReducer,
+  updateCurrentTeamMovesReducer,
+  updateEnemyTeamMovesReducer,
+  resetActiveMovesReducer,
+  updateSelectedPieceMovesReducer,
 } from "./moveAnalysisReducer";
 
 const initialState: MoveAnalysisStateType = {
-  currentPieceMoves: [],
-  allEnemyMoves: [],
-  piecesAttackingKing: [],
-  validMovesWhenInCheck: [],
-  invalidMovesWhenInCheck: [],
   isKingInCheck: false,
+  currentTeamMoves: [],
+  enemyTeamMoves: [],
+  selectedPieceMoves: [],
 };
 
 const moveAnalysisSlice = createSlice({
   name: "moveAnalysisMoves",
   initialState,
   reducers: {
-    setCurrentPiecePotentialMoves: currentPieceValidMovesReducer,
-    setEnemyMoves: enemyMovesReducer,
-    setValidMovesWhenInCheck: validMovesWhenInCheckReducer,
-    setInvalidMovesWhenInCheck: invalidMovesWhenInCheckReducer,
-    setPiecesAttackingKing: piecesAttackingKingReducer,
     setIsKingInCheck: isKingInCheckReducer,
+    setCurrentTeamMoves: updateCurrentTeamMovesReducer,
+    setEnemyTeamMoves: updateEnemyTeamMovesReducer,
+    setSelectedPieceMoves: updateSelectedPieceMovesReducer,
     resetActiveMoves: resetActiveMovesReducer,
   },
 });
 
 export const {
-  setCurrentPiecePotentialMoves,
-  setEnemyMoves,
-  setValidMovesWhenInCheck,
-  setInvalidMovesWhenInCheck,
-  setPiecesAttackingKing,
   setIsKingInCheck,
+  setCurrentTeamMoves,
+  setEnemyTeamMoves,
+  setSelectedPieceMoves,
   resetActiveMoves,
 } = moveAnalysisSlice.actions;
 
