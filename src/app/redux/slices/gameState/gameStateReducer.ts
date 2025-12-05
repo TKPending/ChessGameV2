@@ -147,9 +147,10 @@ export const incrementPlayerTimeReducer = (state: GameStateType) => {
 
 // Previous Game State
 export const setGameStateToPreviousReducer = (
+  state: GameStateType,
   action: PayloadAction<GameStateType>
 ) => {
-  return action.payload;
+  state = action.payload;
 };
 
 // View Mode
