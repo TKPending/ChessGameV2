@@ -1,4 +1,4 @@
-import { PieceType, TileType } from "@/app/types/ChessTypes";
+import { TileType } from "@/app/types/ChessTypes";
 import { EnemyAttackType } from "@/app/types/MoveTypes";
 import { convertTilePosition } from "@/app/utils/convertTilePosition";
 
