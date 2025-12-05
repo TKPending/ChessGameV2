@@ -11,7 +11,6 @@ type DropdownProps = {
 };
 
 const Dropdown = ({
-  label,
   value,
   options,
   isOpen,
