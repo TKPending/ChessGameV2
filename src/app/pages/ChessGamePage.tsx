@@ -10,7 +10,6 @@ import BackButtonContainer from "@/app/containers/features/backButton/BackButton
 import UndoButtonContainer from "@/app/containers/features/undoButton/UndoButtonContainer";
 import {
   selectIsGameReset,
-  selectIsPlaying,
   selectIsRedoAvaialble,
   selectIsRedoVisible,
   selectViewingMode,
