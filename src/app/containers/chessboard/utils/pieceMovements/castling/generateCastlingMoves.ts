@@ -28,6 +28,7 @@ export const generateCastlingMoves = (
   const kingCastleMoves: number[][] = [];
 
   const queenSideRook: [number, number] = [kingRow, 0];
+  const castleQueenSide: [number, number] = [kingRow, 1];
   if (
     !areTilesBetweenUnderAttack(enemyMoves, kingPosition, queenSideRook[1]) &&
     !areTilesBetweenOccupiedByFriendlyPieces(
@@ -37,9 +38,11 @@ export const generateCastlingMoves = (
       currentTurn
     )
   ) {
-    kingCastleMoves.push(queenSideRook);
+    kingCastleMoves.push(castleQueenSide);
   }
   const kingSideRook: [number, number] = [kingRow, 7];
+  const castleKingSide: [number, number] = [kingRow, 6];
+
   if (
     !areTilesBetweenUnderAttack(enemyMoves, kingPosition, kingSideRook[1]) &&
     !areTilesBetweenOccupiedByFriendlyPieces(
@@ -49,7 +52,7 @@ export const generateCastlingMoves = (
       currentTurn
     )
   ) {
-    kingCastleMoves.push(kingSideRook);
+    kingCastleMoves.push(castleKingSide);
   }
 
   return kingCastleMoves;

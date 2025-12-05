@@ -50,6 +50,8 @@ const TileContainer = ({ tile }: Props) => {
   const selectedPieceMoves: number[][] = useSelector(selectSelectedPieceMoves);
   const castling = useSelector(selectCastling);
 
+  // TODO: Bug Double CLick to get move
+
   const handleTileClick = (clickedTile: TileType) => {
     if (!isPlaying) {
       return;

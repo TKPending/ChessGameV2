@@ -59,10 +59,10 @@ export const handleMovePiece = (
   );
 
   return updateChessboard(
+    dispatch,
     currentBoardState,
     previousClickedTile,
     targetTile,
-    false,
-    dispatch
+    castling
   );
 };

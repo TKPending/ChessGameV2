@@ -1,6 +1,9 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { setChessboard } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
-import { TileType, PieceType } from "@/app/types/ChessTypes";
+import { TileType, PieceType, ChessColors } from "@/app/types/ChessTypes";
+import { CastleType } from "@/app/types/MoveTypes";
+import { findKingPosition } from "../../pieceMovements/helpers/findKingPosition";
+import { convertTilePosition } from "@/app/utils/convertTilePosition";
 
 /**
  * Update the Chessboard when a move is made
@@ -11,38 +14,82 @@ import { TileType, PieceType } from "@/app/types/ChessTypes";
  * @returns A new board state, with piece in updated position & Removes highlights
  */
 export const updateChessboard = (
+  dispatch: Dispatch<UnknownAction>,
   currentChessboard: TileType[][],
   previousClickedTile: TileType,
   targetTile: TileType,
-  simulation: boolean,
-  dispatch?: Dispatch<UnknownAction>
+  castling: CastleType
 ): TileType[][] => {
   if (!previousClickedTile.pieceOnTile) return [];
 
   const pieceToMove: PieceType = previousClickedTile.pieceOnTile;
+  const currentTurn: ChessColors = pieceToMove.pieceColor;
+
+  const castlingTurn =
+    currentTurn === ChessColors.white ? castling.white : castling.black;
+  const canCastle: boolean = castlingTurn.canCastleOption;
+
+  const kingPos = findKingPosition(currentChessboard, currentTurn);
+  if (!kingPos) return [];
+
+  const kingRow = kingPos[0];
+  const kingSideRookPos: [number, number] = [kingRow, 7];
+  const queenSideRookPos: [number, number] = [kingRow, 0];
+
+  const [targetRow, targetCol] = convertTilePosition(targetTile.tilePosition);
+
+  let rookFrom: [number, number] | null = null;
+  let rookTo: [number, number] | null = null;
+  let isCastling = false;
+
+  if (canCastle) {
+    if (targetRow === kingRow && targetCol === 6) {
+      isCastling = true;
+      rookFrom = kingSideRookPos;
+      rookTo = [kingRow, 5];
+    }
+
+    if (targetRow === kingRow && targetCol === 2) {
+      isCastling = true;
+      rookFrom = queenSideRookPos;
+      rookTo = [kingRow, 2];
+    }
+  }
 
   const newChessboardState: TileType[][] = currentChessboard.map((row) =>
     row.map((tile) => {
-      // Clear piece from the previously clicked tile
-      if (tile.tilePosition === previousClickedTile.tilePosition) {
+      const pos: string = tile.tilePosition;
+
+      if (pos === previousClickedTile.tilePosition) {
         return { ...tile, pieceOnTile: null, isHighlighted: false };
       }
-      // Move piece
-      if (tile.tilePosition === targetTile.tilePosition) {
+
+      if (pos === targetTile.tilePosition) {
         return {
           ...tile,
           pieceOnTile: pieceToMove,
           isHighlighted: false,
         };
       }
-      // Leave other tiles unchanged
+      if (isCastling && rookFrom && rookTo) {
+        const posIdx: [number, number] = convertTilePosition(pos);
+        if (posIdx[0] === rookFrom[0] && posIdx[1] === rookFrom[1]) {
+          return { ...tile, pieceOnTile: null, isHighlighted: false };
+        }
+        if (posIdx[0] === rookTo[0] && posIdx[1] === rookTo[1]) {
+          return {
+            ...tile,
+            pieceOnTile:
+              currentChessboard[rookFrom[0]][rookFrom[1]].pieceOnTile,
+            isHighlighted: false,
+          };
+        }
+      }
+
       return { ...tile, isHighlighted: false };
     })
   );
 
-  if (!simulation && dispatch) {
-    dispatch(setChessboard(newChessboardState));
-  }
-
+  dispatch(setChessboard(newChessboardState));
   return newChessboardState;
 };
