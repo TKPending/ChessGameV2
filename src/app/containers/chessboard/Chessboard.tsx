@@ -127,7 +127,7 @@ const Chessboard = () => {
       if (attacked) {
         dispatch(setKingInCheckmate(true));
       } else {
-        dispatch(setStalemate(true));
+        dispatch(setStalemate());
       }
     }
 
