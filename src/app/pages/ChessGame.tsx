@@ -1,7 +1,6 @@
 "use client";
 
 import { useSelector } from "react-redux";
-import { RootState } from "@/app/redux/store";
 import { AnimatePresence, motion } from "framer-motion";
 import AnimatedFallingChessBackground from "@/app/layouts/animatedBackground/AimatedFallingChessBackground";
 import {
