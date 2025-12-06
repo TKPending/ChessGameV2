@@ -15,7 +15,6 @@ export const getPieceMoves = (
   }
 
   const tilePosition = convertTilePosition(clickedTile.tilePosition);
-
   const match = currentTeamMoves.find(
     (piece) =>
       piece.piecePosition[0] === tilePosition[0] &&

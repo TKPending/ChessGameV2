@@ -1,9 +1,9 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { setChessboard } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
-import { TileType, PieceType, ChessColors } from "@/app/types/ChessTypes";
-import { CastleType } from "@/app/types/MoveTypes";
-import { findKingPosition } from "../../pieceMovements/helpers/findKingPosition";
 import { convertTilePosition } from "@/app/utils/convertTilePosition";
+import { findKingPosition } from "@/app/containers/chessboard/utils/pieceMovements/helpers/findKingPosition";
+import { setChessboard } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
+import { CastleType } from "@/app/types/MoveTypes";
+import { TileType, PieceType, ChessColors } from "@/app/types/ChessTypes";
 
 /**
  * Update the Chessboard when a move is made
@@ -49,7 +49,7 @@ export const updateChessboard = (
       rookTo = [kingRow, 5];
     }
 
-    if (targetRow === kingRow && targetCol === 2) {
+    if (targetRow === kingRow && targetCol === 1) {
       isCastling = true;
       rookFrom = queenSideRookPos;
       rookTo = [kingRow, 2];

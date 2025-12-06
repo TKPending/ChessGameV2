@@ -88,28 +88,26 @@ const Chessboard = () => {
     if (isCastlingPossible(chessboard, currentTurn, castling)) {
       enemyMoves = generateAllTeamMoves(
         chessboard,
-        getPlayerColor(currentTurn),
+        getPlayerColor(currentTurn, true),
         true
       );
       const isKingAttacked: boolean = isSquareAttacked(enemyMoves, kingPos);
-      if (isKingAttacked) {
-        return;
-      }
+      if (!isKingAttacked) {
+        const castleMoves: number[][] = generateCastlingMoves(
+          chessboard,
+          enemyMoves,
+          currentTurn
+        );
 
-      const castleMoves: number[][] = generateCastlingMoves(
-        chessboard,
-        enemyMoves,
-        currentTurn
-      );
-
-      if (castleMoves.length > 0) {
-        currentTeamLegalMoves.forEach((pieceMoves: EnemyAttackType) => {
-          if (pieceMoves.piece.pieceName === PieceName.king) {
-            castleMoves.forEach((castleMove: number[]) => {
-              pieceMoves.moves.push(castleMove);
-            });
-          }
-        });
+        if (castleMoves.length > 0) {
+          currentTeamLegalMoves.forEach((pieceMoves: EnemyAttackType) => {
+            if (pieceMoves.piece.pieceName === PieceName.king) {
+              castleMoves.forEach((castleMove: number[]) => {
+                pieceMoves.moves.push(castleMove);
+              });
+            }
+          });
+        }
       }
     }
 

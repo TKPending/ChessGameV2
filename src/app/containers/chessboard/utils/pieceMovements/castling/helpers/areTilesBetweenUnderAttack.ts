@@ -12,11 +12,11 @@ export const areTilesBetweenUnderAttack = (
 
   for (let col = startCol; col < endCol; col++) {
     const squareUnderAttack = enemyMoves.some((enemyMove: EnemyAttackType) =>
-      enemyMove.moves.some(([enemyRow, enemyCol]: number[]) => {
-        enemyRow === kingRow && enemyCol === col;
-      })
+      enemyMove.moves.some(
+        ([enemyRow, enemyCol]: number[]) =>
+          enemyRow === kingRow && enemyCol === col
+      )
     );
-
     if (squareUnderAttack) return true;
   }
 

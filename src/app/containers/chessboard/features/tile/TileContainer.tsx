@@ -18,6 +18,7 @@ import {
   selectCurrentTurn,
   selectIsPlaying,
 } from "@/app/utils/selectors/gameStateSelectors";
+import { setSelectedPieceMoves } from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
 
 import { resetTiles } from "@/app/containers/chessboard/utils/chessboard/design/resetTiles";
 import { getPieceMoves } from "@/app/containers/chessboard/utils/pieceMovements/helpers/getPieceMoves";
@@ -30,11 +31,10 @@ import {
   setRedoVisibility,
 } from "@/app/redux/slices/gameState/gameStateSlice";
 import { incrementMoveCounter } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
+import { isMoveValid } from "@/app/containers/chessboard/utils/pieceMovements/helpers/isMoveValid";
 
 import { EnemyAttackType } from "@/app/types/MoveTypes";
 import { ChessColors, PieceType, TileType } from "@/app/types/ChessTypes";
-import { setSelectedPieceMoves } from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
-import { isMoveValid } from "../../utils/pieceMovements/helpers/isMoveValid";
 
 type Props = {
   tile: TileType;
@@ -88,6 +88,7 @@ const TileContainer = ({ tile }: Props) => {
         clickedTile,
         potentialMoves
       );
+
       if (!legalMoves) {
         return;
       }

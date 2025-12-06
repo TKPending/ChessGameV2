@@ -42,7 +42,6 @@ export const generateCastlingMoves = (
   }
   const kingSideRook: [number, number] = [kingRow, 7];
   const castleKingSide: [number, number] = [kingRow, 6];
-
   if (
     !areTilesBetweenUnderAttack(enemyMoves, kingPosition, kingSideRook[1]) &&
     !areTilesBetweenOccupiedByFriendlyPieces(
