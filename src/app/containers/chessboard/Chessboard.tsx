@@ -29,7 +29,6 @@ import { findKingPosition } from "./utils/pieceMovements/helpers/findKingPositio
 import {
   setKingInCheckmate,
   setStalemate,
-  setWinner,
 } from "@/app/redux/slices/gameState/gameStateSlice";
 
 import {
