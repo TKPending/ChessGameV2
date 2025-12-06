@@ -68,6 +68,10 @@ export const setWinnerReducer = (
   state.isPlaying = false;
 };
 
+export const setStalemateReducer = (state: GameStateType) => {
+  state.stalemate = true;
+};
+
 export const updateCurrentTurnReducer = (state: GameStateType) => {
   const turn: string = state.currentTurn;
   const { white, black } = ChessColors;
@@ -149,6 +153,12 @@ export const setGameStateToPreviousReducer = (
   state = action.payload;
 };
 
+// View Mode
+
+export const cancelViewModeReducer = (state: GameStateType) => {
+  state.isViewMode = false;
+};
+
 // Reset Game
 export const resetGameReducer = (state: GameStateType) => {
   state.isGameReset = !state.isGameReset;
@@ -190,6 +200,7 @@ export const resetGameStateReducer = (
   }
 
   state.winner = null;
+  state.stalemate = false;
   state.isPlaying = true;
   state.error = { isError: false, message: "" };
   state.isKingInCheckmate = false;
@@ -202,4 +213,11 @@ export const kingInCheckmateReducer = (
   action: PayloadAction<boolean>
 ) => {
   state.isKingInCheckmate = action.payload;
+};
+
+export const closeModalReducer = (state: GameStateType) => {
+  state.stalemate = false;
+  state.isKingInCheckmate = false;
+  state.isPlaying = false;
+  state.isViewMode = true;
 };

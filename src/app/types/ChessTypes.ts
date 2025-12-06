@@ -56,7 +56,7 @@ export interface TileType {
   currentTileColor: string;
   pieceOnTile: PieceType | null;
   isHighlighted: boolean;
-  highlightReason: "enemy" | "friendly" | "selected" | "";
+  highlightReason: "enemy" | "friendly" | "selected" | "previous" | "";
 }
 
 export interface ErrorType {
@@ -90,8 +90,10 @@ export interface PlayerType {
 }
 
 export interface MoveHistoryType {
+  moveCount: number;
   from: TileType;
   to: TileType;
+  selected?: boolean;
   pawnPromotion?: boolean;
   updatedPiece?: PieceName;
 }

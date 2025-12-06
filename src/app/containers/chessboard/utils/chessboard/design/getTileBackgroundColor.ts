@@ -11,6 +11,8 @@ export const getTileBackgroundColor = (tile: TileType): string => {
       case "selected":
       case "friendly":
         return "bg-green-300 hover:cursor-pointer hover:opacity-90 ";
+      case "previous":
+        return "bg-yellow-300 bg-opacity-60";
       case "enemy":
         return "bg-red-400 hover:cursor-pointer hover:opacity-90";
       default:

@@ -4,8 +4,8 @@ import {
   updateChessboardHistory,
   updateMoveHistory,
 } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
-import { updateChessboard } from "./helpers/handleMovePieceHelpers/updateChessboard";
-import { handleMovesSpecialCases } from "./helpers/handleMovePieceHelpers/handleMovesSpecialCases";
+import { updateChessboard } from "./helpers/updateChessboard";
+import { handleMovesSpecialCases } from "./helpers/handleMovesSpecialCases";
 import { CastleType } from "@/app/types/MoveTypes";
 import { TileType, PieceType, ChessColors } from "@/app/types/ChessTypes";
 
@@ -23,6 +23,7 @@ export const handleMovePiece = (
   previousClickedTile: TileType | null,
   targetTile: TileType,
   currentBoardState: TileType[][],
+  moveCount: number,
   castling: CastleType
 ) => {
   if (!previousClickedTile?.pieceOnTile) return [];
@@ -49,20 +50,22 @@ export const handleMovePiece = (
     );
   }
 
-  dispatch(updateChessboardHistory(currentBoardState));
-
   dispatch(
     updateMoveHistory({
+      moveCount,
       from: previousClickedTile,
       to: targetTile,
     })
   );
 
-  return updateChessboard(
+  const updatedChessboard = updateChessboard(
+    dispatch,
     currentBoardState,
     previousClickedTile,
     targetTile,
-    false,
-    dispatch
+    castling
   );
+  dispatch(updateChessboardHistory(updatedChessboard));
+
+  return updatedChessboard;
 };

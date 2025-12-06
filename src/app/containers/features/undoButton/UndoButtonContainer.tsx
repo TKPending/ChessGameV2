@@ -5,14 +5,15 @@ import Button from "@/app/components/Button";
 
 import { selectIsRedoVisible } from "@/app/utils/selectors/gameStateSelectors";
 import {
+  selectChessboardHistory,
+  selectPreviousGameState,
+} from "@/app/utils/selectors/chessboardHistoryStateSelector";
+
+import {
   setCurrentTurn,
   setGameStateToPrevious,
   setRedoVisibility,
 } from "@/app/redux/slices/gameState/gameStateSlice";
-import {
-  selectChessboardHistory,
-  selectPreviousGameState,
-} from "@/app/utils/selectors/chessboardHistoryStateSelector";
 import {
   removePreviousGameState,
   removeRecentChessboardHistory,
@@ -51,18 +52,17 @@ const UndoButtonContainer = () => {
   };
 
   useEffect(() => {
-    if (isRedoVisible) {
-      setTimeout(() => {
-        dispatch(setRedoVisibility(false));
-        dispatch(removePreviousGameState());
-      }, 5000);
-    }
+    setTimeout(() => {
+      dispatch(setRedoVisibility(false));
+      dispatch(removePreviousGameState());
+    }, 5000);
   }, [isRedoVisible]);
 
   return (
     <Button
       text="Undo"
-      className={`absolute right-20 bottom-20 bg-customGreen ${
+      textStyle="text-lg lg:text-xl"
+      className={`bg-customGreen ${
         !isRedoVisible && "bg-opacity-40"
       } text-white`}
       onClick={handleUndo}

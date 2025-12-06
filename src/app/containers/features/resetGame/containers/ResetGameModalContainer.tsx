@@ -1,13 +1,17 @@
 import { useDispatch } from "react-redux";
 import ResetGameModal from "@/app/containers/features/resetGame/components/ResetGameModal";
 import { resetChessGame } from "@/app/utils/resetChessGame";
-import { setResetTrigger } from "@/app/redux/slices/gameState/gameStateSlice";
+import {
+  setResetTrigger,
+  endViewingMode,
+} from "@/app/redux/slices/gameState/gameStateSlice";
 
 const ResetGameModalContainer = () => {
   const dispatch = useDispatch();
 
   const handleResetGame = () => {
     resetChessGame(dispatch, { swapColors: true });
+    dispatch(endViewingMode());
   };
 
   const handleCancelReset = () => {

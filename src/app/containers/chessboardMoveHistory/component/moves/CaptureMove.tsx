@@ -2,11 +2,10 @@ import { PieceType } from "@/app/types/ChessTypes";
 
 type Props = {
   piece: PieceType;
-  destination: string;
   enemy: PieceType | null;
 };
 
-const CaptureMove = ({ piece, destination, enemy }: Props) => {
+const CaptureMove = ({ piece, enemy }: Props) => {
   if (!enemy) return null;
 
   return (

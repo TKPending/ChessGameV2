@@ -44,15 +44,32 @@ const PawnPromotionComponent = ({
 
   return (
     <div
-      className={`z-50 h-screen w-screen bg-opacity-0 top-0 left-0 absolute flex items-center justify-center bg-black bg-opacity-20`}
+      className={`fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm`}
     >
-      <div className="border-2 border-customGreen bg-page-background h-32 flex flex-col text-customGreen gap-4 font-semibold px-2 items-center justify-center rounded-lg">
-        <p>Promote your pawn</p>
+      <div
+        className="absolute inset-0 pointer-events-none 
+        bg-[radial-gradient(circle_at_center,rgba(255,215,128,0.12),transparent_70%)]"
+      />
+
+      <div
+        className="
+        relative w-[500px] max-w-[92%]
+        bg-[rgba(12,12,14,0.86)]
+        backdrop-blur-xl
+        border border-[rgba(255,215,128,0.35)]
+        rounded-3xl shadow-[0_10px_45px_rgba(0,0,0,0.7)]
+        p-12 flex flex-col items-center gap-10
+        animate-premiumPop
+        "
+      >
+        <p className="text-white font-semibold text-xl">Promote your pawn</p>
+
         <div className="flex h-auto w-auto flex items-center justify-center">
           {promotionOptions.map((piece, index) => (
             <div
               key={index}
-              className="flex items-center justify-center h-16 w-20 hover:cursor-pointer hover:bg-customGreen hover:bg-opacity-20 transition duration-400 p-4"
+              className="flex items-center justify-center h-16 w-20 hover:cursor-pointer duration-400 p-4 hover:bg-customGreen/80 
+            text-white hover:shadow-[0_0_20px_rgba(50,200,120,0.6)] transition-all w-auto rounded-lg"
               onClick={() => handlePiecePromotion(piece.name)}
             >
               <img

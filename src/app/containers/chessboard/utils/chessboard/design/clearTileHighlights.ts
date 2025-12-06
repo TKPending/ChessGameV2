@@ -9,8 +9,25 @@ import { TileType } from "@/app/types/ChessTypes";
  */
 export const clearTileHighlights = (
   dispatch: Dispatch<UnknownAction>,
-  chessboard: TileType[][]
+  chessboard: TileType[][],
+  highlightPreviousMove?: boolean
 ) => {
+  if (highlightPreviousMove) {
+    chessboard.forEach((row) => {
+      row.forEach((tile) => {
+        if (tile.isHighlighted && tile.highlightReason !== "previous") {
+          dispatch(
+            updateTile({
+              ...tile,
+              isHighlighted: false,
+              highlightReason: "",
+            })
+          );
+        }
+      });
+    });
+  }
+
   chessboard.forEach((row) => {
     row.forEach((tile) => {
       if (tile.isHighlighted) {

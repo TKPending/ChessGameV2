@@ -10,6 +10,7 @@ import {
   updateMoveCounterReducer,
   updateMoveHistoryReducer,
   removePreviousGameStateReducer,
+  updateSelectedMoveReducer,
 } from "./chessboardHistoryReducer";
 
 const initialState: ChessboardHistoryStateType = {
@@ -32,6 +33,7 @@ const chessboardHistorySlice = createSlice({
     removePreviousGameState: removePreviousGameStateReducer,
     updateMovePawnPromotion: pawnPromotionUpdateMoveReducer,
     setIsMovesHidden: isMovesHiddenReducer,
+    setSelectedMoveHistory: updateSelectedMoveReducer,
     resetChessMoves: resetChessMovesReducer,
   },
 });
@@ -45,6 +47,7 @@ export const {
   updateMoveHistory,
   updateMovePawnPromotion,
   setIsMovesHidden,
+  setSelectedMoveHistory,
   resetChessMoves,
 } = chessboardHistorySlice.actions;
 

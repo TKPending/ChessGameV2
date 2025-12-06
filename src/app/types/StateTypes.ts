@@ -27,9 +27,11 @@ export interface GameStateType {
   isGameReset: boolean;
   isKingInCheckmate: boolean;
   winner: PlayerType | null;
+  stalemate: boolean;
   isRedoAvailable: boolean;
   isRedoVisible: boolean;
   timeSettings: TimeType;
+  isViewMode: boolean;
   error: ErrorType;
 }
 
@@ -44,12 +46,10 @@ export interface ChessboardHistoryStateType {
 
 // Tracks all game potential moves including enemy moves
 export interface MoveAnalysisStateType {
-  currentPieceMoves: number[][];
-  allEnemyMoves: EnemyAttackType[];
-  piecesAttackingKing: EnemyAttackType[];
-  validMovesWhenInCheck: number[][];
-  invalidMovesWhenInCheck: number[][];
   isKingInCheck: boolean;
+  currentTeamMoves: EnemyAttackType[];
+  enemyTeamMoves: EnemyAttackType[];
+  selectedPieceMoves: number[][];
 }
 
 // Checks player setup is valid

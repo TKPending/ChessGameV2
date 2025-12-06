@@ -18,11 +18,15 @@ import {
   setPlayerTimeReducer,
   incrementPlayerTimeReducer,
   setGameStateToPreviousReducer,
+  setStalemateReducer,
+  closeModalReducer,
+  cancelViewModeReducer,
 } from "./gameStateReducer";
 
 const initialState: GameStateType = {
   currentTurn: ChessColors.white,
   winner: null,
+  stalemate: false,
   players: [
     {
       no: 0,
@@ -49,6 +53,7 @@ const initialState: GameStateType = {
     minutes: 0,
     increment: "",
   },
+  isViewMode: false,
   error: {
     isError: false,
     message: "",
@@ -61,6 +66,7 @@ const gameStateSlice = createSlice({
   reducers: {
     setCurrentTurn: updateCurrentTurnReducer,
     setWinner: setWinnerReducer,
+    setStalemate: setStalemateReducer,
     setError: errorTriggerReducer,
     setErrorMessage: errorMessageReducer,
     setPlayerName: addPlayerNameReducer,
@@ -74,6 +80,8 @@ const gameStateSlice = createSlice({
     incrementPlayerTime: incrementPlayerTimeReducer,
     setGameStateToPrevious: setGameStateToPreviousReducer,
     setResetTrigger: resetGameReducer,
+    closeModal: closeModalReducer,
+    endViewingMode: cancelViewModeReducer,
     resetGameState: resetGameStateReducer,
   },
 });
@@ -81,6 +89,7 @@ const gameStateSlice = createSlice({
 export const {
   setCurrentTurn,
   setWinner,
+  setStalemate,
   setError,
   setErrorMessage,
   setPlayerName,
@@ -94,6 +103,8 @@ export const {
   incrementPlayerTime,
   setGameStateToPrevious,
   setResetTrigger,
+  closeModal,
+  endViewingMode,
   resetGameState,
 } = gameStateSlice.actions;
 

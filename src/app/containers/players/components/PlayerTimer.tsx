@@ -4,6 +4,7 @@ import {
   selectPlayers,
   selectCurrentTurn,
   selectTimeSettings,
+  selectIsPlaying,
 } from "@/app/utils/selectors/gameStateSelectors";
 import {
   setPlayerTime,
@@ -22,6 +23,7 @@ type PlayerTimerProps = { playerNo: number };
 
 const PlayerTimer = ({ playerNo }: PlayerTimerProps) => {
   const dispatch = useDispatch();
+  const isPlaying: boolean = useSelector(selectIsPlaying);
   const players: PlayerType[] = useSelector(selectPlayers);
   const currentTurn: ChessColors = useSelector(selectCurrentTurn);
   const timeSettings: TimeType = useSelector(selectTimeSettings);
@@ -32,50 +34,52 @@ const PlayerTimer = ({ playerNo }: PlayerTimerProps) => {
   const intervalRef = useRef<number | null>(null);
 
   useEffect(() => {
-    // Reset Interval
-    if (intervalRef.current !== null) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
-    }
-
-    if (currentPlayer.remainingTime === 0) {
-      dispatch(setWinner(currentPlayer));
-      return;
-    }
-
-    // Active Player Timer
-    if (!isActivePlayer) return;
-
-    intervalRef.current = window.setInterval(() => {
-      const latestPlayer = players[playerNo];
-
-      // Player has ran out of time
-      if (latestPlayer.remainingTime <= 0) {
-        clearInterval(intervalRef.current!);
-        intervalRef.current = null;
-
-        if (timeSettings.timeCategory !== TimeCatergories.infinite) {
-          dispatch(setWinner(latestPlayer));
-        }
-
-        return;
-      }
-
-      // Update Player Time
-      dispatch(
-        setPlayerTime({
-          currentPlayer: latestPlayer,
-          newTime: latestPlayer.remainingTime - 1,
-        })
-      );
-    }, 1000);
-
-    return () => {
+    if (isPlaying) {
       if (intervalRef.current !== null) {
         clearInterval(intervalRef.current);
         intervalRef.current = null;
       }
-    };
+
+      if (currentPlayer.remainingTime === 0) {
+        dispatch(setWinner(currentPlayer));
+        return;
+      }
+
+      // Active Player Timer
+      if (!isActivePlayer) return;
+
+      intervalRef.current = window.setInterval(() => {
+        const latestPlayer = players[playerNo];
+
+        // Player has ran out of time
+        if (latestPlayer.remainingTime <= 0) {
+          clearInterval(intervalRef.current!);
+          intervalRef.current = null;
+
+          if (timeSettings.timeCategory !== TimeCatergories.infinite) {
+            dispatch(setWinner(latestPlayer));
+          }
+
+          return;
+        }
+
+        // Update Player Time
+        dispatch(
+          setPlayerTime({
+            currentPlayer: latestPlayer,
+            newTime: latestPlayer.remainingTime - 1,
+          })
+        );
+      }, 1000);
+
+      return () => {
+        if (intervalRef.current !== null) {
+          clearInterval(intervalRef.current);
+          intervalRef.current = null;
+        }
+      };
+    }
+    // Reset Interval
   }, [isActivePlayer, players, playerNo, dispatch, timeSettings]);
 
   return <p>{showReadableTime(currentPlayer.remainingTime)}</p>;
