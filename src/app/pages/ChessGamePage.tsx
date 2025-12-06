@@ -18,10 +18,8 @@ import {
 import {
   selectIsKingInCheckmate,
   selectStalemate,
-  selectWinner,
 } from "@/app/utils/selectors/gameStateSelectors";
 import { PageEnum } from "@/app/types/PageTypes";
-import { PlayerType } from "@/app/types/ChessTypes";
 import LiveGameMoveCounterContainer from "../containers/features/moveCounter/LiveGameMoveCounterContainer";
 
 const PLAYERONE = 0;
@@ -39,7 +37,6 @@ const ChessGamePage = () => {
 
   const isCheckmate: boolean = useSelector(selectIsKingInCheckmate);
   const isStalemate: boolean = useSelector(selectStalemate);
-  const winner: PlayerType | null = useSelector(selectWinner);
 
   return (
     <div className="h-screen w-screen max-h-screen max-w-screen overflow-hidden">
