@@ -6,7 +6,7 @@ import { PieceType, PieceName, ChessColors } from "@/app/types/ChessTypes";
 import PawnPromotionComponent from "@/app/containers/chessboard/features/pawnPromotion/components/PawnPromotionComponent";
 import { getPlayerColor } from "@/app/utils/getPlayerColor";
 
-const PawnPromotionContainer = () => {
+const PawnPromotionModal = () => {
   const dispatch = useDispatch();
   const currentTurn: ChessColors = useSelector(selectCurrentTurn);
   const turnToChange: ChessColors = getPlayerColor(currentTurn, true);
@@ -32,4 +32,4 @@ const PawnPromotionContainer = () => {
   return <PawnPromotionComponent handlePiecePromotion={handlePiecePromotion} />;
 };
 
-export default PawnPromotionContainer;
+export default PawnPromotionModal;

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import PawnPromotionContainer from "@/app/containers/chessboard/features/pawnPromotion/PawnPromotionContainer";
+import PawnPromotionModal from "@/app/containers/chessboard/features/pawnPromotion/PawnPromotionModal";
 import TileContainer from "@/app/containers/chessboard/features/tile/TileContainer";
 
 import {
@@ -149,7 +149,7 @@ const Chessboard = () => {
   return (
     <div className="h-auto w-full flex items-center justify-center">
       {/* Pawn promotion is possible */}
-      {pawnPromotion.isPawnPromotion && <PawnPromotionContainer />}
+      {pawnPromotion.isPawnPromotion && <PawnPromotionModal />}
       {/* Render Chessboard */}
       <div className="h-full w-full chessboard">
         {chessboard.map((row: TileType[], rowIndex: number) =>
