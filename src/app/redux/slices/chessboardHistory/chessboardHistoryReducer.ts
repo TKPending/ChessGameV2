@@ -22,6 +22,7 @@ export const removeRecentChessboardHistoryReducer = (
   state: ChessboardHistoryStateType
 ) => {
   state.chessboardHistory.pop();
+  state.currentMoveCount -= 1;
 };
 
 export const updateMoveHistoryReducer = (

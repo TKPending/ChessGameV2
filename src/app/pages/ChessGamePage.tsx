@@ -10,6 +10,7 @@ import BackButtonContainer from "@/app/containers/features/backButton/BackButton
 import UndoButtonContainer from "@/app/containers/features/undoButton/UndoButtonContainer";
 import {
   selectIsGameReset,
+  selectIsPlaying,
   selectIsRedoAvaialble,
   selectIsRedoVisible,
   selectViewingMode,
@@ -21,6 +22,7 @@ import {
 } from "@/app/utils/selectors/gameStateSelectors";
 import { PageEnum } from "@/app/types/PageTypes";
 import { PlayerType } from "@/app/types/ChessTypes";
+import LiveGameMoveCounterContainer from "../containers/features/moveCounter/LiveGameMoveCounterContainer";
 
 const PLAYERONE = 0;
 const PLAYERTWO = 1;
@@ -32,6 +34,7 @@ const ChessGamePage = () => {
   const isGameReset: boolean = useSelector(selectIsGameReset);
   const isRedoAvailable: boolean = useSelector(selectIsRedoAvaialble);
   const isRedoVisible: boolean = useSelector(selectIsRedoVisible);
+  const isPlaying: boolean = useSelector(selectIsPlaying);
   const viewingMode: boolean = useSelector(selectViewingMode);
 
   const isCheckmate: boolean = useSelector(selectIsKingInCheckmate);
@@ -61,7 +64,14 @@ const ChessGamePage = () => {
 
         {viewingMode && <ChessboardMoveHistory />}
       </div>
-      {isRedoAvailable && isRedoVisible && <UndoButtonContainer />}
+
+      {isPlaying && (
+        <div className="hidden sm:flex absolute right-20 bottom-10 flex flex-col gap-4 lg:gap-1 w-40">
+          {isRedoAvailable && isRedoVisible && <UndoButtonContainer />}
+
+          <LiveGameMoveCounterContainer />
+        </div>
+      )}
 
       {isGameReset && <ResetGameModalContainer />}
     </div>

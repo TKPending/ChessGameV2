@@ -51,6 +51,8 @@ const TileContainer = ({ tile }: Props) => {
   const castling = useSelector(selectCastling);
 
   const handleTileClick = (clickedTile: TileType) => {
+    dispatch(setRedoVisibility(false));
+
     if (!isPlaying) {
       return;
     }
