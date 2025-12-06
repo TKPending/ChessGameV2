@@ -1,10 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import Moves from "@/app/containers/chessboardMoveHistory/component/Moves";
-import {
-  selectChessboardHistory,
-  selectMovesHistory,
-} from "@/app/utils/selectors/chessboardHistoryStateSelector";
+import { selectMovesHistory } from "@/app/utils/selectors/chessboardHistoryStateSelector";
 import {
   selectCurrentTurn,
   selectIsPlaying,
@@ -18,7 +15,6 @@ const ChessMovesContainer = () => {
   const dispatch = useDispatch();
   const isWinner = useSelector(selectIsPlaying);
   const players = useSelector(selectPlayers);
-  const chessboardHistory = useSelector(selectChessboardHistory);
   const moveHistory: MoveHistoryType[] = useSelector(selectMovesHistory);
   const currentTurn = useSelector(selectCurrentTurn);
   const winner = useSelector(selectWinner);
