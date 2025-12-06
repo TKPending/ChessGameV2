@@ -23,6 +23,7 @@ export const handleMovePiece = (
   previousClickedTile: TileType | null,
   targetTile: TileType,
   currentBoardState: TileType[][],
+  moveCount: number,
   castling: CastleType
 ) => {
   if (!previousClickedTile?.pieceOnTile) return [];
@@ -49,20 +50,22 @@ export const handleMovePiece = (
     );
   }
 
-  dispatch(updateChessboardHistory(currentBoardState));
-
   dispatch(
     updateMoveHistory({
+      moveCount,
       from: previousClickedTile,
       to: targetTile,
     })
   );
 
-  return updateChessboard(
+  const updatedChessboard = updateChessboard(
     dispatch,
     currentBoardState,
     previousClickedTile,
     targetTile,
     castling
   );
+  dispatch(updateChessboardHistory(updatedChessboard));
+
+  return updatedChessboard;
 };

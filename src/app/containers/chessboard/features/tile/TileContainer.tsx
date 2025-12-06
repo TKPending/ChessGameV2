@@ -35,6 +35,7 @@ import { isMoveValid } from "@/app/containers/chessboard/utils/pieceMovements/he
 
 import { EnemyAttackType } from "@/app/types/MoveTypes";
 import { ChessColors, PieceType, TileType } from "@/app/types/ChessTypes";
+import { selectCurrentMoveCount } from "@/app/utils/selectors/chessboardHistoryStateSelector";
 
 type Props = {
   tile: TileType;
@@ -48,6 +49,7 @@ const TileContainer = ({ tile }: Props) => {
   const prevClickedTile: TileType | null = useSelector(selectPrevClickedTile);
   const potentialMoves: EnemyAttackType[] = useSelector(selectCurrentTeamMoves);
   const selectedPieceMoves: number[][] = useSelector(selectSelectedPieceMoves);
+  const moveCount: number = useSelector(selectCurrentMoveCount);
   const castling = useSelector(selectCastling);
 
   const handleTileClick = (clickedTile: TileType) => {
@@ -110,6 +112,7 @@ const TileContainer = ({ tile }: Props) => {
         prevClickedTile,
         clickedTile,
         chessboard,
+        moveCount,
         castling
       );
 

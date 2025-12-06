@@ -50,7 +50,7 @@ const ChessGamePage = () => {
       />
       {isError && <ErrorContainer />}
 
-      {(isCheckmate || winner || isStalemate) && <EndGameModal />}
+      {(isCheckmate || isStalemate) && <EndGameModal />}
 
       {/* Renders the Chessboard, Players and ChessMoves */}
       <div className="flex h-full md:w-full p-2 px-20 gap-4">

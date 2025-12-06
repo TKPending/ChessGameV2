@@ -90,8 +90,10 @@ export interface PlayerType {
 }
 
 export interface MoveHistoryType {
+  moveCount: number;
   from: TileType;
   to: TileType;
+  selected?: boolean;
   pawnPromotion?: boolean;
   updatedPiece?: PieceName;
 }

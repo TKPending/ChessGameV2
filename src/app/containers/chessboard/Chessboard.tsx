@@ -13,6 +13,8 @@ import {
   selectCurrentTurn,
   selectGameState,
   selectIsRedoAvaialble,
+  selectViewingMode,
+  selectPlayers,
 } from "@/app/utils/selectors/gameStateSelectors";
 import { updatePreviousGameState } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
 
@@ -27,9 +29,15 @@ import { findKingPosition } from "./utils/pieceMovements/helpers/findKingPositio
 import {
   setKingInCheckmate,
   setStalemate,
+  setWinner,
 } from "@/app/redux/slices/gameState/gameStateSlice";
 
-import { ChessColors, PieceName, TileType } from "@/app/types/ChessTypes";
+import {
+  PlayerType,
+  ChessColors,
+  PieceName,
+  TileType,
+} from "@/app/types/ChessTypes";
 import {
   CastleType,
   EnemyAttackType,
@@ -42,16 +50,22 @@ import { isCastlingPossible } from "./utils/pieceMovements/castling/isCastlingPo
 const Chessboard = () => {
   const dispatch = useDispatch();
   const chessboard: TileType[][] = useSelector(selectChessboard);
+  const players: PlayerType[] = useSelector(selectPlayers);
   const pawnPromotion: PawnPromotionType = useSelector(selectPawnPromotion);
   const currentTurn: ChessColors = useSelector(selectCurrentTurn);
   const currentGameState: GameStateType = useSelector(selectGameState);
   const castling: CastleType = useSelector(selectCastling);
   const isRedoAvailable: boolean = useSelector(selectIsRedoAvaialble);
+  const isViewing = useSelector(selectViewingMode);
 
   useEffect(() => {
     // If the board hasn't been initialised yet, generate tiles
     if (chessboard.length === 0) {
       dispatch(setChessboard(generateTiles()));
+      return;
+    }
+
+    if (isViewing) {
       return;
     }
 

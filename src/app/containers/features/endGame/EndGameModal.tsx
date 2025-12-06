@@ -20,6 +20,12 @@ const EndGameModal = () => {
   const isStalemate = useSelector(selectStalemate);
   const winner = useSelector(selectWinner);
 
+  console.log({
+    isCheckmate,
+    isStalemate,
+    winner,
+  });
+
   const { width, height } = useWindowSize();
 
   const handleResetGame = () => {

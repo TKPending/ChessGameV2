@@ -10,6 +10,19 @@ export const updateMoveCounterReducer = (state: ChessboardHistoryStateType) => {
   state.currentMoveCount = state.currentMoveCount + 1;
 };
 
+// Selected Move
+export const updateSelectedMoveReducer = (
+  state: ChessboardHistoryStateType,
+  action: PayloadAction<number | null> // moveCount
+) => {
+  const selectedMoveCount = action.payload;
+
+  state.movesHistory = state.movesHistory.map((move) => ({
+    ...move,
+    selected: move.moveCount === selectedMoveCount,
+  }));
+};
+
 // Update Chessboard and Move History
 export const updateChessboardHistoryReducer = (
   state: ChessboardHistoryStateType,
@@ -22,6 +35,7 @@ export const removeRecentChessboardHistoryReducer = (
   state: ChessboardHistoryStateType
 ) => {
   state.chessboardHistory.pop();
+  state.movesHistory.pop();
   state.currentMoveCount -= 1;
 };
 
