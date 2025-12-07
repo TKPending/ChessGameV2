@@ -55,7 +55,6 @@ const Chessboard = () => {
   const castling: CastleType = useSelector(selectCastling);
   const isRedoAvailable: boolean = useSelector(selectIsRedoAvaialble);
   const isViewing = useSelector(selectViewingMode);
-
   const chessboardHistory = useSelector(selectChessboardHistory);
 
   useEffect(() => {
@@ -65,11 +64,9 @@ const Chessboard = () => {
       return;
     }
 
-    console.log(chessboardHistory);
     if (chessboardHistory.length === 0) {
       dispatch(updateChessboardHistory(chessboard));
     }
-    console.log(chessboardHistory);
 
     // Game has ended - Reviewing the board
     if (isViewing) {
