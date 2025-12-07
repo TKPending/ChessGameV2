@@ -35,7 +35,7 @@ const PlayerSetupContainer = () => {
   };
 
   return (
-    <div className="h-auto flex flex-col items-center justify-center gap-12 font-semibold text-center px-4 w-full">
+    <div className="mt-4 h-auto flex flex-col items-center justify-center gap-12 font-semibold text-center px-4 w-full">
       <PlayerSetupHeader />
 
       <div className="flex flex-wrap justify-center gap-10 mt-10">
