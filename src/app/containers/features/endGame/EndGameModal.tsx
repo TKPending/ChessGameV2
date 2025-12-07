@@ -12,6 +12,7 @@ import {
 } from "@/app/utils/selectors/gameStateSelectors";
 import { resetChessGame } from "@/app/utils/resetChessGame";
 import { closeModal } from "@/app/redux/slices/gameState/gameStateSlice";
+import { resetUiPreviousMoveTiles } from "@/app/redux/slices/uiChessboard/uiChessboardSlice";
 
 const EndGameModal = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const EndGameModal = () => {
   };
 
   const handleExitModal = () => {
+    dispatch(resetUiPreviousMoveTiles());
     dispatch(closeModal());
   };
 

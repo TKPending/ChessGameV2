@@ -1,4 +1,8 @@
-import { ChessColors, TileType } from "@/app/types/ChessTypes";
+import {
+  ChessColors,
+  TileType,
+  uiPreviousMoveType,
+} from "@/app/types/ChessTypes";
 
 /**
  * Function to determine what the background colour of a tile will be
@@ -10,7 +14,7 @@ export const getTileBackgroundColor = (
   uiSelectedTile: TileType | null,
   uiHighlightedTiles: string[],
   uiAttackedTiles: string[],
-  uiPreviousMoveTile: TileType | null
+  uiPreviousMoveTile: uiPreviousMoveType
 ): string => {
   // Selected piece tile
   if (uiSelectedTile?.tilePosition === tile.tilePosition) {
@@ -31,8 +35,11 @@ export const getTileBackgroundColor = (
   }
 
   // Previous move highlight
-  if (uiPreviousMoveTile?.tilePosition === tile.tilePosition) {
-    return "bg-yellow-300 bg-opacity-60";
+  if (
+    uiPreviousMoveTile.from === tile.tilePosition ||
+    uiPreviousMoveTile.to === tile.tilePosition
+  ) {
+    return "bg-yellow-200 bg-opacity-30";
   }
 
   // Default tile color

@@ -12,7 +12,11 @@ import {
   selectUiPreviousMoveTile,
   selectUiSelectedTile,
 } from "@/app/utils/selectors/uiChessboardSelector";
-import { ChessColors, TileType } from "@/app/types/ChessTypes";
+import {
+  ChessColors,
+  TileType,
+  uiPreviousMoveType,
+} from "@/app/types/ChessTypes";
 
 type TileProps = {
   tile: TileType;
@@ -25,7 +29,7 @@ const Tile = ({ tile, handleTileClick }: TileProps) => {
   const isKingInCheckmate: boolean = useSelector(selectIsKingInCheckmate);
   const uiSelectedTile: TileType | null = useSelector(selectUiSelectedTile);
   const uiAttackedTiles: string[] = useSelector(selectUiAttackTiles);
-  const uiPreviousMoveTile: TileType | null = useSelector(
+  const uiPreviousMoveTile: uiPreviousMoveType = useSelector(
     selectUiPreviousMoveTile
   );
   const uiHighlightedTiles: string[] = useSelector(selectUiHighlightedTiles);

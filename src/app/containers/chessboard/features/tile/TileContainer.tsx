@@ -33,15 +33,23 @@ import { incrementMoveCounter } from "@/app/redux/slices/chessboardHistory/chess
 import { isMoveValid } from "@/app/containers/chessboard/utils/pieceMovements/helpers/isMoveValid";
 import { selectCurrentMoveCount } from "@/app/utils/selectors/chessboardHistoryStateSelector";
 import {
+  resetUiPreviousMoveTiles,
   setUiAttackTiles,
   setUiHighlightedTiles,
+  setUiPreviousMoveTile,
   setUiSelectedTile,
 } from "@/app/redux/slices/uiChessboard/uiChessboardSlice";
 import { resetUiHighlights } from "@/app/containers/chessboard/utils/chessboard/design/resetUiHighlights";
 import { convertTilePosition } from "@/app/utils/convertTilePosition";
 
 import { EnemyAttackType } from "@/app/types/MoveTypes";
-import { ChessColors, PieceType, TileType } from "@/app/types/ChessTypes";
+import {
+  ChessColors,
+  PieceType,
+  TileType,
+  uiPreviousMoveType,
+} from "@/app/types/ChessTypes";
+import { selectUiPreviousMoveTile } from "@/app/utils/selectors/uiChessboardSelector";
 
 type Props = {
   tile: TileType;
@@ -55,6 +63,9 @@ const TileContainer = ({ tile }: Props) => {
   const prevClickedTile: TileType | null = useSelector(selectPrevClickedTile);
   const potentialMoves: EnemyAttackType[] = useSelector(selectCurrentTeamMoves);
   const selectedPieceMoves: number[][] = useSelector(selectSelectedPieceMoves);
+  const uiPreviousMoveTile: uiPreviousMoveType = useSelector(
+    selectUiPreviousMoveTile
+  );
   const moveCount: number = useSelector(selectCurrentMoveCount);
   const castling = useSelector(selectCastling);
 
@@ -69,6 +80,11 @@ const TileContainer = ({ tile }: Props) => {
     // Nothing Clicked
     if (!prevClickedTile && !clickedTile.pieceOnTile) {
       return;
+    }
+
+    // Clear previous highlighted tile
+    if (uiPreviousMoveTile.from !== "") {
+      dispatch(resetUiPreviousMoveTiles());
     }
 
     const pieceOnClickedTile: PieceType | null = clickedTile.pieceOnTile;
@@ -143,6 +159,14 @@ const TileContainer = ({ tile }: Props) => {
 
       // Reset the UI
       resetTiles(dispatch);
+
+      // Set Previous tiles for highlight
+      dispatch(
+        setUiPreviousMoveTile({
+          from: prevClickedTile.tilePosition,
+          to: clickedTile.tilePosition,
+        })
+      );
 
       // Reset Game States
       dispatch(setRedoVisibility(true));

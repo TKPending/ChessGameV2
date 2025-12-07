@@ -5,6 +5,7 @@ import {
   PlayerType,
   TileType,
   TimeType,
+  uiPreviousMoveType,
 } from "./ChessTypes";
 import { CastleType, EnemyAttackType, PawnPromotionType } from "./MoveTypes";
 
@@ -24,7 +25,7 @@ export interface uiChessboardType {
   uiSelectedTile: TileType | null;
   uiHighlightedTiles: string[];
   uiAttackTiles: string[];
-  uiPreviousMoveTile: TileType | null;
+  uiPreviousMoveTile: uiPreviousMoveType;
 }
 
 // Tracks overall game state

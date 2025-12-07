@@ -3,6 +3,7 @@ import { uiChessboardType } from "@/app/types/StateTypes";
 import {
   emptyUiAttackTilesReducer,
   emptyUiHighlightedTilesReducer,
+  removeUiPreviousMoveTileReducer,
   updateUiAttackTilesReducer,
   updateUiHighlightedTilesReducer,
   updateUiPreviousMoveTileReducer,
@@ -13,7 +14,10 @@ const initialState: uiChessboardType = {
   uiSelectedTile: null,
   uiHighlightedTiles: [],
   uiAttackTiles: [],
-  uiPreviousMoveTile: null,
+  uiPreviousMoveTile: {
+    from: "",
+    to: "",
+  },
 };
 
 const uiChessboardSlice = createSlice({
@@ -26,6 +30,7 @@ const uiChessboardSlice = createSlice({
     setUiAttackTiles: updateUiAttackTilesReducer,
     clearUiAttackTiles: emptyUiAttackTilesReducer,
     setUiPreviousMoveTile: updateUiPreviousMoveTileReducer,
+    resetUiPreviousMoveTiles: removeUiPreviousMoveTileReducer,
   },
 });
 
@@ -36,6 +41,7 @@ export const {
   setUiAttackTiles,
   clearUiAttackTiles,
   setUiPreviousMoveTile,
+  resetUiPreviousMoveTiles,
 } = uiChessboardSlice.actions;
 
 export default uiChessboardSlice.reducer;

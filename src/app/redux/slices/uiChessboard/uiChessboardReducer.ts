@@ -1,7 +1,7 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { convertCoordsToTile } from "@/app/utils/convertCoordsToTile";
 import { uiChessboardType } from "@/app/types/StateTypes";
-import { TileType } from "@/app/types/ChessTypes";
+import { TileType, uiPreviousMoveType } from "@/app/types/ChessTypes";
 
 export const updateUiSelectedTileReducer = (
   state: uiChessboardType,
@@ -34,7 +34,11 @@ export const emptyUiAttackTilesReducer = (state: uiChessboardType) => {
 
 export const updateUiPreviousMoveTileReducer = (
   state: uiChessboardType,
-  action: PayloadAction<TileType | null>
+  action: PayloadAction<uiPreviousMoveType>
 ) => {
-  state.uiSelectedTile = action.payload;
+  state.uiPreviousMoveTile = action.payload;
+};
+
+export const removeUiPreviousMoveTileReducer = (state: uiChessboardType) => {
+  state.uiPreviousMoveTile = { from: "", to: "" };
 };

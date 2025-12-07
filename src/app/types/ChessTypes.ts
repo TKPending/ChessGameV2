@@ -95,3 +95,8 @@ export interface MoveHistoryType {
   pawnPromotion?: boolean;
   updatedPiece?: PieceName;
 }
+
+export interface uiPreviousMoveType {
+  from: string;
+  to: string;
+}
