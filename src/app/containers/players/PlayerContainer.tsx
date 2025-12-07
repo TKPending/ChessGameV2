@@ -20,13 +20,13 @@ const PlayerContainer = ({ playerNo, className }: Props) => {
     <div
       className={`w-full flex items-center ${
         playerNo === 0 ? "justify-start" : "justify-end"
-      } px-6 md:px-12`}
+      } md:px-12 `}
     >
       <section
-        className={`bg-section-background shadow-lg w-full md:w-1/2 h-20 gap-1 p-2 px-4 flex flex-col rounded-lg justify-start ${className}`}
+        className={`bg-section-background shadow-lg w-full md:w-1/2 h-20 gap-1 p-2 px-4 flex flex-col rounded-lg ${className}`}
       >
         <div
-          className={`flex items-center justify-between text-md text-customGreen w-full`}
+          className={`w-full flex items-center justify-between text-md text-customGreen `}
         >
           {timeSettings.timeCategory !== TimeCatergories.infinite && (
             <PlayerTimer playerNo={playerNo} />

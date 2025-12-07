@@ -17,7 +17,7 @@ const ChessGame = () => {
   const PrevComponent = prevPage ? PageComponents[prevPage] : null;
 
   return (
-    <div className="relative w-screen h-screen font-semibold overflow-none bg-page-background">
+    <div className="relative w-screen h-screen max-h-screen font-semibold overflow-none overscroll-none bg-page-background">
       <AnimatedFallingChessBackground count={30} />
       <AnimatePresence mode={"sync"}>
         {prevPage && PrevComponent && (
@@ -50,7 +50,7 @@ const ChessGame = () => {
             animate="animate"
             exit="exit"
             transition={{ duration: 0.4 }}
-            className="absolute top-0 left-0 w-full h-full z-20"
+            className="absolute top-0 left-0 w-full h-full z-20 overscroll-none"
           >
             <CurrentComponent />
           </motion.div>

@@ -33,7 +33,7 @@ const BackButtonContainer = ({
       onClick={handleBackButtonClick}
       aria-label="Go back"
       className={`
-        absolute top-6 left-12
+        fixed top-6 left-6 md:left-12
         flex items-center justify-center
         h-10 w-10 rounded-xl
         border border-neutral-300 dark:border-neutral-700

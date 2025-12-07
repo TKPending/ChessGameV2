@@ -15,7 +15,7 @@ const PlayerCard = ({ player, onChange, onEnter }: PlayerCardProps) => {
     <motion.div
       className={`
         relative flex flex-col items-center justify-between
-        w-64 h-48 md:h-96 p-6 rounded-2xl shadow-xl transition-all
+        w-64 h-60 md:h-96 p-6 rounded-2xl shadow-xl transition-all
         ${
           color === "white"
             ? "bg-gradient-to-br from-gray-100 to-white"
@@ -28,7 +28,7 @@ const PlayerCard = ({ player, onChange, onEnter }: PlayerCardProps) => {
       <motion.img
         src={`${color}-king.png`}
         alt={`${color} king`}
-        className="h-40"
+        className="h-28 md:h-40"
         animate={{
           y: isNamed ? [0, -4, 0] : 0,
         }}

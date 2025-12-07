@@ -13,12 +13,12 @@ const RulesPage = () => {
 
   return (
     // Main container for the rules page with responsive styling
-    <div className="h-full overflow-y-auto p-4 sm:p-8 md:p-12 lg:p-16 flex justify-center items-start text-gray-200 text-center">
+    <div className="relative h-full overflow-y-auto p-4 sm:p-8 md:p-12 lg:p-16 flex justify-center items-start text-gray-200 text-center">
       <BackButtonContainer
         currentPage={PageEnum.gameRules}
         nextPage={PageEnum.landing}
       />
-      <div className="w-full max-w-4xl space-y-8 leading-relaxed">
+      <div className="mt-20 w-full max-w-4xl space-y-8 leading-relaxed">
         {/* Main Title */}
         <h1 className="text-3xl sm:text-4xl font-extrabold text-white text-center tracking-tight">
           The Official Rules of Chess

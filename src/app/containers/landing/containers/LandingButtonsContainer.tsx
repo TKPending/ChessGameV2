@@ -15,7 +15,7 @@ const LandingButtonsContainer = () => {
   };
 
   return (
-    <div className="mt-4 flex items-center justify-center gap-8">
+    <div className="mt-4 flex items-center justify-center gap-8 text-2xl">
       <Button
         text="Read the Rules"
         textStyle="text-md"
