@@ -86,5 +86,6 @@ export const resetChessMovesReducer = (state: ChessboardHistoryStateType) => {
   state.currentMoveCount = 0;
   state.chessboardHistory = [];
   state.movesHistory = [];
+  state.previousGameState = null;
   state.isMovesHidden = false;
 };

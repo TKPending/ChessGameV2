@@ -76,36 +76,6 @@ export const updateTileWithPromotedPieceReducer = (
   state.pawnPromotion.tileToUpdate = null;
 };
 
-export const resetGameReducer = (state: ChessboardStateType) => {
-  state.chessboard = generateTiles();
-  state.clickedTile = null;
-  state.prevClickedTile = null;
-  state.castling = {
-    blackKing: {
-      kingMoved: false,
-      kingPosition: [7, 4],
-    },
-    whiteKing: {
-      kingMoved: false,
-      kingPosition: [0, 4],
-    },
-    black: {
-      canCastleOption: true,
-      rightCastleOption: true,
-      leftCastleOption: true,
-    },
-    white: {
-      canCastleOption: true,
-      rightCastleOption: true,
-      leftCastleOption: true,
-    },
-  };
-  state.pawnPromotion = {
-    isPawnPromotion: false,
-    tileToUpdate: null,
-  };
-};
-
 // Castling Logic Reducers
 const currentTurn = (currentTurn: ChessColors.white | ChessColors.black) => {
   return currentTurn === ChessColors.white ? "white" : "black";
@@ -160,4 +130,34 @@ export const kingMovedReducer = (
   state.castling[team].canCastleOption = false;
   state.castling[team].leftCastleOption = false;
   state.castling[team].rightCastleOption = false;
+};
+
+export const resetGameReducer = (state: ChessboardStateType) => {
+  state.chessboard = generateTiles();
+  state.clickedTile = null;
+  state.prevClickedTile = null;
+  state.castling = {
+    blackKing: {
+      kingMoved: false,
+      kingPosition: [7, 4],
+    },
+    whiteKing: {
+      kingMoved: false,
+      kingPosition: [0, 4],
+    },
+    black: {
+      canCastleOption: true,
+      rightCastleOption: true,
+      leftCastleOption: true,
+    },
+    white: {
+      canCastleOption: true,
+      rightCastleOption: true,
+      leftCastleOption: true,
+    },
+  };
+  state.pawnPromotion = {
+    isPawnPromotion: false,
+    tileToUpdate: null,
+  };
 };

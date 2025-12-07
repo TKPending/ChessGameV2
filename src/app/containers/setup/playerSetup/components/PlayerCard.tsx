@@ -28,7 +28,7 @@ const PlayerCard = ({ player, onChange, onEnter }: PlayerCardProps) => {
       <motion.img
         src={`${color}-king.png`}
         alt={`${color} king`}
-        className="h-40"
+        className="h-28 md:h-40"
         animate={{
           y: isNamed ? [0, -4, 0] : 0,
         }}

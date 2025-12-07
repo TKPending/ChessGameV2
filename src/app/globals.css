@@ -35,8 +35,8 @@ body {
 .chessboard {
   max-height: 800px;
   max-width: 800px;
-  min-width: 160px;
-  min-height: 160px;
+  min-width: 350px;
+  min-height: 350px;
   display: grid;
   grid-template-columns: repeat(8, 1fr); /* 8 equally-sized columns */
   grid-template-rows: repeat(8, 1fr); /* 8 equally-sized rows */

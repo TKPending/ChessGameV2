@@ -172,6 +172,14 @@ export const cancelViewModeReducer = (state: GameStateType) => {
   state.isViewMode = false;
 };
 
+export const closeModalReducer = (state: GameStateType) => {
+  state.stalemate = false;
+  state.isKingInCheckmate = false;
+  state.winByTime = false;
+  state.isPlaying = false;
+  state.isViewMode = true;
+};
+
 // Reset Game
 export const resetGameReducer = (state: GameStateType) => {
   state.isGameReset = !state.isGameReset;
@@ -219,12 +227,5 @@ export const resetGameStateReducer = (
   state.isPlaying = true;
   state.error = { isError: false, message: "" };
   state.isGameReset = false;
-};
-
-export const closeModalReducer = (state: GameStateType) => {
-  state.stalemate = false;
-  state.isKingInCheckmate = false;
-  state.winByTime = false;
-  state.isPlaying = false;
-  state.isViewMode = true;
+  state.isViewMode = false;
 };

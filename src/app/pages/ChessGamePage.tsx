@@ -15,7 +15,6 @@ import {
   selectIsRedoVisible,
   selectViewingMode,
   selectWinByTime,
-  selectWinner,
 } from "@/app/utils/selectors/gameStateSelectors";
 import {
   selectIsKingInCheckmate,
@@ -23,6 +22,7 @@ import {
 } from "@/app/utils/selectors/gameStateSelectors";
 import { PageEnum } from "@/app/types/PageTypes";
 import LiveGameMoveCounterContainer from "../containers/features/moveCounter/LiveGameMoveCounterContainer";
+import { selectCurrentMoveCount } from "../utils/selectors/chessboardHistoryStateSelector";
 
 const PLAYERONE = 0;
 const PLAYERTWO = 1;
@@ -36,6 +36,7 @@ const ChessGamePage = () => {
   const isRedoVisible: boolean = useSelector(selectIsRedoVisible);
   const isPlaying: boolean = useSelector(selectIsPlaying);
   const viewingMode: boolean = useSelector(selectViewingMode);
+  const moveCount: number = useSelector(selectCurrentMoveCount);
 
   const isCheckmate: boolean = useSelector(selectIsKingInCheckmate);
   const isStalemate: boolean = useSelector(selectStalemate);
@@ -43,18 +44,24 @@ const ChessGamePage = () => {
 
   return (
     <div className="h-screen w-screen max-h-screen max-w-screen overflow-hidden">
-      <BackButtonContainer
-        currentPage={PageEnum.chessGame}
-        nextPage={PageEnum.gamePlayers}
-        midGame={true}
-      />
+      <div className="flex items-center justify-end">
+        <BackButtonContainer
+          currentPage={PageEnum.chessGame}
+          nextPage={PageEnum.gamePlayers}
+          midGame={true}
+        />
+
+        <p className="flex pt-8 pr-12 md:hidden text-white">
+          Move Count: {moveCount}
+        </p>
+      </div>
       {isError && <ErrorContainer />}
 
       {(isCheckmate || isStalemate || isWinByTime) && <EndGameModal />}
 
       {/* Renders the Chessboard, Players and ChessMoves */}
-      <div className="flex h-full md:w-full p-2 px-20 gap-4">
-        <div className="h-full md:w-full flex flex-col items-center justify-around p-2 px-20 gap-4">
+      <div className="flex h-full md:w-full p-2 gap-4">
+        <div className="flex flex-col items-center justify-center gap-y-12 md:gap-y-4 md:justify-around h-full w-full p-2 md:px-20 gap-4">
           <PlayerContainer playerNo={PLAYERTWO} className="items-end" />
 
           <Chessboard />
@@ -69,7 +76,7 @@ const ChessGamePage = () => {
         <div className="hidden sm:flex absolute right-20 bottom-10 flex flex-col gap-4 lg:gap-1 w-40">
           {isRedoAvailable && isRedoVisible && <UndoButtonContainer />}
 
-          <LiveGameMoveCounterContainer />
+          {isPlaying && <LiveGameMoveCounterContainer />}
         </div>
       )}
 
