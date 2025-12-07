@@ -1,23 +1,40 @@
-import { TileType } from "@/app/types/ChessTypes";
+import { ChessColors, TileType } from "@/app/types/ChessTypes";
 
 /**
  * Function to determine what the background colour of a tile will be
  * @param tile Indicates the specific tile to be updated
  * @returns The colour that the tile will become
  */
-export const getTileBackgroundColor = (tile: TileType): string => {
-  if (tile.isHighlighted) {
-    switch (tile.highlightReason) {
-      case "selected":
-      case "friendly":
-        return "bg-green-300 hover:cursor-pointer hover:opacity-90 ";
-      case "previous":
-        return "bg-yellow-300 bg-opacity-60";
-      case "enemy":
-        return "bg-red-400 hover:cursor-pointer hover:opacity-90";
-      default:
-        return "";
-    }
+export const getTileBackgroundColor = (
+  tile: TileType,
+  uiSelectedTile: TileType | null,
+  uiHighlightedTiles: string[],
+  uiAttackedTiles: string[],
+  uiPreviousMoveTile: TileType | null
+): string => {
+  // Selected piece tile
+  if (uiSelectedTile?.tilePosition === tile.tilePosition) {
+    return "bg-green-400";
   }
+
+  // Legal move highlight tiles
+  if (
+    uiHighlightedTiles.includes(tile.tilePosition) &&
+    !uiAttackedTiles.includes(tile.tilePosition)
+  ) {
+    return "bg-green-300 hover:cursor-pointer hover:opacity-90";
+  }
+
+  // Attack tiles (e.g. enemy piece capturable)
+  if (uiAttackedTiles.includes(tile.tilePosition)) {
+    return "bg-red-400 hover:cursor-pointer hover:opacity-90";
+  }
+
+  // Previous move highlight
+  if (uiPreviousMoveTile?.tilePosition === tile.tilePosition) {
+    return "bg-yellow-300 bg-opacity-60";
+  }
+
+  // Default tile color
   return tile.defaultTileColor === "White" ? "bg-light-tile" : "bg-dark-tile";
 };

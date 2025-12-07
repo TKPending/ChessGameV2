@@ -5,6 +5,7 @@ import gameSetupReducer from "./slices/gameSetupState/gameSetupSlice";
 import moveAnalysisReducer from "./slices/moveAnalysis/moveAnalysisSlice";
 import gameStateReducer from "./slices/gameState/gameStateSlice";
 import pageReducer from "./slices/page/pageSlice";
+import uiChessboardReducer from "./slices/uiChessboard/uiChessboardSlice";
 import {
   ChessboardHistoryStateType,
   ChessboardStateType,
@@ -12,6 +13,7 @@ import {
   GameStateType,
   MoveAnalysisStateType,
   PageStateType,
+  uiChessboardType,
 } from "@/app/types/StateTypes";
 
 interface State {
@@ -21,6 +23,7 @@ interface State {
   moveAnalysisState: MoveAnalysisStateType;
   gameSetupState: GameSetupStateType;
   pageState: PageStateType;
+  uiChessboardState: uiChessboardType;
 }
 
 const rootReducer: Reducer<State> = combineReducers({
@@ -30,6 +33,7 @@ const rootReducer: Reducer<State> = combineReducers({
   moveAnalysisState: moveAnalysisReducer,
   gameSetupState: gameSetupReducer,
   pageState: pageReducer,
+  uiChessboardState: uiChessboardReducer,
 });
 
 const store = configureStore({

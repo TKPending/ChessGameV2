@@ -14,6 +14,7 @@ import {
   selectIsRedoAvaialble,
   selectIsRedoVisible,
   selectViewingMode,
+  selectWinner,
 } from "@/app/utils/selectors/gameStateSelectors";
 import {
   selectIsKingInCheckmate,
@@ -37,6 +38,7 @@ const ChessGamePage = () => {
 
   const isCheckmate: boolean = useSelector(selectIsKingInCheckmate);
   const isStalemate: boolean = useSelector(selectStalemate);
+  const isWinner = useSelector(selectWinner);
 
   return (
     <div className="h-screen w-screen max-h-screen max-w-screen overflow-hidden">
@@ -47,7 +49,7 @@ const ChessGamePage = () => {
       />
       {isError && <ErrorContainer />}
 
-      {(isCheckmate || isStalemate) && <EndGameModal />}
+      {(isCheckmate || isStalemate || isWinner) && <EndGameModal />}
 
       {/* Renders the Chessboard, Players and ChessMoves */}
       <div className="flex h-full md:w-full p-2 px-20 gap-4">

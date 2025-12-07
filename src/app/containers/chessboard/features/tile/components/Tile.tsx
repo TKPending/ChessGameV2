@@ -6,6 +6,12 @@ import {
 } from "@/app/utils/selectors/gameStateSelectors";
 import { getTileBackgroundColor } from "@/app/containers/chessboard/utils/chessboard/design/getTileBackgroundColor";
 import Piece from "@/app/containers/chessboard/features/tile/components/Piece";
+import {
+  selectUiAttackTiles,
+  selectUiHighlightedTiles,
+  selectUiPreviousMoveTile,
+  selectUiSelectedTile,
+} from "@/app/utils/selectors/uiChessboardSelector";
 import { ChessColors, TileType } from "@/app/types/ChessTypes";
 
 type TileProps = {
@@ -17,7 +23,12 @@ const Tile = ({ tile, handleTileClick }: TileProps) => {
   const currentTurn: ChessColors = useSelector(selectCurrentTurn);
   const isPlaying: boolean = useSelector(selectIsPlaying);
   const isKingInCheckmate: boolean = useSelector(selectIsKingInCheckmate);
-
+  const uiSelectedTile: TileType | null = useSelector(selectUiSelectedTile);
+  const uiAttackedTiles: string[] = useSelector(selectUiAttackTiles);
+  const uiPreviousMoveTile: TileType | null = useSelector(
+    selectUiPreviousMoveTile
+  );
+  const uiHighlightedTiles: string[] = useSelector(selectUiHighlightedTiles);
   const pieceOnTile = tile.pieceOnTile || null;
   const tilePosition = tile.tilePosition; // e.g., "a1"
   const colLetter = tilePosition[0]; // "a"
@@ -27,7 +38,13 @@ const Tile = ({ tile, handleTileClick }: TileProps) => {
   const isLeftColumn = colLetter === "a"; // Leftmost column
   const isBottomRow = rowNumber === "1"; // Bottommost row
 
-  const tileBackgroundColor: string = getTileBackgroundColor(tile);
+  const tileBackgroundColor: string = getTileBackgroundColor(
+    tile,
+    uiSelectedTile,
+    uiHighlightedTiles,
+    uiAttackedTiles,
+    uiPreviousMoveTile
+  );
 
   return (
     <div

@@ -55,8 +55,6 @@ export interface TileType {
   defaultTileColor: ChessColors;
   currentTileColor: string;
   pieceOnTile: PieceType | null;
-  isHighlighted: boolean;
-  highlightReason: "enemy" | "friendly" | "selected" | "previous" | "";
 }
 
 export interface ErrorType {

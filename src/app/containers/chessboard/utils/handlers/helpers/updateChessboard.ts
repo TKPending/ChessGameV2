@@ -61,32 +61,30 @@ export const updateChessboard = (
       const pos: string = tile.tilePosition;
 
       if (pos === previousClickedTile.tilePosition) {
-        return { ...tile, pieceOnTile: null, isHighlighted: false };
+        return { ...tile, pieceOnTile: null };
       }
 
       if (pos === targetTile.tilePosition) {
         return {
           ...tile,
           pieceOnTile: pieceToMove,
-          isHighlighted: false,
         };
       }
       if (isCastling && rookFrom && rookTo) {
         const posIdx: [number, number] = convertTilePosition(pos);
         if (posIdx[0] === rookFrom[0] && posIdx[1] === rookFrom[1]) {
-          return { ...tile, pieceOnTile: null, isHighlighted: false };
+          return { ...tile, pieceOnTile: null };
         }
         if (posIdx[0] === rookTo[0] && posIdx[1] === rookTo[1]) {
           return {
             ...tile,
             pieceOnTile:
               currentChessboard[rookFrom[0]][rookFrom[1]].pieceOnTile,
-            isHighlighted: false,
           };
         }
       }
 
-      return { ...tile, isHighlighted: false };
+      return { ...tile };
     })
   );
 

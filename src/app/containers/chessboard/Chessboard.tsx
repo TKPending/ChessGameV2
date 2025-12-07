@@ -7,6 +7,7 @@ import TileContainer from "@/app/containers/chessboard/features/tile/TileContain
 import {
   selectCastling,
   selectChessboard,
+  selectClickedTile,
   selectPawnPromotion,
 } from "@/app/utils/selectors/chessboardStateSelectors";
 import {
@@ -14,7 +15,6 @@ import {
   selectGameState,
   selectIsRedoAvaialble,
   selectViewingMode,
-  selectPlayers,
 } from "@/app/utils/selectors/gameStateSelectors";
 import { updatePreviousGameState } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
 
@@ -31,12 +31,7 @@ import {
   setStalemate,
 } from "@/app/redux/slices/gameState/gameStateSlice";
 
-import {
-  PlayerType,
-  ChessColors,
-  PieceName,
-  TileType,
-} from "@/app/types/ChessTypes";
+import { ChessColors, PieceName, TileType } from "@/app/types/ChessTypes";
 import {
   CastleType,
   EnemyAttackType,
@@ -45,17 +40,20 @@ import {
 import { GameStateType } from "@/app/types/StateTypes";
 import { generateCastlingMoves } from "./utils/pieceMovements/castling/generateCastlingMoves";
 import { isCastlingPossible } from "./utils/pieceMovements/castling/isCastlingPossible";
+import { selectCurrentMoveCount } from "@/app/utils/selectors/chessboardHistoryStateSelector";
 
 const Chessboard = () => {
   const dispatch = useDispatch();
+
   const chessboard: TileType[][] = useSelector(selectChessboard);
-  const players: PlayerType[] = useSelector(selectPlayers);
-  const pawnPromotion: PawnPromotionType = useSelector(selectPawnPromotion);
   const currentTurn: ChessColors = useSelector(selectCurrentTurn);
   const currentGameState: GameStateType = useSelector(selectGameState);
+  const pawnPromotion: PawnPromotionType = useSelector(selectPawnPromotion);
   const castling: CastleType = useSelector(selectCastling);
   const isRedoAvailable: boolean = useSelector(selectIsRedoAvaialble);
   const isViewing = useSelector(selectViewingMode);
+
+  const tempCount = useSelector(selectCurrentMoveCount);
 
   useEffect(() => {
     // If the board hasn't been initialised yet, generate tiles
@@ -64,6 +62,7 @@ const Chessboard = () => {
       return;
     }
 
+    // Game has ended - Reviewing the board
     if (isViewing) {
       return;
     }
@@ -79,6 +78,7 @@ const Chessboard = () => {
       currentTurn,
       false
     );
+
     // Simulate moves checking if moves put King in check
     const currentTeamLegalMoves: EnemyAttackType[] = simulateTeamMoves(
       chessboard,
@@ -86,64 +86,63 @@ const Chessboard = () => {
       currentTurn
     );
 
+    dispatch(setCurrentTeamMoves(currentTeamLegalMoves));
+
     // Advanced Moves
     const kingPos: [number, number] | null = findKingPosition(
       chessboard,
       currentTurn
     );
-    if (!kingPos) {
-      return;
-    }
 
-    let enemyMoves: EnemyAttackType[] | null = null;
+    if (kingPos) {
+      let enemyMoves: EnemyAttackType[] | null = null;
 
-    // Castling
-    if (isCastlingPossible(chessboard, currentTurn, castling)) {
-      enemyMoves = generateAllTeamMoves(
-        chessboard,
-        getPlayerColor(currentTurn, true),
-        true
-      );
-      const isKingAttacked: boolean = isSquareAttacked(enemyMoves, kingPos);
-      if (!isKingAttacked) {
-        const castleMoves: number[][] = generateCastlingMoves(
-          chessboard,
-          enemyMoves,
-          currentTurn
-        );
-
-        if (castleMoves.length > 0) {
-          currentTeamLegalMoves.forEach((pieceMoves: EnemyAttackType) => {
-            if (pieceMoves.piece.pieceName === PieceName.king) {
-              castleMoves.forEach((castleMove: number[]) => {
-                pieceMoves.moves.push(castleMove);
-              });
-            }
-          });
-        }
-      }
-    }
-
-    // Must be Checkmate or Stalemate
-    if (currentTeamLegalMoves.length === 0) {
-      if (!enemyMoves) {
+      // Castling
+      if (isCastlingPossible(chessboard, currentTurn, castling)) {
         enemyMoves = generateAllTeamMoves(
           chessboard,
           getPlayerColor(currentTurn, true),
           true
         );
+        const isKingAttacked: boolean = isSquareAttacked(enemyMoves, kingPos);
+        if (!isKingAttacked) {
+          const castleMoves: number[][] = generateCastlingMoves(
+            chessboard,
+            enemyMoves,
+            currentTurn
+          );
+
+          if (castleMoves.length > 0) {
+            currentTeamLegalMoves.forEach((pieceMoves: EnemyAttackType) => {
+              if (pieceMoves.piece.pieceName === PieceName.king) {
+                castleMoves.forEach((castleMove: number[]) => {
+                  pieceMoves.moves = [...pieceMoves.moves, castleMove];
+                });
+              }
+            });
+          }
+        }
       }
 
-      const attacked: boolean = isSquareAttacked(enemyMoves, kingPos);
-      if (attacked) {
-        dispatch(setKingInCheckmate(true));
-      } else {
-        dispatch(setStalemate());
+      // Must be Checkmate or Stalemate
+      if (currentTeamLegalMoves.length === 0) {
+        if (!enemyMoves) {
+          enemyMoves = generateAllTeamMoves(
+            chessboard,
+            getPlayerColor(currentTurn, true),
+            true
+          );
+        }
+
+        const attacked: boolean = isSquareAttacked(enemyMoves, kingPos);
+        if (attacked) {
+          dispatch(setKingInCheckmate(true));
+        } else {
+          dispatch(setStalemate());
+        }
       }
     }
-
-    dispatch(setCurrentTeamMoves(currentTeamLegalMoves));
-  }, [chessboard, currentTurn]);
+  }, [dispatch, chessboard, currentTurn]);
 
   return (
     <div className="h-auto w-full flex items-center justify-center">
