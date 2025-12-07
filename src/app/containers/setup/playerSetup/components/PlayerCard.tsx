@@ -39,6 +39,7 @@ const PlayerCard = ({ player, onChange }: PlayerCardProps) => {
 
       <motion.input
         type="text"
+        autoComplete="off"
         placeholder="Enter name"
         maxLength={16}
         value={player.playerName}
