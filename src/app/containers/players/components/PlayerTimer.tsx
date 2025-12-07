@@ -8,7 +8,7 @@ import {
 } from "@/app/utils/selectors/gameStateSelectors";
 import {
   setPlayerTime,
-  setWinner,
+  setWinnerByTime,
 } from "@/app/redux/slices/gameState/gameStateSlice";
 
 import { showReadableTime } from "@/app/utils/convertTimeSettings";
@@ -41,7 +41,7 @@ const PlayerTimer = ({ playerNo }: PlayerTimerProps) => {
       }
 
       if (currentPlayer.remainingTime === 0) {
-        dispatch(setWinner(currentPlayer));
+        dispatch(setWinnerByTime());
         return;
       }
 
@@ -57,7 +57,7 @@ const PlayerTimer = ({ playerNo }: PlayerTimerProps) => {
           intervalRef.current = null;
 
           if (timeSettings.timeCategory !== TimeCatergories.infinite) {
-            dispatch(setWinner(latestPlayer));
+            dispatch(setWinnerByTime());
           }
 
           return;

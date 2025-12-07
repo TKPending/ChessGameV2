@@ -8,7 +8,7 @@ import WinnerOnTime from "./components/WinnerOnTime";
 import {
   selectIsKingInCheckmate,
   selectStalemate,
-  selectWinner,
+  selectWinByTime,
 } from "@/app/utils/selectors/gameStateSelectors";
 import { resetChessGame } from "@/app/utils/resetChessGame";
 import { closeModal } from "@/app/redux/slices/gameState/gameStateSlice";
@@ -18,13 +18,7 @@ const EndGameModal = () => {
 
   const isCheckmate = useSelector(selectIsKingInCheckmate);
   const isStalemate = useSelector(selectStalemate);
-  const winner = useSelector(selectWinner);
-
-  console.log({
-    isCheckmate,
-    isStalemate,
-    winner,
-  });
+  const winByTime = useSelector(selectWinByTime);
 
   const { width, height } = useWindowSize();
 
@@ -42,7 +36,7 @@ const EndGameModal = () => {
     content = <Checkmate />;
   } else if (isStalemate) {
     content = <Stalemate />;
-  } else if (winner) {
+  } else if (winByTime) {
     content = <WinnerOnTime />;
   } else {
     return null;

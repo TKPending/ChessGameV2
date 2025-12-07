@@ -1,14 +1,13 @@
 import { useSelector } from "react-redux";
 import {
   selectCurrentTurn,
-  selectPlayers,
+  selectWinner,
 } from "@/app/utils/selectors/gameStateSelectors";
 import { ChessColors, PlayerType } from "@/app/types/ChessTypes";
 
 const Checkmate = () => {
   const currentTurn: ChessColors = useSelector(selectCurrentTurn);
-  const players: PlayerType[] = useSelector(selectPlayers);
-  const winner = currentTurn === "White" ? players[1] : players[0];
+  const winner: PlayerType | null = useSelector(selectWinner);
 
   return (
     <div className="flex flex-col items-center text-center gap-5">
@@ -17,7 +16,7 @@ const Checkmate = () => {
       </h1>
 
       <p className="text-lg text-[rgba(255,215,128,0.75)] font-medium">
-        {winner.playerName} has claimed victory
+        {winner?.playerName} has claimed victory
       </p>
 
       <img

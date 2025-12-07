@@ -7,7 +7,6 @@ import TileContainer from "@/app/containers/chessboard/features/tile/TileContain
 import {
   selectCastling,
   selectChessboard,
-  selectClickedTile,
   selectPawnPromotion,
 } from "@/app/utils/selectors/chessboardStateSelectors";
 import {
@@ -40,7 +39,6 @@ import {
 import { GameStateType } from "@/app/types/StateTypes";
 import { generateCastlingMoves } from "./utils/pieceMovements/castling/generateCastlingMoves";
 import { isCastlingPossible } from "./utils/pieceMovements/castling/isCastlingPossible";
-import { selectCurrentMoveCount } from "@/app/utils/selectors/chessboardHistoryStateSelector";
 
 const Chessboard = () => {
   const dispatch = useDispatch();
@@ -52,8 +50,6 @@ const Chessboard = () => {
   const castling: CastleType = useSelector(selectCastling);
   const isRedoAvailable: boolean = useSelector(selectIsRedoAvaialble);
   const isViewing = useSelector(selectViewingMode);
-
-  const tempCount = useSelector(selectCurrentMoveCount);
 
   useEffect(() => {
     // If the board hasn't been initialised yet, generate tiles

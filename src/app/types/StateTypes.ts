@@ -34,8 +34,9 @@ export interface GameStateType {
   currentTurn: ChessColors.white | ChessColors.black;
   isGameReset: boolean;
   isKingInCheckmate: boolean;
-  winner: PlayerType | null;
+  winByTime: boolean;
   stalemate: boolean;
+  winner: PlayerType | null;
   isRedoAvailable: boolean;
   isRedoVisible: boolean;
   timeSettings: TimeType;

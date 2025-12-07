@@ -60,18 +60,31 @@ export const chessGamePlayingReducer = (
   state.isPlaying = action.payload;
 };
 
-export const setWinnerReducer = (
+// End Game Options
+export const kingInCheckmateReducer = (
   state: GameStateType,
-  action: PayloadAction<PlayerType>
+  action: PayloadAction<boolean>
 ) => {
-  state.winner = action.payload;
-  state.isPlaying = false;
+  state.isKingInCheckmate = action.payload;
+  state.winner =
+    state.currentTurn === ChessColors.white
+      ? state.players[1]
+      : state.players[0];
 };
 
 export const setStalemateReducer = (state: GameStateType) => {
   state.stalemate = true;
 };
 
+export const setWinnerByTimeReducer = (state: GameStateType) => {
+  state.winByTime = true;
+  state.winner =
+    state.currentTurn === ChessColors.white
+      ? state.players[1]
+      : state.players[0];
+};
+
+// Update Current Turn
 export const updateCurrentTurnReducer = (state: GameStateType) => {
   const turn: string = state.currentTurn;
   const { white, black } = ChessColors;
@@ -201,23 +214,17 @@ export const resetGameStateReducer = (
 
   state.winner = null;
   state.stalemate = false;
+  state.isKingInCheckmate = false;
+  state.winByTime = false;
   state.isPlaying = true;
   state.error = { isError: false, message: "" };
-  state.isKingInCheckmate = false;
   state.isGameReset = false;
-};
-
-// Checkmate Reducers (End Game)
-export const kingInCheckmateReducer = (
-  state: GameStateType,
-  action: PayloadAction<boolean>
-) => {
-  state.isKingInCheckmate = action.payload;
 };
 
 export const closeModalReducer = (state: GameStateType) => {
   state.stalemate = false;
   state.isKingInCheckmate = false;
+  state.winByTime = false;
   state.isPlaying = false;
   state.isViewMode = true;
 };
