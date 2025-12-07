@@ -65,5 +65,6 @@ export const handleMovePiece = (
     targetTile,
     castling
   );
+
   dispatch(updateChessboardHistory(updatedChessboard));
 };

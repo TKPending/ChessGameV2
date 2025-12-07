@@ -15,7 +15,10 @@ import {
   selectIsRedoAvaialble,
   selectViewingMode,
 } from "@/app/utils/selectors/gameStateSelectors";
-import { updatePreviousGameState } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
+import {
+  updateChessboardHistory,
+  updatePreviousGameState,
+} from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
 
 import { generateTiles } from "@/app/containers/chessboard/utils/chessboard/generateTiles";
 import { setChessboard } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
@@ -40,6 +43,7 @@ import { GameStateType } from "@/app/types/StateTypes";
 import { generateCastlingMoves } from "./utils/pieceMovements/castling/generateCastlingMoves";
 import { isCastlingPossible } from "./utils/pieceMovements/castling/isCastlingPossible";
 import { resetUiHighlights } from "./utils/chessboard/design/resetUiHighlights";
+import { selectChessboardHistory } from "@/app/utils/selectors/chessboardHistoryStateSelector";
 
 const Chessboard = () => {
   const dispatch = useDispatch();
@@ -51,12 +55,17 @@ const Chessboard = () => {
   const castling: CastleType = useSelector(selectCastling);
   const isRedoAvailable: boolean = useSelector(selectIsRedoAvaialble);
   const isViewing = useSelector(selectViewingMode);
+  const chessboardHistory = useSelector(selectChessboardHistory);
 
   useEffect(() => {
     // If the board hasn't been initialised yet, generate tiles
     if (chessboard.length === 0) {
       dispatch(setChessboard(generateTiles()));
       return;
+    }
+
+    if (chessboardHistory.length === 0) {
+      dispatch(updateChessboardHistory(chessboard));
     }
 
     // Game has ended - Reviewing the board
