@@ -4,9 +4,10 @@ import { PlayerType } from "@/app/types/ChessTypes";
 type PlayerCardProps = {
   player: PlayerType;
   onChange: (newValue: string, playerNo: number) => void;
+  onEnter: () => void;
 };
 
-const PlayerCard = ({ player, onChange }: PlayerCardProps) => {
+const PlayerCard = ({ player, onChange, onEnter }: PlayerCardProps) => {
   const isNamed = player.playerName.length >= 1;
   const color = player.no === 0 ? "white" : "black";
 
@@ -44,6 +45,11 @@ const PlayerCard = ({ player, onChange }: PlayerCardProps) => {
         maxLength={16}
         value={player.playerName}
         onChange={(e) => onChange(e.target.value, player.no)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            onEnter();
+          }
+        }}
         className={`
           mt-4 w-full text-center font-semibold text-xl rounded-md outline-none
           ${
