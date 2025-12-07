@@ -1,10 +1,11 @@
-import { TileType } from "@/app/types/ChessTypes";
-import { EnemyAttackType } from "@/app/types/MoveTypes";
 import { convertTilePosition } from "@/app/utils/convertTilePosition";
+import { EnemyAttackType } from "@/app/types/MoveTypes";
+import { TileType } from "@/app/types/ChessTypes";
 
 /***
  * Return the moves of the selected piece
  * @param clickedTile Tile clicked by user
+ * @param currentTeamMoves All moves of the current team
  */
 export const getPieceMoves = (
   clickedTile: TileType,
@@ -16,7 +17,7 @@ export const getPieceMoves = (
 
   const tilePosition = convertTilePosition(clickedTile.tilePosition);
   const match = currentTeamMoves.find(
-    (piece) =>
+    (piece: EnemyAttackType) =>
       piece.piecePosition[0] === tilePosition[0] &&
       piece.piecePosition[1] === tilePosition[1]
   );

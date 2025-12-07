@@ -24,6 +24,11 @@ const PlayerSetupContainer = () => {
     );
   };
 
+  const handleOnEnter = () => {
+    if (!isPlayerNamesValid) return;
+    navigateToPage(dispatch, PageEnum.gamePlayers, PageEnum.gameSetup);
+  };
+
   const handleStartChessGame = () => {
     if (!isPlayerNamesValid) return;
     navigateToPage(dispatch, PageEnum.gamePlayers, PageEnum.gameSetup);
@@ -35,7 +40,12 @@ const PlayerSetupContainer = () => {
 
       <div className="flex flex-wrap justify-center gap-10 mt-10">
         {players.map((player, i) => (
-          <PlayerCard key={i} player={player} onChange={handleOnChange} />
+          <PlayerCard
+            key={i}
+            player={player}
+            onChange={handleOnChange}
+            onEnter={handleOnEnter}
+          />
         ))}
       </div>
 

@@ -9,8 +9,9 @@ export const selectIsGameReset = (state: RootState) =>
   state.gameState.isGameReset;
 export const selectIsKingInCheckmate = (state: RootState) =>
   state.gameState.isKingInCheckmate;
-export const selectWinner = (state: RootState) => state.gameState.winner;
 export const selectStalemate = (state: RootState) => state.gameState.stalemate;
+export const selectWinByTime = (state: RootState) => state.gameState.winByTime;
+export const selectWinner = (state: RootState) => state.gameState.winner;
 export const selectIsRedoAvaialble = (state: RootState) =>
   state.gameState.isRedoAvailable;
 export const selectIsRedoVisible = (state: RootState) =>

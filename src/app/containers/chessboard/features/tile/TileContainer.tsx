@@ -22,8 +22,7 @@ import { setSelectedPieceMoves } from "@/app/redux/slices/moveAnalysis/moveAnaly
 
 import { resetTiles } from "@/app/containers/chessboard/utils/chessboard/design/resetTiles";
 import { getPieceMoves } from "@/app/containers/chessboard/utils/pieceMovements/helpers/getPieceMoves";
-import { highlightValidMoves } from "@/app/containers/chessboard/utils/chessboard/design/highlightValidMoves";
-import { clearTileHighlights } from "@/app/containers/chessboard/utils/chessboard/design/clearTileHighlights";
+import { findEnemyTiles } from "@/app/containers/chessboard/utils/helpers/findEnemyTiles";
 import { handleMovePiece } from "@/app/containers/chessboard/utils/handlers/handleMovePiece";
 import {
   incrementPlayerTime,
@@ -32,10 +31,25 @@ import {
 } from "@/app/redux/slices/gameState/gameStateSlice";
 import { incrementMoveCounter } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
 import { isMoveValid } from "@/app/containers/chessboard/utils/pieceMovements/helpers/isMoveValid";
+import { selectCurrentMoveCount } from "@/app/utils/selectors/chessboardHistoryStateSelector";
+import {
+  resetUiPreviousMoveTiles,
+  setUiAttackTiles,
+  setUiHighlightedTiles,
+  setUiPreviousMoveTile,
+  setUiSelectedTile,
+} from "@/app/redux/slices/uiChessboard/uiChessboardSlice";
+import { resetUiHighlights } from "@/app/containers/chessboard/utils/chessboard/design/resetUiHighlights";
+import { convertTilePosition } from "@/app/utils/convertTilePosition";
 
 import { EnemyAttackType } from "@/app/types/MoveTypes";
-import { ChessColors, PieceType, TileType } from "@/app/types/ChessTypes";
-import { selectCurrentMoveCount } from "@/app/utils/selectors/chessboardHistoryStateSelector";
+import {
+  ChessColors,
+  PieceType,
+  TileType,
+  uiPreviousMoveType,
+} from "@/app/types/ChessTypes";
+import { selectUiPreviousMoveTile } from "@/app/utils/selectors/uiChessboardSelector";
 
 type Props = {
   tile: TileType;
@@ -49,12 +63,16 @@ const TileContainer = ({ tile }: Props) => {
   const prevClickedTile: TileType | null = useSelector(selectPrevClickedTile);
   const potentialMoves: EnemyAttackType[] = useSelector(selectCurrentTeamMoves);
   const selectedPieceMoves: number[][] = useSelector(selectSelectedPieceMoves);
+  const uiPreviousMoveTile: uiPreviousMoveType = useSelector(
+    selectUiPreviousMoveTile
+  );
   const moveCount: number = useSelector(selectCurrentMoveCount);
   const castling = useSelector(selectCastling);
 
   const handleTileClick = (clickedTile: TileType) => {
     dispatch(setRedoVisibility(false));
 
+    // Viewing Mode
     if (!isPlaying) {
       return;
     }
@@ -64,50 +82,73 @@ const TileContainer = ({ tile }: Props) => {
       return;
     }
 
+    // Clear previous highlighted tile
+    if (uiPreviousMoveTile.from !== "") {
+      dispatch(resetUiPreviousMoveTiles());
+    }
+
     const pieceOnClickedTile: PieceType | null = clickedTile.pieceOnTile;
     const clickedWrongColorFirst: boolean | null =
       pieceOnClickedTile &&
       pieceOnClickedTile.pieceColor !== currentTurn &&
       !prevClickedTile;
-    const isSameTeamAsPrev: boolean =
-      pieceOnClickedTile?.pieceColor === currentTurn;
 
+    // Clicked the wrong team first
     if (clickedWrongColorFirst) {
-      resetTiles(dispatch, chessboard);
+      resetUiHighlights(dispatch);
       return;
     }
 
-    if (!prevClickedTile || isSameTeamAsPrev) {
-      clearTileHighlights(dispatch, chessboard);
-      dispatch(
-        updateTile({
-          ...clickedTile,
-          isHighlighted: true,
-          highlightReason: "selected",
-        })
+    // Reset Tiles if empty click
+    if (prevClickedTile && selectedPieceMoves) {
+      const [clickedRow, clickedCol] = convertTilePosition(
+        clickedTile.tilePosition
       );
 
+      const isValidMove = selectedPieceMoves.some(
+        ([row, col]) => row === clickedRow && col === clickedCol
+      );
+
+      if (!isValidMove) {
+        resetUiHighlights(dispatch);
+      }
+    }
+
+    // Valid Click
+    const clickedSameTeam: boolean =
+      pieceOnClickedTile?.pieceColor === currentTurn;
+    if (!prevClickedTile || clickedSameTeam) {
+      resetUiHighlights(dispatch);
       dispatch(setPreviousTile(clickedTile));
+
+      // Highlight selected tile
+      dispatch(updateTile(clickedTile));
+      dispatch(setUiSelectedTile(clickedTile));
+
+      // Filter out all legal moves for the current piece out of all team moves
       const legalMoves: number[][] | null = getPieceMoves(
         clickedTile,
         potentialMoves
       );
 
-      if (!legalMoves) {
-        return;
+      // If there are legal moves highlight tiles
+      if (legalMoves) {
+        dispatch(setUiHighlightedTiles(legalMoves));
+        dispatch(setSelectedPieceMoves(legalMoves));
+        dispatch(
+          setUiAttackTiles(findEnemyTiles(chessboard, legalMoves, currentTurn))
+        );
       }
 
-      dispatch(setSelectedPieceMoves(legalMoves));
-      highlightValidMoves(dispatch, chessboard, legalMoves, currentTurn);
       return;
     }
 
-    // TODO: Make sure piece only moves to valid positions
+    // Check move is valid and move the piece
     if (
       isMoveValid(selectedPieceMoves, clickedTile.tilePosition) &&
       prevClickedTile
     ) {
-      const updatedChessboard: TileType[][] | [] = handleMovePiece(
+      handleMovePiece(
         dispatch,
         prevClickedTile,
         clickedTile,
@@ -116,7 +157,18 @@ const TileContainer = ({ tile }: Props) => {
         castling
       );
 
-      resetTiles(dispatch, updatedChessboard);
+      // Reset the UI
+      resetTiles(dispatch);
+
+      // Set Previous tiles for highlight
+      dispatch(
+        setUiPreviousMoveTile({
+          from: prevClickedTile.tilePosition,
+          to: clickedTile.tilePosition,
+        })
+      );
+
+      // Reset Game States
       dispatch(setRedoVisibility(true));
       dispatch(incrementPlayerTime());
       dispatch(incrementMoveCounter());

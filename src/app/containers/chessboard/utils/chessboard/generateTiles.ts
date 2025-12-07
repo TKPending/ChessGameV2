@@ -84,7 +84,6 @@ export const generateTiles = (): TileType[][] => {
               tilePosition,
               tileColor: defaultTileColor,
               pieceOnTile: null,
-              isHighlighted: false,
             },
             allMoves: [],
             validMoves: [],
@@ -99,8 +98,6 @@ export const generateTiles = (): TileType[][] => {
         tilePosition,
         currentTileColor: defaultTileColor,
         pieceOnTile,
-        isHighlighted: false,
-        highlightReason: "friendly",
       });
     }
     tiles.push(tileRow);

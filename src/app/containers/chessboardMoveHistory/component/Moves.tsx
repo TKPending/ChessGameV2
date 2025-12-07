@@ -11,6 +11,7 @@ import {
   ChessColors,
   TileType,
 } from "@/app/types/ChessTypes";
+import { setUiPreviousMoveTile } from "@/app/redux/slices/uiChessboard/uiChessboardSlice";
 
 type Props = {
   move: MoveHistoryType;
@@ -31,6 +32,12 @@ const MovesContainer = ({ move }: Props) => {
 
   const handleOnClick = () => {
     const selectedHistory = chessboardHistory[move.moveCount];
+    dispatch(
+      setUiPreviousMoveTile({
+        from: move.from.tilePosition,
+        to: move.to.tilePosition,
+      })
+    );
 
     dispatch(setChessboard(selectedHistory));
     dispatch(setSelectedMoveHistory(move.moveCount));
