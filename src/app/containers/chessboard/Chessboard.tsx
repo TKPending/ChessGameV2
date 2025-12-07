@@ -39,6 +39,7 @@ import {
 import { GameStateType } from "@/app/types/StateTypes";
 import { generateCastlingMoves } from "./utils/pieceMovements/castling/generateCastlingMoves";
 import { isCastlingPossible } from "./utils/pieceMovements/castling/isCastlingPossible";
+import { resetUiHighlights } from "./utils/chessboard/design/resetUiHighlights";
 
 const Chessboard = () => {
   const dispatch = useDispatch();
@@ -60,6 +61,7 @@ const Chessboard = () => {
 
     // Game has ended - Reviewing the board
     if (isViewing) {
+      resetUiHighlights(dispatch);
       return;
     }
 

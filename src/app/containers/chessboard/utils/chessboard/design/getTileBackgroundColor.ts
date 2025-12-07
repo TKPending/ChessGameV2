@@ -39,7 +39,7 @@ export const getTileBackgroundColor = (
     uiPreviousMoveTile.from === tile.tilePosition ||
     uiPreviousMoveTile.to === tile.tilePosition
   ) {
-    return "bg-yellow-200 bg-opacity-30";
+    return "bg-neutral-400/20 bg-opacity-80";
   }
 
   // Default tile color
