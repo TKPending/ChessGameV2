@@ -47,7 +47,7 @@ const UndoButtonContainer = () => {
       dispatch(setChessboard(previousChessboardState));
       dispatch(setCurrentTurn());
       dispatch(setRedoVisibility(false));
-      resetTiles(dispatch, previousChessboardState);
+      resetTiles(dispatch);
     }
   };
 
