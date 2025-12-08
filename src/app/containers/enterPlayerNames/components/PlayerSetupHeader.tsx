@@ -1,3 +1,7 @@
+/**
+ * Renders text on Enter Player Name Page
+ * @returns Text shown on 'Enter Player Name' Page
+ */
 const PlayerSetupHeader = () => {
   return (
     <div className="flex flex-col gap-4 items-center justify-center">

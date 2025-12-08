@@ -1,15 +1,20 @@
 import { useDispatch, useSelector } from "react-redux";
+import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
+import PlayerCard from "./components/PlayerCard";
 import PlayerSetupHeader from "./components/PlayerSetupHeader";
-import StartGameButton from "@/app/containers/setup/playerSetup/components/ChessSettingButton";
+import GameSettingsButton from "@/app/containers/enterPlayerNames/components/GameSettingsButton";
 import { setPlayerName } from "@/app/redux/slices/gameState/gameStateSlice";
-import { navigateToPage } from "@/app/utils/navigateToPage";
 import { selectPlayers } from "@/app/utils/selectors/gameStateSelectors";
+import { navigateToPage } from "@/app/utils/navigateToPage";
 import { PageEnum } from "@/app/types/PageTypes";
 import { PlayerType } from "@/app/types/ChessTypes";
-import PlayerCard from "./components/PlayerCard";
 
-const PlayerSetupContainer = () => {
-  const dispatch = useDispatch();
+/**
+ * Renders the page that showcases where users can enter the player names
+ * @returns Enter Player Names Container
+ */
+const EnterPlayerNamesContainer = () => {
+  const dispatch: Dispatch<UnknownAction> = useDispatch();
   const players: PlayerType[] = useSelector(selectPlayers);
   const isPlayerNamesValid: boolean = players.every(
     (name: PlayerType) => name.playerName.length > 1
@@ -49,7 +54,7 @@ const PlayerSetupContainer = () => {
         ))}
       </div>
 
-      <StartGameButton
+      <GameSettingsButton
         isVisible={isPlayerNamesValid}
         onClick={handleStartChessGame}
       />
@@ -57,4 +62,4 @@ const PlayerSetupContainer = () => {
   );
 };
 
-export default PlayerSetupContainer;
+export default EnterPlayerNamesContainer;

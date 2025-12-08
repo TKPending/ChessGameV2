@@ -7,9 +7,16 @@ type PlayerCardProps = {
   onEnter: () => void;
 };
 
+/**
+ * Renders the card where users can enter the player names
+ * @param player Redux Player State
+ * @param onChange Handles changing the name in Redux
+ * @param onEnter Handles submitting the data to Redux
+ * @returns
+ */
 const PlayerCard = ({ player, onChange, onEnter }: PlayerCardProps) => {
-  const isNamed = player.playerName.length >= 1;
-  const color = player.no === 0 ? "white" : "black";
+  const isNamed: boolean = player.playerName.length >= 1;
+  const color: "white" | "black" = player.no === 0 ? "white" : "black";
 
   return (
     <motion.div

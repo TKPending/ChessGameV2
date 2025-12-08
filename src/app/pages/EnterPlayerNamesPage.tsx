@@ -1,5 +1,5 @@
 import BackButtonContainer from "@/app/containers/features/backButton/BackButtonContainer";
-import PlayerSetupContainer from "@/app/containers/setup/playerSetup/PlayerSetupContainer";
+import EnterPlayerNamesContainer from "@/app/containers/enterPlayerNames/EnterPlayerNamesContainer";
 import { PageEnum } from "@/app/types/PageTypes";
 
 /**
@@ -13,7 +13,7 @@ const EnterPlayerNamesPage = () => {
         currentPage={PageEnum.enterPlayerNames}
         nextPage={PageEnum.landing}
       />
-      <PlayerSetupContainer />
+      <EnterPlayerNamesContainer />
     </div>
   );
 };

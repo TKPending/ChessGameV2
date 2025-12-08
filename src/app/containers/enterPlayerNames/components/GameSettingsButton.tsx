@@ -1,14 +1,20 @@
 import Button from "@/app/components/Button";
 
-type ChessSettingButtonProps = {
+type GameSettingsButtonProps = {
   isVisible: boolean;
   onClick: () => void;
 };
 
-const ChessSettingButton = ({
+/**
+ * Render button to change page to 'Game Settings'
+ * @param isVisible If names are valid
+ * @param onClick Handle changing the page
+ * @returns
+ */
+const GameSettingsButton = ({
   isVisible,
   onClick,
-}: ChessSettingButtonProps) => {
+}: GameSettingsButtonProps) => {
   return (
     <div>
       <Button
@@ -22,4 +28,4 @@ const ChessSettingButton = ({
   );
 };
 
-export default ChessSettingButton;
+export default GameSettingsButton;
