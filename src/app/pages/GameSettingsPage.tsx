@@ -1,5 +1,5 @@
 import BackButtonContainer from "@/app/containers/features/backButton/BackButtonContainer";
-import RulesSetupContainer from "@/app/containers/setup/rulesSetup/RulesSetupContainer";
+import GameSettingsContainer from "@/app/containers/gameSettings/GameSettingsContainer";
 import { PageEnum } from "@/app/types/PageTypes";
 
 /**
@@ -13,7 +13,7 @@ const GameSettingsPage = () => {
         currentPage={PageEnum.gameSettings}
         nextPage={PageEnum.enterPlayerNames}
       />
-      <RulesSetupContainer />
+      <GameSettingsContainer />
     </>
   );
 };

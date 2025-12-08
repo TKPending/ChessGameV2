@@ -3,8 +3,19 @@ import StartGameButton from "./components/StartGameButton";
 import TimeSettings from "./containers/TimeSettingsContainer";
 import UndoOptionSlider from "./components/UndoOptionSlider";
 
-const RulesSetupContainer = () => {
-  const [gameSettings, setGameSettings] = useState({
+type GameSettingsType = {
+  category: string; // Blitz, Rapid, Classical
+  duration: string; // Mins in the game
+  increment: string; // Increment time amount
+  undoAllowed: boolean; // Is Undo allowed
+};
+
+/**
+ * Returns the content shown on the 'GameSettingsPage'
+ * @returns Time Settings, Undo, Start Game Components
+ */
+const GameSettingsContainer = () => {
+  const [gameSettings, setGameSettings] = useState<GameSettingsType>({
     category: "Blitz",
     duration: "1 Minutes",
     increment: "0 Seconds",
@@ -53,4 +64,4 @@ const RulesSetupContainer = () => {
   );
 };
 
-export default RulesSetupContainer;
+export default GameSettingsContainer;

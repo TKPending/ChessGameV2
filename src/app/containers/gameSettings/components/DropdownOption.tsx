@@ -3,6 +3,12 @@ type DropdownOptionProps = {
   onClick: () => void;
 };
 
+/**
+ * Renders the Dropdown Options
+ * @param text Text to be shown for each option
+ * @param onClick Handle changing the value to the option which is clicked
+ * @returns Dropdown Option
+ */
 export const DropdownOption = ({ text, onClick }: DropdownOptionProps) => {
   return (
     <div

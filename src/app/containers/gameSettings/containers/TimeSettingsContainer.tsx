@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Dropdown from "@/app/containers/setup/rulesSetup/components/Dropdown";
+import DropdownContainer from "@/app/containers/gameSettings/containers/DropdownContainer";
 import {
   timeSettingsOptions,
   TimeSettingsOptionsType,
@@ -18,7 +18,16 @@ type TimeSettingsProps = {
   onChangeIncrement: (increment: string) => void;
 };
 
-// TODO: This can be optimised further
+/**
+ * Renders the components related to setting the time for the game
+ * @param category Category of time (Blitz, Rapid or Classical)
+ * @param duration Original time set for the game
+ * @param increment The amount of time to be added if increment is allowed
+ * @param onChangeCategory Change the category
+ * @param onChangeDuration Change the duration amount
+ * @param onChangeIncrement Change the increment amount
+ * @returns Component for setting the Time Rules
+ */
 const TimeSettings = ({
   category,
   duration,
@@ -29,9 +38,8 @@ const TimeSettings = ({
 }: TimeSettingsProps) => {
   const [open, setOpen] = useState<string | null>(null);
 
-  const categoryData = timeSettingsOptions.find(
-    (option) => option.name === category
-  );
+  const categoryData: TimeSettingsOptionsType | undefined =
+    timeSettingsOptions.find((option) => option.name === category);
 
   const toggle = (name: string) =>
     setOpen((prev) => (prev === name ? null : name));
@@ -40,8 +48,7 @@ const TimeSettings = ({
     <div className="flex flex-col items-center w-full md:w-1/2 bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl shadow-xl p-8 border border-gray-700 h-[350px]">
       <h2 className="text-2xl font-semibold text-white mb-6">Time Settings</h2>
 
-      <Dropdown
-        label="Category"
+      <DropdownContainer
         value={category}
         options={timeSettingsOptions.map((o) => o.name)}
         isOpen={open === "category"}
@@ -58,8 +65,7 @@ const TimeSettings = ({
       />
 
       {categoryData && (
-        <Dropdown
-          label="Duration"
+        <DropdownContainer
           value={duration}
           options={categoryData.durations}
           isOpen={open === "duration"}
@@ -72,8 +78,7 @@ const TimeSettings = ({
       )}
 
       {duration !== "Infinite" && categoryData && (
-        <Dropdown
-          label="Increment"
+        <DropdownContainer
           value={increment}
           options={categoryData.increments}
           isOpen={open === "increment"}

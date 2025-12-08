@@ -1,8 +1,7 @@
 import { ChevronDown } from "lucide-react";
-import DropdownOption from "@/app/containers/setup/rulesSetup/components/DropdownOption";
+import DropdownOption from "@/app/containers/gameSettings/components/DropdownOption";
 
 type DropdownProps = {
-  label: string;
   value: string;
   options: string[];
   isOpen: boolean;
@@ -10,7 +9,16 @@ type DropdownProps = {
   onSelect: (option: string) => void;
 };
 
-const Dropdown = ({
+/**
+ * Renders the components for the Dropdown
+ * @param value Value to be shown
+ * @param options Options the user can choose from
+ * @param isOpen Is the dropdown open
+ * @param onToggle Change the option to be changed
+ * @param onSelect Select the new rule
+ * @returns Dropdown Container
+ */
+const DropdownContainer = ({
   value,
   options,
   isOpen,
@@ -49,4 +57,4 @@ const Dropdown = ({
   );
 };
 
-export default Dropdown;
+export default DropdownContainer;

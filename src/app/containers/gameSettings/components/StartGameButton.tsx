@@ -15,6 +15,14 @@ type StartGameButtonProps = {
   undoAllowed: boolean;
 };
 
+/**
+ * Renders the 'Start Game' button
+ * @param category The category chosen for the game (Blitz, Rapid or Classical)
+ * @param duration The original time for each player
+ * @param increment The increment value
+ * @param undoAllowed Whether undo is allowed
+ * @returns Start Game Button
+ */
 const StartGameButton = ({
   category,
   duration,
