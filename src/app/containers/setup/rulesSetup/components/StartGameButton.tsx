@@ -33,7 +33,7 @@ const StartGameButton = ({
     );
 
     dispatch(setIsGamePlaying(true));
-    navigateToPage(dispatch, PageEnum.gameSetup, PageEnum.chessGame);
+    navigateToPage(dispatch, PageEnum.gameSettings, PageEnum.board);
   };
 
   return (

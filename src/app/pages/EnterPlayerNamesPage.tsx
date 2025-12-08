@@ -2,11 +2,15 @@ import BackButtonContainer from "@/app/containers/features/backButton/BackButton
 import PlayerSetupContainer from "@/app/containers/setup/playerSetup/PlayerSetupContainer";
 import { PageEnum } from "@/app/types/PageTypes";
 
-const GamePlayerPage = () => {
+/**
+ * Renders the page for users to enter player names
+ * @returns Enter Player Name Page
+ */
+const EnterPlayerNamesPage = () => {
   return (
     <div className="h-screen w-screen flex flex-col gap-12 items-center justify-center">
       <BackButtonContainer
-        currentPage={PageEnum.gamePlayers}
+        currentPage={PageEnum.enterPlayerNames}
         nextPage={PageEnum.landing}
       />
       <PlayerSetupContainer />
@@ -14,4 +18,4 @@ const GamePlayerPage = () => {
   );
 };
 
-export default GamePlayerPage;
+export default EnterPlayerNamesPage;

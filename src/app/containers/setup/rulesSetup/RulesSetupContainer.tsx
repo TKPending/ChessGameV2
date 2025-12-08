@@ -1,7 +1,7 @@
 import { useState } from "react";
+import StartGameButton from "./components/StartGameButton";
 import TimeSettings from "./containers/TimeSettingsContainer";
 import UndoOptionSlider from "./components/UndoOptionSlider";
-import StartGameButton from "./components/StartGameButton";
 
 const RulesSetupContainer = () => {
   const [gameSettings, setGameSettings] = useState({
@@ -12,7 +12,7 @@ const RulesSetupContainer = () => {
   });
 
   return (
-    <div className="relative overscroll-none flex flex-col items-center justify-center w-full gap-12 py-16">
+    <div className="h-full overscroll-none flex flex-col items-center justify-center w-full gap-12 py-16">
       <h1 className="text-4xl font-bold text-customGreen text-center">
         Game Settings
       </h1>

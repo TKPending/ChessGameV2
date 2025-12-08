@@ -26,12 +26,12 @@ const PlayerSetupContainer = () => {
 
   const handleOnEnter = () => {
     if (!isPlayerNamesValid) return;
-    navigateToPage(dispatch, PageEnum.gamePlayers, PageEnum.gameSetup);
+    navigateToPage(dispatch, PageEnum.enterPlayerNames, PageEnum.gameSettings);
   };
 
   const handleStartChessGame = () => {
     if (!isPlayerNamesValid) return;
-    navigateToPage(dispatch, PageEnum.gamePlayers, PageEnum.gameSetup);
+    navigateToPage(dispatch, PageEnum.enterPlayerNames, PageEnum.gameSettings);
   };
 
   return (

@@ -1,16 +1,16 @@
 import { ComponentType } from "react";
-import ChessGamePage from "@/app/pages/ChessGamePage";
-import GamePlayerPage from "@/app/pages/setup/GamePlayerPage";
-import GameSetupPage from "@/app/pages/setup/GameSetupPage";
+import BoardPage from "@/app/pages/BoardPage";
+import EnterPlayerNamesPage from "@/app/pages/EnterPlayerNamesPage";
+import GameSettingsPage from "@/app/pages/GameSettingsPage";
 import LandingPage from "@/app/pages/LandingPage";
 import RulesPage from "@/app/pages/RulesPage";
 
 export const PageComponents: Record<string, ComponentType<any>> = {
   landing: LandingPage,
   gameRules: RulesPage,
-  gamePlayers: GamePlayerPage,
-  chessGame: ChessGamePage,
-  gameSetup: GameSetupPage,
+  enterPlayerNames: EnterPlayerNamesPage,
+  gameSettings: GameSettingsPage,
+  board: BoardPage,
 };
 
 export type TransitionType = {
@@ -34,7 +34,7 @@ export const exitToLeft: TransitionType = {
 export enum PageEnum {
   landing = "landing",
   gameRules = "gameRules",
-  gamePlayers = "gamePlayers",
-  chessGame = "chessGame",
-  gameSetup = "gameSetup",
+  enterPlayerNames = "enterPlayerNames",
+  gameSettings = "gameSettings",
+  board = "board",
 }

@@ -2,17 +2,20 @@ import BackButtonContainer from "@/app/containers/features/backButton/BackButton
 import RulesSetupContainer from "@/app/containers/setup/rulesSetup/RulesSetupContainer";
 import { PageEnum } from "@/app/types/PageTypes";
 
-const GameSetupPage = () => {
+/**
+ * Renders the Game Settings Page
+ * @returns Game Settings
+ */
+const GameSettingsPage = () => {
   return (
-    <div>
+    <>
       <BackButtonContainer
-        currentPage={PageEnum.gameRules}
-        nextPage={PageEnum.gamePlayers}
+        currentPage={PageEnum.gameSettings}
+        nextPage={PageEnum.enterPlayerNames}
       />
       <RulesSetupContainer />
-      <></>
-    </div>
+    </>
   );
 };
 
-export default GameSetupPage;
+export default GameSettingsPage;

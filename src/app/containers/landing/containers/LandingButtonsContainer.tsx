@@ -1,17 +1,22 @@
 import { useDispatch } from "react-redux";
+import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import Button from "@/app/components/Button";
-import { PageEnum } from "@/app/types/PageTypes";
 import { navigateToPage } from "@/app/utils/navigateToPage";
+import { PageEnum } from "@/app/types/PageTypes";
 
+/**
+ * Renders the 'Read Rules' and 'Play Now' Buttons
+ * @returns Buttons shown on Landing Page
+ */
 const LandingButtonsContainer = () => {
-  const dispatch = useDispatch();
+  const dispatch: Dispatch<UnknownAction> = useDispatch();
 
   const handleRulesTransition = () => {
     navigateToPage(dispatch, PageEnum.landing, PageEnum.gameRules);
   };
 
   const handlePlayersTransition = () => {
-    navigateToPage(dispatch, PageEnum.landing, PageEnum.gamePlayers);
+    navigateToPage(dispatch, PageEnum.landing, PageEnum.enterPlayerNames);
   };
 
   return (
