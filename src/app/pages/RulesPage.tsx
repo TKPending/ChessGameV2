@@ -1,18 +1,22 @@
 import { useDispatch } from "react-redux";
-import Button from "@/app/components/Button";
+import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import BackButtonContainer from "@/app/containers/features/backButton/BackButtonContainer";
+import Button from "@/app/components/Button";
 import { navigateToPage } from "@/app/utils/navigateToPage";
 import { PageEnum } from "@/app/types/PageTypes";
 
+/**
+ * Rules Page
+ * @returns The rules page
+ */
 const RulesPage = () => {
-  const dispatch = useDispatch();
+  const dispatch: Dispatch<UnknownAction> = useDispatch();
 
   const handleLandingPage = () => {
     navigateToPage(dispatch, PageEnum.gameRules, PageEnum.landing);
   };
 
   return (
-    // Main container for the rules page with responsive styling
     <div className="relative h-full overflow-y-auto p-4 sm:p-8 md:p-12 lg:p-16 flex justify-center items-start text-gray-200 text-center">
       <BackButtonContainer
         currentPage={PageEnum.gameRules}

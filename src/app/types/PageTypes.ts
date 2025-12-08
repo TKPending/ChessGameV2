@@ -5,6 +5,14 @@ import GameSetupPage from "@/app/pages/setup/GameSetupPage";
 import LandingPage from "@/app/pages/LandingPage";
 import RulesPage from "@/app/pages/RulesPage";
 
+export const PageComponents: Record<string, ComponentType<any>> = {
+  landing: LandingPage,
+  gameRules: RulesPage,
+  gamePlayers: GamePlayerPage,
+  chessGame: ChessGamePage,
+  gameSetup: GameSetupPage,
+};
+
 export type TransitionType = {
   initial: { x: number | string; opacity: number };
   animate: { x: number | string; opacity: number };
@@ -30,11 +38,3 @@ export enum PageEnum {
   chessGame = "chessGame",
   gameSetup = "gameSetup",
 }
-
-export const PageComponents: Record<string, ComponentType<any>> = {
-  landing: LandingPage,
-  gameRules: RulesPage,
-  gamePlayers: GamePlayerPage,
-  chessGame: ChessGamePage,
-  gameSetup: GameSetupPage,
-};

@@ -9,6 +9,10 @@ import {
 } from "@/app/utils/selectors/pageStateSelector";
 import { PageComponents } from "@/app/types/PageTypes";
 
+/**
+ * Renders each page
+ * @returns Current Page
+ */
 const ChessGame = () => {
   const currentPage: string = useSelector(selectCurrentPage);
   const prevPage: string = useSelector(selectPrevPage);
@@ -20,6 +24,7 @@ const ChessGame = () => {
     <div className="relative w-screen h-screen max-h-screen font-semibold overflow-none overscroll-none bg-page-background">
       <AnimatedFallingChessBackground count={30} />
       <AnimatePresence mode={"sync"}>
+        {/* Store the previous page */}
         {prevPage && PrevComponent && (
           <motion.div
             key={`prev-${prevPage}`}
@@ -38,6 +43,7 @@ const ChessGame = () => {
           </motion.div>
         )}
 
+        {/* Render the current page */}
         {CurrentComponent && (
           <motion.div
             key={`current-${currentPage}`}
