@@ -19,37 +19,40 @@ import {
   TimeType,
 } from "@/app/types/ChessTypes";
 
-type PlayerTimerProps = { playerNo: number };
+type PlayerTimerProps = { player: PlayerType };
 
-const PlayerTimer = ({ playerNo }: PlayerTimerProps) => {
+/**
+ * Renders the timer for each player
+ * @param {PlayerType} player Holds the information on said player
+ * @returns Player Timer
+ */
+const PlayerTimer = ({ player }: PlayerTimerProps) => {
   const dispatch = useDispatch();
   const isPlaying: boolean = useSelector(selectIsPlaying);
   const players: PlayerType[] = useSelector(selectPlayers);
   const currentTurn: ChessColors = useSelector(selectCurrentTurn);
   const timeSettings: TimeType = useSelector(selectTimeSettings);
-
-  const currentPlayer = players[playerNo];
-  const isActivePlayer = currentPlayer.team === currentTurn;
+  const isActivePlayer = player.team === currentTurn;
 
   const intervalRef = useRef<number | null>(null);
 
   useEffect(() => {
+    // Active Player Timer
+    if (!isActivePlayer) return;
+
     if (isPlaying) {
       if (intervalRef.current !== null) {
         clearInterval(intervalRef.current);
         intervalRef.current = null;
       }
 
-      if (currentPlayer.remainingTime === 0) {
+      if (player.remainingTime === 0) {
         dispatch(setWinnerByTime());
         return;
       }
 
-      // Active Player Timer
-      if (!isActivePlayer) return;
-
       intervalRef.current = window.setInterval(() => {
-        const latestPlayer = players[playerNo];
+        const latestPlayer: PlayerType = player;
 
         // Player has ran out of time
         if (latestPlayer.remainingTime <= 0) {
@@ -80,9 +83,13 @@ const PlayerTimer = ({ playerNo }: PlayerTimerProps) => {
       };
     }
     // Reset Interval
-  }, [isActivePlayer, players, playerNo, dispatch, timeSettings]);
+  }, [isActivePlayer, players, player.no, dispatch, timeSettings]);
 
-  return <p>{showReadableTime(currentPlayer.remainingTime)}</p>;
+  return (
+    <p className="text-xl text-yellow-200">
+      {showReadableTime(player.remainingTime)}
+    </p>
+  );
 };
 
 export default PlayerTimer;
