@@ -1,6 +1,5 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import {
-  resetUiPreviousMoveTiles,
   setUiAttackTiles,
   setUiHighlightedTiles,
   setUiSelectedTile,

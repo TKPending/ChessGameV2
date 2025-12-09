@@ -19,7 +19,7 @@ import {
   removeRecentChessboardHistory,
 } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
 import { setChessboard } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
-import { resetTiles } from "@/app/containers/chessboard/utils/chessboard/design/resetTiles";
+import { resetTiles } from "@/app/utils/chessboard/resetTiles";
 
 import { GameStateType } from "@/app/types/StateTypes";
 import { TileType } from "@/app/types/ChessTypes";

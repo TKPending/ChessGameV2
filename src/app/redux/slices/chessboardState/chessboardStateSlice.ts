@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { generateTiles } from "@/app/containers/chessboard/utils/chessboard/generateTiles";
+import { generateTiles } from "@/app/utils/chessboard/generateTiles";
 import { ChessboardStateType } from "@/app/types/StateTypes";
 import {
   castlingOptionGoneReducer,

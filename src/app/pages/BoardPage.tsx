@@ -31,7 +31,7 @@ const BoardPage = () => {
   // End Game States
   const isCheckmate: boolean = useSelector(selectIsKingInCheckmate);
   const isStalemate: boolean = useSelector(selectStalemate);
-  const isWinByTime = useSelector(selectWinByTime);
+  const isWinByTime: boolean = useSelector(selectWinByTime);
   const isGameReset: boolean = useSelector(selectIsGameReset);
 
   return (

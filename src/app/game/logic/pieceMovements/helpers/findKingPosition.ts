@@ -2,6 +2,8 @@ import { TileType, ChessColors, PieceName } from "@/app/types/ChessTypes";
 
 /**
  * Scans the board to find the [row, col] of the King of the specified color
+ * @param board Chessboard State
+ * @param color Search for the King of this team
  */
 export const findKingPosition = (
   board: TileType[][],

@@ -1,6 +1,6 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { convertTilePosition } from "@/app/utils/convertTilePosition";
-import { findKingPosition } from "@/app/containers/chessboard/utils/pieceMovements/helpers/findKingPosition";
+import { findKingPosition } from "@/app/game/logic/pieceMovements/helpers/findKingPosition";
 import { setChessboard } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
 import { CastleType } from "@/app/types/MoveTypes";
 import { TileType, PieceType, ChessColors } from "@/app/types/ChessTypes";

@@ -9,6 +9,11 @@ type Props = {
   tile: TileType;
 };
 
+/**
+ * Renders a piece on the board
+ * @param tile Tile Data
+ * @returns Piece design on board
+ */
 const Piece = ({ tile }: Props) => {
   const dispatch = useDispatch();
   const piece: PieceType | null = tile.pieceOnTile || null;

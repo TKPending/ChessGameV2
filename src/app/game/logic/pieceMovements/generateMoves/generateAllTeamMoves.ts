@@ -1,4 +1,4 @@
-import { classifySlidingDirections } from "@/app/containers/chessboard/utils/pieceMovements/helpers/classifySlidingDirections";
+import { classifySlidingDirections } from "@/app/game/logic/pieceMovements/helpers/classifySlidingDirections";
 import { EnemyAttackType } from "@/app/types/MoveTypes";
 import { TileType, PieceType, ChessColors } from "@/app/types/ChessTypes";
 import { indiviualPieceMoves } from "./helper/indiviualPieceMoves";

@@ -3,7 +3,7 @@ import { resetActiveMoves } from "@/app/redux/slices/moveAnalysis/moveAnalysisSl
 import { resetChessboard } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
 import { resetChessMoves } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
 import { resetGameState } from "@/app/redux/slices/gameState/gameStateSlice";
-import { resetUiHighlights } from "@/app/containers/chessboard/utils/chessboard/design/resetUiHighlights";
+import { resetUiHighlights } from "@/app/utils/chessboard/resetUiHighlights";
 import { resetUiPreviousMoveTiles } from "../redux/slices/uiChessboard/uiChessboardSlice";
 
 export const resetChessGame = (

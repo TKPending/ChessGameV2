@@ -1,165 +1,157 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
-import PawnPromotionModal from "@/app/containers/chessboard/features/pawnPromotion/PawnPromotionModal";
-import TileContainer from "@/app/containers/chessboard/features/tile/TileContainer";
+// Components
+import Tile from "./components/Tile";
+import PawnPromotionModal from "@/app/containers/pawnPromotion/PawnPromotionModal";
 
+// Custom Hooks
+import { useGameLogic } from "@/app/game/hooks/useGameLogic";
+
+// useSelectors
 import {
-  selectCastling,
   selectChessboard,
   selectPawnPromotion,
 } from "@/app/utils/selectors/chessboardStateSelectors";
 import {
+  selectCurrentTeamMoves,
+  selectSelectedPieceMoves,
+} from "@/app/utils/selectors/moveAnalysisStateSelector";
+import {
+  selectCastling,
+  selectPrevClickedTile,
+} from "@/app/utils/selectors/chessboardStateSelectors";
+import {
   selectCurrentTurn,
-  selectGameState,
-  selectIsRedoAvaialble,
-  selectViewingMode,
+  selectIsPlaying,
 } from "@/app/utils/selectors/gameStateSelectors";
-import {
-  updateChessboardHistory,
-  updatePreviousGameState,
-} from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
+import { selectUiPreviousMoveTile } from "@/app/utils/selectors/uiChessboardSelector";
+import { selectCurrentMoveCount } from "@/app/utils/selectors/chessboardHistoryStateSelector";
 
-import { generateTiles } from "@/app/containers/chessboard/utils/chessboard/generateTiles";
-import { setChessboard } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
-import { getPlayerColor } from "@/app/utils/getPlayerColor";
-import { generateAllTeamMoves } from "./utils/pieceMovements/generateMoves/generateAllTeamMoves";
-import { simulateTeamMoves } from "./utils/pieceMovements/generateMoves/helper/simulateTeamMoves";
-import { setCurrentTeamMoves } from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
-import { isSquareAttacked } from "./utils/pieceMovements/helpers/isSquareAttacked";
-import { findKingPosition } from "./utils/pieceMovements/helpers/findKingPosition";
-import {
-  setKingInCheckmate,
-  setStalemate,
-} from "@/app/redux/slices/gameState/gameStateSlice";
+// Redux
+import { setRedoVisibility } from "@/app/redux/slices/gameState/gameStateSlice";
+import { resetUiPreviousMoveTiles } from "@/app/redux/slices/uiChessboard/uiChessboardSlice";
 
-import { ChessColors, PieceName, TileType } from "@/app/types/ChessTypes";
+// Utils
+import { resetUiHighlights } from "@/app/utils/chessboard/resetUiHighlights";
 import {
-  CastleType,
-  EnemyAttackType,
-  PawnPromotionType,
-} from "@/app/types/MoveTypes";
-import { GameStateType } from "@/app/types/StateTypes";
-import { generateCastlingMoves } from "./utils/pieceMovements/castling/generateCastlingMoves";
-import { isCastlingPossible } from "./utils/pieceMovements/castling/isCastlingPossible";
-import { resetUiHighlights } from "./utils/chessboard/design/resetUiHighlights";
-import { selectChessboardHistory } from "@/app/utils/selectors/chessboardHistoryStateSelector";
+  isSameTeamPiece,
+  isWrongOpeningClick,
+  shouldIgnoreClick,
+  isValidMoveSelection,
+  isPieceSelection,
+  canExecuteMove,
+  handlePieceMove,
+  handlePieceSelection,
+} from "@/app/utils/chessboard/tileClickHelper";
 
+// Types
+import { EnemyAttackType } from "@/app/types/MoveTypes";
+import { TileType } from "@/app/types/ChessTypes";
+import { PawnPromotionType } from "@/app/types/MoveTypes";
+import { ChessColors, uiPreviousMoveType } from "@/app/types/ChessTypes";
+import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
+
+/**
+ * Renders the Chessboard
+ * @returns Chessboard
+ */
 const Chessboard = () => {
-  const dispatch = useDispatch();
-
+  const dispatch: Dispatch<UnknownAction> = useDispatch();
   const chessboard: TileType[][] = useSelector(selectChessboard);
-  const currentTurn: ChessColors = useSelector(selectCurrentTurn);
-  const currentGameState: GameStateType = useSelector(selectGameState);
-  const pawnPromotion: PawnPromotionType = useSelector(selectPawnPromotion);
-  const castling: CastleType = useSelector(selectCastling);
-  const isRedoAvailable: boolean = useSelector(selectIsRedoAvaialble);
-  const isViewing = useSelector(selectViewingMode);
-  const chessboardHistory = useSelector(selectChessboardHistory);
 
-  useEffect(() => {
-    // If the board hasn't been initialised yet, generate tiles
-    if (chessboard.length === 0) {
-      dispatch(setChessboard(generateTiles()));
+  // Game States
+  const isPlaying: boolean = useSelector(selectIsPlaying);
+  const currentTurn: ChessColors = useSelector(selectCurrentTurn);
+  const moveCount: number = useSelector(selectCurrentMoveCount);
+
+  // Tile States
+  const prevClickedTile: TileType | null = useSelector(selectPrevClickedTile);
+  const uiPreviousMoveTile: uiPreviousMoveType = useSelector(
+    selectUiPreviousMoveTile
+  );
+
+  // Move States
+  const potentialMoves: EnemyAttackType[] = useSelector(selectCurrentTeamMoves);
+  const selectedPieceMoves: number[][] = useSelector(selectSelectedPieceMoves);
+
+  // Special Cases state
+  const castling = useSelector(selectCastling);
+  const pawnPromotion: PawnPromotionType = useSelector(selectPawnPromotion);
+
+  // Handle Game Logic
+  useGameLogic();
+
+  /**
+   * Handles when a user clicks on a tile
+   * @param clickedTile
+   */
+  const handleTileClick = (clickedTile: TileType) => {
+    dispatch(setRedoVisibility(false));
+    if (!isPlaying) return;
+
+    const sameTeamClick = isSameTeamPiece(clickedTile, currentTurn);
+    const wrongOpeningClick = isWrongOpeningClick(
+      clickedTile,
+      prevClickedTile,
+      currentTurn
+    );
+
+    if (shouldIgnoreClick(clickedTile, prevClickedTile)) {
       return;
     }
 
-    if (chessboardHistory.length === 0) {
-      dispatch(updateChessboardHistory(chessboard));
+    if (uiPreviousMoveTile.from !== "") {
+      dispatch(resetUiPreviousMoveTiles());
     }
 
-    // Game has ended - Reviewing the board
-    if (isViewing) {
+    if (wrongOpeningClick) {
       resetUiHighlights(dispatch);
       return;
     }
 
-    // Store previous state for potential undo.
-    if (isRedoAvailable) {
-      dispatch(updatePreviousGameState(currentGameState));
+    const clickedMoveIsInvalid = !isValidMoveSelection(
+      clickedTile,
+      selectedPieceMoves
+    );
+    if (clickedMoveIsInvalid) {
+      resetUiHighlights(dispatch);
     }
 
-    // Get all possible moves for current turn team
-    const currentTeamMoves: EnemyAttackType[] = generateAllTeamMoves(
-      chessboard,
-      currentTurn,
-      false
-    );
-
-    // Simulate moves checking if moves put King in check
-    const currentTeamLegalMoves: EnemyAttackType[] = simulateTeamMoves(
-      chessboard,
-      currentTeamMoves,
-      currentTurn
-    );
-
-    dispatch(setCurrentTeamMoves(currentTeamLegalMoves));
-
-    // Advanced Moves
-    const kingPos: [number, number] | null = findKingPosition(
-      chessboard,
-      currentTurn
-    );
-
-    if (kingPos) {
-      let enemyMoves: EnemyAttackType[] | null = null;
-
-      // Castling
-      if (isCastlingPossible(chessboard, currentTurn, castling)) {
-        enemyMoves = generateAllTeamMoves(
-          chessboard,
-          getPlayerColor(currentTurn, true),
-          true
-        );
-        const isKingAttacked: boolean = isSquareAttacked(enemyMoves, kingPos);
-        if (!isKingAttacked) {
-          const castleMoves: number[][] = generateCastlingMoves(
-            chessboard,
-            enemyMoves,
-            currentTurn
-          );
-
-          if (castleMoves.length > 0) {
-            currentTeamLegalMoves.forEach((pieceMoves: EnemyAttackType) => {
-              if (pieceMoves.piece.pieceName === PieceName.king) {
-                castleMoves.forEach((castleMove: number[]) => {
-                  pieceMoves.moves = [...pieceMoves.moves, castleMove];
-                });
-              }
-            });
-          }
-        }
-      }
-
-      // Must be Checkmate or Stalemate
-      if (currentTeamLegalMoves.length === 0) {
-        if (!enemyMoves) {
-          enemyMoves = generateAllTeamMoves(
-            chessboard,
-            getPlayerColor(currentTurn, true),
-            true
-          );
-        }
-
-        const attacked: boolean = isSquareAttacked(enemyMoves, kingPos);
-        if (attacked) {
-          dispatch(setKingInCheckmate(true));
-        } else {
-          dispatch(setStalemate());
-        }
-      }
+    if (isPieceSelection(prevClickedTile, sameTeamClick)) {
+      return handlePieceSelection(
+        dispatch,
+        chessboard,
+        currentTurn,
+        clickedTile,
+        potentialMoves
+      );
     }
-  }, [dispatch, chessboard, currentTurn]);
 
+    if (canExecuteMove(prevClickedTile, clickedTile, selectedPieceMoves)) {
+      return handlePieceMove(
+        dispatch,
+        chessboard,
+        prevClickedTile,
+        clickedTile,
+        moveCount,
+        castling
+      );
+    }
+  };
   return (
     <div className="h-auto w-full flex items-center justify-center">
       {/* Pawn promotion is possible */}
       {pawnPromotion.isPawnPromotion && <PawnPromotionModal />}
+
       {/* Render Chessboard */}
       <div className="h-full w-full chessboard">
         {chessboard.map((row: TileType[], rowIndex: number) =>
           row.map((tile: TileType, colIndex: number) => (
-            <TileContainer key={`${rowIndex}-${colIndex}`} tile={tile} />
+            <Tile
+              key={`${rowIndex}-${colIndex}`}
+              tile={tile}
+              handleClick={handleTileClick.bind(null, tile)}
+            />
           ))
         )}
       </div>

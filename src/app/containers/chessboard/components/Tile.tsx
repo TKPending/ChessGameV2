@@ -1,17 +1,20 @@
 import { useSelector } from "react-redux";
+import Piece from "@/app/containers/chessboard/components/Piece";
+
 import {
   selectCurrentTurn,
   selectIsKingInCheckmate,
   selectIsPlaying,
 } from "@/app/utils/selectors/gameStateSelectors";
-import { getTileBackgroundColor } from "@/app/containers/chessboard/utils/chessboard/design/getTileBackgroundColor";
-import Piece from "@/app/containers/chessboard/features/tile/components/Piece";
 import {
   selectUiAttackTiles,
   selectUiHighlightedTiles,
   selectUiPreviousMoveTile,
   selectUiSelectedTile,
 } from "@/app/utils/selectors/uiChessboardSelector";
+
+import { getTileBackgroundColor } from "@/app/utils/chessboard/getTileBackgroundColor";
+
 import {
   ChessColors,
   TileType,
@@ -20,10 +23,16 @@ import {
 
 type TileProps = {
   tile: TileType;
-  handleTileClick: (clickedTile: TileType) => void;
+  handleClick: (clickedTile: TileType) => void;
 };
 
-const Tile = ({ tile, handleTileClick }: TileProps) => {
+/**
+ * Renders each individual tile with their own data
+ * @param tile Tile Data
+ * @param handleClick Function to handle when a user clicks on a tile
+ * @returns A Tile
+ */
+const Tile = ({ tile, handleClick }: TileProps) => {
   const currentTurn: ChessColors = useSelector(selectCurrentTurn);
   const isPlaying: boolean = useSelector(selectIsPlaying);
   const isKingInCheckmate: boolean = useSelector(selectIsKingInCheckmate);
@@ -52,7 +61,7 @@ const Tile = ({ tile, handleTileClick }: TileProps) => {
 
   return (
     <div
-      onClick={() => handleTileClick(tile)}
+      onClick={() => handleClick(tile)}
       className={`relative tile tileBorder transition duration-200  ${tileBackgroundColor} ${
         isPlaying &&
         currentTurn === pieceOnTile?.pieceColor &&

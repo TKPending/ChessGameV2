@@ -1,7 +1,7 @@
-import { getPawnMoves } from "@/app/containers/chessboard/utils/pieceMovements/getPawnMoves";
-import { getKnightMoves } from "@/app/containers/chessboard/utils/pieceMovements/getKnightMoves";
-import { getSlidingPieceMoves } from "@/app/containers/chessboard/utils/pieceMovements/getSlidingPieceMoves";
-import { getKingMoves } from "@/app/containers/chessboard/utils/pieceMovements/getKingMoves";
+import { getPawnMoves } from "@/app/game/logic/pieceMovements/getPawnMoves";
+import { getKnightMoves } from "@/app/game/logic/pieceMovements/getKnightMoves";
+import { getSlidingPieceMoves } from "@/app/game/logic/pieceMovements/getSlidingPieceMoves";
+import { getKingMoves } from "@/app/game/logic/pieceMovements/getKingMoves";
 import { convertTilePosition } from "@/app/utils/convertTilePosition";
 import { TileType, PieceType, PieceName } from "@/app/types/ChessTypes";
 
