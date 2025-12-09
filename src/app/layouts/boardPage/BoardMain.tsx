@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import Chessboard from "@/app/containers/chessboard/Chessboard";
-import ChessboardMoveHistory from "@/app/containers/chessboardMoveHistory/ChessboardMoveHistory";
+import MoveHistoryContainer from "@/app/containers/moveHistory/MoveHistoryContainer";
 import PlayerContainer from "@/app/containers/players/PlayerContainer";
 import {
   selectPlayerOne,
@@ -29,7 +29,7 @@ export const BoardMain = () => {
         {/* Bottom */}
         <PlayerContainer player={playerOne} />
       </div>
-      {viewingMode && <ChessboardMoveHistory />}
+      {viewingMode && <MoveHistoryContainer />}
     </div>
   );
 };

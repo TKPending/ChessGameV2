@@ -8,7 +8,6 @@ import {
   selectIsRedoAvaialble,
   selectViewingMode,
 } from "@/app/utils/selectors/gameStateSelectors";
-import { selectChessboardHistory } from "@/app/utils/selectors/chessboardHistoryStateSelector";
 import {
   selectCastling,
   selectChessboard,
@@ -24,10 +23,7 @@ import { resetUiHighlights } from "@/app/utils/chessboard/resetUiHighlights";
 import { setCurrentTeamMoves } from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
 import { simulateTeamMoves } from "@/app/game/logic/pieceMovements/generateMoves/helper/simulateTeamMoves";
 
-import {
-  updateChessboardHistory,
-  updatePreviousGameState,
-} from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
+import { updatePreviousGameState } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
 import {
   setKingInCheckmate,
   setStalemate,
@@ -49,16 +45,10 @@ export const useGameLogic = () => {
 
   // Game History
   const currentGameState: GameStateType = useSelector(selectGameState);
-  const chessboardHistory = useSelector(selectChessboardHistory);
 
   const castling: CastleType = useSelector(selectCastling);
 
   useEffect(() => {
-    // Add original board state to Chessboard History
-    if (chessboardHistory.length === 0) {
-      dispatch(updateChessboardHistory(chessboard));
-    }
-
     // Game has ended - Reviewing the board
     if (isViewing) {
       resetUiHighlights(dispatch);
