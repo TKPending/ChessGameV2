@@ -4,7 +4,7 @@ import { resetChessboard } from "@/app/redux/slices/chessboardState/chessboardSt
 import { resetChessMoves } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
 import { resetGameState } from "@/app/redux/slices/gameState/gameStateSlice";
 import { resetUiHighlights } from "@/app/utils/chessboard/resetUiHighlights";
-import { resetUiPreviousMoveTiles } from "../redux/slices/uiChessboard/uiChessboardSlice";
+import { resetUiPreviousMoveTiles } from "@/app/redux/slices/uiChessboard/uiChessboardSlice";
 
 export const resetChessGame = (
   dispatch: Dispatch<UnknownAction>,

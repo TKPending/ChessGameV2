@@ -1,4 +1,4 @@
-import { pieceMoves } from "./helpers/pieceMoves";
+import { pieceMoves } from "@/app/utils/pieceMoves";
 import { ChessColors, TileType } from "@/app/types/ChessTypes";
 
 /**

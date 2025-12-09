@@ -1,7 +1,7 @@
-import { classifySlidingDirections } from "@/app/game/logic/pieceMovements/helpers/classifySlidingDirections";
+import { classifySlidingDirections } from "@/app/utils/pieceMovements/classifySlidingDirections";
+import { indiviualPieceMoves } from "@/app/utils/generators/indiviualPieceMoves";
 import { EnemyAttackType } from "@/app/types/MoveTypes";
 import { TileType, PieceType, ChessColors } from "@/app/types/ChessTypes";
-import { indiviualPieceMoves } from "./helper/indiviualPieceMoves";
 
 /**
  * Generates all moves for the enemy team

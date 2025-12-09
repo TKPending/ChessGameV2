@@ -1,9 +1,9 @@
 import { TileType, ChessColors } from "@/app/types/ChessTypes";
 import { EnemyAttackType } from "@/app/types/MoveTypes";
-import { generateAllTeamMoves } from "@/app/game/logic/pieceMovements/generateMoves/generateAllTeamMoves";
+import { generateAllTeamMoves } from "@/app/utils/generators/generateAllTeamMoves";
 import { getPlayerColor } from "@/app/utils/getPlayerColor";
-import { findKingPosition } from "@/app/game/logic/pieceMovements/helpers/findKingPosition";
-import { isSquareAttacked } from "@/app/game/logic/pieceMovements/helpers/isSquareAttacked";
+import { findKingPosition } from "@/app/utils/tileChecks/findKingPosition";
+import { isSquareAttacked } from "@/app/utils/tileChecks/isSquareAttacked";
 
 /**
  * Simulates moves to filter out those that leave the King in check.

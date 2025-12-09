@@ -5,7 +5,7 @@ import Tile from "./components/Tile";
 import PawnPromotionModal from "@/app/containers/pawnPromotion/PawnPromotionModal";
 
 // Custom Hooks
-import { useGameLogic } from "@/app/game/hooks/useGameLogic";
+import { useGameLogic } from "@/app/hooks/useGameLogic";
 
 // useSelectors
 import {

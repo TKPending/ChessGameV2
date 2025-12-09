@@ -18,11 +18,11 @@ import {
 import { setSelectedPieceMoves } from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
 
 import { resetTiles } from "@/app/utils/chessboard/resetTiles";
-import { getPieceMoves } from "@/app/game/logic/pieceMovements/helpers/getPieceMoves";
-import { findEnemyTiles } from "@/app/game/logic/helpers/findEnemyTiles";
-import { handleMovePiece } from "@/app/game/logic/handlers/handleMovePiece";
-import { isMoveValid } from "@/app/game/logic/pieceMovements/helpers/isMoveValid";
-import { convertTilePosition } from "../convertTilePosition";
+import { getPieceMoves } from "@/app/utils/getPieceMoves";
+import { findEnemyTiles } from "@/app/utils/tileChecks/findEnemyTiles";
+import { handleMovePiece } from "@/app/utils/pieceMovements/handleMovePiece";
+import { isMoveValid } from "@/app/utils/moveChecks/isMoveValid";
+import { convertTilePosition } from "@/app/utils/convertTilePosition";
 
 import { ChessColors, TileType } from "@/app/types/ChessTypes";
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";

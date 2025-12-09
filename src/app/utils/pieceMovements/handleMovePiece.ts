@@ -4,8 +4,8 @@ import {
   updateChessboardHistory,
   updateMoveHistory,
 } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
-import { updateChessboard } from "./helpers/updateChessboard";
-import { handleMovesSpecialCases } from "./helpers/handleMovesSpecialCases";
+import { updateChessboard } from "@/app/utils/updateChessboard";
+import { handleMovesSpecialCases } from "@/app/utils/moveChecks/handleMovesSpecialCases";
 import { CastleType } from "@/app/types/MoveTypes";
 import { TileType, PieceType, ChessColors } from "@/app/types/ChessTypes";
 

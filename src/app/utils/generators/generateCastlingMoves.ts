@@ -1,8 +1,8 @@
-import { EnemyAttackType } from "@/app/types/MoveTypes";
-import { arePiecesInStartingPositions } from "./helpers/arePiecesInStartingPositions";
-import { areTilesBetweenUnderAttack } from "./helpers/areTilesBetweenUnderAttack";
-import { areTilesBetweenOccupiedByFriendlyPieces } from "./helpers/areTilesBetweenOccupiedByFriendlyPieces.ts";
+import { arePiecesInStartingPositions } from "@/app/utils/moveChecks/arePiecesInStartingPositions";
+import { areTilesBetweenUnderAttack } from "@/app/utils/moveChecks/areTilesBetweenUnderAttack";
+import { areTilesBetweenOccupiedByFriendlyPieces } from "@/app/utils/moveChecks/areTilesBetweenOccupiedByFriendlyPieces.ts";
 import { ChessColors, TileType } from "@/app/types/ChessTypes";
+import { EnemyAttackType } from "@/app/types/MoveTypes";
 
 /**
  * Generate moves for castling

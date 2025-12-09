@@ -13,15 +13,15 @@ import {
   selectChessboard,
 } from "@/app/utils/selectors/chessboardStateSelectors";
 
-import { findKingPosition } from "@/app/game/logic/pieceMovements/helpers/findKingPosition";
+import { findKingPosition } from "@/app/utils/tileChecks/findKingPosition";
 import { getPlayerColor } from "@/app/utils/getPlayerColor";
-import { generateAllTeamMoves } from "@/app/game/logic/pieceMovements/generateMoves/generateAllTeamMoves";
-import { generateCastlingMoves } from "@/app/game/logic/pieceMovements/castling/generateCastlingMoves";
-import { isCastlingPossible } from "@/app/game/logic/pieceMovements/castling/isCastlingPossible";
-import { isSquareAttacked } from "@/app/game/logic/pieceMovements/helpers/isSquareAttacked";
+import { generateAllTeamMoves } from "@/app/utils/generators/generateAllTeamMoves";
+import { generateCastlingMoves } from "@/app/utils/generators/generateCastlingMoves";
+import { isCastlingPossible } from "@/app/utils/moveChecks/isCastlingPossible";
+import { isSquareAttacked } from "@/app/utils/tileChecks/isSquareAttacked";
 import { resetUiHighlights } from "@/app/utils/chessboard/resetUiHighlights";
 import { setCurrentTeamMoves } from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
-import { simulateTeamMoves } from "@/app/game/logic/pieceMovements/generateMoves/helper/simulateTeamMoves";
+import { simulateTeamMoves } from "@/app/utils/simulateTeamMoves";
 
 import { updatePreviousGameState } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
 import {

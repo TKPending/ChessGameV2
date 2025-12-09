@@ -1,5 +1,5 @@
+import { checkTile } from "@/app/utils/tileChecks/checkTile";
 import { TileType, ChessColors } from "@/app/types/ChessTypes";
-import { checkTile } from "./checkTile";
 
 /**
  * Return all piece moves that aren't blocked by a friendly
