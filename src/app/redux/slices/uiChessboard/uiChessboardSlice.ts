@@ -10,6 +10,7 @@ import {
   updateUiSelectedTileReducer,
 } from "./uiChessboardReducer";
 
+// TODO: Need to refactor
 const initialState: uiChessboardType = {
   uiSelectedTile: null,
   uiHighlightedTiles: [],

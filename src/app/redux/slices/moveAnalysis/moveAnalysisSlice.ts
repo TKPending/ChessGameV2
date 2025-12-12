@@ -8,6 +8,7 @@ import {
   updateSelectedPieceMovesReducer,
 } from "./moveAnalysisReducer";
 
+// TODO: Need to refactor
 const initialState: MoveAnalysisStateType = {
   isKingInCheck: false,
   currentTeamMoves: [],

@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { PageStateType } from "@/app/types/StateTypes";
 import { pageTransitionReducer } from "./pageReducer";
 
+// TODO: Need to refactor
 const initialState: PageStateType = {
   currentPage: "landing",
   prevPage: "",

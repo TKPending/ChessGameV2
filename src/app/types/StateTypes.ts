@@ -62,11 +62,6 @@ export interface MoveAnalysisStateType {
   selectedPieceMoves: number[][];
 }
 
-// Checks player setup is valid
-export interface GameSetupStateType {
-  isPlayerNameValid: boolean;
-}
-
 // Tracks current and previous page for navigation
 export interface PageStateType {
   currentPage: string;
