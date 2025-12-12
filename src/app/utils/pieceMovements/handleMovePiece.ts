@@ -1,8 +1,8 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import {
-  updateChessboardHistory,
-  updateMoveHistory,
-} from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
+  recordBoardState,
+  recordMove,
+} from "@/app/redux/slices/history/historySlice";
 import { setCapturedPiece } from "@/app/redux/slices/gameState/gameStateSlice";
 import { setPawnPromotion } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
 
@@ -71,7 +71,7 @@ export const handleMovePiece = (
   }
 
   dispatch(
-    updateMoveHistory({
+    recordMove({
       moveCount,
       from: previousClickedTile,
       to: targetTile,
@@ -86,5 +86,5 @@ export const handleMovePiece = (
     castling
   );
 
-  dispatch(updateChessboardHistory(updatedChessboard));
+  dispatch(recordBoardState(updatedChessboard));
 };

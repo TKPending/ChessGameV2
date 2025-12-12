@@ -2,14 +2,14 @@ import { useSelector } from "react-redux";
 import MovesContainer from "@/app/containers/moveHistory/containers/MovesContainer";
 import ResetGame from "@/app/containers/features/resetGame/ResetGame";
 import {
-  selectCurrentMoveCount,
+  selectMoveCount,
   selectMovesHistory,
-} from "@/app/utils/selectors/chessboardHistoryStateSelector";
+} from "@/app/utils/selectors/historyStateSelectors";
 import { selectWinner } from "@/app/utils/selectors/gameStateSelectors";
 import { MoveHistoryType, PlayerType } from "@/app/types/ChessTypes";
 
 const MoveHistoryContainer = () => {
-  const currentMoveCount: number = useSelector(selectCurrentMoveCount);
+  const moveCount: number = useSelector(selectMoveCount);
   const moveHistory: MoveHistoryType[] = useSelector(selectMovesHistory);
   const winner: PlayerType | null = useSelector(selectWinner);
 
@@ -20,7 +20,7 @@ const MoveHistoryContainer = () => {
       <section className="bg-section-background shadow-lg rounded-lg p-2 h-full w-full flex flex-col gap-4 overflow-y-auto">
         {/* Move Counter */}
         <div className="flex justify-between text-base px-2 font-semibold">
-          <p className="text-customGreen">Moves: {currentMoveCount}</p>
+          <p className="text-customGreen">Moves: {moveCount}</p>
         </div>
 
         {/* Moves */}

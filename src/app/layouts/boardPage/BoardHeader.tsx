@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import BackButtonContainer from "@/app/containers/features/backButton/BackButtonContainer";
-import { selectCurrentMoveCount } from "@/app/utils/selectors/chessboardHistoryStateSelector";
+import { selectMoveCount } from "@/app/utils/selectors/historyStateSelectors";
 import { PageEnum } from "@/app/types/PageTypes";
 
 /**
@@ -8,7 +8,7 @@ import { PageEnum } from "@/app/types/PageTypes";
  * @returns Back Button and Move Counter
  */
 const BoardHeader = () => {
-  const moveCount: number = useSelector(selectCurrentMoveCount);
+  const moveCount: number = useSelector(selectMoveCount);
 
   return (
     <div className="flex items-center justify-end">

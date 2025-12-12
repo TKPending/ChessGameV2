@@ -23,7 +23,7 @@ import { resetUiHighlights } from "@/app/utils/chessboard/resetUiHighlights";
 import { setCurrentTeamMoves } from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
 import { simulateTeamMoves } from "@/app/utils/simulateTeamMoves";
 
-import { updatePreviousGameState } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
+import { storePreviousState } from "@/app/redux/slices/history/historySlice";
 import {
   setKingInCheckmate,
   setStalemate,
@@ -57,7 +57,7 @@ export const useGameLogic = () => {
 
     // Store previous state for potential undo.
     if (isRedoAvailable) {
-      dispatch(updatePreviousGameState(currentGameState));
+      dispatch(storePreviousState(currentGameState));
     }
 
     // Get all possible moves for current turn team

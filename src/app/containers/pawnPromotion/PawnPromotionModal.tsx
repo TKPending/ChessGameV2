@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import PawnPromotionComponent from "@/app/containers/pawnPromotion/components/PawnPromotionComponent";
 import { selectCurrentTurn } from "@/app/utils/selectors/gameStateSelectors";
 import { setTileWithPromotedPawn } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
-import { updateMovePawnPromotion } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
+import { applyPawnPromotion } from "@/app/redux/slices/history/historySlice";
 import { getPlayerColor } from "@/app/utils/getPlayerColor";
 import { PieceType, PieceName, ChessColors } from "@/app/types/ChessTypes";
 
@@ -21,7 +21,7 @@ const PawnPromotionModal = () => {
     };
 
     dispatch(
-      updateMovePawnPromotion({
+      applyPawnPromotion({
         pawnPromotion: true,
         updatedPiece: pieceName,
       })

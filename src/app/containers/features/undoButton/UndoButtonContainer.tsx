@@ -7,7 +7,7 @@ import { selectIsRedoVisible } from "@/app/utils/selectors/gameStateSelectors";
 import {
   selectChessboardHistory,
   selectPreviousGameState,
-} from "@/app/utils/selectors/chessboardHistoryStateSelector";
+} from "@/app/utils/selectors/historyStateSelectors";
 
 import {
   setCurrentTurn,
@@ -15,9 +15,9 @@ import {
   setRedoVisibility,
 } from "@/app/redux/slices/gameState/gameStateSlice";
 import {
-  removePreviousGameState,
-  removeRecentChessboardHistory,
-} from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
+  clearStoredState,
+  undoLastBoardState,
+} from "@/app/redux/slices/history/historySlice";
 import { setChessboard } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
 import { resetTiles } from "@/app/utils/chessboard/resetTiles";
 
@@ -42,7 +42,7 @@ const UndoButtonContainer = () => {
 
     if (mostRecentGameState) {
       dispatch(setGameStateToPrevious(mostRecentGameState));
-      dispatch(removeRecentChessboardHistory());
+      dispatch(undoLastBoardState());
       const previousChessboardState: TileType[][] =
         chessboardHistory[chessboardHistory.length - 2];
       dispatch(setChessboard(previousChessboardState));
@@ -56,7 +56,7 @@ const UndoButtonContainer = () => {
   useEffect(() => {
     setTimeout(() => {
       dispatch(setRedoVisibility(false));
-      dispatch(removePreviousGameState());
+      dispatch(clearStoredState());
     }, 5000);
   }, [isRedoVisible]);
 

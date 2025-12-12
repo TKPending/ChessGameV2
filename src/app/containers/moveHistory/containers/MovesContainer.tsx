@@ -2,8 +2,8 @@ import { useSelector, useDispatch } from "react-redux";
 import CaptureMove from "@/app/containers/moveHistory/component/CaptureMove";
 import StandardMove from "@/app/containers/moveHistory/component/StandardMove";
 import PawnPromotionMove from "@/app/containers/moveHistory/component/PawnPromotionMove";
-import { selectChessboardHistory } from "@/app/utils/selectors/chessboardHistoryStateSelector";
-import { setSelectedMoveHistory } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
+import { selectChessboardHistory } from "@/app/utils/selectors/historyStateSelectors";
+import { selectMove } from "@/app/redux/slices/history/historySlice";
 import { setChessboard } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
 import { setUiPreviousMoveTile } from "@/app/redux/slices/uiChessboard/uiChessboardSlice";
 import { MoveHistoryType, ChessColors, TileType } from "@/app/types/ChessTypes";
@@ -36,7 +36,7 @@ const MovesContainer = ({ move }: Props) => {
     );
 
     dispatch(setChessboard(boardSnapshot));
-    dispatch(setSelectedMoveHistory(move.moveCount));
+    dispatch(selectMove(move.moveCount));
   };
 
   const renderMove = () => {

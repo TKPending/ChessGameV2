@@ -8,7 +8,7 @@ import {
   setCurrentTurn,
   setRedoVisibility,
 } from "@/app/redux/slices/gameState/gameStateSlice";
-import { incrementMoveCounter } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
+import { movePlayed } from "@/app/redux/slices/history/historySlice";
 import {
   setUiAttackTiles,
   setUiHighlightedTiles,
@@ -170,6 +170,6 @@ export const handlePieceMove = (
 
   dispatch(setRedoVisibility(true));
   dispatch(incrementPlayerTime());
-  dispatch(incrementMoveCounter());
+  dispatch(movePlayed());
   dispatch(setCurrentTurn());
 };

@@ -25,7 +25,7 @@ import {
   selectIsPlaying,
 } from "@/app/utils/selectors/gameStateSelectors";
 import { selectUiPreviousMoveTile } from "@/app/utils/selectors/uiChessboardSelector";
-import { selectCurrentMoveCount } from "@/app/utils/selectors/chessboardHistoryStateSelector";
+import { selectMoveCount } from "@/app/utils/selectors/historyStateSelectors";
 
 // Redux
 import { setRedoVisibility } from "@/app/redux/slices/gameState/gameStateSlice";
@@ -62,7 +62,7 @@ const Chessboard = () => {
   // Game States
   const isPlaying: boolean = useSelector(selectIsPlaying);
   const currentTurn: ChessColors = useSelector(selectCurrentTurn);
-  const moveCount: number = useSelector(selectCurrentMoveCount);
+  const moveCount: number = useSelector(selectMoveCount);
 
   // Tile States
   const prevClickedTile: TileType | null = useSelector(selectPrevClickedTile);

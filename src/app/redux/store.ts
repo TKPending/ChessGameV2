@@ -1,13 +1,13 @@
 import { combineReducers, configureStore, Reducer } from "@reduxjs/toolkit";
 import chessboardReducer from "./slices/chessboardState/chessboardStateSlice";
-import chessboardHistoryReducer from "./slices/chessboardHistory/chessboardHistorySlice";
+import chessboardHistoryReducer from "./slices/history/historySlice";
 import gameSetupReducer from "./slices/gameSetupState/gameSetupSlice";
 import moveAnalysisReducer from "./slices/moveAnalysis/moveAnalysisSlice";
 import gameStateReducer from "./slices/gameState/gameStateSlice";
 import pageReducer from "./slices/page/pageSlice";
 import uiChessboardReducer from "./slices/uiChessboard/uiChessboardSlice";
 import {
-  ChessboardHistoryStateType,
+  HistoryStateType,
   ChessboardStateType,
   GameSetupStateType,
   GameStateType,
@@ -19,7 +19,7 @@ import {
 interface State {
   chessboardState: ChessboardStateType;
   gameState: GameStateType;
-  chessboardHistoryState: ChessboardHistoryStateType;
+  historyState: HistoryStateType;
   moveAnalysisState: MoveAnalysisStateType;
   gameSetupState: GameSetupStateType;
   pageState: PageStateType;
@@ -29,7 +29,7 @@ interface State {
 const rootReducer: Reducer<State> = combineReducers({
   chessboardState: chessboardReducer,
   gameState: gameStateReducer,
-  chessboardHistoryState: chessboardHistoryReducer,
+  historyState: chessboardHistoryReducer,
   moveAnalysisState: moveAnalysisReducer,
   gameSetupState: gameSetupReducer,
   pageState: pageReducer,

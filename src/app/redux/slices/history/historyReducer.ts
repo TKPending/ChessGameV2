@@ -1,18 +1,15 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import {
-  ChessboardHistoryStateType,
-  GameStateType,
-} from "@/app/types/StateTypes";
+import { HistoryStateType, GameStateType } from "@/app/types/StateTypes";
 import { TileType, MoveHistoryType, PieceName } from "@/app/types/ChessTypes";
 
 // Increment move counter
-export const updateMoveCounterReducer = (state: ChessboardHistoryStateType) => {
-  state.currentMoveCount = state.currentMoveCount + 1;
+export const incrementMoveCountReducer = (state: HistoryStateType) => {
+  state.count = state.count + 1;
 };
 
 // Selected Move
-export const updateSelectedMoveReducer = (
-  state: ChessboardHistoryStateType,
+export const setSelectedMoveReducer = (
+  state: HistoryStateType,
   action: PayloadAction<number | null> // moveCount
 ) => {
   const selectedMoveCount = action.payload;
@@ -24,44 +21,40 @@ export const updateSelectedMoveReducer = (
 };
 
 // Update Chessboard and Move History
-export const updateChessboardHistoryReducer = (
-  state: ChessboardHistoryStateType,
+export const updateBoardStateHistoryReducer = (
+  state: HistoryStateType,
   action: PayloadAction<TileType[][]>
 ) => {
   state.chessboardHistory.push(action.payload);
 };
 
-export const removeRecentChessboardHistoryReducer = (
-  state: ChessboardHistoryStateType
-) => {
+export const removeRecentBoardHistoryReducer = (state: HistoryStateType) => {
   state.chessboardHistory.pop();
   state.movesHistory.pop();
-  state.currentMoveCount -= 1;
+  state.count -= 1;
 };
 
 export const updateMoveHistoryReducer = (
-  state: ChessboardHistoryStateType,
+  state: HistoryStateType,
   action: PayloadAction<MoveHistoryType>
 ) => {
   state.movesHistory.push(action.payload);
 };
 
 export const updatePreviousGameStateReducer = (
-  state: ChessboardHistoryStateType,
+  state: HistoryStateType,
   action: PayloadAction<GameStateType>
 ) => {
   state.previousGameState = action.payload;
 };
 
-export const removePreviousGameStateReducer = (
-  state: ChessboardHistoryStateType
-) => {
+export const removePreviousGameStateReducer = (state: HistoryStateType) => {
   state.previousGameState = null;
 };
 
 // Update last move with Pawn Promotion Info
-export const pawnPromotionUpdateMoveReducer = (
-  state: ChessboardHistoryStateType,
+export const pawnPromotionMoveReducer = (
+  state: HistoryStateType,
   action: PayloadAction<{ pawnPromotion: boolean; updatedPiece: PieceName }>
 ) => {
   const { pawnPromotion, updatedPiece } = action.payload;
@@ -76,16 +69,10 @@ export const pawnPromotionUpdateMoveReducer = (
   state.movesHistory[state.movesHistory.length - 1] = updatedMove;
 };
 
-// Display Move History
-export const isMovesHiddenReducer = (state: ChessboardHistoryStateType) => {
-  state.isMovesHidden = !state.isMovesHidden;
-};
-
 // Reset Chess Move History
-export const resetChessMovesReducer = (state: ChessboardHistoryStateType) => {
-  state.currentMoveCount = 0;
+export const resetHistoryReducer = (state: HistoryStateType) => {
+  state.count = 0;
   state.chessboardHistory = [];
   state.movesHistory = [];
   state.previousGameState = null;
-  state.isMovesHidden = false;
 };

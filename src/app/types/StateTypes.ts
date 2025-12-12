@@ -46,12 +46,11 @@ export interface GameStateType {
 }
 
 // Tracks chessboard and move history
-export interface ChessboardHistoryStateType {
-  currentMoveCount: number;
-  chessboardHistory: TileType[][][];
-  movesHistory: MoveHistoryType[];
-  previousGameState: GameStateType | null;
-  isMovesHidden: boolean;
+export interface HistoryStateType {
+  count: number; // Total moves made
+  chessboardHistory: TileType[][][]; // History of chessboard states
+  movesHistory: MoveHistoryType[]; // History of moves made
+  previousGameState: GameStateType | null; // Previous game state (Undo Feature)
 }
 
 // Tracks all game potential moves including enemy moves
