@@ -20,7 +20,7 @@ import { setSelectedPieceMoves } from "@/app/redux/slices/moveAnalysis/moveAnaly
 import { resetTiles } from "@/app/utils/chessboard/resetTiles";
 import { getPieceMoves } from "@/app/utils/getPieceMoves";
 import { findEnemyTiles } from "@/app/utils/tileChecks/findEnemyTiles";
-import { handleMovePiece } from "@/app/utils/pieceMovements/handleMovePiece";
+import { movePiece } from "@/app/utils/pieceMovements/movePiece";
 import { isMoveValid } from "@/app/utils/moveChecks/isMoveValid";
 import { convertTilePosition } from "@/app/utils/convertTilePosition";
 
@@ -146,7 +146,7 @@ export const handlePieceSelection = (
  * @param {TileType | null} fromTile - The tile the piece is moving from.
  * @param {TileType} toTile - The tile the piece is moving to.
  * @param {number} moveCount - The current move number.
- * @param {CastleType} castling - The castling status object for the current turn.
+ * @param {CastleType} castleState - The castling status object for the current turn.
  */
 export const handlePieceMove = (
   dispatch: Dispatch<UnknownAction>,
@@ -154,10 +154,10 @@ export const handlePieceMove = (
   fromTile: TileType | null,
   toTile: TileType,
   moveCount: number,
-  castling: CastleType
+  castleState: CastleType
 ) => {
   if (!fromTile) return;
-  handleMovePiece(dispatch, fromTile, toTile, chessboard, moveCount, castling);
+  movePiece(dispatch, fromTile, toTile, chessboard, moveCount, castleState);
 
   resetTiles(dispatch);
 

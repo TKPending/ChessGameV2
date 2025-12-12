@@ -4,13 +4,9 @@ import { CastleType } from "@/app/types/MoveTypes";
 export const isCastlingPossible = (
   chessboard: TileType[][],
   currentTurn: ChessColors,
-  castling: CastleType
+  castleState: CastleType
 ): boolean => {
-  const currentTurnCastleOption: boolean =
-    currentTurn === ChessColors.white
-      ? castling.white.canCastleOption
-      : castling.black.canCastleOption;
-  if (!currentTurnCastleOption) {
+  if (!castleState.queenSideCastling && !castleState.kingSideCastling) {
     return false;
   }
 

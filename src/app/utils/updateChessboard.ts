@@ -18,16 +18,14 @@ export const updateChessboard = (
   currentChessboard: TileType[][],
   previousClickedTile: TileType,
   targetTile: TileType,
-  castling: CastleType
+  castleState: CastleType
 ): TileType[][] => {
   if (!previousClickedTile.pieceOnTile) return [];
 
   const pieceToMove: PieceType = previousClickedTile.pieceOnTile;
   const currentTurn: ChessColors = pieceToMove.pieceColor;
 
-  const castlingTurn =
-    currentTurn === ChessColors.white ? castling.white : castling.black;
-  const canCastle: boolean = castlingTurn.canCastleOption;
+  const canCastle: boolean = castleState.canCastle;
 
   const kingPos = findKingPosition(currentChessboard, currentTurn);
   if (!kingPos) return [];

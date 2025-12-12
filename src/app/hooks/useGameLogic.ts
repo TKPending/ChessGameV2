@@ -9,7 +9,8 @@ import {
   selectViewingMode,
 } from "@/app/utils/selectors/gameStateSelectors";
 import {
-  selectCastling,
+  selectWhiteCastleRights,
+  selectBlackCastleRights,
   selectChessboard,
 } from "@/app/utils/selectors/chessboardStateSelectors";
 
@@ -46,7 +47,10 @@ export const useGameLogic = () => {
   // Game History
   const currentGameState: GameStateType = useSelector(selectGameState);
 
-  const castling: CastleType = useSelector(selectCastling);
+  const castleState: CastleType =
+    currentTurn === ChessColors.white
+      ? useSelector(selectWhiteCastleRights)
+      : useSelector(selectBlackCastleRights);
 
   useEffect(() => {
     // Game has ended - Reviewing the board
@@ -85,7 +89,7 @@ export const useGameLogic = () => {
       let enemyMoves: EnemyAttackType[] | null = null;
 
       // Castling
-      if (isCastlingPossible(chessboard, currentTurn, castling)) {
+      if (isCastlingPossible(chessboard, currentTurn, castleState)) {
         enemyMoves = generateAllTeamMoves(
           chessboard,
           getPlayerColor(currentTurn, true),
@@ -96,17 +100,25 @@ export const useGameLogic = () => {
           const castleMoves: number[][] = generateCastlingMoves(
             chessboard,
             enemyMoves,
-            currentTurn
+            currentTurn,
+            castleState
           );
 
           if (castleMoves.length > 0) {
-            currentTeamLegalMoves.forEach((pieceMoves: EnemyAttackType) => {
-              if (pieceMoves.piece.pieceName === PieceName.king) {
-                castleMoves.forEach((castleMove: number[]) => {
-                  pieceMoves.moves = [...pieceMoves.moves, castleMove];
-                });
+            const updatedMoves = currentTeamLegalMoves.map(
+              (pieceMoves: EnemyAttackType) => {
+                if (pieceMoves.piece.pieceName === PieceName.king) {
+                  return {
+                    ...pieceMoves,
+                    moves: [...pieceMoves.moves, ...castleMoves],
+                  };
+                }
+
+                return pieceMoves;
               }
-            });
+            );
+
+            dispatch(setCurrentTeamMoves(updatedMoves));
           }
         }
       }

@@ -2,7 +2,7 @@ import { arePiecesInStartingPositions } from "@/app/utils/moveChecks/arePiecesIn
 import { areTilesBetweenUnderAttack } from "@/app/utils/moveChecks/areTilesBetweenUnderAttack";
 import { areTilesBetweenOccupiedByFriendlyPieces } from "@/app/utils/moveChecks/areTilesBetweenOccupiedByFriendlyPieces.ts";
 import { ChessColors, TileType } from "@/app/types/ChessTypes";
-import { EnemyAttackType } from "@/app/types/MoveTypes";
+import { CastleType, EnemyAttackType } from "@/app/types/MoveTypes";
 
 /**
  * Generate moves for castling
@@ -15,7 +15,8 @@ import { EnemyAttackType } from "@/app/types/MoveTypes";
 export const generateCastlingMoves = (
   chessboard: TileType[][],
   enemyMoves: EnemyAttackType[],
-  currentTurn: ChessColors.white | ChessColors.black
+  currentTurn: ChessColors.white | ChessColors.black,
+  castleState: CastleType
 ): number[][] => {
   // Check if King and Rook are are in starting positions
   if (!arePiecesInStartingPositions(chessboard, currentTurn)) {
@@ -36,7 +37,8 @@ export const generateCastlingMoves = (
       kingPosition,
       queenSideRook[1],
       currentTurn
-    )
+    ) &&
+    castleState.queenSideCastling
   ) {
     kingCastleMoves.push(castleQueenSide);
   }
@@ -49,7 +51,8 @@ export const generateCastlingMoves = (
       kingPosition,
       kingSideRook[1],
       currentTurn
-    )
+    ) &&
+    castleState.kingSideCastling
   ) {
     kingCastleMoves.push(castleKingSide);
   }

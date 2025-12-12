@@ -14,9 +14,10 @@ import { CastleType, EnemyAttackType, PawnPromotionType } from "./MoveTypes";
 // Tracks the state of the chessboard
 export interface ChessboardStateType {
   chessboard: TileType[][];
-  clickedTile: TileType | null; // Redundant
-  prevClickedTile: TileType | null;
-  castling: CastleType;
+  previousTile: TileType | null;
+  // castling: CastleType;
+  whiteCastling: CastleType;
+  blackCastling: CastleType;
   pawnPromotion: PawnPromotionType;
 }
 

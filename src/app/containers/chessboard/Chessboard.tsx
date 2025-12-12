@@ -17,7 +17,8 @@ import {
   selectSelectedPieceMoves,
 } from "@/app/utils/selectors/moveAnalysisStateSelector";
 import {
-  selectCastling,
+  selectWhiteCastleRights,
+  selectBlackCastleRights,
   selectPrevClickedTile,
 } from "@/app/utils/selectors/chessboardStateSelectors";
 import {
@@ -28,6 +29,7 @@ import { selectUiPreviousMoveTile } from "@/app/utils/selectors/uiChessboardSele
 import { selectMoveCount } from "@/app/utils/selectors/historyStateSelectors";
 
 // Redux
+import { setPreviousTile } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
 import { setRedoVisibility } from "@/app/redux/slices/gameState/gameStateSlice";
 import { resetUiPreviousMoveTiles } from "@/app/redux/slices/uiChessboard/uiChessboardSlice";
 
@@ -45,7 +47,7 @@ import {
 } from "@/app/utils/chessboard/tileClickHelper";
 
 // Types
-import { EnemyAttackType } from "@/app/types/MoveTypes";
+import { CastleType, EnemyAttackType } from "@/app/types/MoveTypes";
 import { TileType } from "@/app/types/ChessTypes";
 import { PawnPromotionType } from "@/app/types/MoveTypes";
 import { ChessColors, uiPreviousMoveType } from "@/app/types/ChessTypes";
@@ -75,7 +77,10 @@ const Chessboard = () => {
   const selectedPieceMoves: number[][] = useSelector(selectSelectedPieceMoves);
 
   // Special Cases state
-  const castling = useSelector(selectCastling);
+  const castleState: CastleType =
+    currentTurn === ChessColors.white
+      ? useSelector(selectWhiteCastleRights)
+      : useSelector(selectBlackCastleRights);
   const pawnPromotion: PawnPromotionType = useSelector(selectPawnPromotion);
 
   // Handle Game Logic
@@ -115,6 +120,7 @@ const Chessboard = () => {
     );
     if (clickedMoveIsInvalid) {
       resetUiHighlights(dispatch);
+      dispatch(setPreviousTile(null));
     }
 
     if (isPieceSelection(prevClickedTile, sameTeamClick)) {
@@ -134,7 +140,7 @@ const Chessboard = () => {
         prevClickedTile,
         clickedTile,
         moveCount,
-        castling
+        castleState
       );
     }
   };

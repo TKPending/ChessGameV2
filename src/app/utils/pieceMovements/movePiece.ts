@@ -25,16 +25,16 @@ import {
  * @param previousClickedTile The tile that wsa clicked before the current tile
  * @param targetTile The tile that a piece is going to move to
  * @param currentBoardState The current chessboard state
- * @param castling
+ * @param castleState
  * @returns The chessboard with the updated moves
  */
-export const handleMovePiece = (
+export const movePiece = (
   dispatch: Dispatch<UnknownAction>,
   previousClickedTile: TileType | null,
   targetTile: TileType,
   currentBoardState: TileType[][],
   moveCount: number,
-  castling: CastleType
+  castleState: CastleType
 ) => {
   if (!previousClickedTile?.pieceOnTile) return [];
 
@@ -46,12 +46,12 @@ export const handleMovePiece = (
   // Special Cases
   // Check if the king has moved
   if (pieceName === "King") {
-    hasKingMoved(dispatch, currentTurn, castling);
+    hasKingMoved(dispatch, currentTurn, castleState);
   }
 
   // Check if the Rook has moved
   if (pieceName === "Rook") {
-    hasRookMoved(dispatch, currentTurn, castling, previousClickedTile);
+    hasRookMoved(dispatch, currentTurn, castleState, previousClickedTile);
   }
 
   // Check for Pawn Promotion
@@ -83,7 +83,7 @@ export const handleMovePiece = (
     currentBoardState,
     previousClickedTile,
     targetTile,
-    castling
+    castleState
   );
 
   dispatch(recordBoardState(updatedChessboard));
