@@ -1,5 +1,5 @@
 import { classifySlidingDirections } from "@/app/utils/pieceMovements/classifySlidingDirections";
-import { indiviualPieceMoves } from "@/app/utils/generators/indiviualPieceMoves";
+import { generateIndividualPieceMoves } from "@/app/utils/generators/generateIndividualPieceMoves";
 import { EnemyAttackType } from "@/app/types/MoveTypes";
 import { TileType, PieceType, ChessColors } from "@/app/types/ChessTypes";
 
@@ -15,7 +15,7 @@ export const generateAllTeamMoves = (
   teamColor: ChessColors.white | ChessColors.black,
   isEnemy: boolean = false
 ): EnemyAttackType[] => {
-  const enemyMoves: EnemyAttackType[] = [];
+  const teamMoves: EnemyAttackType[] = [];
 
   for (let row = 0; row < 8; row++) {
     for (let col = 0; col < 8; col++) {
@@ -23,7 +23,7 @@ export const generateAllTeamMoves = (
       const piece: PieceType | null = tile.pieceOnTile;
 
       if (piece && piece.pieceColor === teamColor) {
-        const moves: number[][] = indiviualPieceMoves(
+        const moves: number[][] = generateIndividualPieceMoves(
           chessboard,
           piece,
           tile,
@@ -32,7 +32,7 @@ export const generateAllTeamMoves = (
 
         if (moves.length > 0) {
           const direction = classifySlidingDirections(piece.pieceName);
-          enemyMoves.push({
+          teamMoves.push({
             piecePosition: [row, col],
             piece,
             moves,
@@ -43,5 +43,5 @@ export const generateAllTeamMoves = (
     }
   }
 
-  return enemyMoves;
+  return teamMoves;
 };

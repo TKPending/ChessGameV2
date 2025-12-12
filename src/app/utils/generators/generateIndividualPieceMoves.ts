@@ -13,7 +13,7 @@ import { TileType, PieceType, PieceName } from "@/app/types/ChessTypes";
  * @param isEnemy When generating enemy moves, include Pawn Capture moves
  * @returns Legal moves for a piece
  */
-export const indiviualPieceMoves = (
+export const generateIndividualPieceMoves = (
   chessboard: TileType[][],
   piece: PieceType,
   tile: TileType,

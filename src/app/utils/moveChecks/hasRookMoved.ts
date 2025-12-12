@@ -11,7 +11,7 @@ import { ChessColors, TileType } from "@/app/types/ChessTypes";
  * @param tile Originally clicked Tile
  * @returns Nothings
  */
-export const rookMovedPreventCastle = (
+export const hasRookMoved = (
   dispatch: Dispatch<UnknownAction>,
   currentTurn: ChessColors.white | ChessColors.black,
   castling: CastleType,

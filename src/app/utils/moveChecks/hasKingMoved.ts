@@ -10,7 +10,7 @@ import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
  * @param castling Whether castling is allowed or not
  * @returns Nothing
  */
-export const kingMovedPreventCastle = (
+export const hasKingMoved = (
   dispatch: Dispatch<UnknownAction>,
   currentTurn: ChessColors.white | ChessColors.black,
   castling: CastleType

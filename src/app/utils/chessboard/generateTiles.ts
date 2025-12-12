@@ -7,9 +7,8 @@ import {
 
 /**
  * Generate a board with each individual piece
- * @returns A chessboadrd filled with all the pieces in their starting pieces.
+ * @returns A chessboard filled with all the pieces in their starting pieces.
  */
-
 export const generateTiles = (): TileType[][] => {
   const tiles: TileType[][] = [];
 

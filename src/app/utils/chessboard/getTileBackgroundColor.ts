@@ -1,8 +1,4 @@
-import {
-  ChessColors,
-  TileType,
-  uiPreviousMoveType,
-} from "@/app/types/ChessTypes";
+import { TileType, uiPreviousMoveType } from "@/app/types/ChessTypes";
 
 /**
  * Function to determine what the background colour of a tile will be
