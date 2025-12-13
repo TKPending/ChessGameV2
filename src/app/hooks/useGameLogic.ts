@@ -26,8 +26,8 @@ import { simulateTeamMoves } from "@/app/utils/simulateTeamMoves";
 
 import { storePreviousState } from "@/app/redux/slices/history/historySlice";
 import {
-  setKingInCheckmate,
-  setStalemate,
+  endGameCheckmate,
+  endGameStalemate,
 } from "@/app/redux/slices/gameState/gameStateSlice";
 
 import { GameStateType } from "@/app/types/StateTypes";
@@ -135,9 +135,9 @@ export const useGameLogic = () => {
 
         const attacked: boolean = isSquareAttacked(enemyMoves, kingPos);
         if (attacked) {
-          dispatch(setKingInCheckmate(true));
+          dispatch(endGameCheckmate(true));
         } else {
-          dispatch(setStalemate());
+          dispatch(endGameStalemate());
         }
       }
     }

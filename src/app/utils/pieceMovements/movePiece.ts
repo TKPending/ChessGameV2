@@ -3,7 +3,7 @@ import {
   recordBoardState,
   recordMove,
 } from "@/app/redux/slices/history/historySlice";
-import { setCapturedPiece } from "@/app/redux/slices/gameState/gameStateSlice";
+import { updateCapturedPieces } from "@/app/redux/slices/gameState/gameStateSlice";
 import { setPawnPromotion } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
 
 import { updateChessboard } from "@/app/utils/updateChessboard";
@@ -63,7 +63,7 @@ export const movePiece = (
 
   if (targetTile.pieceOnTile) {
     dispatch(
-      setCapturedPiece({
+      updateCapturedPieces({
         piece: { ...targetTile.pieceOnTile, isAlive: false },
         currentTurn,
       })

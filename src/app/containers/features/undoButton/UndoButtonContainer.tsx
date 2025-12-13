@@ -11,7 +11,7 @@ import {
 
 import {
   setCurrentTurn,
-  setGameStateToPrevious,
+  undoGameState,
   setRedoVisibility,
 } from "@/app/redux/slices/gameState/gameStateSlice";
 import {
@@ -41,7 +41,7 @@ const UndoButtonContainer = () => {
     }
 
     if (mostRecentGameState) {
-      dispatch(setGameStateToPrevious(mostRecentGameState));
+      dispatch(undoGameState(mostRecentGameState));
       dispatch(undoLastBoardState());
       const previousChessboardState: TileType[][] =
         chessboardHistory[chessboardHistory.length - 2];

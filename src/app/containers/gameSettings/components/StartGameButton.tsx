@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import Button from "@/app/components/Button";
 import {
   setGameSettings,
-  setIsGamePlaying,
+  startGame,
   setRedoAvailiability,
 } from "@/app/redux/slices/gameState/gameStateSlice";
 import { navigateToPage } from "@/app/utils/navigateToPage";
@@ -40,7 +40,7 @@ const StartGameButton = ({
       })
     );
 
-    dispatch(setIsGamePlaying(true));
+    dispatch(startGame(true));
     navigateToPage(dispatch, PageEnum.gameSettings, PageEnum.board);
   };
 
