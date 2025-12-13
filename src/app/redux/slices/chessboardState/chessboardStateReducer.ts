@@ -1,8 +1,14 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { generateTiles } from "@/app/containers/chessboard/utils/chessboard/generateTiles";
+import { generateTiles } from "@/app/utils/chessboard/generateTiles";
 import { TileType, PieceType, ChessColors } from "@/app/types/ChessTypes";
+import { CastleType } from "@/app/types/MoveTypes";
 import { ChessboardStateType } from "@/app/types/StateTypes";
 
+/**
+ * Update entire chessboard
+ * @param state Current redux state
+ * @param action PayloadAction with updated chessboard tiles
+ */
 export const chessboardReducer = (
   state: ChessboardStateType,
   action: PayloadAction<TileType[][]>
@@ -10,6 +16,11 @@ export const chessboardReducer = (
   state.chessboard = action.payload;
 };
 
+/**
+ * Update specific tile on chessboard
+ * @param state Current redux state
+ * @param action PayloadAction with specific tile to update
+ */
 export const updateSpecificTileReducer = (
   state: ChessboardStateType,
   action: PayloadAction<TileType>
@@ -28,20 +39,23 @@ export const updateSpecificTileReducer = (
   }
 };
 
-export const currentlyClickedTileReducer = (
+/**
+ * Store previous tile
+ * @param state Current Redux State
+ * @param action PayloadAction with TileType or Null
+ */
+export const setPreviousTileReducer = (
   state: ChessboardStateType,
   action: PayloadAction<TileType | null>
 ) => {
-  state.clickedTile = action.payload;
+  state.previousTile = action.payload;
 };
 
-export const prevClickedTileReducer = (
-  state: ChessboardStateType,
-  action: PayloadAction<TileType | null>
-) => {
-  state.prevClickedTile = action.payload;
-};
-
+/**
+ * Pawn Promotion Logic Reducers
+ * @param state Current Redux State
+ * @param action PayloadAction with isPromotion boolean and target tile
+ */
 export const pawnPromotionStateReducer = (
   state: ChessboardStateType,
   action: PayloadAction<{ isPromotion: boolean; targetTile: TileType | null }>
@@ -52,6 +66,11 @@ export const pawnPromotionStateReducer = (
   state.pawnPromotion.tileToUpdate = targetTile;
 };
 
+/**
+ * Update tile with promoted piece
+ * @param state Current Redux State
+ * @param action PayloadAction with PieceType
+ */
 export const updateTileWithPromotedPieceReducer = (
   state: ChessboardStateType,
   action: PayloadAction<PieceType>
@@ -77,84 +96,80 @@ export const updateTileWithPromotedPieceReducer = (
 };
 
 // Castling Logic Reducers
-const currentTurn = (currentTurn: ChessColors.white | ChessColors.black) => {
-  return currentTurn === ChessColors.white ? "white" : "black";
-};
-
+/**
+ * Castling Logic Reducers
+ * @param state Current Redux State
+ * @param action PayloadAction with direction and current turn color
+ */
 export const rookMovedReducer = (
   state: ChessboardStateType,
   action: PayloadAction<{
-    direction: "left" | "right";
+    direction: "queenside" | "kingside";
     currentTurnColor: ChessColors.white | ChessColors.black;
   }>
 ) => {
-  const team = currentTurn(action.payload.currentTurnColor);
-  const side: "left" | "right" = action.payload.direction;
+  const { currentTurnColor, direction } = action.payload;
 
-  if (side === "left") {
-    state.castling[team].leftCastleOption = false;
-  } else if (side === "right") {
-    state.castling[team].rightCastleOption = false;
+  const team =
+    currentTurnColor === ChessColors.white
+      ? state.whiteCastling
+      : state.blackCastling;
+  const side: "queenside" | "kingside" = direction;
+
+  if (side === "queenside") {
+    team.queenSideCastling = false;
+  } else if (side === "kingside") {
+    team.kingSideCastling = false;
   }
 
   // Update the general castling option
-  state.castling[team].canCastleOption =
-    state.castling[team].leftCastleOption ||
-    state.castling[team].rightCastleOption;
-};
+  team.canCastle = team.queenSideCastling || team.kingSideCastling;
 
-export const castlingOptionGoneReducer = (
-  state: ChessboardStateType,
-  action: PayloadAction<ChessColors.black | ChessColors.white>
-) => {
-  const team = currentTurn(action.payload);
-
-  if (state.castling[`${team}King`].kingMoved) {
-    state.castling[team].canCastleOption = false;
-    state.castling[team].rightCastleOption = false;
-    state.castling[team].leftCastleOption = false;
-    return;
+  if (currentTurnColor === ChessColors.white) {
+    state.whiteCastling = team;
+  } else {
+    state.blackCastling = team;
   }
-
-  state.castling[team].canCastleOption =
-    state.castling[team].leftCastleOption ||
-    state.castling[team].rightCastleOption;
 };
 
+/**
+ * Has King Moved Logic Reducer
+ * @param state Current Redux State
+ * @param action PayloadAction with current turn color
+ */
 export const kingMovedReducer = (
   state: ChessboardStateType,
   action: PayloadAction<ChessColors.black | ChessColors.white>
 ) => {
-  const team = currentTurn(action.payload);
-  state.castling[`${team}King`].kingMoved = true;
-  state.castling[team].canCastleOption = false;
-  state.castling[team].leftCastleOption = false;
-  state.castling[team].rightCastleOption = false;
+  const kingHasMovedCastling: CastleType = {
+    canCastle: false,
+    kingSideCastling: false,
+    queenSideCastling: false,
+  };
+
+  if (action.payload === ChessColors.white) {
+    state.whiteCastling = kingHasMovedCastling;
+  } else {
+    state.blackCastling = kingHasMovedCastling;
+  }
 };
 
+/**
+ * Clear Chessboard State
+ * @param state Current Redux State
+ */
 export const resetGameReducer = (state: ChessboardStateType) => {
   state.chessboard = generateTiles();
-  state.clickedTile = null;
-  state.prevClickedTile = null;
-  state.castling = {
-    blackKing: {
-      kingMoved: false,
-      kingPosition: [7, 4],
-    },
-    whiteKing: {
-      kingMoved: false,
-      kingPosition: [0, 4],
-    },
-    black: {
-      canCastleOption: true,
-      rightCastleOption: true,
-      leftCastleOption: true,
-    },
-    white: {
-      canCastleOption: true,
-      rightCastleOption: true,
-      leftCastleOption: true,
-    },
+  state.previousTile = null;
+  state.whiteCastling = {
+    canCastle: true,
+    queenSideCastling: true,
+    kingSideCastling: true,
+  };
+  state.blackCastling = {
+    canCastle: true,
+    queenSideCastling: true,
+    kingSideCastling: true,
   };
   state.pawnPromotion = {
     isPawnPromotion: false,

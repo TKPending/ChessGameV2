@@ -1,19 +1,19 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { resetActiveMoves } from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
+import { clearMoveState } from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
 import { resetChessboard } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
-import { resetChessMoves } from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
-import { resetGameState } from "@/app/redux/slices/gameState/gameStateSlice";
-import { resetUiHighlights } from "@/app/containers/chessboard/utils/chessboard/design/resetUiHighlights";
-import { resetUiPreviousMoveTiles } from "../redux/slices/uiChessboard/uiChessboardSlice";
+import { resetHistory } from "@/app/redux/slices/history/historySlice";
+import { clearGameState } from "@/app/redux/slices/gameState/gameStateSlice";
+import { resetUiHighlights } from "@/app/utils/chessboard/resetUiHighlights";
+import { clearUiPreviousMove } from "@/app/redux/slices/uiChessboard/uiChessboardSlice";
 
 export const resetChessGame = (
   dispatch: Dispatch<UnknownAction>,
   options: { swapColors: boolean }
 ) => {
-  dispatch(resetChessMoves());
+  dispatch(resetHistory());
   dispatch(resetChessboard());
-  dispatch(resetActiveMoves());
-  dispatch(resetGameState(options));
-  dispatch(resetUiPreviousMoveTiles());
+  dispatch(clearMoveState());
+  dispatch(clearGameState(options));
+  dispatch(clearUiPreviousMove());
   resetUiHighlights(dispatch);
 };

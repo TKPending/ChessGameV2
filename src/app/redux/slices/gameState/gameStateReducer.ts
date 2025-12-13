@@ -13,6 +13,12 @@ import {
 } from "@/app/types/ChessTypes";
 
 // Error Handling Reducers
+/**
+ * Sets the global error flag.
+ *
+ * @param state Current Redux game state
+ * @param action Payload indicating whether an error is active
+ */
 export const errorTriggerReducer = (
   state: GameStateType,
   action: PayloadAction<boolean>
@@ -20,6 +26,12 @@ export const errorTriggerReducer = (
   state.error.isError = action.payload;
 };
 
+/**
+ * Updates the global error message.
+ *
+ * @param state Current Redux game state
+ * @param action Payload containing the error message
+ */
 export const errorMessageReducer = (
   state: GameStateType,
   action: PayloadAction<string>
@@ -28,6 +40,12 @@ export const errorMessageReducer = (
 };
 
 // Player Management Reducers
+/**
+ * Updates a player's name based on player index.
+ *
+ * @param state Current Redux game state
+ * @param action Payload containing the player name and player index
+ */
 export const addPlayerNameReducer = (
   state: GameStateType,
   action: PayloadAction<{ playerName: string; playerNo: number }>
@@ -41,6 +59,12 @@ export const addPlayerNameReducer = (
 };
 
 // Capture Piece Reducer
+/**
+ * Adds a captured piece to the opposing player's captured pieces list.
+ *
+ * @param state Current Redux game state
+ * @param action Payload containing the captured piece and current turn
+ */
 export const capturedPiecesReducer = (
   state: GameStateType,
   action: PayloadAction<{ piece: PieceType; currentTurn: string }>
@@ -53,6 +77,12 @@ export const capturedPiecesReducer = (
 };
 
 // Game State Reducer
+/**
+ * Updates whether the chess game is currently active.
+ *
+ * @param state Current Redux game state
+ * @param action Payload indicating play state
+ */
 export const chessGamePlayingReducer = (
   state: GameStateType,
   action: PayloadAction<boolean>
@@ -61,6 +91,12 @@ export const chessGamePlayingReducer = (
 };
 
 // End Game Options
+/**
+ * Sets the game to a checkmate state and determines the winner.
+ *
+ * @param state Current Redux game state
+ * @param action Payload indicating checkmate status
+ */
 export const kingInCheckmateReducer = (
   state: GameStateType,
   action: PayloadAction<boolean>
@@ -72,10 +108,20 @@ export const kingInCheckmateReducer = (
       : state.players[0];
 };
 
+/**
+ * Marks the game as a stalemate.
+ *
+ * @param state Current Redux game state
+ */
 export const setStalemateReducer = (state: GameStateType) => {
   state.stalemate = true;
 };
 
+/**
+ * Ends the game due to time expiration and determines the winner.
+ *
+ * @param state Current Redux game state
+ */
 export const setWinnerByTimeReducer = (state: GameStateType) => {
   state.winByTime = true;
   state.winner =
@@ -85,6 +131,11 @@ export const setWinnerByTimeReducer = (state: GameStateType) => {
 };
 
 // Update Current Turn
+/**
+ * Toggles the current turn between white and black.
+ *
+ * @param state Current Redux game state
+ */
 export const updateCurrentTurnReducer = (state: GameStateType) => {
   const turn: string = state.currentTurn;
   const { white, black } = ChessColors;
@@ -92,6 +143,13 @@ export const updateCurrentTurnReducer = (state: GameStateType) => {
 };
 
 // Redo Availability
+/**
+ * Sets whether redo functionality is available.
+ * Automatically hides redo controls if disabled.
+ *
+ * @param state Current Redux game state
+ * @param action Payload indicating redo availability
+ */
 export const updateRedoAvailabilityReducer = (
   state: GameStateType,
   action: PayloadAction<boolean>
@@ -102,6 +160,12 @@ export const updateRedoAvailabilityReducer = (
   }
 };
 
+/**
+ * Controls the visibility of redo UI elements.
+ *
+ * @param state Current Redux game state
+ * @param action Payload indicating redo visibility
+ */
 export const updateRedoVisibilityReducer = (
   state: GameStateType,
   action: PayloadAction<boolean>
@@ -110,6 +174,12 @@ export const updateRedoVisibilityReducer = (
 };
 
 // Time Settings
+/**
+ * Updates the game time settings and initializes player clocks.
+ *
+ * @param state Current Redux game state
+ * @param action Payload containing time category, duration, and increment
+ */
 export const setGameSettingsReducer = (
   state: GameStateType,
   action: PayloadAction<{
@@ -124,11 +194,16 @@ export const setGameSettingsReducer = (
     increment: action.payload.increment,
   };
 
-  // Player Time
   state.players[0].remainingTime = state.timeSettings.minutes;
   state.players[1].remainingTime = state.timeSettings.minutes;
 };
 
+/**
+ * Updates the remaining time for a specific player.
+ *
+ * @param state Current Redux game state
+ * @param action Payload containing the target player and new time value
+ */
 export const setPlayerTimeReducer = (
   state: GameStateType,
   action: PayloadAction<{ currentPlayer: PlayerType; newTime: number }>
@@ -144,6 +219,11 @@ export const setPlayerTimeReducer = (
   target.remainingTime = newTime;
 };
 
+/**
+ * Increments the current player's remaining time based on increment settings.
+ *
+ * @param state Current Redux game state
+ */
 export const incrementPlayerTimeReducer = (state: GameStateType) => {
   const increment = state.timeSettings.increment;
   if (increment === TimeCatergories.infinite) {
@@ -159,6 +239,12 @@ export const incrementPlayerTimeReducer = (state: GameStateType) => {
 };
 
 // Previous Game State
+/**
+ * Replaces the current game state with a previously saved state.
+ *
+ * @param state Current Redux game state
+ * @param action Payload containing the previous game state
+ */
 export const setGameStateToPreviousReducer = (
   state: GameStateType,
   action: PayloadAction<GameStateType>
@@ -167,11 +253,20 @@ export const setGameStateToPreviousReducer = (
 };
 
 // View Mode
-
+/**
+ * Exits view-only mode and returns to interactive play.
+ *
+ * @param state Current Redux game state
+ */
 export const cancelViewModeReducer = (state: GameStateType) => {
   state.isViewMode = false;
 };
 
+/**
+ * Closes endgame modals and transitions the game into view mode.
+ *
+ * @param state Current Redux game state
+ */
 export const closeModalReducer = (state: GameStateType) => {
   state.stalemate = false;
   state.isKingInCheckmate = false;
@@ -181,10 +276,21 @@ export const closeModalReducer = (state: GameStateType) => {
 };
 
 // Reset Game
+/**
+ * Toggles the game reset flag to trigger a full reset cycle.
+ *
+ * @param state Current Redux game state
+ */
 export const resetGameReducer = (state: GameStateType) => {
   state.isGameReset = !state.isGameReset;
 };
 
+/**
+ * Fully resets the game state and optionally swaps player colors.
+ *
+ * @param state Current Redux game state
+ * @param action Payload indicating whether player colors should be swapped
+ */
 export const resetGameStateReducer = (
   state: GameStateType,
   action: PayloadAction<{ swapColors: boolean }>

@@ -7,23 +7,23 @@ import { selectIsRedoVisible } from "@/app/utils/selectors/gameStateSelectors";
 import {
   selectChessboardHistory,
   selectPreviousGameState,
-} from "@/app/utils/selectors/chessboardHistoryStateSelector";
+} from "@/app/utils/selectors/historyStateSelectors";
 
 import {
   setCurrentTurn,
-  setGameStateToPrevious,
+  undoGameState,
   setRedoVisibility,
 } from "@/app/redux/slices/gameState/gameStateSlice";
 import {
-  removePreviousGameState,
-  removeRecentChessboardHistory,
-} from "@/app/redux/slices/chessboardHistory/chessboardHistorySlice";
+  clearStoredState,
+  undoLastBoardState,
+} from "@/app/redux/slices/history/historySlice";
 import { setChessboard } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
-import { resetTiles } from "@/app/containers/chessboard/utils/chessboard/design/resetTiles";
+import { resetTiles } from "@/app/utils/chessboard/resetTiles";
 
 import { GameStateType } from "@/app/types/StateTypes";
 import { TileType } from "@/app/types/ChessTypes";
-import { resetUiPreviousMoveTiles } from "@/app/redux/slices/uiChessboard/uiChessboardSlice";
+import { clearUiPreviousMove } from "@/app/redux/slices/uiChessboard/uiChessboardSlice";
 
 const UndoButtonContainer = () => {
   const dispatch = useDispatch();
@@ -41,14 +41,14 @@ const UndoButtonContainer = () => {
     }
 
     if (mostRecentGameState) {
-      dispatch(setGameStateToPrevious(mostRecentGameState));
-      dispatch(removeRecentChessboardHistory());
+      dispatch(undoGameState(mostRecentGameState));
+      dispatch(undoLastBoardState());
       const previousChessboardState: TileType[][] =
         chessboardHistory[chessboardHistory.length - 2];
       dispatch(setChessboard(previousChessboardState));
       dispatch(setCurrentTurn());
       dispatch(setRedoVisibility(false));
-      dispatch(resetUiPreviousMoveTiles());
+      dispatch(clearUiPreviousMove());
       resetTiles(dispatch);
     }
   };
@@ -56,7 +56,7 @@ const UndoButtonContainer = () => {
   useEffect(() => {
     setTimeout(() => {
       dispatch(setRedoVisibility(false));
-      dispatch(removePreviousGameState());
+      dispatch(clearStoredState());
     }, 5000);
   }, [isRedoVisible]);
 

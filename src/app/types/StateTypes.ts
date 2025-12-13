@@ -14,9 +14,10 @@ import { CastleType, EnemyAttackType, PawnPromotionType } from "./MoveTypes";
 // Tracks the state of the chessboard
 export interface ChessboardStateType {
   chessboard: TileType[][];
-  clickedTile: TileType | null; // Redundant
-  prevClickedTile: TileType | null;
-  castling: CastleType;
+  previousTile: TileType | null;
+  // castling: CastleType;
+  whiteCastling: CastleType;
+  blackCastling: CastleType;
   pawnPromotion: PawnPromotionType;
 }
 
@@ -46,29 +47,21 @@ export interface GameStateType {
 }
 
 // Tracks chessboard and move history
-export interface ChessboardHistoryStateType {
-  currentMoveCount: number;
-  chessboardHistory: TileType[][][];
-  movesHistory: MoveHistoryType[];
-  previousGameState: GameStateType | null;
-  isMovesHidden: boolean;
+export interface HistoryStateType {
+  count: number; // Total moves made
+  chessboardHistory: TileType[][][]; // History of chessboard states
+  movesHistory: MoveHistoryType[]; // History of moves made
+  previousGameState: GameStateType | null; // Previous game state (Undo Feature)
 }
 
 // Tracks all game potential moves including enemy moves
 export interface MoveAnalysisStateType {
-  isKingInCheck: boolean;
   currentTeamMoves: EnemyAttackType[];
-  enemyTeamMoves: EnemyAttackType[];
   selectedPieceMoves: number[][];
-}
-
-// Checks player setup is valid
-export interface GameSetupStateType {
-  isPlayerNameValid: boolean;
 }
 
 // Tracks current and previous page for navigation
 export interface PageStateType {
-  currentPage: string;
-  prevPage: string;
+  index: number;
+  prevIndex: number | null;
 }

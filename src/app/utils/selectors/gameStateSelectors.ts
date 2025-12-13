@@ -2,6 +2,8 @@ import { RootState } from "@/app/redux/store";
 
 export const selectGameState = (state: RootState) => state.gameState;
 export const selectPlayers = (state: RootState) => state.gameState.players;
+export const selectPlayerOne = (state: RootState) => state.gameState.players[0];
+export const selectPlayerTwo = (state: RootState) => state.gameState.players[1];
 export const selectIsPlaying = (state: RootState) => state.gameState.isPlaying;
 export const selectCurrentTurn = (state: RootState) =>
   state.gameState.currentTurn;
