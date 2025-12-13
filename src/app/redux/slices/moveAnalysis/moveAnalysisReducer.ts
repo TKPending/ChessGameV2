@@ -2,6 +2,11 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import { MoveAnalysisStateType } from "@/app/types/StateTypes";
 import { EnemyAttackType } from "@/app/types/MoveTypes";
 
+/**
+ * Store current team moves in redux state
+ * @param state Current redux state
+ * @param action PayloadAction with current team moves
+ */
 export const updateCurrentTeamMovesReducer = (
   state: MoveAnalysisStateType,
   action: PayloadAction<EnemyAttackType[]>
@@ -9,13 +14,11 @@ export const updateCurrentTeamMovesReducer = (
   state.currentTeamMoves = action.payload;
 };
 
-export const updateEnemyTeamMovesReducer = (
-  state: MoveAnalysisStateType,
-  action: PayloadAction<EnemyAttackType[]>
-) => {
-  state.enemyTeamMoves = action.payload;
-};
-
+/**
+ * Store selected piece moves in redux state
+ * @param state Current Redux State
+ * @param action PayloadAction with selected piece moves
+ */
 export const updateSelectedPieceMovesReducer = (
   state: MoveAnalysisStateType,
   action: PayloadAction<number[][]>
@@ -23,17 +26,11 @@ export const updateSelectedPieceMovesReducer = (
   state.selectedPieceMoves = action.payload;
 };
 
-// Track if King is in check
-export const isKingInCheckReducer = (
-  state: MoveAnalysisStateType,
-  action: PayloadAction<boolean>
-) => {
-  state.isKingInCheck = action.payload;
-};
-
-// Reset State
-export const resetActiveMovesReducer = (state: MoveAnalysisStateType) => {
-  state.isKingInCheck = false;
+/**
+ * Clear Move Analysis State
+ * @param state Current Redux State
+ */
+export const clearMoveStateReducer = (state: MoveAnalysisStateType) => {
   state.currentTeamMoves = [];
-  state.enemyTeamMoves = [];
+  state.selectedPieceMoves = [];
 };

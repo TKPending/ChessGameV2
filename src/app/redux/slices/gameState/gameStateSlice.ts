@@ -23,7 +23,6 @@ import {
   setWinnerByTimeReducer,
 } from "./gameStateReducer";
 
-// TODO: Need to refactor
 const initialState: GameStateType = {
   currentTurn: ChessColors.white,
   winner: null,

@@ -1,7 +1,7 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { setPreviousTile } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
 import {
-  resetActiveMoves,
+  clearMoveState,
   setCurrentTeamMoves,
   setSelectedPieceMoves,
 } from "@/app/redux/slices/moveAnalysis/moveAnalysisSlice";
@@ -14,7 +14,7 @@ import { resetUiHighlights } from "./resetUiHighlights";
 export const resetTiles = (dispatch: Dispatch<UnknownAction>) => {
   dispatch(setPreviousTile(null));
   dispatch(setCurrentTeamMoves([]));
-  dispatch(resetActiveMoves());
+  dispatch(clearMoveState());
   dispatch(setSelectedPieceMoves([]));
   resetUiHighlights(dispatch);
 };

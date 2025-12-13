@@ -56,9 +56,7 @@ export interface HistoryStateType {
 
 // Tracks all game potential moves including enemy moves
 export interface MoveAnalysisStateType {
-  isKingInCheck: boolean;
   currentTeamMoves: EnemyAttackType[];
-  enemyTeamMoves: EnemyAttackType[];
   selectedPieceMoves: number[][];
 }
 
