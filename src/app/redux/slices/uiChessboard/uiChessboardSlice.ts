@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { uiChessboardType } from "@/app/types/StateTypes";
 import {
+  clearUiSelectedTileReducer,
   emptyUiAttackTilesReducer,
   emptyUiHighlightedTilesReducer,
   removeUiPreviousMoveTileReducer,
@@ -24,24 +25,26 @@ const uiChessboardSlice = createSlice({
   name: "uiChessboard",
   initialState,
   reducers: {
+    clearUiSelectedTile: clearUiSelectedTileReducer,
     setUiSelectedTile: updateUiSelectedTileReducer,
     setUiHighlightedTiles: updateUiHighlightedTilesReducer,
     clearUiHighlightedTiles: emptyUiHighlightedTilesReducer,
     setUiAttackTiles: updateUiAttackTilesReducer,
     clearUiAttackTiles: emptyUiAttackTilesReducer,
     setUiPreviousMoveTile: updateUiPreviousMoveTileReducer,
-    resetUiPreviousMoveTiles: removeUiPreviousMoveTileReducer,
+    clearUiPreviousMove: removeUiPreviousMoveTileReducer,
   },
 });
 
 export const {
+  clearUiSelectedTile,
   setUiSelectedTile,
   setUiHighlightedTiles,
   clearUiHighlightedTiles,
   setUiAttackTiles,
   clearUiAttackTiles,
   setUiPreviousMoveTile,
-  resetUiPreviousMoveTiles,
+  clearUiPreviousMove,
 } = uiChessboardSlice.actions;
 
 export default uiChessboardSlice.reducer;

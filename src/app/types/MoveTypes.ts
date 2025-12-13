@@ -12,23 +12,29 @@ export interface PawnPromotionType {
   tileToUpdate: TileType | null;
 }
 
+// export interface CastleType {
+//   whiteKing: {
+//     kingPosition: [number, number];
+//     kingMoved: boolean;
+//   };
+//   blackKing: {
+//     kingPosition: [number, number];
+//     kingMoved: boolean;
+//   };
+//   black: {
+//     canCastleOption: boolean;
+//     rightCastleOption: boolean;
+//     leftCastleOption: boolean;
+//   };
+//   white: {
+//     canCastleOption: boolean;
+//     rightCastleOption: boolean;
+//     leftCastleOption: boolean;
+//   };
+// }
+
 export interface CastleType {
-  whiteKing: {
-    kingPosition: [number, number];
-    kingMoved: boolean;
-  };
-  blackKing: {
-    kingPosition: [number, number];
-    kingMoved: boolean;
-  };
-  black: {
-    canCastleOption: boolean;
-    rightCastleOption: boolean;
-    leftCastleOption: boolean;
-  };
-  white: {
-    canCastleOption: boolean;
-    rightCastleOption: boolean;
-    leftCastleOption: boolean;
-  };
+  canCastle: boolean;
+  queenSideCastling: boolean;
+  kingSideCastling: boolean;
 }

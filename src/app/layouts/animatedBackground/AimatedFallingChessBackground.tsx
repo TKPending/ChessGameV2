@@ -1,7 +1,18 @@
 import { useEffect, useState } from "react";
 import FallingPiece from "./components/FallingPiece";
 
-const AnimatedFallingChessBackground = ({ count = 25 }: { count?: number }) => {
+type AnimatedBackgroundProps = {
+  count: number;
+};
+
+/**
+ * Renders the falling chess piece that can be seen in the back
+ * @param count The amount of pieces to be falling from the sky
+ * @returns Animated background of falling chess pieces
+ */
+const AnimatedFallingChessBackground = ({
+  count = 25,
+}: AnimatedBackgroundProps) => {
   const [pieces, setPieces] = useState<number[]>([]);
 
   useEffect(() => {

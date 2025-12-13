@@ -1,13 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { generateTiles } from "@/app/containers/chessboard/utils/chessboard/generateTiles";
+import { generateTiles } from "@/app/utils/chessboard/generateTiles";
 import { ChessboardStateType } from "@/app/types/StateTypes";
 import {
-  castlingOptionGoneReducer,
   chessboardReducer,
-  currentlyClickedTileReducer,
   kingMovedReducer,
   pawnPromotionStateReducer,
-  prevClickedTileReducer,
+  setPreviousTileReducer,
   resetGameReducer,
   rookMovedReducer,
   updateSpecificTileReducer,
@@ -16,27 +14,16 @@ import {
 
 const initialState: ChessboardStateType = {
   chessboard: generateTiles(),
-  clickedTile: null,
-  prevClickedTile: null,
-  castling: {
-    blackKing: {
-      kingMoved: false,
-      kingPosition: [7, 4],
-    },
-    whiteKing: {
-      kingMoved: false,
-      kingPosition: [0, 4],
-    },
-    black: {
-      canCastleOption: true,
-      rightCastleOption: true,
-      leftCastleOption: true,
-    },
-    white: {
-      canCastleOption: true,
-      rightCastleOption: true,
-      leftCastleOption: true,
-    },
+  previousTile: null,
+  whiteCastling: {
+    canCastle: true,
+    queenSideCastling: true,
+    kingSideCastling: true,
+  },
+  blackCastling: {
+    canCastle: true,
+    queenSideCastling: true,
+    kingSideCastling: true,
   },
   pawnPromotion: {
     isPawnPromotion: false,
@@ -49,28 +36,24 @@ const chessboardSlice = createSlice({
   initialState,
   reducers: {
     setChessboard: chessboardReducer,
-    updateTile: updateSpecificTileReducer,
-    setCurrentTile: currentlyClickedTileReducer,
-    setPreviousTile: prevClickedTileReducer,
-    setCastlingOption: castlingOptionGoneReducer,
-    setRookHasMoved: rookMovedReducer,
     setKingHasMoved: kingMovedReducer,
     setPawnPromotion: pawnPromotionStateReducer,
-    setTileWithPromotedPawn: updateTileWithPromotedPieceReducer,
+    setPreviousTile: setPreviousTileReducer,
+    setRookHasMoved: rookMovedReducer,
+    updateTile: updateSpecificTileReducer,
+    updateTileWithPromotedPiece: updateTileWithPromotedPieceReducer,
     resetChessboard: resetGameReducer,
   },
 });
 
 export const {
   setChessboard,
-  updateTile,
-  setCurrentTile,
-  setPreviousTile,
-  setCastlingOption,
-  setRookHasMoved,
   setKingHasMoved,
   setPawnPromotion,
-  setTileWithPromotedPawn,
+  setPreviousTile,
+  setRookHasMoved,
+  updateTile,
+  updateTileWithPromotedPiece,
   resetChessboard,
 } = chessboardSlice.actions;
 

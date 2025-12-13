@@ -1,10 +1,32 @@
 import { PageStateType } from "@/app/types/StateTypes";
 import { PayloadAction } from "@reduxjs/toolkit";
+import { pages } from "@/app/types/PageTypes";
 
-export const pageTransitionReducer = (
+/**
+ * Move to the next page
+ * @param state Current Redux State
+ */
+export const nextPageReducer = (state: PageStateType) => {
+  state.prevIndex = state.index;
+  state.index = Math.min(state.index + 1, pages.length - 1);
+};
+/**
+ * Move to the previous page
+ * @param state Current Redux State
+ */
+export const previousPageReducer = (state: PageStateType) => {
+  state.prevIndex = state.index;
+  state.index = Math.max(state.index - 1, 0);
+};
+/**
+ * Go to a specific page
+ * @param state Current Redux State
+ * @param action PayloadAction with the page index to go to
+ */
+export const goToReducer = (
   state: PageStateType,
-  action: PayloadAction<{ current: string; previous: string }>
+  action: PayloadAction<number>
 ) => {
-  state.currentPage = action.payload.current;
-  state.prevPage = action.payload.previous;
+  state.prevIndex = state.index;
+  state.index = action.payload;
 };

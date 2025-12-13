@@ -8,7 +8,7 @@ const CapturedPieces = ({ player }: Props) => {
   const capturedPieces: PieceType[] = player.capturedPieces;
 
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 w-full overflow-x-auto overscroll-x-contain no-scrollbar">
       {capturedPieces.map((piece, index) => (
         <div key={index} className="h-8 w-8">
           <img

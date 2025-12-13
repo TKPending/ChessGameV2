@@ -1,29 +1,32 @@
 import { useDispatch } from "react-redux";
 import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
-import { navigateToPage } from "@/app/utils/navigateToPage";
 import { resetChessGame } from "@/app/utils/resetChessGame";
-import { PageEnum } from "@/app/types/PageTypes";
+import { previousPage, goToPage } from "@/app/redux/slices/page/pageSlice";
+import { PageEnum, pages } from "@/app/types/PageTypes";
 
 type BackButtonContainerProps = {
-  currentPage: PageEnum;
-  nextPage: PageEnum;
-  midGame?: boolean;
+  currentPageIndex: number;
 };
 
 const BackButtonContainer = ({
-  currentPage,
-  nextPage,
-  midGame,
+  currentPageIndex,
 }: BackButtonContainerProps) => {
   const dispatch = useDispatch();
 
   const handleBackButtonClick = () => {
-    if (midGame) {
-      resetChessGame(dispatch, { swapColors: false });
+    if (currentPageIndex === 4) {
+      dispatch(goToPage(pages.indexOf(PageEnum.landing)));
+      return;
     }
 
-    navigateToPage(dispatch, currentPage, nextPage);
+    if (currentPageIndex === 3) {
+      resetChessGame(dispatch, { swapColors: false });
+      dispatch(goToPage(pages.indexOf(PageEnum.enterPlayerNames)));
+      return;
+    }
+
+    dispatch(previousPage());
   };
 
   return (
@@ -41,7 +44,7 @@ const BackButtonContainer = ({
         text-neutral-800 dark:text-neutral-100
         shadow-sm hover:shadow-md
         hover:bg-neutral-100 dark:hover:bg-customGreen
-        transition-all duration-150 ease-in-out
+        transition-all duration-150 ease-in-out z-50
       `}
     >
       <ArrowLeft className="w-5 h-5" />
