@@ -31,7 +31,7 @@ import { selectMoveCount } from "@/app/utils/selectors/historyStateSelectors";
 // Redux
 import { setPreviousTile } from "@/app/redux/slices/chessboardState/chessboardStateSlice";
 import { setRedoVisibility } from "@/app/redux/slices/gameState/gameStateSlice";
-import { resetUiPreviousMoveTiles } from "@/app/redux/slices/uiChessboard/uiChessboardSlice";
+import { clearUiPreviousMove } from "@/app/redux/slices/uiChessboard/uiChessboardSlice";
 
 // Utils
 import { resetUiHighlights } from "@/app/utils/chessboard/resetUiHighlights";
@@ -106,7 +106,7 @@ const Chessboard = () => {
     }
 
     if (uiPreviousMoveTile.from !== "") {
-      dispatch(resetUiPreviousMoveTiles());
+      dispatch(clearUiPreviousMove());
     }
 
     if (wrongOpeningClick) {

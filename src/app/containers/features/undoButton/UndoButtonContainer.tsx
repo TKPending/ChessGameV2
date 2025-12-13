@@ -23,7 +23,7 @@ import { resetTiles } from "@/app/utils/chessboard/resetTiles";
 
 import { GameStateType } from "@/app/types/StateTypes";
 import { TileType } from "@/app/types/ChessTypes";
-import { resetUiPreviousMoveTiles } from "@/app/redux/slices/uiChessboard/uiChessboardSlice";
+import { clearUiPreviousMove } from "@/app/redux/slices/uiChessboard/uiChessboardSlice";
 
 const UndoButtonContainer = () => {
   const dispatch = useDispatch();
@@ -48,7 +48,7 @@ const UndoButtonContainer = () => {
       dispatch(setChessboard(previousChessboardState));
       dispatch(setCurrentTurn());
       dispatch(setRedoVisibility(false));
-      dispatch(resetUiPreviousMoveTiles());
+      dispatch(clearUiPreviousMove());
       resetTiles(dispatch);
     }
   };

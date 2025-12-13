@@ -13,7 +13,7 @@ import {
 
 import { resetChessGame } from "@/app/utils/resetChessGame";
 import { closeModal } from "@/app/redux/slices/gameState/gameStateSlice";
-import { resetUiPreviousMoveTiles } from "@/app/redux/slices/uiChessboard/uiChessboardSlice";
+import { clearUiPreviousMove } from "@/app/redux/slices/uiChessboard/uiChessboardSlice";
 
 /**
  * Renders the modal for End Game (There is a winner)
@@ -31,7 +31,7 @@ const EndGameModal = () => {
   };
 
   const handleExitModal = () => {
-    dispatch(resetUiPreviousMoveTiles());
+    dispatch(clearUiPreviousMove());
     dispatch(closeModal());
   };
 

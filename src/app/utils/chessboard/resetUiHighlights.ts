@@ -1,8 +1,8 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import {
+  clearUiSelectedTile,
   setUiAttackTiles,
   setUiHighlightedTiles,
-  setUiSelectedTile,
 } from "@/app/redux/slices/uiChessboard/uiChessboardSlice";
 
 /**
@@ -10,7 +10,7 @@ import {
  * @param dispatch Update redux state
  */
 export const resetUiHighlights = (dispatch: Dispatch<UnknownAction>) => {
-  dispatch(setUiSelectedTile(null));
+  dispatch(clearUiSelectedTile());
   dispatch(setUiHighlightedTiles([]));
   dispatch(setUiAttackTiles([]));
 };

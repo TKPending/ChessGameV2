@@ -5,9 +5,13 @@ import { TileType, uiPreviousMoveType } from "@/app/types/ChessTypes";
 
 export const updateUiSelectedTileReducer = (
   state: uiChessboardType,
-  action: PayloadAction<TileType | null>
+  action: PayloadAction<TileType>
 ) => {
   state.uiSelectedTile = action.payload;
+};
+
+export const clearUiSelectedTileReducer = (state: uiChessboardType) => {
+  state.uiSelectedTile = null;
 };
 
 export const updateUiHighlightedTilesReducer = (

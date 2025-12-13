@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import { generateTiles } from "@/app/utils/chessboard/generateTiles";
 import { ChessboardStateType } from "@/app/types/StateTypes";
 import {
-  // castlingOptionGoneReducer,
   chessboardReducer,
   kingMovedReducer,
   pawnPromotionStateReducer,
@@ -37,11 +36,11 @@ const chessboardSlice = createSlice({
   initialState,
   reducers: {
     setChessboard: chessboardReducer,
-    updateTile: updateSpecificTileReducer,
-    setPreviousTile: setPreviousTileReducer,
-    setRookHasMoved: rookMovedReducer,
     setKingHasMoved: kingMovedReducer,
     setPawnPromotion: pawnPromotionStateReducer,
+    setPreviousTile: setPreviousTileReducer,
+    setRookHasMoved: rookMovedReducer,
+    updateTile: updateSpecificTileReducer,
     updateTileWithPromotedPiece: updateTileWithPromotedPieceReducer,
     resetChessboard: resetGameReducer,
   },
@@ -49,11 +48,11 @@ const chessboardSlice = createSlice({
 
 export const {
   setChessboard,
-  updateTile,
-  setPreviousTile,
-  setRookHasMoved,
   setKingHasMoved,
   setPawnPromotion,
+  setPreviousTile,
+  setRookHasMoved,
+  updateTile,
   updateTileWithPromotedPiece,
   resetChessboard,
 } = chessboardSlice.actions;
