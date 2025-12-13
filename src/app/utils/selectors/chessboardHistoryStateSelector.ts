@@ -1,12 +1,10 @@
 import { RootState } from "@/app/redux/store";
 
 export const selectCurrentMoveCount = (state: RootState) =>
-  state.chessboardHistoryState.currentMoveCount;
+  state.historyState.count;
 export const selectChessboardHistory = (state: RootState) =>
-  state.chessboardHistoryState.chessboardHistory;
+  state.historyState.chessboardHistory;
 export const selectMovesHistory = (state: RootState) =>
-  state.chessboardHistoryState.movesHistory;
+  state.historyState.movesHistory;
 export const selectPreviousGameState = (state: RootState) =>
-  state.chessboardHistoryState.previousGameState;
-export const selectIsMovesHidden = (state: RootState) =>
-  state.chessboardHistoryState.isMovesHidden;
+  state.historyState.previousGameState;
