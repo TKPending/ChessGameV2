@@ -4,6 +4,11 @@ import { TileType, PieceType, ChessColors } from "@/app/types/ChessTypes";
 import { CastleType } from "@/app/types/MoveTypes";
 import { ChessboardStateType } from "@/app/types/StateTypes";
 
+/**
+ * Update entire chessboard
+ * @param state Current redux state
+ * @param action PayloadAction with updated chessboard tiles
+ */
 export const chessboardReducer = (
   state: ChessboardStateType,
   action: PayloadAction<TileType[][]>
@@ -11,6 +16,11 @@ export const chessboardReducer = (
   state.chessboard = action.payload;
 };
 
+/**
+ * Update specific tile on chessboard
+ * @param state Current redux state
+ * @param action PayloadAction with specific tile to update
+ */
 export const updateSpecificTileReducer = (
   state: ChessboardStateType,
   action: PayloadAction<TileType>
@@ -29,6 +39,11 @@ export const updateSpecificTileReducer = (
   }
 };
 
+/**
+ * Store previous tile
+ * @param state Current Redux State
+ * @param action PayloadAction with TileType or Null
+ */
 export const setPreviousTileReducer = (
   state: ChessboardStateType,
   action: PayloadAction<TileType | null>
@@ -36,6 +51,11 @@ export const setPreviousTileReducer = (
   state.previousTile = action.payload;
 };
 
+/**
+ * Pawn Promotion Logic Reducers
+ * @param state Current Redux State
+ * @param action PayloadAction with isPromotion boolean and target tile
+ */
 export const pawnPromotionStateReducer = (
   state: ChessboardStateType,
   action: PayloadAction<{ isPromotion: boolean; targetTile: TileType | null }>
@@ -46,6 +66,11 @@ export const pawnPromotionStateReducer = (
   state.pawnPromotion.tileToUpdate = targetTile;
 };
 
+/**
+ * Update tile with promoted piece
+ * @param state Current Redux State
+ * @param action PayloadAction with PieceType
+ */
 export const updateTileWithPromotedPieceReducer = (
   state: ChessboardStateType,
   action: PayloadAction<PieceType>
@@ -71,6 +96,11 @@ export const updateTileWithPromotedPieceReducer = (
 };
 
 // Castling Logic Reducers
+/**
+ * Castling Logic Reducers
+ * @param state Current Redux State
+ * @param action PayloadAction with direction and current turn color
+ */
 export const rookMovedReducer = (
   state: ChessboardStateType,
   action: PayloadAction<{
@@ -102,6 +132,11 @@ export const rookMovedReducer = (
   }
 };
 
+/**
+ * Has King Moved Logic Reducer
+ * @param state Current Redux State
+ * @param action PayloadAction with current turn color
+ */
 export const kingMovedReducer = (
   state: ChessboardStateType,
   action: PayloadAction<ChessColors.black | ChessColors.white>
@@ -119,29 +154,13 @@ export const kingMovedReducer = (
   }
 };
 
+/**
+ * Clear Chessboard State
+ * @param state Current Redux State
+ */
 export const resetGameReducer = (state: ChessboardStateType) => {
   state.chessboard = generateTiles();
   state.previousTile = null;
-  // state.castling = {
-  //   blackKing: {
-  //     kingMoved: false,
-  //     kingPosition: [7, 4],
-  //   },
-  //   whiteKing: {
-  //     kingMoved: false,
-  //     kingPosition: [0, 4],
-  //   },
-  //   black: {
-  //     canCastleOption: true,
-  //     rightCastleOption: true,
-  //     leftCastleOption: true,
-  //   },
-  //   white: {
-  //     canCastleOption: true,
-  //     rightCastleOption: true,
-  //     leftCastleOption: true,
-  //   },
-  // };
   state.whiteCastling = {
     canCastle: true,
     queenSideCastling: true,

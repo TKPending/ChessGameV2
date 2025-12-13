@@ -1,9 +1,7 @@
 import { useDispatch } from "react-redux";
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import BackButtonContainer from "@/app/containers/features/backButton/BackButtonContainer";
 import Button from "@/app/components/Button";
-import { navigateToPage } from "@/app/utils/navigateToPage";
-import { PageEnum } from "@/app/types/PageTypes";
+import { goToPage } from "@/app/redux/slices/page/pageSlice";
 
 /**
  * Rules Page
@@ -13,15 +11,11 @@ const RulesPage = () => {
   const dispatch: Dispatch<UnknownAction> = useDispatch();
 
   const handleLandingPage = () => {
-    navigateToPage(dispatch, PageEnum.gameRules, PageEnum.landing);
+    dispatch(goToPage(0));
   };
 
   return (
     <div className="relative h-full overflow-y-auto p-4 sm:p-8 md:p-12 lg:p-16 flex justify-center items-start text-gray-200 text-center">
-      <BackButtonContainer
-        currentPage={PageEnum.gameRules}
-        nextPage={PageEnum.landing}
-      />
       <div className="mt-20 w-full max-w-4xl space-y-8 leading-relaxed">
         {/* Main Title */}
         <h1 className="text-3xl sm:text-4xl font-extrabold text-white text-center tracking-tight">

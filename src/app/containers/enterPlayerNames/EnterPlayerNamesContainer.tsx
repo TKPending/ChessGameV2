@@ -5,9 +5,8 @@ import PlayerSetupHeader from "./components/PlayerSetupHeader";
 import GameSettingsButton from "@/app/containers/enterPlayerNames/components/GameSettingsButton";
 import { setPlayerName } from "@/app/redux/slices/gameState/gameStateSlice";
 import { selectPlayers } from "@/app/utils/selectors/gameStateSelectors";
-import { navigateToPage } from "@/app/utils/navigateToPage";
-import { PageEnum } from "@/app/types/PageTypes";
 import { PlayerType } from "@/app/types/ChessTypes";
+import { nextPage } from "@/app/redux/slices/page/pageSlice";
 
 /**
  * Renders the page that showcases where users can enter the player names
@@ -31,12 +30,12 @@ const EnterPlayerNamesContainer = () => {
 
   const handleOnEnter = () => {
     if (!isPlayerNamesValid) return;
-    navigateToPage(dispatch, PageEnum.enterPlayerNames, PageEnum.gameSettings);
+    dispatch(nextPage());
   };
 
   const handleStartChessGame = () => {
     if (!isPlayerNamesValid) return;
-    navigateToPage(dispatch, PageEnum.enterPlayerNames, PageEnum.gameSettings);
+    dispatch(nextPage());
   };
 
   return (

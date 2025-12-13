@@ -1,21 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { PageStateType } from "@/app/types/StateTypes";
-import { pageTransitionReducer } from "./pageReducer";
+import {
+  goToReducer,
+  nextPageReducer,
+  previousPageReducer,
+} from "./pageReducer";
 
-// TODO: Need to refactor
 const initialState: PageStateType = {
-  currentPage: "landing",
-  prevPage: "",
+  index: 0,
+  prevIndex: null,
 };
 
 const pageSlice = createSlice({
   name: "page",
   initialState,
   reducers: {
-    setPages: pageTransitionReducer,
+    nextPage: nextPageReducer,
+    previousPage: previousPageReducer,
+    goToPage: goToReducer,
   },
 });
 
-export const { setPages } = pageSlice.actions;
+export const { nextPage, previousPage, goToPage } = pageSlice.actions;
 
 export default pageSlice.reducer;

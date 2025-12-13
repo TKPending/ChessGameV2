@@ -5,8 +5,7 @@ import {
   startGame,
   setRedoAvailiability,
 } from "@/app/redux/slices/gameState/gameStateSlice";
-import { navigateToPage } from "@/app/utils/navigateToPage";
-import { PageEnum } from "@/app/types/PageTypes";
+import { nextPage } from "@/app/redux/slices/page/pageSlice";
 
 type StartGameButtonProps = {
   category: string;
@@ -41,7 +40,7 @@ const StartGameButton = ({
     );
 
     dispatch(startGame(true));
-    navigateToPage(dispatch, PageEnum.gameSettings, PageEnum.board);
+    dispatch(nextPage());
   };
 
   return (

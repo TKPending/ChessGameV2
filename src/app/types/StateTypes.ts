@@ -62,6 +62,6 @@ export interface MoveAnalysisStateType {
 
 // Tracks current and previous page for navigation
 export interface PageStateType {
-  currentPage: string;
-  prevPage: string;
+  index: number;
+  prevIndex: number | null;
 }
